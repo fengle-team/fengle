@@ -14,7 +14,9 @@ public class PaymentAddRequest {
     public String client_name;
     public String huikuan_time;
     public String pay_type;
+    public String pay_type_code;
     public String huikuan_type;
+    public String huikuan_type_code;
     public String huikuan_name;
     public double huikuan_amount;
     public String images;

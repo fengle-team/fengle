@@ -459,10 +459,12 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
                         request.userid = userId;
                         request.remark = remark;
                         request.pay_type=selectFukuanType.name;
+                        request.pay_type_code=selectFukuanType.code;
                         request.person_code=person_code;
                         request.client_code = selectCustomer.custom_code;
                         request.client_name=selectCustomer.name;
                         request.huikuan_type = selectPaymentType.name;
+                        request.huikuan_type_code=selectPaymentType.code;
                         request.huikuan_time = remittanceDate;
                         request.huikuan_name = remitterName;
                         request.huikuan_amount = remittanceAmount;
