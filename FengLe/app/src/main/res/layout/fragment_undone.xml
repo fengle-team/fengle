@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_color2">
+
+    <Button
+        android:id="@+id/btn_select_customer"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/input_bg2"
+        android:focusable="true"
+        android:text="@string/select_customer"
+        android:paddingLeft="15dp"
+        android:gravity="left|center_vertical"
+        android:drawableRight="@color/text_color"
+        android:textColor="@color/text_color2"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn_select_goods"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/input_bg2"
+        android:focusable="true"
+        android:text="@string/select_goods"
+        android:paddingLeft="15dp"
+        android:gravity="left|center_vertical"
+        android:drawableRight="@color/text_color"
+        android:textColor="@color/text_color2"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/edit_keywords"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/input_bg2"
+        android:focusable="true"
+        android:textColorHint="@color/text_color2"
+        android:hint="@string/hint_remarks"
+        android:textColor="@color/text_color2"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btn_query"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="38dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/btn_style2"
+        android:focusable="true"
+        android:text="@string/query"
+        android:textColor="#fff"
+        android:textSize="16sp" />
+
+</LinearLayout>

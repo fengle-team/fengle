@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color2"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/view_toolbar" />
+
+    <include
+        layout="@layout/layout_radiobuttom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp" />
+
+    <include
+        layout="@layout/layout_time_select" />
+
+    <Button
+        android:id="@+id/btn_query"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_view_height"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/common_left_margin"
+        android:layout_marginRight="@dimen/common_right_margin"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/btn_style2"
+        android:focusable="true"
+        android:text="@string/query"
+        android:textColor="@color/white"
+        android:textSize="@dimen/comom_txt_size_m" />
+
+    <com.yunqi.fengle.ui.view.ExTableView
+        android:id="@+id/tableViewEx"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="18dp" />
+
+</LinearLayout>
+
+

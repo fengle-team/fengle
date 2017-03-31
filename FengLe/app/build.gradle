@@ -1,0 +1,84 @@
+apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+apply plugin: 'realm-android'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
+    defaultConfig {
+        applicationId "com.yunqi.fengle"
+        minSdkVersion 17
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    //di
+
+    //canary
+
+    //other
+
+    //network
+
+    //rxjava
+    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile 'com.android.support:support-compat:25.1.0'
+    compile 'com.google.dagger:dagger:2.0.2'
+    compile 'com.jakewharton:butterknife:8.2.1'
+    compile 'com.tencent.bugly:crashreport:latest.release'
+    compile 'me.yokeyword:fragmentation:0.7.9'
+    compile 'com.squareup.retrofit2:retrofit:latest.release'
+    compile 'com.squareup.retrofit2:converter-gson:latest.release'
+    compile 'com.squareup.retrofit2:adapter-rxjava:latest.release'
+    compile 'com.squareup.okhttp3:okhttp:3.3.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.bumptech.glide:okhttp3-integration:1.4.0@aar'
+    compile 'io.reactivex:rxjava:latest.release'
+    compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    compile 'io.reactivex:rxandroid:1.0.1'
+    testCompile 'junit:junit:4.12'
+    apt 'com.google.dagger:dagger-compiler:2.0.2'
+    apt 'com.jakewharton:butterknife-compiler:8.2.1'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
+    compile 'cn.pedant.sweetalert:library:1.3'
+    compile 'com.makeramen:roundedimageview:2.2.1'
+    compile(name: 'tableview-release', ext: 'aar')
+    compile(name: 'calendar-release', ext: 'aar')
+    compile(name: 'picture-release', ext: 'aar')
+    compile(name: 'ucrop-release', ext: 'aar')
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.8.0'
+    compile 'com.android.support:recyclerview-v7:25.1.1'
+
+    /** 照片选择器*/
+//    compile 'com.github.LuckSiege.PictureSelector:picture_library:v1.2.5'
+    compile 'com.commit451:PhotoView:1.2.4'
+
+}

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/radioGroup"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:background="@drawable/layout_bg1"
+    android:orientation="horizontal"
+    android:padding="1px">
+
+    <RadioButton
+        android:id="@+id/radioBtn1"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:background="@drawable/table_radio"
+        android:button="@null"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="待处理"
+        android:textColor="@color/color_selector3"
+        android:textSize="@dimen/text_small_size" />
+
+    <RadioButton
+        android:id="@+id/radioBtn2"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:background="@drawable/table_radio"
+        android:button="@null"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="未完成"
+        android:textColor="@color/color_selector3"
+        android:textSize="@dimen/text_small_size" />
+    <RadioButton
+        android:id="@+id/radioBtn3"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:background="@drawable/table_radio"
+        android:button="@null"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="历史单据"
+        android:textColor="@color/color_selector3"
+        android:textSize="@dimen/text_small_size" />
+</RadioGroup>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#048e40</color>
+    <color name="colorPrimaryDark">#048e40</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="drawer_item_bg_n">#fffff9</color>
+    <color name="drawer_item_bg_p">#e8e8e8</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="bg_color1">#ecf0f1</color>
+    <color name="bg_color2">#ecebeb</color>
+    <color name="bg_color3">#f5f5f5</color>
+    <color name="bg_color4">#f2f2f2</color>
+    <color name="text_color1">#333333</color>
+    <color name="text_color2">#4a4a4a</color>
+    <color name="text_color3">#898989</color>
+    <color name="transparents">#00000000</color>
+    <color name="light_green">#51c240</color>
+    <color name="dialog_bg_line">#E5E5E5</color>
+
+    <color name="hint_color1">#D1D0D0</color>
+    <color name="style1_color_normal">#51c240</color>
+    <color name="style1_color_press">#048e40</color>
+    <color name="style2_color_normal">#fcb150</color>
+    <color name="style2_color_press">#fa9e28</color>
+
+    <color name="gray_bg">#ecebeb</color>
+    <color name="line_bg">#b8b7b7</color>
+    <color name="diver_coloer">#bababa</color>
+    <color name="under_edit_text_color">#ffbec2c7</color>
+    <color name="darkgray">#A9A9A9</color>
+    <color name="gray">#808080</color>
+    <color name="deepgray">#5D5D5D</color>
+    <color name="soft_bule">#00AEEF</color>
+    <color name="orange">#ffffa804</color>
+
+    <color name="table_head_color">#fcb150</color>
+
+    <color name="txt_color_normal">#ff0f0f0f</color>
+
+    <!--访客-->
+    <color name="visiting_tv_bg">#dfdfe0</color>
+
+    <!--移动考勤-->
+    <color name="move_attend_light_green">#51c240</color>
+    <color name="move_attend_dark_green">#429c35</color>
+    <color name="move_sign_bg">#f2f2f2</color>
+
+
+    <color name="activity_plan_mgr">#ff626262</color>
+
+
+    <!--客户-->
+    <color name="whole_title_color">#ff525866</color>
+
+    <!--客情维护-->
+    <color name="customer_bg">#e6e5e7</color>
+    <!--<color name="color_name">#e3e2e4</color>-->
+    <!--<color name="color_name">#e6e5e7</color>-->
+
+    <!--个人消息-->
+    <color name="person_line">#ffd4d4d5</color>
+    <color name="person_txt_color">#424242</color>
+
+    <!--照片选择-->
+    <color name="bar_grey">#393a3e</color>
+    <color name="color_f6">#f6f6f6</color>
+    <color name="transparent">#00000000</color>
+    <color name="blue">#7D7DFF</color>
+    <!--往来查询对话框-->
+
+    <color name="dialog_bg1">#e0e0e1</color>
+    <color name="dialog_bg2">#92908f</color>
+
+    <color name="province_line_border">#D0D0D0</color>
+
+    <color name="tips_color">#de511c</color>
+</resources>

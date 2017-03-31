@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color2"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/view_toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/rlayout_select_customer"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_view_height"
+                android:layout_marginLeft="@dimen/common_left_margin"
+                android:layout_marginRight="@dimen/common_right_margin"
+                android:layout_marginTop="@dimen/common_top_margin"
+                android:background="@drawable/input_bg2">
+
+                <Button
+                    android:id="@+id/btn_select_customer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_toLeftOf="@+id/img_arrow1"
+                    android:background="@android:color/transparent"
+                    android:focusable="true"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="15dp"
+                    android:text="@string/select_customer"
+                    android:maxLines="2"
+                    android:clickable="false"
+                    android:textColor="@color/text_color2"
+                    android:textSize="@dimen/comom_txt_size_m" />
+
+                <ImageView
+                    android:id="@+id/img_arrow1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/arrow" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/llayout_remittance_date"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_view_height"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/common_left_margin"
+                android:layout_marginRight="@dimen/common_right_margin"
+                android:layout_marginTop="@dimen/common_top_margin"
+                android:background="@drawable/input_bg2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textColor="@color/text_color2"
+                    android:text="@string/remittance_date" />
+
+                <TextView
+                    android:id="@+id/txt_remittance_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:textColor="@color/text_color2"
+                    android:textColorHint="@color/hint_color1"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_view_height"
+                android:layout_marginLeft="@dimen/common_left_margin"
+                android:layout_marginRight="@dimen/common_right_margin"
+                android:layout_marginTop="@dimen/common_top_margin"
+                android:background="@drawable/input_bg2">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/arrow" />
+
+                <Button
+                    android:id="@+id/btn_fukui_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:background="@android:color/transparent"
+                    android:focusable="true"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="15dp"
+                    android:text="@string/fukui_type"
+                    android:textColor="@color/text_color2"
+                    android:textSize="@dimen/comom_txt_size_m"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_view_height"
+                android:layout_marginLeft="@dimen/common_left_margin"
+                android:layout_marginRight="@dimen/common_right_margin"
+                android:layout_marginTop="@dimen/common_top_margin"
+                android:background="@drawable/input_bg2">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dp"
+                    android:src="@drawable/arrow" />
+
+                <Button
+                    android:id="@+id/btn_payment_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:background="@android:color/transparent"
+                    android:focusable="true"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="15dp"
+                    android:text="@string/payment_type"
+                    android:textColor="@color/text_color2"
+                    android:textSize="@dimen/comom_txt_size_m"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true" />
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/common_left_margin"
+                android:layout_marginRight="@dimen/common_right_margin"
+                android:layout_marginTop="@dimen/common_top_margin"
+                android:background="@drawable/input_bg2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/remitter" />
+
+                <EditText
+                    android:id="@+id/edit_remitter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:hint="@string/hint_remitter"
+                    android:textColor="@color/text_color2"
+                    android:textColorHint="@color/hint_color1"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/common_left_margin"
+                android:layout_marginRight="@dimen/common_right_margin"
+                android:layout_marginTop="@dimen/common_top_margin"
+                android:background="@drawable/input_bg2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/amount" />
+
+                <EditText
+                    android:id="@+id/edit_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:hint="@string/hint_amount"
+                    android:textColor="@color/text_color2"
+                    android:inputType="numberDecimal"
+                    android:textColorHint="@color/hint_color1"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/common_left_margin"
+                android:layout_marginRight="@dimen/common_right_margin"
+                android:layout_marginTop="@dimen/common_top_margin"
+                android:background="@drawable/input_bg2"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/remark" />
+
+                <EditText
+                    android:id="@+id/edit_remark"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:hint="@string/hint_remarks"
+                    android:textColor="@color/text_color2"
+                    android:textColorHint="@color/hint_color1"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_upload"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/common_view_height"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/common_left_margin"
+                android:layout_marginRight="@dimen/common_right_margin"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/btn_style2"
+                android:focusable="true"
+                android:text="@string/upload_img"
+                android:textColor="@color/white"
+                android:textSize="@dimen/comom_txt_size_m" />
+
+            <ImageView
+                android:id="@+id/img_show"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginLeft="@dimen/common_left_margin"
+                android:layout_marginRight="@dimen/common_right_margin"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:scaleType="centerCrop"
+                android:background="@drawable/layout_bg1" />
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>
+
+

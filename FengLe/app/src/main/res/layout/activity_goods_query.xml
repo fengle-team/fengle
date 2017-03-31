@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color2"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/view_toolbar" />
+
+    <EditText
+        android:id="@+id/edit_goods_keyword"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_view_height"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/common_left_margin"
+        android:layout_marginRight="@dimen/common_right_margin"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/input_bg2"
+        android:focusable="true"
+        android:gravity="center"
+        android:hint="@string/goods_keyword_hint"
+        android:maxLines="1"
+        android:paddingLeft="15dp"
+        android:textColor="@color/text_color2"
+        android:textColorHint="@color/hint_color1"
+        android:textSize="@dimen/comom_txt_size_m" />
+
+    <RelativeLayout
+        android:id="@+id/rlayout_select_warehouse"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_marginLeft="@dimen/common_left_margin"
+        android:layout_marginRight="@dimen/common_right_margin"
+        android:layout_marginTop="6dp"
+        android:visibility="gone"
+        android:background="@drawable/input_bg2">
+        <Button
+            android:id="@+id/btn_select_warehouse"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_view_height"
+            android:layout_centerHorizontal="true"
+            android:focusable="true"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="15dp"
+            android:background="@android:color/transparent"
+            android:text="@string/select_warehouse"
+            android:textColor="@color/text_color2"
+            android:textSize="@dimen/comom_txt_size_m"/>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/arrow"/>
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btn_query"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/common_left_margin"
+        android:layout_marginRight="@dimen/common_right_margin"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/btn_style2"
+        android:focusable="true"
+        android:text="@string/query"
+        android:textColor="@color/white"
+        android:textSize="@dimen/comom_txt_size_m" />
+
+    <com.yunqi.fengle.ui.view.ExTableView
+        android:id="@+id/tableViewEx"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="18dp" />
+
+</LinearLayout>

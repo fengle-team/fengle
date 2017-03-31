@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yunqi.fengle"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
+    <!--Map-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        tools:replace="icon"
+        android:name="com.yunqi.fengle.app.App"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/app_icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!--&lt;!&ndash;高德地图&ndash;&gt;-->
+        <!--<meta-data-->
+            <!--android:name="com.amap.api.v2.apikey"-->
+            <!--android:value="096340de290e99a3eb6dbcaf64d73477" />-->
+        <!--高德地图-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="3495b931915aa1faaaa394bbab67056c" />
+
+        <!--<activity-->
+            <!--android:name="com.yunqi.fengle.ui.activity.MainActivity"-->
+            <!--android:theme="@style/SplashTheme"-->
+            <!--android:screenOrientation="portrait">-->
+
+        <!--</activity>-->
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.MainActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"
+            />
+
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.StockQueryActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+        />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.DeliveryRequestActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            />
+
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.PersonActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.VisitingPlanActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.VisitingAddCustomerActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.MoveAttendanceActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.MoveAttendanceSignInActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.TransferRequestActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.PaymentQueryActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.AddDeliveryRequestActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.CustomerQueryActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.SalesDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.CustomerContactActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.GoodsQueryActivity"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.CustomerAnalysisActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.DailyActivity"
+            android:theme="@style/AddMaintainTheme"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.CustomersSituationActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.MyCustomersActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.AchievementManagerActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.MyMessageActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.ActivitiesManagerActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.NoticeActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.MessageActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.CustomerWholeActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.NewContactsActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.ActivityPlanActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.ActivitySummaryActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.ActivityExpenseActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.AddMaintainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AddMaintainTheme"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.PaymentDeclarationActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.AddPaymentDeclarationActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.ActivityNewPlanActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.PaymentDeclarationDetailsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.DeliveryDetailsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.AreaQueryActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.WarehouseQueryActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.VistingAddVisteActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.PersonChangePwdActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.DailySendActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.PersonInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.PaymentTypeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.FukuanTypeActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.VisitingAddCustomerActivity2"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.AddTransferRequestActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.TransferDetailsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.VisitingAddCustomerActivity3"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.ReturnRequestActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.ReturnDetailsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.AddReturnRequestActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.BillingRequestActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.BillingDetailsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.AddBillingRequestActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.ActivityPlanManagerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.ActivityPlanDetailActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+
+
+
+
+
+        <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
+        <service android:name="com.amap.api.location.APSService"></service>
+
+        <!--腾讯bugly-->
+        <!-- 配置APP ID -->
+        <meta-data
+            android:name="BUGLY_APPID"
+            android:value="72f85baf3e" />
+        <!-- 配置APP版本号 -->
+        <meta-data
+            android:name="BUGLY_APP_VERSION"
+            android:value="1.0" />
+        <!-- 配置APP渠道号 -->
+        <meta-data
+            android:name="BUGLY_APP_CHANNEL"
+            android:value="FENGLE_APK" />
+        <!-- 配置Bugly调试模式（true或者false）-->
+        <meta-data
+            android:name="BUGLY_ENABLE_DEBUG"
+            android:value="true" />
+    </application>
+
+</manifest>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:layout_marginLeft="@dimen/common_left_margin"
+        android:layout_marginRight="@dimen/common_right_margin"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/input_bg2">
+
+        <Button
+            android:id="@+id/btn_start_time"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_view_height"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/transparent"
+            android:focusable="true"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="15dp"
+            android:text="@string/start_time"
+            android:textColor="@color/text_color2"
+            android:textSize="@dimen/comom_txt_size_m" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/arrow"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_view_height"
+        android:layout_marginLeft="@dimen/common_left_margin"
+        android:layout_marginRight="@dimen/common_right_margin"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/input_bg2">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/arrow"
+            android:visibility="gone"/>
+
+        <Button
+            android:id="@+id/btn_end_time"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_view_height"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent"
+            android:focusable="true"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="15dp"
+            android:text="@string/end_time"
+            android:textColor="@color/text_color2"
+            android:textSize="@dimen/comom_txt_size_m" />
+    </RelativeLayout>
+</merge>
+

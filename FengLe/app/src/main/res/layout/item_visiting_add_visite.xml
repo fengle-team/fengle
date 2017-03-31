@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/visiting_tv_bg"
+        android:padding="10dp"
+        android:text="基本信息"
+        android:textSize="@dimen/text_small_size" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="@dimen/visiting_padding_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/visiting_padding_txt"
+                    android:paddingTop="@dimen/visiting_padding_txt"
+                    android:text="公司名称"
+                    android:textSize="@dimen/text_small_size" />
+
+                <TextView
+                    android:id="@+id/tvCompanyName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/visiting_margin_normal_txt"
+                    android:text="阿里巴巴"
+                    android:textSize="@dimen/text_small_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/visiting_padding_txt"
+                    android:paddingTop="@dimen/visiting_padding_txt"
+                    android:text="拜访时间"
+                    android:textSize="@dimen/text_small_size" />
+
+                <LinearLayout
+                    android:id="@+id/llTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/visiting_margin_normal_txt"
+                        android:layout_marginRight="6dp"
+                        android:paddingLeft="5dp"
+                        android:background="@drawable/shape_border_black"
+                        android:gravity="center_vertical"
+                        android:text="  " />
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/visiting_padding_txt"
+                android:paddingTop="@dimen/visiting_padding_txt"
+                android:text="拜访缘由"
+                android:textSize="@dimen/text_small_size" />
+
+            <com.yunqi.fengle.ui.view.UnderLineEditNormalEx
+                android:id="@+id/etReason"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/visiting_margin_normal_txt"
+                android:background="@color/transparents"
+                android:hint="请添加拜访理由"
+                android:lines="1"
+                android:maxLines="1"
+                android:textSize="@dimen/text_small_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/visiting_padding_txt"
+                    android:paddingTop="@dimen/visiting_padding_txt"
+                    android:text="业务员"
+                    android:textSize="@dimen/text_small_size" />
+
+                <TextView
+                    android:id="@+id/tvSale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/visiting_margin_normal_txt"
+                    android:textSize="@dimen/text_small_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/visiting_padding_txt"
+                    android:paddingTop="@dimen/visiting_padding_txt"
+                    android:text="责任人"
+                    android:textSize="@dimen/text_small_size" />
+
+                <com.yunqi.fengle.ui.view.UnderLineEditNormalEx
+                    android:id="@+id/tvContact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/visiting_margin_normal_txt"
+                    android:background="@color/transparents"
+                    android:hint="请输入责任人"
+                    android:textSize="@dimen/text_small_size" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:id="@+id/llStatus"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/visiting_padding_txt"
+                    android:paddingTop="@dimen/visiting_padding_txt"
+                    android:text="状态"
+                    android:textSize="@dimen/text_small_size" />
+
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/visiting_margin_normal_txt"
+                    android:layout_marginRight="20dp"
+                    android:paddingLeft="5dp"
+                    android:background="@drawable/shape_border_black"
+                    android:gravity="center_vertical"
+                    android:text="  " />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

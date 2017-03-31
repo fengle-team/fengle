@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/view_toolbar" />
+    <com.yunqi.fengle.ui.view.TableViewEx xmlns:table="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/tableView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_left_margin"
+        android:layout_marginRight="@dimen/common_right_margin"
+        android:layout_marginTop="15dp"
+        android:scrollbars="none"
+        table:tableView_columnCount="6"
+        table:tableView_headerColor="@color/table_head_color"
+        table:tableView_headerElevation="25" />
+
+</LinearLayout>

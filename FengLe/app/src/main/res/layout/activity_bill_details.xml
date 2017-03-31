@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:table="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color2"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/view_toolbar" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_view_height"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/common_left_margin"
+        android:layout_marginRight="@dimen/common_right_margin"
+        android:layout_marginTop="@dimen/common_top_margin"
+        android:background="@drawable/input_bg2"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="@string/customer" />
+
+        <TextView
+            android:id="@+id/txt_customer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:textColor="@color/text_color2"
+            android:textColorHint="@color/hint_color1"
+            android:textSize="14sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_view_height"
+        android:layout_marginLeft="@dimen/common_left_margin"
+        android:layout_marginRight="@dimen/common_right_margin"
+        android:layout_marginTop="@dimen/common_top_margin"
+        android:orientation="horizontal"
+        android:background="@drawable/input_bg2">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/common_view_height"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent"
+            android:focusable="true"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="15dp"
+            android:text="@string/selected_goods"
+            android:textColor="@color/text_color2"
+            android:textSize="@dimen/comom_txt_size_m" />
+
+        <Button
+            android:id="@+id/btn_select_goods"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_view_height"
+            android:background="@android:color/transparent"
+            android:focusable="true"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:text="@string/select_goods"
+            android:textColor="@color/text_color2"
+            android:textSize="@dimen/comom_txt_size_m" />
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <de.codecrafters.tableview.TableView xmlns:table="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/tableView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/common_left_margin"
+            android:layout_marginRight="@dimen/common_right_margin"
+            android:layout_above="@+id/llayout_status"
+            android:layout_marginTop="18dp"
+            android:scrollbars="none"
+            table:tableView_columnCount="5"
+            table:tableView_headerColor="@color/table_head_color"
+            table:tableView_headerElevation="25" />
+
+        <LinearLayout
+            android:id="@+id/llayout_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/layout_bg4"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="单据状态："
+                    android:textSize="@dimen/comom_txt_size_xs"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已完成"
+                    android:textSize="@dimen/comom_txt_size_xs" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="单据备注："
+                    android:textSize="@dimen/comom_txt_size_xs"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_remark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="xxxx"
+                    android:textSize="@dimen/comom_txt_size_xs" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="生成发货单号："
+                    android:textSize="@dimen/comom_txt_size_xs"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="12345465676"
+                    android:textSize="@dimen/comom_txt_size_xs" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</LinearLayout>
+
+

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:contentDescription="移动考勤入口"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_weight="2">
+
+
+    <RelativeLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.yunqi.fengle.ui.view.RoundedLetterView
+            android:id="@+id/rvSignIn"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:rlv_backgroundColorValue="@color/move_attend_light_green"
+            android:layout_centerInParent="true"
+            app:rlv_titleColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="签到\n8:30"
+            android:textColor="@color/white"
+
+            android:textSize="@dimen/text_larger_size" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+
+        <com.yunqi.fengle.ui.view.RoundedLetterView
+            android:id="@+id/rvSignOut"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_centerInParent="true"
+            app:rlv_backgroundColorValue="@color/move_attend_dark_green"
+            app:rlv_titleColor="@color/white" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="签退\n17:30"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_larger_size" />
+    </RelativeLayout>
+
+
+</LinearLayout>

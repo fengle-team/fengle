@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:contentDescription="费用报销"
+    android:paddingBottom="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp">
+
+        <LinearLayout
+            android:id="@+id/llTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="填报日期"
+                android:textSize="@dimen/text_small_size" />
+
+            <com.yunqi.fengle.ui.view.UnderLineTextEx
+                android:id="@+id/etTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_add_margin"
+                android:background="@color/transparents"
+                android:hint="请输入"
+                android:textColorHint="#ff919191"
+                android:textSize="@dimen/text_small_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/customer_add_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="客户名称"
+                android:textSize="@dimen/text_small_size" />
+
+            <com.yunqi.fengle.ui.view.UnderLineEditTextEx
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_add_margin"
+                android:background="@color/transparents"
+                android:hint="请输入"
+                android:textSize="@dimen/text_normal_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/customer_add_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="批复费用"
+                android:textSize="@dimen/text_small_size" />
+
+            <com.yunqi.fengle.ui.view.UnderLineEditTextEx
+                android:id="@+id/etReplyAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_add_margin"
+                android:background="@color/transparents"
+                android:hint="请输入"
+                android:inputType="numberDecimal"
+                android:textSize="@dimen/text_normal_size" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/customer_add_margin_top">
+
+            <ImageView
+                style="@style/rightArrow"
+                android:background="@drawable/arrow_right"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:id="@+id/llActionTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="活动时间"
+                    android:textSize="@dimen/text_small_size" />
+
+                <com.yunqi.fengle.ui.view.UnderLineTextEx
+                    android:id="@+id/etActionTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/customer_add_margin"
+                    android:background="@color/transparents"
+                    android:hint="请输入"
+                    android:textColorHint="#ff919191"
+                    android:textSize="@dimen/text_normal_size" />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/customer_add_margin_top">
+
+            <ImageView
+                style="@style/rightArrow"
+                android:background="@drawable/arrow_right"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:id="@+id/llActionType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="活动类型"
+                    android:textSize="@dimen/text_small_size" />
+
+                <com.yunqi.fengle.ui.view.UnderLineTextEx
+                    android:id="@+id/etActionType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/customer_add_margin"
+                    android:background="@color/transparents"
+                    android:textColorHint="#ff919191"
+                    android:hint="请输入"
+                    android:textSize="@dimen/text_normal_size" />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/customer_add_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="报销费用"
+                android:textSize="@dimen/text_small_size" />
+
+            <com.yunqi.fengle.ui.view.UnderLineEditTextEx
+                android:id="@+id/etReimburseAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_add_margin"
+                android:background="@color/transparents"
+                android:hint="请输入"
+                android:inputType="number"
+                android:textSize="@dimen/text_normal_size" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/customer_add_margin_top">
+
+            <ImageView
+                style="@style/rightArrow"
+                android:background="@drawable/arrow_right"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:id="@+id/llInvoiceType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="发票类型"
+                    android:textSize="@dimen/text_small_size" />
+
+                <com.yunqi.fengle.ui.view.UnderLineTextEx
+                    android:id="@+id/etInvoiceType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/customer_add_margin"
+                    android:background="@color/transparents"
+                    android:textColorHint="#ff919191"
+                    android:hint="请输入"
+                    android:textSize="@dimen/text_normal_size" />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/customer_add_margin_top">
+
+            <ImageView
+                style="@style/rightArrow"
+                android:background="@drawable/arrow_right"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:id="@+id/llReimburseType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="报账类型"
+                    android:textSize="@dimen/text_small_size" />
+
+                <com.yunqi.fengle.ui.view.UnderLineTextEx
+                    android:id="@+id/etReimburseType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/customer_add_margin"
+                    android:background="@color/transparents"
+                    android:textColorHint="#ff919191"
+                    android:hint="请输入"
+                    android:textSize="@dimen/text_normal_size" />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+</ScrollView>

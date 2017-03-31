@@ -1,0 +1,78 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="view_small_padding">1dp</dimen>
+    <dimen name="view_padding">6dp</dimen>
+    <dimen name="view_larger_padding">12dp</dimen>
+
+    <dimen name="text_small_size">15sp</dimen>
+    <dimen name="text_normal_size">16sp</dimen>
+    <dimen name="text_larger_size">20sp</dimen>
+
+    <dimen name="person_padding_left">20dp</dimen>
+    <dimen name="person_padding_top">15dp</dimen>
+    <dimen name="person_padding_txt">10dp</dimen>
+
+    <dimen name="visiting_padding_content">6dp</dimen>
+    <dimen name="visiting_padding_txt">8dp</dimen>
+    <dimen name="visiting_margin_normal_txt">6dp</dimen>
+    <dimen name="visiting_margin_larger_txt">8dp</dimen>
+
+    <!--考勤-->
+    <dimen name="move_sign_padding">12dp</dimen>
+
+    <!--客情维护-->
+    <dimen name="customer_add_margin">2dp</dimen>
+    <dimen name="customer_add_margin_top">13dp</dimen>
+
+    <!-- 客户全貌-->
+    <dimen name="customer_whole_text_small">12sp</dimen>
+    <dimen name="customer_whole_text_normal">14sp</dimen>
+    <dimen name="customer_whole_text_larger">17sp</dimen>
+    <dimen name="customer_whole_title_larger">18sp</dimen>
+    <dimen name="customer_whole_margin_top">6dp</dimen>
+    <dimen name="customer_whole_padding">5dp</dimen>
+    <dimen name="customer_whole_title_padding">10dp</dimen>
+    <dimen name="customer_whole_margin_top_larger">10dp</dimen>
+    <dimen name="customer_whole_margin_left">8dp</dimen>
+
+    <!--我的消息-->
+    <dimen name="my_message_text_small">12sp</dimen>
+    <dimen name="my_message_text_normal">14sp</dimen>
+    <dimen name="my_message_text_larger">16sp</dimen>
+
+    <!--添加维护-->
+    <dimen name="new_plan_txt_mar_left">10dp</dimen>
+    <dimen name="new_plan_txt_line_mar_top">3dp</dimen>
+
+    <!--活动管理-->
+    <dimen name="activity_summary_txt_size">@dimen/text_small_size</dimen>
+    <dimen name="activity_summary_mar_left1">14dp</dimen>
+    <dimen name="activity_summary_pad">4dp</dimen>
+    <dimen name="activity_summary_pad_ll">6dp</dimen>
+    <dimen name="activity_summary_height">45dp</dimen>
+
+    <!--所有页面通用-->
+    <dimen name="common_left_margin">12dp</dimen>
+    <dimen name="common_right_margin">12dp</dimen>
+    <dimen name="common_top_margin">6dp</dimen>
+    <dimen name="common_view_height">34dp</dimen>
+
+    <dimen name="comom_txt_size_xxs">8sp</dimen>
+    <dimen name="comom_txt_size_xs">10sp</dimen>
+    <dimen name="comom_txt_size_s">12sp</dimen>
+    <dimen name="comom_txt_size_m">14sp</dimen>
+    <dimen name="comom_txt_size_l">16sp</dimen>
+
+    <dimen name="radiu">3dp</dimen>
+
+    <!-- pulltorefresh -->
+    <dimen name="indicator_right_padding">10dp</dimen>
+    <dimen name="indicator_corner_radius">12dp</dimen>
+    <dimen name="indicator_internal_padding">4dp</dimen>
+    <dimen name="header_footer_left_right_padding">24dp</dimen>
+    <dimen name="header_footer_top_bottom_padding">12dp</dimen>
+
+
+</resources>

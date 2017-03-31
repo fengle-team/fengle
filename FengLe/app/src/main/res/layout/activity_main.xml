@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color1"
+    android:orientation="vertical">
+    <fragment
+        android:id="@+id/cycle_viewPager"
+        android:name="cn.androiddevelop.cycleviewpager.lib.CycleViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="180dip" />
+
+    <GridView
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="3dp"
+        android:id="@+id/grid_module"
+        android:background="@color/white"
+        android:numColumns="4"
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

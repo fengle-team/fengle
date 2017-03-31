@@ -1,0 +1,84 @@
+<resources>
+
+    <!-- Base application theme. -->
+
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="actionMenuTextColor">#ffffff</item>
+
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+
+        <item name="colorControlNormal">@android:color/white</item>
+    </style>
+
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash_bg</item>
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
+
+    <style name="LoginTheme" parent="AppTheme">
+        <item name="android:windowBackground">@android:color/black</item>
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
+
+    <style name="AddMaintainTheme" parent="AppTheme">
+        <item name="colorAccent">#ff00bb4d</item>
+    </style>
+    <!-- 选择照片底部弹出层 -->
+    <style name="PopupAnimation" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
+    </style>
+
+    <style name="MyDialog" parent="android:style/Theme.Dialog">
+        <item name="android:background">#00000000</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
+    <style name="dialogWindowAnim" mce_bogus="1" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/bottom_out</item>
+    </style>
+
+
+    <style name="FengCheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/check_box_01</item>
+    </style>
+
+    <style name="wholeTitleTxtStyle" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:textSize">@dimen/customer_whole_title_larger</item>
+        <item name="android:textColor">@color/whole_title_color</item>
+    </style>
+
+    <!--个人消息-->
+    <style name="personTxtStyle" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:textSize">@dimen/text_normal_size</item>
+        <item name="android:textColor">@color/person_txt_color</item>
+    </style>
+
+    <style name="rightArrow" parent="Widget.AppCompat.ImageButton">
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_width">16dp</item>
+        <item name="android:layout_height">16dp</item>
+        <item name="background">@drawable/arrow_right</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <style name="newPlanTxtStyle" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+
+    <style name="activitySummary" parent="@android:style/TextAppearance.Widget.TextView">
+        <item name="android:textSize">@dimen/text_small_size</item>
+        <item name="android:textColor">#ff68707b</item>
+    </style>
+</resources>

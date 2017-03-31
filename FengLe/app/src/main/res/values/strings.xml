@@ -1,0 +1,271 @@
+<resources>
+    <string name="app_name">丰乐农化</string>
+    <!--网络请求提示语-->
+    <string name="tip_service_exception">连接服务器异常!</string>
+    <string name="tip_network_unconnect">网络断开,请检查网络!</string>
+    <string name="tip_socket_timeout">网络连接超时!</string>
+    <string name="tip_unknown_error">发生未知错误(%1$s)!</string>
+    <string name="tip_request_failed">请求数据失败!</string>
+
+    <!-- 登录和注册相关 -->
+    <string name="hint_loginname">手机号/邮箱</string>
+    <string name="hint_password">密码</string>
+    <string name="tip_forget_pwd">忘记密码</string>
+    <string name="tip_register">还没有账号？去注册一个</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="hint_phone">请输入手机号</string>
+    <string name="hint_username">请输入用户名</string>
+    <string name="hint_email">请输入邮箱</string>
+    <string name="warming_doubleclick_logout">再次点击退出程序</string> <!-- 两次点击退出 -->
+    <!-- 主界面Module相关 -->
+    <string name="module_stock_query">库存查询</string>
+    <string name="module_delivery_request">发货申请</string>
+    <string name="module_add_delivery_request">添加发货申请</string>
+    <string name="module_delivery_add">发货添加</string>
+    <string name="module_delivery_detail">发货申请详情</string>
+    <string name="module_transfer_request">调货申请</string>
+    <string name="module_transfer_detail">调货申请详情</string>
+    <string name="module_add_transfer_request">添加调货申请</string>
+    <string name="module_return_request">退货申请</string>
+    <string name="module_add_return_request">添加退货申请</string>
+    <string name="module_return_detail">退货申请详情</string>
+    <string name="module_billing">开票</string>
+    <string name="module_add_billing_request">添加开票申请</string>
+    <string name="module_billing_detail">开票申请详情</string>
+    <string name="module_payment_declaration">回款申报</string>
+    <string name="module_payment_query">回款查询</string>
+    <string name="module_plan_adjustment_request">计划调剂</string>
+    <string name="module_contacts_query">往来申请</string>
+    <string name="module_customer_analysis">客户分析</string>
+    <string name="module_visiting_plan">拜访计划</string>
+    <string name="module_customers_situation">客户维情</string>
+    <string name="module_my_customers">我的客户</string>
+    <string name="module_move_attendance">移动考勤</string>
+    <string name="module_daily">日报</string>
+    <string name="module_activities_manager">活动管理</string>
+    <string name="module_achievement_manager">业绩管理</string>
+    <string name="module_person">个人中心</string>
+    <string name="module_my_message">我的消息</string>
+    <string name="module_customer_query">客户查询</string>
+    <string name="module_sales_detail">销售明细</string>
+    <string name="module_customer_contact">客户往来</string>
+    <string name="module_add_payment_declaration">添加回款申报</string>
+    <string name="module_payment_declaration_details">回款申报详情</string>
+    <string name="module_goods_query">货物查询</string>
+    <string name="module_area_query">大区查询</string>
+    <string name="module_warehouse_query">仓库查询</string>
+    <string name="module_payment_type">回款类型查询</string>
+    <string name="module_fukuan_type">付款类型查询</string>
+
+    <string name="area_select">选择大区</string>
+    <string name="stock_select">选择仓库</string>
+    <string name="stock_name_hint">货物名,编号</string>
+    <string name="query">查询</string>
+    <string name="bill_undeal">待处理</string>
+    <string name="bill_undone">未完成</string>
+    <string name="bill_history">历史单据</string>
+    <string name="select_customer">选择客户</string>
+    <string name="select_goods">选择货物</string>
+    <string name="hint_remarks">输入备注</string>
+    <string name="hint_uname">客户名称</string>
+    <string name="select_warehouse">选择仓库</string>
+    <string name="fukui_type">付款类型</string>
+    <string name="payment_type">回款类型</string>
+    <string name="out_customer">调出客户</string>
+    <string name="in_customer">调入客户</string>
+    <string name="out_customer_tag">调出客户:</string>
+    <string name="in_customer_tag">调入客户:</string>
+    <string name="selected_goods">已选货物如下:</string>
+    <string name="warimg_unselect_customer">请选择客户</string>
+    <string name="warimg_unselect_in_or_out_customer">请选择调出调入客户</string>
+    <string name="warimg_selected_goods_clear">客户一旦更改，所选货物即将被清空</string>
+    <string name="hint_customer">客户名称</string>
+
+    <string-array name="header_title_stock">
+        <item>名称</item>
+        <item>规格</item>
+        <item>计划</item>
+        <item>仓库</item>
+        <item>价格</item>
+    </string-array>
+    <string-array name="header_title_goods_query">
+        <item>编号</item>
+        <item>名称</item>
+        <item>规格</item>
+        <item>价格</item>
+    </string-array>
+
+    <string-array name="header_title_customer">
+        <item>编号</item>
+        <item>名称</item>
+    </string-array>
+
+    <string-array name="header_title_customer_analysis">
+        <item>客户名称</item>
+        <item>发货金额</item>
+        <item>排名</item>
+        <item>上年发货</item>
+        <item>上年排名</item>
+        <item>升降</item>
+    </string-array>
+
+    <string name="customer_keyword_hint">客户名或编号</string>
+
+    <string name="goods_keyword_hint">货物名或编号</string>
+
+    <string-array name="header_title_delivey_request">
+        <item>时间</item>
+        <item>客户</item>
+        <item>状态</item>
+        <item>操作</item>
+    </string-array>
+    <string-array name="header_title_bill_request">
+        <item>时间</item>
+        <item>客户</item>
+        <item>状态</item>
+        <item>操作</item>
+    </string-array>
+
+    <string-array name="header_title_add_delivey_request">
+        <item>名称</item>
+        <item>规格</item>
+        <item>数量</item>
+        <item>件数</item>
+        <item>操作</item>
+    </string-array>
+
+    <string-array name="header_title_payment_request">
+        <item>编号</item>
+        <item>名称</item>
+        <item>操作</item>
+    </string-array>
+
+    <string-array name="header_title_sales_detail">
+        <item>客户号</item>
+        <item>货物编号</item>
+        <item>货物名称</item>
+        <item>详情</item>
+    </string-array>
+
+
+    <string-array name="header_title_regional">
+        <item>业务员</item>
+        <item>业绩目标</item>
+        <item>发贷金额</item>
+        <item>回款金额</item>
+        <item>业绩排名</item>
+        <item>完成率</item>
+    </string-array>
+    <string-array name="header_title_transfer_request">
+        <item>时间</item>
+        <item>调出客户</item>
+        <item>状态</item>
+        <item>操作</item>
+    </string-array>
+    <string-array name="header_title_payment_declaration">
+        <item>汇款日期</item>
+        <item>汇款人</item>
+        <item>金额</item>
+        <item>操作</item>
+    </string-array>
+    <string-array name="header_title_saler">
+        <item>哟哟哟</item>
+        <item>啦啦啦</item>
+        <item>哈哈哈</item>
+        <item>嘿嘿嘿</item>
+        <item>嘻嘻嘻</item>
+        <item>哦哦哦</item>
+    </string-array>
+
+    <string name="operater">操作</string>
+
+    <string-array name="oprater_add">
+        <item>提交</item>
+        <item>暂存</item>
+        <item>放弃</item>
+    </string-array>
+
+    <string-array name="oprater_audit">
+        <item>审核通过</item>
+        <item>驳回</item>
+        <item>取消</item>
+    </string-array>
+
+    <string-array name="oprater_take_photo">
+        <item>拍照</item>
+        <item>从手机相册选择</item>
+        <item>取消</item>
+    </string-array>
+
+    <string name="commit">提交</string>
+    <string name="temporary">暂存</string>
+    <string name="drop">放弃</string>
+
+    <string name="reject">驳回</string>
+    <string name="audit_through">审核通过</string>
+    <string name="cancel">取消</string>
+
+    <string name="take_photo">拍照</string>
+    <string name="pick_photo_from_phone">从手机相册选择</string>
+
+
+    <string name="customer_name">客户名称</string>
+    <string name="customer_code">客户编码</string>
+
+    <string name="start_time">开始时间</string>
+    <string name="end_time">结束时间</string>
+
+    <string name="basic_info">基本信息</string>
+    <string name="tag_customer_name">客户名称：</string>
+    <string name="tag_current_delivery">本年发货：</string>
+    <string name="tag_current_payment">本年回款：</string>
+    <string name="tag_trust_rate">信任比率：</string>
+    <string name="tag_real_rate">实际比率：</string>
+
+    <string name="select">选择</string>
+    <string name="customer_contact_table">客户往来表</string>
+    <string name="sales_detail_table">货物销售详细表</string>
+    <string name="confirm">确认</string>
+    <string name="quxiao">取消</string>
+
+    <string name="remittance_date">汇款日期:</string>
+    <string name="remitter">汇款人:</string>
+    <string name="amount">汇款金额:</string>
+
+    <string name="customer">客户名:</string>
+    <string name="goods">货物:</string>
+    <string name="goods_select_list">已选货物如下:</string>
+
+    <string name="hint_remitter">请输入汇款人</string>
+    <string name="hint_amount">请输入汇款金额</string>
+    <string name="upload_img">上传单据图片</string>
+
+    <string name="today_payment">今日回款</string>
+    <string name="current_month_payment">本月回款</string>
+    <string name="ok">确定</string>
+
+    <string name="payment_amount">回款金额</string>
+    <string name="remark">备注:</string>
+
+    <string name="warming_no_start_time_select">没有选择查询开始时间</string>
+    <string name="warming_no_end_time_select">没有选择查询结束时间</string>
+    <string name="warming_time_select">结束时间必须晚于开始时间</string>
+    <string name="warming_no_start_time">请选择开始时间</string>
+    <string name="warming_no_end_time">请选择结束时间</string>
+    <string name="to_be_confirmed">待处理</string>
+    <string name="confirmed">已确认</string>
+    <string name="wariming_add_success">添加成功!</string>
+    <string name="hint_edit_num">请输入发货数量</string>
+    <string name="tip_max_goods_num">最多可发数量：%1$d</string>
+
+    <string name="bill_status_1">暂存</string>
+    <string name="bill_status_2">提交待审核</string>
+    <string name="bill_status_3">审核通过</string>
+    <string name="bill_status_4">驳回</string>
+    <string name="bill_status_unknown">未知状态</string>
+    <string name="bill_status_undone">未完成</string>
+
+
+
+</resources>

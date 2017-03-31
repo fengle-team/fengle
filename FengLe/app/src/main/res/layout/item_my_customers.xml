@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="北京有限公司有限你妹"
+            android:textSize="@dimen/text_normal_size" />
+
+        <TextView
+            android:id="@+id/tvAddr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvName"
+            android:layout_marginTop="5dp"
+            android:text="未填写"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_small_size" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="10dp">
+
+        <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="3dp"
+            android:background="@drawable/icon_up01" />
+
+        <TextView
+            android:id="@+id/tvLevName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="潜在客户"
+            android:textSize="@dimen/text_normal_size" />
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/visiting_tv_bg"
+        android:padding="10dp"
+        android:text="基本信息"
+        android:textSize="@dimen/text_small_size" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/line_bg" />
+
+    <com.yunqi.fengle.ui.swipe.SwipyRefreshLayout
+        android:id="@+id/swipyRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:direction="top"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvVisPlan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.yunqi.fengle.ui.swipe.SwipyRefreshLayout>
+
+
+</LinearLayout>

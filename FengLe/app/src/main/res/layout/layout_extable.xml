@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <de.codecrafters.tableview.TableView xmlns:table="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/tableView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btn_loadmore"
+        android:layout_marginLeft="@dimen/common_left_margin"
+        android:layout_marginRight="@dimen/common_right_margin"
+        android:layout_marginTop="18dp"
+        android:scrollbars="none"
+        table:tableView_columnCount="4"
+        android:padding="1px"
+        table:tableView_headerColor="@color/table_head_color"
+        table:tableView_headerElevation="25" />
+
+    <Button
+        android:id="@+id/btn_loadmore"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_view_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/btn_style5"
+        android:text="加载更多"
+        android:textColor="@color/white" />
+</merge>

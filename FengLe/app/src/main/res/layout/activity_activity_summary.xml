@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:contentDescription="活动总结"
+    android:fillViewport="true"
+    android:fadeScrollbars="true"
+    android:paddingBottom="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="区域"
+                android:textSize="@dimen/text_small_size" />
+
+            <com.yunqi.fengle.ui.view.UnderLineEditTextEx
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_add_margin"
+                android:background="@color/transparents"
+                android:hint="请输入"
+                android:textSize="@dimen/text_small_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/customer_add_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="开始"
+                android:textSize="@dimen/text_small_size" />
+
+            <com.yunqi.fengle.ui.view.UnderLineEditTextEx
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_add_margin"
+                android:background="@color/transparents"
+                android:hint="请输入"
+                android:textSize="@dimen/text_normal_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/customer_add_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="结束"
+                android:textSize="@dimen/text_small_size" />
+
+            <com.yunqi.fengle.ui.view.UnderLineEditTextEx
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_add_margin"
+                android:background="@color/transparents"
+                android:hint="请输入"
+                android:textSize="@dimen/text_normal_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_add_margin_top"
+                android:layout_weight="1"
+
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="客户名称"
+                    android:textSize="@dimen/text_small_size" />
+
+                <com.yunqi.fengle.ui.view.UnderLineEditTextEx
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/customer_add_margin"
+                    android:background="@color/transparents"
+                    android:hint="请输入"
+                    android:textSize="@dimen/text_normal_size" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/line_bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_add_margin_top"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="6dp"
+                    android:text="客户名称"
+                    android:textSize="@dimen/text_small_size" />
+
+                <com.yunqi.fengle.ui.view.UnderLineEditTextEx
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/customer_add_margin"
+                    android:background="@color/transparents"
+                    android:hint="请输入"
+                    android:paddingLeft="6dp"
+                    android:textSize="@dimen/text_normal_size" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/customer_add_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="活动类型"
+                android:textSize="@dimen/text_small_size" />
+
+            <com.yunqi.fengle.ui.view.UnderLineEditTextEx
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_add_margin"
+                android:background="@color/transparents"
+                android:hint="请输入"
+                android:textSize="@dimen/text_normal_size" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/customer_add_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="活动总结"
+                android:textSize="@dimen/text_small_size" />
+
+            <com.yunqi.fengle.ui.view.UnderLineEditTextEx
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_add_margin"
+                android:background="@color/transparents"
+                android:hint="请输入"
+                android:textSize="@dimen/text_normal_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/customer_add_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="照片"
+                android:textSize="@dimen/text_small_size" />
+
+            <com.yunqi.fengle.ui.view.UnderLineEditTextEx
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_add_margin"
+                android:background="@color/transparents"
+                android:hint="请输入"
+                android:textSize="@dimen/text_normal_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/customer_add_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="活动效果"
+                android:textSize="@dimen/text_small_size" />
+
+            <com.yunqi.fengle.ui.view.UnderLineEditTextEx
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_add_margin"
+                android:background="@color/transparents"
+                android:hint="请输入"
+                android:textSize="@dimen/text_normal_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/customer_add_margin_top"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="填报人"
+                android:textSize="@dimen/text_small_size" />
+
+            <com.yunqi.fengle.ui.view.UnderLineEditTextEx
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/customer_add_margin"
+                android:background="@color/transparents"
+                android:hint="请输入"
+                android:textSize="@dimen/text_normal_size" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</ScrollView>

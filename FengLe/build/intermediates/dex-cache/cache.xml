@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="bc7e99e8d0fc279a05aa91378530f467ad62d443">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-25.0.1_fbe79c75e8aafe3277e7f1be256ff6abe5835d32\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c0bd6ffb002a85b5e7cad29f8558d1cc59539679">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_a8a4d52ed386e0a9019c838d98fef38362895c61\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.jakewharton.rxbinding\rxbinding\0.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ffc09f4e5bdebe068e5101f587dadc42b60fbfe4">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.jakewharton.rxbinding-rxbinding-0.4.0_52419d0a863cec9adebd996cb7b012169cc378b2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.jakewharton\butterknife\8.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ca5e58104f56f918f0fb3a5b1b371ab599ae56b2">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.jakewharton-butterknife-8.2.1_3335a0a5506f6812d179b3e62fd0763c066cd912\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f4e7adebf49e683db82fb6efac2caaf3d768b8d4">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.squareup.leakcanary-leakcanary-android-1.3_af31a6b0078de2c05615767dee463718be3757ef\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="90351f5a62ec054cc114f2d22a575a7b9991d7ed">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_b480cd3602df36c555e1b0062800fbd3d1e29d04\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.github.bumptech.glide\okhttp3-integration\1.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="07a1832fdb6b44c0f4ec761ac3de02bfd3508269">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.bumptech.glide-okhttp3-integration-1.4.0_6f7e96860e5785cfb0546d47da1278a5b20ec2e9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="00d4c8eebf2b681073c72a26bd0849549e51c7cb">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-25.0.1_2c6e79ff28bf5df41d88a64275f0c1853f14176b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\qxb-810\.gradle\caches\modules-2\files-2.1\com.squareup.leakcanary\leakcanary-analyzer\1.3\c5399b18a672f7973c8a9b9d6b731a3a36e590cc\leakcanary-analyzer-1.3.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c5399b18a672f7973c8a9b9d6b731a3a36e590cc">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\leakcanary-analyzer-1.3_302df6c885870bd1a4d5428e9ebdc8ab17a8b04c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.jakewharton.timber\timber\4.1.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f45a0143e9c43a459f3f331a6b3e7daf13981ef4">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.jakewharton.timber-timber-4.1.0_1bd1e64e556df89fadbe8086704ab3aee46d742e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.github.bumptech.glide\okhttp3-integration\1.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="07a1832fdb6b44c0f4ec761ac3de02bfd3508269">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.bumptech.glide-okhttp3-integration-1.4.0_fbb851dd516b3faddc2548ffba9b3809e0557dfc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\me.yokeyword\fragmentation\0.7.9\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="03fd4f78f7069dc8787a297966c3423f51efd124">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\me.yokeyword-fragmentation-0.7.9_6f86001a84acf465aca1f05821438aa2f631a228\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\qxb-810\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\converter-gson\2.1.0\aa557d71ead91cbf26e0c316a0f593d168303309\converter-gson-2.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="aa557d71ead91cbf26e0c316a0f593d168303309">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\converter-gson-2.1.0_39a82fdad95207c72d4f0a4f32de0efd01ff6ecc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\qxb-810\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\retrofit\2.1.0\2de7cd8b95b7021b1d597f049bcb422055119f2c\retrofit-2.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="2de7cd8b95b7021b1d597f049bcb422055119f2c">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\retrofit-2.1.0_0c552fed2c1481cc6cfbbbcfb031a8a38d2c9d79\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.jakewharton.rxbinding\rxbinding\0.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ffc09f4e5bdebe068e5101f587dadc42b60fbfe4">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.jakewharton.rxbinding-rxbinding-0.4.0_5c36f6d769ffbfbe9f37db29d9b9e992d109218f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="00d4c8eebf2b681073c72a26bd0849549e51c7cb">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-25.0.1_3eadadf14f9f5e8b702a8861f2008d897a11f9e5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\cn.pedant.sweetalert\library\1.3\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0c3529d9491be892952749d252ae1defa9b1f937">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\cn.pedant.sweetalert-library-1.3_e345680f0361fe2354ac425bae368167b5f18f83\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\qxb-810\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\logging-interceptor\3.3.1\99ce730034c6f5aaed710d1e0e9df95e8714ed5f\logging-interceptor-3.3.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="99ce730034c6f5aaed710d1e0e9df95e8714ed5f">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\logging-interceptor-3.3.1_182b4253ece6324124d8ecf49cf70a58d8428365\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="12a84092e8abfc273280db7bc9f35e46509648d6">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_d425eb9c703570417d78799e59258fd9a2381d0e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.android.support\design\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3b236883e0df6002cabb01ce57d00a5b1e5de610">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-25.0.1_ccbefd122d5b6a9722cb4dfa0f36613ba001d421\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.makeramen\roundedimageview\2.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="814fc0c3ec69a944add398217d90077301501a74">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.makeramen-roundedimageview-2.2.1_8df4489dcbfd8e910579e6e9a71c980c5e3b7d21\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\io.realm\realm-android-library\1.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c82387ef0b47739dc3fe7a92d910ad3f0e7cdf01">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\io.realm-realm-android-library-1.1.1_e0753483666a7343bc76fe5f62c0d4b28db0e44d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d27ccce18188f5ae20e2ec9388cd2a57175d7685">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_28127430d6c707b22584fc96d5f7dd5f96f2931b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="26c6eef571592c91f29e56fda0bac73321de0c92">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-fragment-25.0.1_790e2d1189b65eda93912e40a26c85d3fb73fb61\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\qxb-810\.gradle\caches\modules-2\files-2.1\com.squareup.retrofit2\adapter-rxjava\2.1.0\693eddc23e87ab13f9cf5001707ce8e7e1d1ff01\adapter-rxjava-2.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="693eddc23e87ab13f9cf5001707ce8e7e1d1ff01">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\adapter-rxjava-2.1.0_c8845b950a961f4c0bb9cf6748c211176ee0dd9d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\qxb-810\.gradle\caches\modules-2\files-2.1\io.realm\realm-annotations\1.1.1\8e720b6ccaa30f4201a3f347f8959f620823e848\realm-annotations-1.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="8e720b6ccaa30f4201a3f347f8959f620823e848">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\realm-annotations-1.1.1_03c77222926a73862eecd661c05c81ba9514e698\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\qxb-810\.gradle\caches\modules-2\files-2.1\com.squareup.okio\okio\1.8.0\5ea7af56cc7c567ed9856d99efb30740e9b17ff\okio-1.8.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="05ea7af56cc7c567ed9856d99efb30740e9b17ff">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\okio-1.8.0_2fe1e12a207e90ecded8718de39f257d7b0c65bf\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\qxb-810\.gradle\caches\modules-2\files-2.1\com.google.dagger\dagger\2.0.2\de8416eda7b2fd7c25836b140c39e1cbf10542f6\dagger-2.0.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="de8416eda7b2fd7c25836b140c39e1cbf10542f6">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\dagger-2.0.2_f6b44be2a9296428fb980a8920c68e63fe3687a8\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\qxb-810\.gradle\caches\modules-2\files-2.1\com.github.bumptech.glide\glide\3.7.0\9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4\glide-3.7.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="9e9eeaf9948ee4d6c3ab354e8dc14368f16994a4">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\glide-3.7.0_608a3f00384d231d768cfcabf438c2036823499f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.android.support\transition\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c1b6ab157e8e12cb08b9ee82bb5e3c5d22632eb3">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-transition-25.0.1_09e57ab14f2016f23cc42aec3e5df7ea2a8cd785\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6a1479afe9f1b3645e1cd9a87318976893472818">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-media-compat-25.0.1_f1869914642e409dacf8e3ba8fb7c175c1bfa9e0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\qxb-810\.gradle\caches\modules-2\files-2.1\io.reactivex\rxjava\1.2.6\de0c509ae6c9db5b5b6004a9d102c92708346f7c\rxjava-1.2.6.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="de0c509ae6c9db5b5b6004a9d102c92708346f7c">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\rxjava-1.2.6_bedd892d15d41d0a28c2e0e1266ef3987499d421\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="26c6eef571592c91f29e56fda0bac73321de0c92">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-fragment-25.0.1_df98ee5f78f2fa4989b57468dd84ec13f30c91f6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="772bed2d992b67b9d0327f766cc95cd63031dcd3">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-25.0.1_3740cf3e54d7b4a9b23394329e0aef942cbfaecc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f83b00041ecfba705603fec40363416c7de69719">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_b440a4c4a703434ea2f63d662018f74387d9ffc7\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\qxb-810\.gradle\caches\modules-2\files-2.1\com.squareup.haha\haha\1.1\b7b2e61ee1ad2d1ac6ae3122de9c940fb0d0e635\haha-1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b7b2e61ee1ad2d1ac6ae3122de9c940fb0d0e635">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\haha-1.1_70e80359a171905c21cdf17266505304865e133b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6a1479afe9f1b3645e1cd9a87318976893472818">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-media-compat-25.0.1_0da7445efa4d4ce193b86df99fdcbe4e6f60f3c6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.pnikosis\materialish-progress\1.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="57487745ce450899f9f250d5ae5c092a682cd041">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.pnikosis-materialish-progress-1.0_744b390e10d01261ac5e73f40c62103cbac380de\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.yalantis\starwarstiles\0.1.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b674a562614e57567438923e6559a6f61c7e8bbf">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.yalantis-starwarstiles-0.1.0_b60430daa5a706542adf0025805e0b9f13c7457b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\qxb-810\.gradle\caches\modules-2\files-2.1\com.squareup.leakcanary\leakcanary-watcher\1.3\632482a61ad24b7ec864072945d221369f9a606\leakcanary-watcher-1.3.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0632482a61ad24b7ec864072945d221369f9a606">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\leakcanary-watcher-1.3_196630ed1746fa66f5ccb3897e7b04dcccd9af35\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e5343c9d19cb19ff55f6b268c7f3fe8c9d224f6f">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_cec3fa25a16f3474e217b5dd220e4e9b536dd8ab\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\me.yokeyword\fragmentation\0.7.9\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="03fd4f78f7069dc8787a297966c3423f51efd124">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\me.yokeyword-fragmentation-0.7.9_8c8aa45711294313621d01a5a756d72e18e3d00c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="297d4bcf6ed4e747a1bf7d0d094a2d911a8d3a8e">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-25.0.1_5c0ef90c5d7ecdc91de2a4211f7e9ed516572a1c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\qxb-810\.gradle\caches\modules-2\files-2.1\javax.inject\javax.inject\1\6975da39a7040257bd51d21a231b76c915872d38\javax.inject-1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="6975da39a7040257bd51d21a231b76c915872d38">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\javax.inject-1_36d9bdc718c905936d5c3468f79147d032c95161\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="51eba4a4dd73044f90a9d58dd7ca34adbebfcf4e">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-25.0.1_b4dd1d79428b7c06de35465db31e35f62ace0405\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="D:\Users\ghcui\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.0.1\support-annotations-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="a09194311f8f89c3e6db09d79f50897a889d615e">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.0.1_79e0c13740266ab02b93b31bc99925638b63e536\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.jakewharton\butterknife\8.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="ca5e58104f56f918f0fb3a5b1b371ab599ae56b2">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.jakewharton-butterknife-8.2.1_80733bc7dfeb9ed23f67d0deb3d388b4aa9d47b5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="297d4bcf6ed4e747a1bf7d0d094a2d911a8d3a8e">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-25.0.1_5cc34f9fbea3bc7ef9c79bad696113eb9225c1c2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f7ac4b327fdb9e2ee386f5adc46164927658de4b">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-25.0.1_59837acb90b090ee2537ac489ccc812c5fff0b69\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c5b7145fb34779b6639147b8f2f8dd77c0db771b">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_0928a6481de3b8e7e072b568b49bf863584e137e\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="772bed2d992b67b9d0327f766cc95cd63031dcd3">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-25.0.1_7442ae45657827acfcab156adc8314e6c8efe457\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c5b7145fb34779b6639147b8f2f8dd77c0db771b">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_4d9ddd2205bc370a70a72924832e8a5649a06740\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.pnikosis\materialish-progress\1.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="57487745ce450899f9f250d5ae5c092a682cd041">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.pnikosis-materialish-progress-1.0_5f18aeff55984b57aa9c793a29e108b9d4af9d85\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\io.reactivex\rxandroid\1.1.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d4c4b83de2f6412072d2a29b1b7a5b03edaad5ff">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\io.reactivex-rxandroid-1.1.0_76ffa54c9066581c9d62a55d30bb0445857dbaa6\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\cn.pedant.sweetalert\library\1.3\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="0c3529d9491be892952749d252ae1defa9b1f937">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\cn.pedant.sweetalert-library-1.3_fd845b34aa3aa242904abe3b9b72b48063f683af\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="46f13cc95180b48958b51216293613e47541f256">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_598e13f9de042c6d52f4ef7a7779c8277b19c0d2\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="51eba4a4dd73044f90a9d58dd7ca34adbebfcf4e">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-25.0.1_bdb11273784e4f5b9a4680892017bfb3c563fb66\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="e5343c9d19cb19ff55f6b268c7f3fe8c9d224f6f">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_fef69a75899b6a0b07341ebe809c7cf14c352543\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport\2.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="77ce2479966f7f7fb8c18213136c6282d7390407">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.tencent.bugly-crashreport-2.4.0_2744a855e1c29bb8f0cb88ffa652097aa8ad6acb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\io.reactivex\rxandroid\1.1.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d4c4b83de2f6412072d2a29b1b7a5b03edaad5ff">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\io.reactivex-rxandroid-1.1.0_7dcca516f80a0fffb78824a96d5c9456bcedddb1\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-25.0.1_99db18bc5b87a5042d086299e7a674996a77739a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.squareup.leakcanary\leakcanary-android\1.3\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f4e7adebf49e683db82fb6efac2caaf3d768b8d4">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.squareup.leakcanary-leakcanary-android-1.3_a764d250becd5e7a012748a2d158753320444d0a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\io.realm\realm-android-library\1.1.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c82387ef0b47739dc3fe7a92d910ad3f0e7cdf01">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\io.realm-realm-android-library-1.1.1_ed7e2152a63e51f4fd36a1110333a87247c482cd\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f83b00041ecfba705603fec40363416c7de69719">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_8852f9ce5cccc385425873f8d8c92624af0d9a37\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3af8cc51ef7088e56f132780da8c0bd858b6a6ad">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_c725e91fe8f3e13fd8cd77e576193a003b10e14d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.makeramen\roundedimageview\2.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="814fc0c3ec69a944add398217d90077301501a74">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.makeramen-roundedimageview-2.2.1_63b1dfde0d39d257e7f6dbafd39bf8ff1f364245\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="bc7e99e8d0fc279a05aa91378530f467ad62d443">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-25.0.1_d8262583368bdfe6661800f39f4d1b060f9d2807\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.getkeepsafe.relinker\relinker\1.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="264f0bc4c0680cfe7a60fea1f12a43f1ab48e7c8">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.getkeepsafe.relinker-relinker-1.2.1_0070b24507417132a3e25d8675166afcf06e3763\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\qxb-810\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.7\751f548c85fa49f330cecbb1875893f971b33c4e\gson-2.7.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="751f548c85fa49f330cecbb1875893f971b33c4e">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\gson-2.7_5789849ef36fdc64913605a765a8056d8aeabdfe\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="f7ac4b327fdb9e2ee386f5adc46164927658de4b">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-25.0.1_f9639de2e4d46fd25d8e1b701d75a2b678adadfa\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-25.0.1_b8f9843c6e7e356dbc09e507bb6b6a120f3c0d1f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\qxb-810\.gradle\caches\modules-2\files-2.1\com.squareup.okhttp3\okhttp\3.3.1\19047bdb6a4fc00a44124f64ca98e88fc204e7e3\okhttp-3.3.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="19047bdb6a4fc00a44124f64ca98e88fc204e7e3">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\okhttp-3.3.1_04139ff088a0ec56d63d1d4a037ff6fc500030f9\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.android.support\transition\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c1b6ab157e8e12cb08b9ee82bb5e3c5d22632eb3">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-transition-25.0.1_44729b8a62684381e991fadbf72a6e826894bb64\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\other\MyMVP\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b24e1c688744078e1fa833ffadf696794761bbe5">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-25.0.1_b69c2dee91c780274ce60cb13a5ff9b15d48baaa\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="c0bd6ffb002a85b5e7cad29f8558d1cc59539679">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_13f01b04ca302f167d2096b3f942653079d9373f\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.0.1\jars\libs\internal_impl-25.0.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3af8cc51ef7088e56f132780da8c0bd858b6a6ad">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\internal_impl-25.0.1_f0bf707b3c26481edbf050276a192d7d116841be\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="b24e1c688744078e1fa833ffadf696794761bbe5">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-25.0.1_054c01780cd7928e3af72d91fd2e16cabe49b5a0\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.android.support\design\25.0.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="3b236883e0df6002cabb01ce57d00a5b1e5de610">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-25.0.1_e7fb3d04b89bc47bae11b69580fc548d75e76b72\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.getkeepsafe.relinker\relinker\1.2.1\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="264f0bc4c0680cfe7a60fea1f12a43f1ab48e7c8">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.getkeepsafe.relinker-relinker-1.2.1_4a74f6c7624bf017b79b242fa7f978303681f95a\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\qxb-810\.gradle\caches\modules-2\files-2.1\com.jakewharton\butterknife-annotations\8.2.1\d6f54d76edfbe779a50a8636b10fd3f555d8f780\butterknife-annotations-8.2.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="d6f54d76edfbe779a50a8636b10fd3f555d8f780">
+        <dex dex="F:\other\MyMVP\app\build\intermediates\transforms\dex\debug\folders\1000\10\butterknife-annotations-8.2.1_0564d55a323681b526661e9181b69a68fe617a8c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="F:\code\FengLe\trunk\FengLe\app\build\intermediates\exploded-aar\com.tencent.bugly\crashreport\2.4.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.0"
+        sha1="77ce2479966f7f7fb8c18213136c6282d7390407">
+        <dex dex="F:\code\FengLe\trunk\FengLe\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.tencent.bugly-crashreport-2.4.0_00c88e312f68db677d0ed3a4b7ec929cf32a30b4\classes.dex" />
+    </item>
+
+</items>
