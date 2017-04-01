@@ -40,7 +40,8 @@ public class DayViewDecoratorEx implements DayViewDecorator {
 
     @Override
     public void decorate(DayViewFacade dayViewFacade) {
-        dayViewFacade.addSpan(new DotSpan(5, color));
+//        dayViewFacade.addSpan(new DotSpan(5, color));
+        dayViewFacade.setDaysDisabled(false);
 //        dayViewFacade.setShowLogo(true);
     }
 
