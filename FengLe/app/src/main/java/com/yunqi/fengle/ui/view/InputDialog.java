@@ -27,12 +27,16 @@ public class InputDialog extends Dialog {
     private EditText edit;
     private TextView txtTip;
     private int maxNum;
+    private String tip;
+    private String hint;
 
-    public InputDialog(Context context, int maxNum, OnConfirmListener listener) {
+    public InputDialog(Context context, int maxNum,String tip,String hint, OnConfirmListener listener) {
         super(context, R.style.MyDialog);
         this.listener = listener;
         this.context = context;
-        this.maxNum = maxNum;
+        this.maxNum=maxNum;
+        this.tip = tip;
+        this.hint = hint;
     }
 
     @Override
@@ -47,8 +51,9 @@ public class InputDialog extends Dialog {
         setContentView(view);
         edit = (EditText) view.findViewById(R.id.edit);
         txtTip = (TextView) view.findViewById(R.id.txt_tip);
-        String strTip = String.format(context.getString(R.string.tip_max_goods_num), maxNum);
+        String strTip = String.format(tip, maxNum);
         txtTip.setText(strTip);
+        edit.setHint(hint);
         TextView btnConfirm = (TextView) view.findViewById(R.id.btn_confirm);
         TextView btnCancel = (TextView) view.findViewById(R.id.btn_cancel);
         btnConfirm.setOnClickListener(new View.OnClickListener() {
@@ -56,19 +61,19 @@ public class InputDialog extends Dialog {
             public void onClick(View view) {
                 String txt = edit.getText().toString();
                 if (TextUtils.isEmpty(txt)) {
-                    ToastUtil.showErrorToast(context, "发货数量不能为空!");
+                    ToastUtil.showErrorToast(context, "数量不能为空!");
                     return;
                 }
                 int num = 0;
                 try {
                     num=Integer.parseInt(txt);
                 } catch (NumberFormatException e) {
-                    ToastUtil.showErrorToast(context, "发货数量输入不正确!");
+                    ToastUtil.showErrorToast(context, "数量输入不正确!");
                     e.printStackTrace();
                     return;
                 }
                 if (num > maxNum) {
-                    ToastUtil.showErrorToast(context, "不可超过最大发货数量!");
+                    ToastUtil.showErrorToast(context, "不可超过最大数量!");
                     return;
                 }
                 listener.onText(num);

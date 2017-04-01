@@ -143,6 +143,7 @@ public class AddTransferRequestActivity extends BaseActivity<AddTransferPresente
                             return;
                         }
                         Intent intent = new Intent(AddTransferRequestActivity.this, GoodsQueryActivity.class);
+                        intent.putExtra("module",AddTransferRequestActivity.this.getClass().getName());
                         intent.putExtra("userid",outCustomer.id);
                         if(!goodsArray.isEmpty()){
                             intent.putExtra("goodsArray",goodsArray);
@@ -184,20 +185,12 @@ public class AddTransferRequestActivity extends BaseActivity<AddTransferPresente
                 switch (v.getId()) {
                     case R.id.btn_commit:// 提交
                     {
-                        if (outCustomer == null||inCustomer==null) {
-                            ToastUtil.showNoticeToast(AddTransferRequestActivity.this,getString(R.string.warimg_unselect_in_or_out_customer));
-                            return;
-                        }
                         mStatus =2;
                         addBill();
                     }
                     break;
                     case R.id.btn_temporary:// 暂存
                     {
-                        if (outCustomer == null||inCustomer==null) {
-                            ToastUtil.showNoticeToast(AddTransferRequestActivity.this,getString(R.string.warimg_unselect_in_or_out_customer));
-                            return;
-                        }
                         mStatus = 1;
                         addBill();
                     }
@@ -213,6 +206,14 @@ public class AddTransferRequestActivity extends BaseActivity<AddTransferPresente
     }
 
     private void addBill() {
+        if (outCustomer == null||inCustomer==null) {
+            ToastUtil.showNoticeToast(AddTransferRequestActivity.this,getString(R.string.warimg_unselect_in_or_out_customer));
+            return;
+        }
+        if (outCustomer.custom_code.equals(inCustomer.custom_code)) {
+            ToastUtil.showNoticeToast(AddTransferRequestActivity.this,getString(R.string.warimg_customer_no_same));
+            return;
+        }
         TransferAddRequest request = new TransferAddRequest();
         request.userid = userId;
         request.client_code_from = outCustomer.custom_code;

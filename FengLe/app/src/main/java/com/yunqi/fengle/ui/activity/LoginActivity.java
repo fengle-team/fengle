@@ -158,7 +158,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void jump2Main(UserBean userBean) {
-        ToastUtil.showHookToast(LoginActivity.this, "登录成功!");
         PrefrenceUtils.getInstance(this).saveLoginName(loginname);
         PrefrenceUtils.getInstance(this).savePassword(password);
         PrefrenceUtils.getInstance(this).saveLoginStatus(Constants.STATUS_LOGINED);

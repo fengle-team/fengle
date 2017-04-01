@@ -126,6 +126,7 @@ public class AddDeliveryRequestActivity extends BaseActivity<AddDeliveryPresente
                         }
                         Intent intent = new Intent(AddDeliveryRequestActivity.this, GoodsQueryActivity.class);
                         intent.putExtra("type",1);
+                        intent.putExtra("module",AddDeliveryRequestActivity.this.getClass().getName());
                         if(!goodsArray.isEmpty()){
                             intent.putExtra("goodsArray",goodsArray);
                         }

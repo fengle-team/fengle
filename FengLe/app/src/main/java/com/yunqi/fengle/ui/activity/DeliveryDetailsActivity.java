@@ -325,7 +325,7 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
             ToastUtil.showHookToast(this, "单据更新状态成功！");
             Intent intent = new Intent();
             intent.putExtra("status", status);
-            setResult(DeliveryRequestActivity.UPDATE_DETAIL_RESULT_CODE, intent);
+            setResult(DeliveryRequestActivity.APPROVAL_DETAIL_RESULT_CODE, intent);
             finish();
         } else if (opraterType == 1) {
             ToastUtil.showHookToast(this, "单据删除成功！");

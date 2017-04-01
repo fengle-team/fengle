@@ -144,6 +144,7 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
                         }
                         Intent intent = new Intent(AddPlanAdjustmentRequestActivity.this, GoodsQueryActivity.class);
                         intent.putExtra("userid",outCustomer.id);
+                        intent.putExtra("module",AddPlanAdjustmentRequestActivity.this.getClass().getName());
                         if(!goodsArray.isEmpty()){
                             intent.putExtra("goodsArray",goodsArray);
                         }

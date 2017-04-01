@@ -13,7 +13,6 @@
         android:background="@drawable/selector_btn_straight_top"
         android:gravity="center"
         android:padding="15dp"
-        android:text="@string/tip_max_goods_num"
         android:textColor="@color/white"
         android:textSize="@dimen/text_normal_size" />
 
@@ -31,7 +30,6 @@
         android:textSize="@dimen/comom_txt_size_l"
         android:background="@color/white"
         android:textColorHint="@color/hint_color1"
-        android:hint="@string/hint_edit_num"
         android:inputType="numberSigned"
         android:lines="5"/>
 

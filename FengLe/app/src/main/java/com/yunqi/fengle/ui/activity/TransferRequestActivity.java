@@ -44,11 +44,12 @@ import rx.functions.Action1;
 public class TransferRequestActivity extends BaseActivity<TransferQueryPresenter> implements TransferRequestContract.View, RadioGroup.OnCheckedChangeListener {
 
 
-    private static final int ADD_REQUEST_CODE = 1;
+    public static final int ADD_REQUEST_CODE = 1;
     private static final int SELECT_CUSTOMER_REQUEST_CODE = 2;
     private static final int DETAIL_REQUEST_CODE = 3;
     public static final int DEL_DETAIL_RESULT_CODE = 1;
     public static final int UPDATE_DETAIL_RESULT_CODE = 2;
+    public static final int APPROVAL_DETAIL_RESULT_CODE = 3;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.radioGroup)
@@ -243,7 +244,7 @@ public class TransferRequestActivity extends BaseActivity<TransferQueryPresenter
         page = 1;
         if (requestCode == ADD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             int status = data.getIntExtra("status", 0);
-            if (status == mStatus) {
+            if (2 == mStatus) {
                 mPresenter.queryTransferApply(userId,keyword, mStatus, startTime, endTime, page);
             }
         }else if (requestCode == DETAIL_REQUEST_CODE && resultCode == DEL_DETAIL_RESULT_CODE) {
@@ -251,6 +252,11 @@ public class TransferRequestActivity extends BaseActivity<TransferQueryPresenter
             mlistTransferApply.remove(position);
             adapter.notifyDataSetChanged();
         } else if (requestCode == DETAIL_REQUEST_CODE && resultCode == UPDATE_DETAIL_RESULT_CODE) {
+            int status = data.getIntExtra("status", 0);
+            if (1 == mStatus) {
+                mPresenter.queryTransferApply(userId,keyword, mStatus, startTime, endTime, page);
+            }
+        }else if (requestCode == DETAIL_REQUEST_CODE && resultCode == APPROVAL_DETAIL_RESULT_CODE) {
             int status = data.getIntExtra("status", 0);
             if (2 == mStatus) {
                 mPresenter.queryTransferApply(userId,keyword, mStatus, startTime, endTime, page);

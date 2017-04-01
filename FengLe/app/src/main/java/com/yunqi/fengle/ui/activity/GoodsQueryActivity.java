@@ -60,8 +60,11 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
     private Warehouse selectedWarehouse;
     private ArrayList<GoodsAndWarehouse> listSelectGoods = new ArrayList<>();
     private int type=0;//0：表示根据用户查询货物 1：表示根据仓库查询货物
+    private String module="";
     private String user_code="";
     private String warehouse_code="";
+    private String maxGoodsNumTip;
+    private String hintGoodsNum;
     public ArrayList<GoodsAndWarehouse> goodsArray ;
 
     @Override
@@ -79,6 +82,27 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
 
         goodsArray= (ArrayList<GoodsAndWarehouse>) getIntent().getSerializableExtra("goodsArray");
         type=getIntent().getIntExtra("type",0);
+        module=getIntent().getStringExtra("module");
+        if(module.equals(AddDeliveryRequestActivity.class.getName())){
+            maxGoodsNumTip=getString(R.string.tip_max_goods_num_delivery);
+            hintGoodsNum=getString(R.string.hint_edit_num_delivery);
+        }
+        else if(module.equals(AddTransferRequestActivity.class.getName())){
+            maxGoodsNumTip=getString(R.string.tip_max_goods_num_transfer);
+            hintGoodsNum=getString(R.string.hint_edit_num_transfer);
+        }
+        else if(module.equals(AddReturnRequestActivity.class.getName())){
+            maxGoodsNumTip=getString(R.string.tip_max_goods_num_return);
+            hintGoodsNum=getString(R.string.hint_edit_num_return);
+        }
+        else if(module.equals(AddBillingRequestActivity.class.getName())){
+            maxGoodsNumTip=getString(R.string.tip_max_goods_num_bill);
+            hintGoodsNum=getString(R.string.hint_edit_num_bill);
+        }
+        else if(module.equals(AddPlanAdjustmentRequestActivity.class.getName())){
+            maxGoodsNumTip=getString(R.string.tip_max_goods_num_plan);
+            hintGoodsNum=getString(R.string.hint_edit_num_plan);
+        }
         if(type==1){
             rlayoutSelectWarehouse.setVisibility(View.VISIBLE);
         }
@@ -154,7 +178,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
                     }
                 }
                 if (goods_num> 0) {
-                    InputDialog dialog=new InputDialog(GoodsQueryActivity.this, goods_num, new InputDialog.OnConfirmListener() {
+                    InputDialog dialog=new InputDialog(GoodsQueryActivity.this, goods_num,maxGoodsNumTip,hintGoodsNum, new InputDialog.OnConfirmListener() {
                         @Override
                         public void onText(int num) {
                             GoodsAndWarehouse goodsAndWarehouse = new GoodsAndWarehouse();

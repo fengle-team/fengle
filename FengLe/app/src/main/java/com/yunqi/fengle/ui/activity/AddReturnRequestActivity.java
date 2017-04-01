@@ -126,6 +126,7 @@ public class AddReturnRequestActivity extends BaseActivity<AddReturnPresenter> i
                         }
                         Intent intent = new Intent(AddReturnRequestActivity.this, GoodsQueryActivity.class);
                         intent.putExtra("userid",selectCustomer.id);
+                        intent.putExtra("module",AddReturnRequestActivity.this.getClass().getName());
                         if(!goodsArray.isEmpty()){
                             intent.putExtra("goodsArray",goodsArray);
                         }

@@ -324,7 +324,7 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
             ToastUtil.showHookToast(this, "单据更新状态成功！");
             Intent intent = new Intent();
             intent.putExtra("status", status);
-            setResult(ReturnRequestActivity.UPDATE_DETAIL_RESULT_CODE, intent);
+            setResult(ReturnRequestActivity.APPROVAL_DETAIL_RESULT_CODE, intent);
             finish();
         } else if (opraterType == 1) {
             ToastUtil.showHookToast(this, "单据删除成功！");
