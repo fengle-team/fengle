@@ -72,7 +72,6 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
     private List<PlanAdjustmentDetail> mlistPlanAdjustmentDetail;
     private int positionGoods;
     private int type;
-    Button btnRight;
 
     @Override
     protected void initInject() {
@@ -91,18 +90,16 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
         position = getIntent().getExtras().getInt("position");
         status = planAdjustmentApply.status;
         id = planAdjustmentApply.id;
-        btnRight = (Button) toolbar.findViewById(R.id.btn_right);
-        btnRight.setText(R.string.operater);
-        btnRight.setVisibility(View.VISIBLE);
-        btnRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showBottomOpraterPopWindow(type);
-            }
-        });
-        setToolBar(toolbar, getString(R.string.module_area_query));
-
-
+        if (status > 2) {
+            setToolBar(toolbar, getString(R.string.module_plan_adjustment_detail));
+        } else {
+            setToolBar(toolbar, getString(R.string.module_plan_adjustment_detail), getString(R.string.operater), new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showBottomOpraterPopWindow(type);
+                }
+            });
+        }
         initData();
         setWidgetListener();
     }
@@ -130,7 +127,6 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
                 break;
             case 3:
                 strStatus = getString(R.string.bill_status_3);
-                btnRight.setVisibility(View.GONE);
                 break;
             case 4:
                 strStatus = getString(R.string.bill_status_4);

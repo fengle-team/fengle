@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -83,7 +85,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
         if (userBean == null) {
             App.getInstance().killAllActivities();
             ToastUtil.showNoticeToast(this, "系统内存不足，重新登录！");
-            startActivity(new Intent(this,LoginActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
             return false;
         }
         return true;
@@ -279,6 +281,48 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
         toolbar.setTitle("");//使用处于中间位置自定义Title
         TextView titleCenter = (TextView) toolbar.findViewById(R.id.title_center);
         titleCenter.setText(title);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressedSupport();
+            }
+        });
+    }
+
+    protected void setToolBar(Toolbar toolbar, String title, String strRight, View.OnClickListener listener) {
+        toolbar.setTitle("");//使用处于中间位置自定义Title
+        TextView titleCenter = (TextView) toolbar.findViewById(R.id.title_center);
+        titleCenter.setText(title);
+        ViewGroup layoutRight = (ViewGroup) toolbar.findViewById(R.id.layout_right);
+        layoutRight.setOnClickListener(listener);
+        layoutRight.setVisibility(View.VISIBLE);
+        TextView txtRight = (TextView) toolbar.findViewById(R.id.txt_right);
+        txtRight.setText(strRight);
+        txtRight.setVisibility(View.VISIBLE);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressedSupport();
+            }
+        });
+    }
+
+    protected void setToolBar(Toolbar toolbar, String title, int rightImgRes, View.OnClickListener listener) {
+        toolbar.setTitle("");//使用处于中间位置自定义Title
+        TextView titleCenter = (TextView) toolbar.findViewById(R.id.title_center);
+        titleCenter.setText(title);
+        ViewGroup layoutRight = (ViewGroup) toolbar.findViewById(R.id.layout_right);
+        layoutRight.setVisibility(View.VISIBLE);
+        layoutRight.setOnClickListener(listener);
+        ImageView imgRight = (ImageView) toolbar.findViewById(R.id.img_right);
+        imgRight.setImageResource(rightImgRes);
+        imgRight.setVisibility(View.VISIBLE);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

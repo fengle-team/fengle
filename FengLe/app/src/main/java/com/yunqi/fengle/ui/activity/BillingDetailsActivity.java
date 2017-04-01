@@ -74,7 +74,6 @@ public class BillingDetailsActivity extends BaseActivity<BillingDetailsPresenter
     private List<BillingDetail> mlistBillingDetail;
     private int positionGoods;
     private int type;
-    Button btnRight;
 
     @Override
     protected void initInject() {
@@ -93,16 +92,16 @@ public class BillingDetailsActivity extends BaseActivity<BillingDetailsPresenter
         position = getIntent().getExtras().getInt("position");
         status = billingApply.status;
         id = billingApply.id;
-        btnRight = (Button) toolbar.findViewById(R.id.btn_right);
-        btnRight.setText(R.string.operater);
-        btnRight.setVisibility(View.VISIBLE);
-        btnRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showBottomOpraterPopWindow(type);
-            }
-        });
-        setToolBar(toolbar, getString(R.string.module_billing_detail));
+        if (status > 2) {
+            setToolBar(toolbar, getString(R.string.module_billing_detail));
+        } else {
+            setToolBar(toolbar, getString(R.string.module_billing_detail), getString(R.string.operater), new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showBottomOpraterPopWindow(type);
+                }
+            });
+        }
 
 
         initData();
@@ -131,7 +130,6 @@ public class BillingDetailsActivity extends BaseActivity<BillingDetailsPresenter
                 break;
             case 3:
                 strStatus = getString(R.string.bill_status_3);
-                btnRight.setVisibility(View.GONE);
                 break;
             case 4:
                 strStatus = getString(R.string.bill_status_4);

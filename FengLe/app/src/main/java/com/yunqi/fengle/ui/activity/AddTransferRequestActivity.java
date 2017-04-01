@@ -87,11 +87,7 @@ public class AddTransferRequestActivity extends BaseActivity<AddTransferPresente
     @Override
     protected void initEventAndData() {
         userId= App.getInstance().getUserInfo().id;
-        Button btnRight = (Button) toolbar.findViewById(R.id.btn_right);
-        btnRight.setText(R.string.operater);
-        btnRight.setVisibility(View.VISIBLE);
-        setToolBar(toolbar, getString(R.string.module_add_transfer_request));
-        btnRight.setOnClickListener(new View.OnClickListener() {
+        setToolBar(toolbar, getString(R.string.module_add_transfer_request), getString(R.string.operater), new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showBottomOpraterPopWindow();

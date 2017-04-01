@@ -69,8 +69,6 @@ public class DeliveryRequestActivity extends BaseActivity<DeliveryQueryPresenter
     Button btnQuery;
     @BindView(R.id.edit_keyword)
     EditText editKeyword;
-
-    ImageView imgRight;
     private int mStatus = 1;
     private long lstartTime = 0;
     private long lendTime = 0;
@@ -97,10 +95,13 @@ public class DeliveryRequestActivity extends BaseActivity<DeliveryQueryPresenter
     @Override
     protected void initEventAndData() {
         userId = App.getInstance().getUserInfo().id;
-        imgRight = (ImageView) toolbar.findViewById(R.id.img_right);
-        imgRight.setVisibility(View.VISIBLE);
-        setToolBar(toolbar, getString(R.string.module_delivery_request));
-
+        setToolBar(toolbar, getString(R.string.module_delivery_request), R.drawable.right_add, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DeliveryRequestActivity.this, AddDeliveryRequestActivity.class);
+                startActivityForResult(intent, ADD_REQUEST_CODE);
+            }
+        });
         TableColumnWeightModel columnModel = new TableColumnWeightModel(4);
         columnModel.setColumnWeight(0, 2);
         columnModel.setColumnWeight(1, 3);
@@ -195,15 +196,6 @@ public class DeliveryRequestActivity extends BaseActivity<DeliveryQueryPresenter
                             }
                         });
                         dialog.show();
-                    }
-                });
-        RxView.clicks(imgRight)
-                .throttleFirst(1, TimeUnit.SECONDS)
-                .subscribe(new Action1<Void>() {
-                    @Override
-                    public void call(Void aVoid) {
-                        Intent intent = new Intent(DeliveryRequestActivity.this, AddDeliveryRequestActivity.class);
-                        startActivityForResult(intent, ADD_REQUEST_CODE);
                     }
                 });
 

@@ -113,11 +113,7 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
     protected void initEventAndData() {
         userId= App.getInstance().getUserInfo().id;
         person_code=App.getInstance().getUserInfo().user_code;
-        Button btnRight = (Button) toolbar.findViewById(R.id.btn_right);
-        btnRight.setText(R.string.operater);
-        btnRight.setVisibility(View.VISIBLE);
-        setToolBar(toolbar, getString(R.string.module_add_payment_declaration));
-        btnRight.setOnClickListener(new View.OnClickListener() {
+        setToolBar(toolbar, getString(R.string.module_add_payment_declaration), getString(R.string.operater), new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showBottomOpraterPopWindow();

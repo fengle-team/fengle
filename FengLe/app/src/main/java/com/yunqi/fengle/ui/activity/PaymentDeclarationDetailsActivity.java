@@ -4,20 +4,15 @@ package com.yunqi.fengle.ui.activity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.amap.api.location.APSService;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.base.BaseActivity;
 import com.yunqi.fengle.component.ImageLoader;
 import com.yunqi.fengle.model.bean.Payment;
 import com.yunqi.fengle.model.http.ApiService;
-import com.yunqi.fengle.model.http.RetrofitHelper;
-import com.yunqi.fengle.model.request.PaymentAddRequest;
 import com.yunqi.fengle.presenter.PaymentDeclarationDetailsPresenter;
-import com.yunqi.fengle.presenter.contract.AddPaymentDeclarationContract;
 import com.yunqi.fengle.presenter.contract.PaymentDeclarationDetailsContract;
 import com.yunqi.fengle.ui.view.BottomOpraterPopWindow;
 import com.yunqi.fengle.util.ToastUtil;
@@ -60,11 +55,7 @@ public class PaymentDeclarationDetailsActivity extends BaseActivity<PaymentDecla
     @Override
     protected void initEventAndData() {
         id = getIntent().getExtras().getInt("id");
-        Button btnRight = (Button) toolbar.findViewById(R.id.btn_right);
-        btnRight.setText(R.string.operater);
-        btnRight.setVisibility(View.VISIBLE);
-        setToolBar(toolbar, getString(R.string.module_payment_declaration_details));
-        btnRight.setOnClickListener(new View.OnClickListener() {
+        setToolBar(toolbar, getString(R.string.module_payment_declaration_details), R.string.operater, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showBottomOpraterPopWindow();
@@ -155,7 +146,7 @@ public class PaymentDeclarationDetailsActivity extends BaseActivity<PaymentDecla
         txtRemittanceDate.setText(payment.huikuan_time);
         txtRemitter.setText(payment.huikuan_name);
         txtAmount.setText(payment.huikuan_amount + "元");
-        ImageLoader.load(this, ApiService.baseUrl+payment.images, imgShow);
+        ImageLoader.load(this, ApiService.baseUrl + payment.images, imgShow);
 
     }
 

@@ -75,7 +75,6 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
     private List<DeliveryDetail> mlistDeliveryDetail;
     private int positionGoods;
     private int type;
-    Button btnRight;
 
     @Override
     protected void initInject() {
@@ -94,18 +93,16 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
         position = getIntent().getExtras().getInt("position");
         status = invoiceApply.status;
         id = invoiceApply.id;
-        btnRight = (Button) toolbar.findViewById(R.id.btn_right);
-        btnRight.setText(R.string.operater);
-        btnRight.setVisibility(View.VISIBLE);
-        btnRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showBottomOpraterPopWindow(type);
-            }
-        });
-        setToolBar(toolbar, getString(R.string.module_delivery_detail));
-
-
+        if (status > 2) {
+            setToolBar(toolbar, getString(R.string.module_delivery_detail));
+        } else {
+            setToolBar(toolbar, getString(R.string.module_delivery_detail), getString(R.string.operater), new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showBottomOpraterPopWindow(type);
+                }
+            });
+        }
         initData();
         setWidgetListener();
     }
@@ -124,15 +121,14 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                 //如果单据是本人提交的，则是未完成状态
                 if (id.equals(invoiceApply.userid)) {
                     strStatus = getString(R.string.bill_status_undone);
-                    type=0;
+                    type = 0;
                 } else {
                     strStatus = getString(R.string.bill_status_2);
-                    type=1;
+                    type = 1;
                 }
                 break;
             case 3:
                 strStatus = getString(R.string.bill_status_3);
-                btnRight.setVisibility(View.GONE);
                 break;
             case 4:
                 strStatus = getString(R.string.bill_status_4);
@@ -141,7 +137,7 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                 strStatus = getString(R.string.bill_status_unknown);
                 break;
         }
-        if(status>1){
+        if (status > 1) {
             btnSelectGoods.setVisibility(View.GONE);
         }
         txtStatus.setText(strStatus);
@@ -160,8 +156,8 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
         tableView.addDataClickListener(new TableDataClickListener<DeliveryDetail>() {
             @Override
             public void onDataClicked(final int rowIndex, DeliveryDetail deliveryDetail) {
-                if(status>1){
-                    ToastUtil.showNoticeToast(DeliveryDetailsActivity.this,"单据已提交，不可操作！");
+                if (status > 1) {
+                    ToastUtil.showNoticeToast(DeliveryDetailsActivity.this, "单据已提交，不可操作！");
                     return;
                 }
                 DialogHelper.showDialog(DeliveryDetailsActivity.this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
@@ -180,21 +176,20 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                     @Override
                     public void call(Void aVoid) {
                         Intent intent = new Intent(DeliveryDetailsActivity.this, GoodsQueryActivity.class);
-                        intent.putExtra("type",1);
-                        if(mlistDeliveryDetail!=null&&!mlistDeliveryDetail.isEmpty()){
-                            ArrayList<GoodsAndWarehouse> goodsArray=new ArrayList<>();
-                            for (DeliveryDetail deliveryDetail:mlistDeliveryDetail){
-                                GoodsAndWarehouse goodsAndWarehouse=new GoodsAndWarehouse();
-                                goodsAndWarehouse.goods=deliveryDetail;
+                        intent.putExtra("type", 1);
+                        if (mlistDeliveryDetail != null && !mlistDeliveryDetail.isEmpty()) {
+                            ArrayList<GoodsAndWarehouse> goodsArray = new ArrayList<>();
+                            for (DeliveryDetail deliveryDetail : mlistDeliveryDetail) {
+                                GoodsAndWarehouse goodsAndWarehouse = new GoodsAndWarehouse();
+                                goodsAndWarehouse.goods = deliveryDetail;
                                 goodsArray.add(goodsAndWarehouse);
                             }
-                            intent.putExtra("goodsArray",goodsArray);
+                            intent.putExtra("goodsArray", goodsArray);
                         }
                         startActivityForResult(intent, SELECT_GOODS_REQUEST_CODE);
                     }
                 });
     }
-
 
 
     /**
@@ -207,7 +202,7 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
             public void onClick(View v) {
                 // 隐藏弹出窗口
                 popWindow.dismiss();
-                if(type==0){
+                if (type == 0) {
                     switch (v.getId()) {
                         case R.id.btn_commit:// 提交
                             if (status == 2) {
@@ -215,15 +210,15 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                                 return;
                             }
 //                            mPresenter.updateStatus(id, 2);
-                            BillUpdateRequest request=new BillUpdateRequest();
-                            request.id=id;
-                            List<Goods> listGoods=new ArrayList<>();
-                            for (DeliveryDetail deliveryDetail:mlistDeliveryDetail){
+                            BillUpdateRequest request = new BillUpdateRequest();
+                            request.id = id;
+                            List<Goods> listGoods = new ArrayList<>();
+                            for (DeliveryDetail deliveryDetail : mlistDeliveryDetail) {
                                 listGoods.add(deliveryDetail);
                             }
-                            request.order_code=invoiceApply.order_code;
-                            request.goods_array=listGoods;
-                            request.status=2;
+                            request.order_code = invoiceApply.order_code;
+                            request.goods_array = listGoods;
+                            request.status = 2;
                             mPresenter.updateStatus(request);
                             break;
                         case R.id.btn_temporary:// 暂存
@@ -247,16 +242,15 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                         default:
                             break;
                     }
-                }
-                else {
-                    String userid=App.getInstance().getUserInfo().id;
-                    String orderCode=invoiceApply.order_code;
+                } else {
+                    String userid = App.getInstance().getUserInfo().id;
+                    String orderCode = invoiceApply.order_code;
                     switch (v.getId()) {
                         case R.id.btn_commit:// 待审核
-                            mPresenter.approval(userid,orderCode,3);
+                            mPresenter.approval(userid, orderCode, 3);
                             break;
                         case R.id.btn_temporary:// 审核驳回
-                            mPresenter.approval(userid,orderCode,4);
+                            mPresenter.approval(userid, orderCode, 4);
                             break;
                         case R.id.btn_cancel:// 取消
 
@@ -268,8 +262,8 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
 
             }
         });
-        if(type==1){
-            popWindow.setPopWindowTexts( getResources().getStringArray(R.array.oprater_audit));
+        if (type == 1) {
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_audit));
         }
         popWindow.showAtLocation(findViewById(R.id.main_layout), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
@@ -310,7 +304,6 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
     }
 
 
-
     @Override
     public void showContent(InvoiceApply invoiceApply) {
         txtCustomer.setText(invoiceApply.client_name);
@@ -337,15 +330,13 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
             ToastUtil.showHookToast(this, "所选货物删除成功！");
             mlistDeliveryDetail.remove(positionGoods);
             adapter.notifyDataSetChanged();
-        }
-        else if (opraterType == 3) {
+        } else if (opraterType == 3) {
             ToastUtil.showHookToast(this, "审批成功！");
             Intent intent = new Intent();
             intent.putExtra("status", status);
             setResult(DeliveryRequestActivity.UPDATE_DETAIL_RESULT_CODE, intent);
             finish();
-        }
-        else if (opraterType == 4) {
+        } else if (opraterType == 4) {
             ToastUtil.showHookToast(this, "单据已驳回！");
             Intent intent = new Intent();
             intent.putExtra("status", status);
@@ -359,18 +350,19 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SELECT_GOODS_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             ArrayList<GoodsAndWarehouse> goodsArray = (ArrayList<GoodsAndWarehouse>) data.getSerializableExtra("listSelectGoods");
-            for (GoodsAndWarehouse goodsAndWarehouse:goodsArray){
-                DeliveryDetail deliveryDetail=new DeliveryDetail();
-                deliveryDetail.warehouse_code=goodsAndWarehouse.goods.warehouse_code;
-                deliveryDetail.goods_warehouse=goodsAndWarehouse.goods.goods_warehouse;
-                deliveryDetail.goods_num=goodsAndWarehouse.goods.goods_num;
-                deliveryDetail.goods_id=goodsAndWarehouse.goods.goods_id;;
-                deliveryDetail.goods_code=goodsAndWarehouse.goods.goods_code;
-                deliveryDetail.goods_name=goodsAndWarehouse.goods.goods_name;
-                deliveryDetail.goods_standard=goodsAndWarehouse.goods.goods_standard;
-                deliveryDetail.goods_units_num=goodsAndWarehouse.goods.goods_units_num;
-                deliveryDetail.goods_price=goodsAndWarehouse.goods.goods_price;
-                deliveryDetail.phone=goodsAndWarehouse.goods.phone;
+            for (GoodsAndWarehouse goodsAndWarehouse : goodsArray) {
+                DeliveryDetail deliveryDetail = new DeliveryDetail();
+                deliveryDetail.warehouse_code = goodsAndWarehouse.goods.warehouse_code;
+                deliveryDetail.goods_warehouse = goodsAndWarehouse.goods.goods_warehouse;
+                deliveryDetail.goods_num = goodsAndWarehouse.goods.goods_num;
+                deliveryDetail.goods_id = goodsAndWarehouse.goods.goods_id;
+                ;
+                deliveryDetail.goods_code = goodsAndWarehouse.goods.goods_code;
+                deliveryDetail.goods_name = goodsAndWarehouse.goods.goods_name;
+                deliveryDetail.goods_standard = goodsAndWarehouse.goods.goods_standard;
+                deliveryDetail.goods_units_num = goodsAndWarehouse.goods.goods_units_num;
+                deliveryDetail.goods_price = goodsAndWarehouse.goods.goods_price;
+                deliveryDetail.phone = goodsAndWarehouse.goods.phone;
                 mlistDeliveryDetail.add(deliveryDetail);
             }
         }

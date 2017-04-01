@@ -71,7 +71,6 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
     private List<ReturnDetail> mlistReturnDetail;
     private int positionGoods;
     private int type;
-    Button btnRight;
 
     @Override
     protected void initInject() {
@@ -90,18 +89,16 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
         position = getIntent().getExtras().getInt("position");
         status = returnApply.status;
         id = returnApply.id;
-        btnRight = (Button) toolbar.findViewById(R.id.btn_right);
-        btnRight.setText(R.string.operater);
-        btnRight.setVisibility(View.VISIBLE);
-        btnRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showBottomOpraterPopWindow(type);
-            }
-        });
-        setToolBar(toolbar, getString(R.string.module_return_detail));
-
-
+        if (status > 2) {
+            setToolBar(toolbar, getString(R.string.module_return_detail));
+        } else {
+            setToolBar(toolbar, getString(R.string.module_return_detail), getString(R.string.operater), new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showBottomOpraterPopWindow(type);
+                }
+            });
+        }
         initData();
         setWidgetListener();
     }
@@ -128,7 +125,6 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
                 break;
             case 3:
                 strStatus = getString(R.string.bill_status_3);
-                btnRight.setVisibility(View.GONE);
                 break;
             case 4:
                 strStatus = getString(R.string.bill_status_4);

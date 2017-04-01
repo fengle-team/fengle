@@ -36,6 +36,8 @@
     <string name="module_payment_declaration">回款申报</string>
     <string name="module_payment_query">回款查询</string>
     <string name="module_plan_adjustment_request">计划调剂</string>
+    <string name="module_add_plan_adjustment">添加计划调剂</string>
+    <string name="module_plan_adjustment_detail">计划调剂详情</string>
     <string name="module_contacts_query">往来申请</string>
     <string name="module_customer_analysis">客户分析</string>
     <string name="module_visiting_plan">拜访计划</string>
