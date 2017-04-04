@@ -14,6 +14,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
         layout="@layout/layout_radiobuttom_three" />
+    <include
+        layout="@layout/layout_time_select" />
     <EditText
         android:id="@+id/edit_keyword"
         android:layout_width="match_parent"
@@ -31,8 +33,6 @@
         android:textColor="@color/text_color2"
         android:textColorHint="@color/hint_color1"
         android:textSize="@dimen/comom_txt_size_m" />
-    <include
-        layout="@layout/layout_time_select" />
     <Button
         android:id="@+id/btn_query"
         android:layout_width="match_parent"

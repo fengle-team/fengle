@@ -6,12 +6,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btn_loadmore"
-        android:layout_marginLeft="@dimen/common_left_margin"
-        android:layout_marginRight="@dimen/common_right_margin"
         android:layout_marginTop="18dp"
         android:scrollbars="none"
         table:tableView_columnCount="4"
         android:padding="1px"
+        android:background="@color/white"
         table:tableView_headerColor="@color/table_head_color"
         table:tableView_headerElevation="25" />
 

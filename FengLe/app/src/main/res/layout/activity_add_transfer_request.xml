@@ -138,8 +138,6 @@
         android:id="@+id/tableView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/common_left_margin"
-        android:layout_marginRight="@dimen/common_right_margin"
         android:layout_marginTop="18dp"
         android:scrollbars="none"
         table:tableView_columnCount="5"
