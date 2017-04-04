@@ -17,7 +17,7 @@ import java.util.List;
 import de.codecrafters.tableview.TableDataAdapter;
 
 
-public class CustomerTableDataAdapter extends TableDataAdapter<Customer> {
+public class CustomerTableDataAdapter extends BaseTableDataAdapter<Customer> {
     private Context context;
     private List<Customer> listSelect=new ArrayList<>();
     public CustomerTableDataAdapter(Context context, List<Customer> data) {
@@ -58,13 +58,6 @@ public class CustomerTableDataAdapter extends TableDataAdapter<Customer> {
                 renderedView = renderCustomerSelect(customer);
                 break;
         }
-        if(rowIndex%2==0){
-            renderedView.setBackgroundColor(getResources().getColor(R.color.white));
-        }
-        else{
-            renderedView.setBackgroundColor(getResources().getColor(R.color.bg_color3));
-        }
-
         return renderedView;
     }
 

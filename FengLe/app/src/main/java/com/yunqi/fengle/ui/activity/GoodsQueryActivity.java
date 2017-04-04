@@ -114,9 +114,9 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
         final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_goods_query));
         tableViewEx.tableView.setHeaderAdapter(tableHeader1Adapter);
         TableColumnWeightModel columnModel = new TableColumnWeightModel(4);
-        columnModel.setColumnWeight(0, 2);
+        columnModel.setColumnWeight(0, 1);
         columnModel.setColumnWeight(1, 2);
-        columnModel.setColumnWeight(2, 2);
+        columnModel.setColumnWeight(2, 1);
         columnModel.setColumnWeight(3, 1);
         tableViewEx.tableView.setColumnModel(columnModel);
         mPresenter.queryGoods(keyword, user_code,warehouse_code, page);
@@ -178,7 +178,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
                     }
                 }
                 if (goods_num> 0) {
-                    InputDialog dialog=new InputDialog(GoodsQueryActivity.this, goods_num,maxGoodsNumTip,hintGoodsNum, new InputDialog.OnConfirmListener() {
+                    InputDialog dialog=new InputDialog(GoodsQueryActivity.this, goods_num,maxGoodsNumTip,hintGoodsNum, goods,new InputDialog.OnConfirmListener() {
                         @Override
                         public void onText(int num) {
                             GoodsAndWarehouse goodsAndWarehouse = new GoodsAndWarehouse();

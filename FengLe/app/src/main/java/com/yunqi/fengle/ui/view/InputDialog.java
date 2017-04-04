@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.yunqi.fengle.R;
+import com.yunqi.fengle.model.bean.Goods;
 import com.yunqi.fengle.util.ToastUtil;
 
 /**
@@ -29,14 +30,17 @@ public class InputDialog extends Dialog {
     private int maxNum;
     private String tip;
     private String hint;
+    private Goods goods;
 
-    public InputDialog(Context context, int maxNum,String tip,String hint, OnConfirmListener listener) {
+    public InputDialog(Context context, int maxNum, String tip, String hint, Goods goods, OnConfirmListener listener) {
         super(context, R.style.MyDialog);
         this.listener = listener;
         this.context = context;
         this.maxNum=maxNum;
+        this.goods = goods;
         this.tip = tip;
         this.hint = hint;
+
     }
 
     @Override
@@ -51,9 +55,10 @@ public class InputDialog extends Dialog {
         setContentView(view);
         edit = (EditText) view.findViewById(R.id.edit);
         txtTip = (TextView) view.findViewById(R.id.txt_tip);
-        String strTip = String.format(tip, maxNum);
+        String strHint = String.format(tip, maxNum);
+        String strTip = goods.goods_name+"--"+goods.goods_standard;
         txtTip.setText(strTip);
-        edit.setHint(hint);
+        edit.setHint(strHint);
         TextView btnConfirm = (TextView) view.findViewById(R.id.btn_confirm);
         TextView btnCancel = (TextView) view.findViewById(R.id.btn_cancel);
         btnConfirm.setOnClickListener(new View.OnClickListener() {

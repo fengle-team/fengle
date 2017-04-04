@@ -14,7 +14,7 @@ import java.util.List;
 import de.codecrafters.tableview.TableDataAdapter;
 
 
-public class PlanAdjustmentDetailTableDataAdapter extends TableDataAdapter<PlanAdjustmentDetail> {
+public class PlanAdjustmentDetailTableDataAdapter extends BaseTableDataAdapter<PlanAdjustmentDetail> {
     private Context context;
 
     public PlanAdjustmentDetailTableDataAdapter(Context context, List<PlanAdjustmentDetail> data) {
@@ -44,12 +44,6 @@ public class PlanAdjustmentDetailTableDataAdapter extends TableDataAdapter<PlanA
                 renderedView = renderOperater(planAdjustmentDetail);
                 break;
         }
-        if (rowIndex % 2 == 0) {
-            renderedView.setBackgroundColor(getResources().getColor(R.color.white));
-        } else {
-            renderedView.setBackgroundColor(getResources().getColor(R.color.bg_color3));
-        }
-
         return renderedView;
     }
 

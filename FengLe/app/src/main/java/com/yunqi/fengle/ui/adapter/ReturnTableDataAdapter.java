@@ -16,7 +16,7 @@ import java.util.List;
 import de.codecrafters.tableview.TableDataAdapter;
 
 
-public class ReturnTableDataAdapter extends TableDataAdapter<ReturnApply> {
+public class ReturnTableDataAdapter extends BaseTableDataAdapter<ReturnApply> {
     private Context context;
 
     public ReturnTableDataAdapter(Context context, List<ReturnApply> data) {
@@ -43,12 +43,6 @@ public class ReturnTableDataAdapter extends TableDataAdapter<ReturnApply> {
                 renderedView = renderOprater(ReturnApply);
                 break;
         }
-        if (rowIndex % 2 == 0) {
-            renderedView.setBackgroundColor(getResources().getColor(R.color.white));
-        } else {
-            renderedView.setBackgroundColor(getResources().getColor(R.color.bg_color3));
-        }
-
         return renderedView;
     }
 

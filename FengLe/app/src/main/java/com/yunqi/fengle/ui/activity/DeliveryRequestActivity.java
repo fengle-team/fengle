@@ -103,10 +103,10 @@ public class DeliveryRequestActivity extends BaseActivity<DeliveryQueryPresenter
             }
         });
         TableColumnWeightModel columnModel = new TableColumnWeightModel(4);
-        columnModel.setColumnWeight(0, 2);
-        columnModel.setColumnWeight(1, 3);
-        columnModel.setColumnWeight(2, 2);
-        columnModel.setColumnWeight(3, 2);
+        columnModel.setColumnWeight(0, 1);
+        columnModel.setColumnWeight(1, 2);
+        columnModel.setColumnWeight(2, 1);
+        columnModel.setColumnWeight(3, 1);
         tableViewEx.tableView.setColumnModel(columnModel);
         final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_bill_request));
         tableViewEx.tableView.setHeaderAdapter(tableHeader1Adapter);

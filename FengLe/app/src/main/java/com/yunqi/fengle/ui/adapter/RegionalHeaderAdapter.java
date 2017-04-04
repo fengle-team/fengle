@@ -19,7 +19,7 @@ import de.codecrafters.tableview.TableDataAdapter;
  * @Description: 大区排名 {@link com.yunqi.fengle.ui.fragment.RegionalRankingFragment}
  */
 
-public class RegionalHeaderAdapter extends TableDataAdapter<Object> {
+public class RegionalHeaderAdapter extends BaseTableDataAdapter<Object> {
 
     private Context mContext;
 
@@ -39,13 +39,6 @@ public class RegionalHeaderAdapter extends TableDataAdapter<Object> {
         View renderedView = null;
 
          renderedView = renderString("呵呵");
-
-        if(rowIndex%2==0){
-            renderedView.setBackgroundColor(getResources().getColor(R.color.white));
-        }
-        else{
-            renderedView.setBackgroundColor(getResources().getColor(R.color.bg_color3));
-        }
 
         return renderedView;
     }

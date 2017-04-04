@@ -14,7 +14,7 @@ import java.util.List;
 import de.codecrafters.tableview.TableDataAdapter;
 
 
-public class TransferDetailTableDataAdapter extends TableDataAdapter<TransferDetail> {
+public class TransferDetailTableDataAdapter extends BaseTableDataAdapter<TransferDetail> {
     private Context context;
 
     public TransferDetailTableDataAdapter(Context context, List<TransferDetail> data) {
@@ -44,12 +44,6 @@ public class TransferDetailTableDataAdapter extends TableDataAdapter<TransferDet
                 renderedView = renderOperater(transferDetail);
                 break;
         }
-        if (rowIndex % 2 == 0) {
-            renderedView.setBackgroundColor(getResources().getColor(R.color.white));
-        } else {
-            renderedView.setBackgroundColor(getResources().getColor(R.color.bg_color3));
-        }
-
         return renderedView;
     }
 

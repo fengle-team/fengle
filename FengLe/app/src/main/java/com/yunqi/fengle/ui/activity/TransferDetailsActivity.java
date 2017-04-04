@@ -37,6 +37,7 @@ import butterknife.BindView;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.codecrafters.tableview.TableView;
 import de.codecrafters.tableview.listeners.TableDataClickListener;
+import de.codecrafters.tableview.model.TableColumnWeightModel;
 import rx.functions.Action1;
 
 /**
@@ -141,6 +142,13 @@ public class TransferDetailsActivity extends BaseActivity<TransferDetailsPresent
         txtStatus.setText(strStatus);
         final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_add_delivey_request));
         tableView.setHeaderAdapter(tableHeader1Adapter);
+        TableColumnWeightModel columnModel = new TableColumnWeightModel(5);
+        columnModel.setColumnWeight(0, 2);
+        columnModel.setColumnWeight(1, 1);
+        columnModel.setColumnWeight(2, 1);
+        columnModel.setColumnWeight(3, 1);
+        columnModel.setColumnWeight(4, 1);
+        tableView.setColumnModel(columnModel);
         tableView.addDataClickListener(new TableDataClickListener<TransferDetail>() {
             @Override
             public void onDataClicked(final int rowIndex, TransferDetail TransferDetail) {

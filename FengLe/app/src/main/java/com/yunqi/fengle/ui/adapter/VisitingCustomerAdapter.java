@@ -25,7 +25,7 @@ import de.codecrafters.tableview.model.TableColumnModel;
  * @Description:(这里用一句话描述这个类的作用)
  */
 
-public class VisitingCustomerAdapter extends TableDataAdapter<CustomersResponse> {
+public class VisitingCustomerAdapter extends BaseTableDataAdapter<CustomersResponse> {
 
     private Context mContext;
 
@@ -55,13 +55,6 @@ public class VisitingCustomerAdapter extends TableDataAdapter<CustomersResponse>
         } else if (columnIndex == 2) {//职位
             renderedView = renderString(bean.getPosition());
         }
-
-        if (rowIndex % 2 == 0) {
-            renderedView.setBackgroundColor(getResources().getColor(R.color.white));
-        } else {
-            renderedView.setBackgroundColor(getResources().getColor(R.color.bg_color3));
-        }
-
         return renderedView;
     }
 

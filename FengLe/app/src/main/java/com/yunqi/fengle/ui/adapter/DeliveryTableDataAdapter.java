@@ -17,7 +17,7 @@ import java.util.List;
 import de.codecrafters.tableview.TableDataAdapter;
 
 
-public class DeliveryTableDataAdapter extends TableDataAdapter<InvoiceApply> {
+public class DeliveryTableDataAdapter extends BaseTableDataAdapter<InvoiceApply> {
     private Context context;
 
     public DeliveryTableDataAdapter(Context context, List<InvoiceApply> data) {
@@ -44,12 +44,6 @@ public class DeliveryTableDataAdapter extends TableDataAdapter<InvoiceApply> {
                 renderedView = renderOprater(invoiceApply);
                 break;
         }
-        if (rowIndex % 2 == 0) {
-            renderedView.setBackgroundColor(getResources().getColor(R.color.white));
-        } else {
-            renderedView.setBackgroundColor(getResources().getColor(R.color.bg_color3));
-        }
-
         return renderedView;
     }
 
@@ -93,6 +87,8 @@ public class DeliveryTableDataAdapter extends TableDataAdapter<InvoiceApply> {
     private View renderInvoiceApplyTime(InvoiceApply invoiceApply) {
         return renderString(TimeUtil.converTime("yyyy-MM-dd HH:mm:ss","yyyy-MM-dd",invoiceApply.create_time));
     }
+
+
 
     private View renderString(final String value) {
         View view = LayoutInflater.from(context).inflate(R.layout.table_data_view, null);

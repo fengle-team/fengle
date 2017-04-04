@@ -4,19 +4,16 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.model.bean.Goods;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import de.codecrafters.tableview.TableDataAdapter;
 
 
-public class StockTableDataAdapter extends TableDataAdapter<Goods> {
+public class StockTableDataAdapter extends BaseTableDataAdapter<Goods> {
     private Context context;
     public StockTableDataAdapter(Context context, List<Goods> data) {
         super(context, data);
@@ -32,55 +29,49 @@ public class StockTableDataAdapter extends TableDataAdapter<Goods> {
         switch (columnIndex) {
 
             case 0:
-                renderedView = renderGoodsName(goods);
+                renderedView = renderGoodsName(goods,parentView);
                 break;
             case 1:
-                renderedView = renderGoodsStandard(goods);
+                renderedView = renderGoodsStandard(goods,parentView);
                 break;
             case 2:
-                renderedView = renderGoodsPlan(goods);
+                renderedView = renderGoodsPlan(goods,parentView);
                 break;
             case 3:
-                renderedView = renderGoodsWarehouse(goods);
+                renderedView = renderGoodsWarehouse(goods,parentView);
                 break;
             case 4:
-                renderedView = renderGoodsPrice(goods);
+                renderedView = renderGoodsPrice(goods,parentView);
                 break;
         }
-        if(rowIndex%2==0){
-            renderedView.setBackgroundColor(getResources().getColor(R.color.white));
-        }
-        else{
-            renderedView.setBackgroundColor(getResources().getColor(R.color.bg_color3));
-        }
-
         return renderedView;
     }
 
 
-    private View renderGoodsPrice(Goods goods) {
-        return renderString(goods.goods_price+"");
+
+    private View renderGoodsPrice(Goods goods,ViewGroup parentView ) {
+        return renderString(goods.goods_price+"",parentView);
     }
 
-    private View renderGoodsStandard(Goods goods) {
-        return renderString(goods.goods_standard);
+    private View renderGoodsStandard(Goods goods,ViewGroup parentView ) {
+        return renderString(goods.goods_standard,parentView);
     }
 
-    private View renderGoodsName(Goods goods) {
-        return renderString(goods.goods_name);
+    private View renderGoodsName(Goods goods,ViewGroup parentView ) {
+        return renderString(goods.goods_name,parentView);
     }
-    private View renderGoodsWarehouse(Goods goods) {
-        return renderString(goods.goods_num+"");
-    }
-
-
-    private View renderGoodsPlan(Goods goods) {
-        return renderString(goods.goods_plan);
+    private View renderGoodsWarehouse(Goods goods,ViewGroup parentView ) {
+        return renderString(goods.goods_num+"",parentView);
     }
 
-    private View renderString(final String value) {
-        View view = LayoutInflater.from(context).inflate(R.layout.table_data_view, null);
-        TextView textView = (TextView) view.findViewById(R.id.txt);
+
+    private View renderGoodsPlan(Goods goods,ViewGroup parentView ) {
+        return renderString(goods.goods_plan,parentView);
+    }
+
+    private View renderString( String value,ViewGroup parentView ) {
+        final View view = getLayoutInflater().inflate(R.layout.table_data_view, parentView, false);
+        final TextView textView = (TextView) view.findViewById(R.id.txt);
         textView.setText(value);
         return view;
     }

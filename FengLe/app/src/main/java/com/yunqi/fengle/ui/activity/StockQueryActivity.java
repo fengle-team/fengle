@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import de.codecrafters.tableview.model.TableColumnWeightModel;
 import rx.functions.Action1;
 
 /**
@@ -69,7 +70,14 @@ public class StockQueryActivity extends BaseActivity<StockQueryPresenter> implem
         setWigetListener();
         final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_stock));
         tableViewEx.tableView.setHeaderAdapter(tableHeader1Adapter);
-        tableViewEx.tableView.setColumnCount(5);
+//        tableViewEx.tableView.setColumnCount(5);
+                TableColumnWeightModel columnModel = new TableColumnWeightModel(5);
+        columnModel.setColumnWeight(0, 2);
+        columnModel.setColumnWeight(1, 1);
+        columnModel.setColumnWeight(2, 1);
+        columnModel.setColumnWeight(3, 1);
+        columnModel.setColumnWeight(4, 1);
+        tableViewEx.tableView.setColumnModel(columnModel);
         tableViewEx.setOnLoadMoreListener(new ExTableView.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {

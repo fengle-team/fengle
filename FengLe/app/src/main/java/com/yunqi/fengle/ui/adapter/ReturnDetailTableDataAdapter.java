@@ -14,7 +14,7 @@ import java.util.List;
 import de.codecrafters.tableview.TableDataAdapter;
 
 
-public class ReturnDetailTableDataAdapter extends TableDataAdapter<ReturnDetail> {
+public class ReturnDetailTableDataAdapter extends BaseTableDataAdapter<ReturnDetail> {
     private Context context;
 
     public ReturnDetailTableDataAdapter(Context context, List<ReturnDetail> data) {
@@ -44,12 +44,6 @@ public class ReturnDetailTableDataAdapter extends TableDataAdapter<ReturnDetail>
                 renderedView = renderOperater(returnDetail);
                 break;
         }
-        if (rowIndex % 2 == 0) {
-            renderedView.setBackgroundColor(getResources().getColor(R.color.white));
-        } else {
-            renderedView.setBackgroundColor(getResources().getColor(R.color.bg_color3));
-        }
-
         return renderedView;
     }
 

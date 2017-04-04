@@ -16,7 +16,7 @@ import java.util.List;
 import de.codecrafters.tableview.TableDataAdapter;
 
 
-public class PaymentTableDataAdapter extends TableDataAdapter<Payment> {
+public class PaymentTableDataAdapter extends BaseTableDataAdapter<Payment> {
     private Context context;
     public PaymentTableDataAdapter(Context context, List<Payment> data) {
         super(context, data);
@@ -42,13 +42,6 @@ public class PaymentTableDataAdapter extends TableDataAdapter<Payment> {
                 renderedView = renderOprater(payment);
                 break;
         }
-        if(rowIndex%2==0){
-            renderedView.setBackgroundColor(getResources().getColor(R.color.white));
-        }
-        else{
-            renderedView.setBackgroundColor(getResources().getColor(R.color.bg_color3));
-        }
-
         return renderedView;
     }
 

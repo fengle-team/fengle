@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yunqi.fengle.R;
@@ -15,6 +16,15 @@ import de.codecrafters.tableview.TableHeaderAdapter;
 public class TableHeader1Adapter extends TableHeaderAdapter {
 
     private Context context;
+
+    @Override
+    public View getDividerView() {
+        LinearLayout.LayoutParams diverLayoutParams = new LinearLayout.LayoutParams(1, LinearLayout.LayoutParams.MATCH_PARENT);
+        View view=new View(context);
+        view.setBackgroundColor(getResources().getColor(R.color.line_bg));
+        view.setLayoutParams(diverLayoutParams);
+        return view;
+    }
 
     @Override
     public View getHeaderView(int columnIndex, ViewGroup viewGroup) {
@@ -44,7 +54,6 @@ public class TableHeader1Adapter extends TableHeaderAdapter {
         for (int i = 0; i < headerStringResources.length; ++i) {
             this.headers[i] = context.getString(headerStringResources[i]);
         }
-
     }
 
 }

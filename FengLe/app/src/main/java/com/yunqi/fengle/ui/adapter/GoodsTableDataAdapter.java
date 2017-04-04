@@ -19,7 +19,7 @@ import java.util.List;
 import de.codecrafters.tableview.TableDataAdapter;
 
 
-public class GoodsTableDataAdapter extends TableDataAdapter<Goods> {
+public class GoodsTableDataAdapter extends BaseTableDataAdapter<Goods> {
     private Context context;
     private List<Goods> listSelect=new ArrayList<>();
     public GoodsTableDataAdapter(Context context, List<Goods> data) {
@@ -53,13 +53,6 @@ public class GoodsTableDataAdapter extends TableDataAdapter<Goods> {
                 renderedView = renderGoodsSelect(goods);
                 break;
         }
-        if(rowIndex%2==0){
-            renderedView.setBackgroundColor(getResources().getColor(R.color.white));
-        }
-        else{
-            renderedView.setBackgroundColor(getResources().getColor(R.color.bg_color3));
-        }
-
         return renderedView;
     }
 

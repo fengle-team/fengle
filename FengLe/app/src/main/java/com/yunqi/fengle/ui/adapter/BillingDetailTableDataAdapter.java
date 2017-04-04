@@ -14,7 +14,7 @@ import java.util.List;
 import de.codecrafters.tableview.TableDataAdapter;
 
 
-public class BillingDetailTableDataAdapter extends TableDataAdapter<BillingDetail> {
+public class BillingDetailTableDataAdapter extends BaseTableDataAdapter<BillingDetail> {
     private Context context;
 
     public BillingDetailTableDataAdapter(Context context, List<BillingDetail> data) {
@@ -43,11 +43,6 @@ public class BillingDetailTableDataAdapter extends TableDataAdapter<BillingDetai
             case 4:
                 renderedView = renderOperater(BillingDetail);
                 break;
-        }
-        if (rowIndex % 2 == 0) {
-            renderedView.setBackgroundColor(getResources().getColor(R.color.white));
-        } else {
-            renderedView.setBackgroundColor(getResources().getColor(R.color.bg_color3));
         }
 
         return renderedView;

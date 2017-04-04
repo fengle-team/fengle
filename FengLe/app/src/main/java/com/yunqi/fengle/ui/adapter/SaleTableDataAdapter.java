@@ -17,7 +17,7 @@ import java.util.List;
 import de.codecrafters.tableview.TableDataAdapter;
 
 
-public class SaleTableDataAdapter extends TableDataAdapter<SaleInfo> {
+public class SaleTableDataAdapter extends BaseTableDataAdapter<SaleInfo> {
     private Context context;
     public SaleTableDataAdapter(Context context, List<SaleInfo> data) {
         super(context, data);
@@ -43,12 +43,6 @@ public class SaleTableDataAdapter extends TableDataAdapter<SaleInfo> {
             case 3:
                 renderedView = renderGoodsDetail(saleInfo);
                 break;
-        }
-        if(rowIndex%2==0){
-            renderedView.setBackgroundColor(getResources().getColor(R.color.white));
-        }
-        else{
-            renderedView.setBackgroundColor(getResources().getColor(R.color.bg_color3));
         }
 
         return renderedView;

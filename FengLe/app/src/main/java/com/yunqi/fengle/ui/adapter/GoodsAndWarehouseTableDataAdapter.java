@@ -17,7 +17,7 @@ import java.util.List;
 import de.codecrafters.tableview.TableDataAdapter;
 
 
-public class GoodsAndWarehouseTableDataAdapter extends TableDataAdapter<GoodsAndWarehouse> {
+public class GoodsAndWarehouseTableDataAdapter extends BaseTableDataAdapter<GoodsAndWarehouse> {
     private Context context;
     public GoodsAndWarehouseTableDataAdapter(Context context, List<GoodsAndWarehouse> data) {
         super(context, data);
@@ -49,13 +49,6 @@ public class GoodsAndWarehouseTableDataAdapter extends TableDataAdapter<GoodsAnd
                 renderedView = renderOprater(goodsAndWarehouse);
                 break;
         }
-        if(rowIndex%2==0){
-            renderedView.setBackgroundColor(getResources().getColor(R.color.white));
-        }
-        else{
-            renderedView.setBackgroundColor(getResources().getColor(R.color.bg_color3));
-        }
-
         return renderedView;
     }
 
@@ -85,8 +78,6 @@ public class GoodsAndWarehouseTableDataAdapter extends TableDataAdapter<GoodsAnd
     private View renderGoodsStandard(GoodsAndWarehouse goodsAndWarehouse) {
         return renderString(goodsAndWarehouse.goods.goods_standard);
     }
-
-
     private View renderString(final String value) {
         View view = LayoutInflater.from(context).inflate(R.layout.table_data_view, null);
         TextView textView = (TextView) view.findViewById(R.id.txt);

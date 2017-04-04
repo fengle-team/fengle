@@ -16,7 +16,7 @@ import java.util.List;
 import de.codecrafters.tableview.TableDataAdapter;
 
 
-public class DeliveryDetailTableDataAdapter extends TableDataAdapter<DeliveryDetail> {
+public class DeliveryDetailTableDataAdapter extends BaseTableDataAdapter<DeliveryDetail> {
     private Context context;
 
     public DeliveryDetailTableDataAdapter(Context context, List<DeliveryDetail> data) {
@@ -46,12 +46,6 @@ public class DeliveryDetailTableDataAdapter extends TableDataAdapter<DeliveryDet
                 renderedView = renderOperater(deliveryDetail);
                 break;
         }
-        if (rowIndex % 2 == 0) {
-            renderedView.setBackgroundColor(getResources().getColor(R.color.white));
-        } else {
-            renderedView.setBackgroundColor(getResources().getColor(R.color.bg_color3));
-        }
-
         return renderedView;
     }
 
@@ -86,5 +80,6 @@ public class DeliveryDetailTableDataAdapter extends TableDataAdapter<DeliveryDet
         textView.setText(value);
         return view;
     }
+
 
 }
