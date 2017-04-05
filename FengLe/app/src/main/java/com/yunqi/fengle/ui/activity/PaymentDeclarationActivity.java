@@ -58,8 +58,6 @@ public class PaymentDeclarationActivity extends BaseActivity<PaymentQueryPresent
     @BindView(R.id.btn_query)
     Button btnQuery;
 
-
-    ImageView imgRight;
     private long lstartTime = 0;
     private long lendTime = 0;
     private String startTime;
@@ -72,7 +70,6 @@ public class PaymentDeclarationActivity extends BaseActivity<PaymentQueryPresent
 
     private String lastStartTime = null;
     private String lastEndTime = null;
-    private SweetAlertDialog loadingDialog;
     private int positionPayment;
 
 
@@ -89,9 +86,13 @@ public class PaymentDeclarationActivity extends BaseActivity<PaymentQueryPresent
     @Override
     protected void initEventAndData() {
         userId = App.getInstance().getUserInfo().id;
-        imgRight = (ImageView) toolbar.findViewById(R.id.img_right);
-        imgRight.setVisibility(View.VISIBLE);
-        setToolBar(toolbar, getString(R.string.module_payment_declaration));
+        setToolBar(toolbar, getString(R.string.module_payment_declaration), R.drawable.right_add, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(PaymentDeclarationActivity.this, AddPaymentDeclarationActivity.class);
+                startActivityForResult(intent, 1);
+            }
+        });
         final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_payment_declaration));
         tableViewEx.tableView.setHeaderAdapter(tableHeader1Adapter);
         adapter = new PaymentTableDataAdapter(this, mlistPayment);
@@ -137,13 +138,6 @@ public class PaymentDeclarationActivity extends BaseActivity<PaymentQueryPresent
                     return;
                 }
                 mPresenter.queryPayment(userId, status, lastStartTime, lastEndTime, ++page);
-            }
-        });
-        imgRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(PaymentDeclarationActivity.this, AddPaymentDeclarationActivity.class);
-                startActivityForResult(intent, 1);
             }
         });
         RxView.clicks(btnQuery)
