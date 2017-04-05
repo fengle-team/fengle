@@ -33,7 +33,7 @@ public class PaymentTableDataAdapter extends BaseTableDataAdapter<Payment> {
                 renderedView = renderPaymentDate(payment);
                 break;
             case 1:
-                renderedView = renderRemitterName(payment);
+                renderedView = renderClientName(payment);
                 break;
             case 2:
                 renderedView = renderRemittanceAmount(payment);
@@ -54,8 +54,8 @@ public class PaymentTableDataAdapter extends BaseTableDataAdapter<Payment> {
         return renderString(payment.huikuan_amount+"");
     }
 
-    private View renderRemitterName(Payment payment) {
-        return renderString(payment.huikuan_name);
+    private View renderClientName(Payment payment) {
+        return renderString(payment.client_name);
     }
 
     private View renderPaymentDate(Payment payment ) {

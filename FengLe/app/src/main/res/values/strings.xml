@@ -168,7 +168,7 @@
     </string-array>
     <string-array name="header_title_payment_declaration">
         <item>汇款日期</item>
-        <item>汇款人</item>
+        <item>客户名称</item>
         <item>金额</item>
         <item>操作</item>
     </string-array>
@@ -186,7 +186,7 @@
     <string-array name="oprater_add">
         <item>提交</item>
         <item>暂存</item>
-        <item>放弃</item>
+        <item>删除</item>
     </string-array>
 
     <string-array name="oprater_audit">
@@ -203,7 +203,7 @@
 
     <string name="commit">提交</string>
     <string name="temporary">暂存</string>
-    <string name="drop">放弃</string>
+    <string name="drop">删除</string>
 
     <string name="reject">驳回</string>
     <string name="audit_through">审核通过</string>

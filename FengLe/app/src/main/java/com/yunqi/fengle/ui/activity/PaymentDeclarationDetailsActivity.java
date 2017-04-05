@@ -142,7 +142,7 @@ public class PaymentDeclarationDetailsActivity extends BaseActivity<PaymentDecla
 
     @Override
     public void showContent(Payment payment) {
-        txtCustomer.setText(payment.clientName);
+        txtCustomer.setText(payment.client_name);
         txtRemittanceDate.setText(payment.huikuan_time);
         txtRemitter.setText(payment.huikuan_name);
         txtAmount.setText(payment.huikuan_amount + "元");

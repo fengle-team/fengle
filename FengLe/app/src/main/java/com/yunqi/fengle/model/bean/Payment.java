@@ -8,7 +8,7 @@ package com.yunqi.fengle.model.bean;
 public class Payment {
     public int hk_id;
     public String client_id;
-    public String clientName="";
+    public String client_name="";
     public String huikuan_time;
     public String huikuan_type;
     public String huikuan_name;

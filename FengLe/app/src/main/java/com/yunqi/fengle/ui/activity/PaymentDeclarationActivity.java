@@ -33,6 +33,7 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.codecrafters.tableview.listeners.TableDataClickListener;
+import de.codecrafters.tableview.model.TableColumnWeightModel;
 import rx.functions.Action1;
 
 
@@ -95,6 +96,12 @@ public class PaymentDeclarationActivity extends BaseActivity<PaymentQueryPresent
         });
         final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_payment_declaration));
         tableViewEx.tableView.setHeaderAdapter(tableHeader1Adapter);
+        TableColumnWeightModel columnModel = new TableColumnWeightModel(4);
+        columnModel.setColumnWeight(0, 1);
+        columnModel.setColumnWeight(1, 2);
+        columnModel.setColumnWeight(2, 1);
+        columnModel.setColumnWeight(3, 1);
+        tableViewEx.tableView.setColumnModel(columnModel);
         adapter = new PaymentTableDataAdapter(this, mlistPayment);
         tableViewEx.tableView.setDataAdapter(adapter);
         initRadioGroup();
