@@ -8,7 +8,7 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/view_toolbar" />
-    <com.yunqi.fengle.ui.view.TableViewEx xmlns:table="http://schemas.android.com/apk/res-auto"
+    <de.codecrafters.tableview.TableView xmlns:table="http://schemas.android.com/apk/res-auto"
         android:id="@+id/tableView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

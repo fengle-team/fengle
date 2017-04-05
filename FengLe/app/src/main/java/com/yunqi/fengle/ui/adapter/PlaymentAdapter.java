@@ -6,6 +6,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.model.bean.Payment;
+import com.yunqi.fengle.util.TimeUtil;
 
 import java.util.List;
 
@@ -26,7 +27,8 @@ public class PlaymentAdapter extends BaseQuickAdapter<Payment,BaseViewHolder> {
         TextView txtPaymentAmount=helper.getView(R.id.payment_amount);
         TextView txtTime=helper.getView(R.id.time);
         txtCustomerName.setText(item.huikuan_name);
-        txtPaymentAmount.setText(item.huikuan_amount+"");
-        txtTime.setText(item.huikuan_time);
+        txtPaymentAmount.setText(item.huikuan_amount+"元");
+        String formatTime=TimeUtil.converTime("yyyy-MM-dd HH:mm:ss","yyyy-MM-dd",item.huikuan_time);
+        txtTime.setText(formatTime);
     }
 }

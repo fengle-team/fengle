@@ -74,7 +74,7 @@ public class CustomerAnalysisTableDataAdapter extends BaseTableDataAdapter<Custo
         return renderString(customer.ranking+"");
     }
     private View renderLastShipment(CustomerAnalysis customer) {
-        return renderString(customer.lastShipment+"");
+        return renderString(customer.last_shipment+"");
     }
 
     private View renderAmount(CustomerAnalysis customer) {

@@ -4,6 +4,7 @@ import com.yunqi.fengle.model.bean.ADInfo;
 import com.yunqi.fengle.model.bean.Area;
 import com.yunqi.fengle.model.bean.BillingApply;
 import com.yunqi.fengle.model.bean.Customer;
+import com.yunqi.fengle.model.bean.CustomerAnalysis;
 import com.yunqi.fengle.model.bean.CustomerContactDetail;
 import com.yunqi.fengle.model.bean.FukuanType;
 import com.yunqi.fengle.model.bean.Goods;
@@ -103,6 +104,12 @@ public interface ApiService {
      */
     @GET("area/get")
     Observable<CommonHttpRsp<List<Area>>> queryArea(@Query("page") int page,@Query("size") int size);
+
+    /**
+     * 客户分析查询
+     */
+    @GET("custom/analysis")
+    Observable<CommonHttpRsp<List<CustomerAnalysis>>> queryCustomerAnalysis(@Query("user_code")String user_code);
     /**
      * 回款类型查询
      */

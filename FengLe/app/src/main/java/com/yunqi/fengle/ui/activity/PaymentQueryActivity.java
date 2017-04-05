@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -60,6 +61,9 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
     SwipeRefreshLayout swipeLayout;
     @BindView(R.id.btn_query)
     Button btnQuery;
+
+    @BindView(R.id.txt_total_amount)
+    TextView txtTotalAmount;
     PlaymentAdapter adapter;
     int index = 1;
     private long lstartTime = 0;
@@ -72,6 +76,8 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
     private int page = 1;
     private List<Payment> mlistPayment = new ArrayList<>();
 
+    private int queryType=0;//0：是按照今日/本月查询  1：按照时间过滤查询
+    private float totalAmount=0;//回款总金额
     @Override
     protected void initInject() {
         getActivityComponent().inject(this);
@@ -173,6 +179,7 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
                             ToastUtil.showNoticeToast(PaymentQueryActivity.this, getString(R.string.warming_no_end_time));
                             return;
                         }
+                        queryType=1;
                         loadFirstPageData();
                     }
                 });
@@ -217,7 +224,14 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                loadFirstPageData();
+                page=1;
+                if(queryType==0){
+                    mPresenter.queryPayment(userId, status, type, page);
+                }
+                else {
+                    loadFirstPageData();
+                }
+
             }
         }, 500);
     }
@@ -236,6 +250,11 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
         mlistPayment.addAll(listPayment);
         adapter.setNewData(mlistPayment);
         adapter.loadMoreComplete();
+        totalAmount=0;
+        for (Payment payment:listPayment){
+            totalAmount+=payment.huikuan_amount;
+        }
+        txtTotalAmount.setText("合计:"+totalAmount+"元");
     }
 
     @Override
@@ -247,6 +266,10 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
         }
         mlistPayment.addAll(listPaymentMore);
         adapter.loadMoreComplete();
+        for (Payment payment:listPaymentMore){
+            totalAmount+=payment.huikuan_amount;
+        }
+        txtTotalAmount.setText("合计:"+totalAmount+"元");
     }
 
     @Override
@@ -267,6 +290,7 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
         }
         resetTime();
         page=1;
+        queryType=0;
         mPresenter.queryPayment(userId, status, type, page);
     }
 

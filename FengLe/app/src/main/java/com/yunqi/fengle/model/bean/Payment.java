@@ -12,7 +12,7 @@ public class Payment {
     public String huikuan_time;
     public String huikuan_type;
     public String huikuan_name;
-    public String huikuan_amount;
+    public float huikuan_amount;
     public String remark;
     public String images;
 

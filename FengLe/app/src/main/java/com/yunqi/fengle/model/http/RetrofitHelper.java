@@ -9,6 +9,7 @@ import com.yunqi.fengle.model.bean.ADInfo;
 import com.yunqi.fengle.model.bean.Area;
 import com.yunqi.fengle.model.bean.BillingApply;
 import com.yunqi.fengle.model.bean.Customer;
+import com.yunqi.fengle.model.bean.CustomerAnalysis;
 import com.yunqi.fengle.model.bean.CustomerContactDetail;
 import com.yunqi.fengle.model.bean.FukuanType;
 import com.yunqi.fengle.model.bean.Goods;
@@ -279,6 +280,14 @@ public class RetrofitHelper {
      */
     public Observable<CommonHttpRsp<List<Area>>> queryArea() {
         return apiService.queryArea(1,1000);
+    }
+
+    /**
+     * 客户分析查询
+     * @return
+     */
+    public Observable<CommonHttpRsp<List<CustomerAnalysis>>> queryCustomerAnalysis(String user_code){
+        return apiService.queryCustomerAnalysis(user_code);
     }
     /**
      * 回款类型查询

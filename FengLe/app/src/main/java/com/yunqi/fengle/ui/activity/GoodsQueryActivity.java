@@ -122,11 +122,15 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
         mPresenter.queryGoods(keyword, user_code,warehouse_code, page);
     }
 
-
-
-
-
-
+    @Override
+    public void onBackPressedSupport() {
+        if(!listSelectGoods.isEmpty()){
+            Intent intent = new Intent();
+            intent.putExtra("listSelectGoods", listSelectGoods);
+            setResult(Activity.RESULT_OK, intent);
+        }
+        finish();
+    }
 
     private void setWigetListener() {
         tableViewEx.setOnLoadMoreListener(new ExTableView.OnLoadMoreListener() {

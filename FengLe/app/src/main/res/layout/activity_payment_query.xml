@@ -33,11 +33,11 @@
         android:textSize="@dimen/comom_txt_size_m" />
 
     <TextView
+        android:id="@+id/txt_total_amount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/common_left_margin"
         android:layout_marginTop="10dp"
-        android:text="合计:100000"
         android:textColor="@color/text_color2"
         android:textSize="@dimen/comom_txt_size_xs" />
 

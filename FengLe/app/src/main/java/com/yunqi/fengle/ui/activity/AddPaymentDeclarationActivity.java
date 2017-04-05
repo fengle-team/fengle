@@ -446,10 +446,10 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
                             ToastUtil.showNoticeToast(AddPaymentDeclarationActivity.this, "请输入汇款金额！");
                             return;
                         }
-                        if (TextUtils.isEmpty(sPath)) {
-                            ToastUtil.showNoticeToast(AddPaymentDeclarationActivity.this, "请上传单据图片！");
-                            return;
-                        }
+//                        if (TextUtils.isEmpty(sPath)) {
+//                            ToastUtil.showNoticeToast(AddPaymentDeclarationActivity.this, "请上传单据图片！");
+//                            return;
+//                        }
                         remark=editRemark.getText().toString();
                         PaymentAddRequest request = new PaymentAddRequest();
                         request.userid = userId;
@@ -464,7 +464,9 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
                         request.huikuan_time = remittanceDate;
                         request.huikuan_name = remitterName;
                         request.huikuan_amount = remittanceAmount;
-                        request.images = imgUrl;
+                        if(!TextUtils.isEmpty(imgUrl)){
+                            request.images = imgUrl;
+                        }
                         mPresenter.addPayment(request, sPath);
                     }
                     break;
