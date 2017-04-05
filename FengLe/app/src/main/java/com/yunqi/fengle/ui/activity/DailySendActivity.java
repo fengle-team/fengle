@@ -34,8 +34,6 @@ public class DailySendActivity extends BaseActivity<DailySendPresenter> implemen
     @BindView(R.id.etContent)
     EditText etContent;
 
-    private MapLocationMgr mapLocationMgr;
-    private LocationModel locationModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,8 +41,6 @@ public class DailySendActivity extends BaseActivity<DailySendPresenter> implemen
         showTitleBack();
         setTitleText("发日志");
         setTitleRight("提交");
-        mapLocationMgr = new MapLocationMgr();
-        doLocation();
     }
 
     @Override
@@ -58,18 +54,14 @@ public class DailySendActivity extends BaseActivity<DailySendPresenter> implemen
             ToastUtil.toast(this,"内容不能为空!");
             return;
         }
-        if (locationModel == null || TextUtils.isEmpty(locationModel.getAddress())) {
-            ToastUtil.toast(this,"定位失败,请确认是否开启了GPS定位!");
-            return;
-        }
 
 
         final DailySendRequest request = new DailySendRequest();
         request.setUserid(App.getInstance().getUserInfo().id);
         request.setDaily(etContent.getText().toString());
-        request.setAddress(locationModel.getAddress());
-        request.setLat(locationModel.getLatitude() + "");
-        request.setLng(locationModel.getLongitude() + "");
+//        request.setAddress(locationModel.getAddress());
+//        request.setLat(locationModel.getLatitude() + "");
+//        request.setLng(locationModel.getLongitude() + "");
 
         progresser.showProgress();
         mPresenter.doSendDaily(request, new ResponseListener() {
@@ -85,21 +77,6 @@ public class DailySendActivity extends BaseActivity<DailySendPresenter> implemen
             public void onFaild(NetResponse response) {
                 progresser.showContent();
                 ToastUtil.toast(mContext,response.getMsg());
-            }
-        });
-    }
-
-    private void doLocation() {
-        mapLocationMgr.start(new ResponseListener() {
-            @Override
-            public void onSuccess(NetResponse response) {
-                locationModel = (LocationModel) response.getResult();
-            }
-
-            @Override
-            public void onFaild(NetResponse response) {
-                LogEx.w("日志获取失败:" + response);
-//                ToastUtil.toast(mContext,response.getMsg());
             }
         });
     }
@@ -126,9 +103,6 @@ public class DailySendActivity extends BaseActivity<DailySendPresenter> implemen
 
     @Override
     protected void onDestroy() {
-        if (mapLocationMgr != null) {
-            mapLocationMgr.onDestory();
-        }
         super.onDestroy();
     }
 }
