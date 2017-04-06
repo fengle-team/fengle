@@ -61,10 +61,10 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
     RadioButton radioBtn3;
     @BindView(R.id.tableViewEx)
     ExTableView tableViewEx;
-    @BindView(R.id.btn_in_area)
-    Button btnInArea;
-    @BindView(R.id.btn_out_area)
-    Button btnOutArea;
+//    @BindView(R.id.btn_in_area)
+//    Button btnInArea;
+//    @BindView(R.id.btn_out_area)
+//    Button btnOutArea;
     @BindView(R.id.btn_start_time)
     Button btnStartTime;
     @BindView(R.id.btn_end_time)
@@ -204,32 +204,32 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
                         dialog.show();
                     }
                 });
-        RxView.clicks(btnInArea)
-                .throttleFirst(1, TimeUnit.SECONDS)
-                .subscribe(new Action1<Void>() {
-                    @Override
-                    public void call(Void aVoid) {
-                        //跳转到选择大区界面
-                        Intent intent = new Intent(PlanAdjustmentActivity.this, AreaQueryActivity.class);
-                        if (selectedInArea != null) {
-                            intent.putExtra("selectAreaId", selectedInArea.id);
-                        }
-                        startActivityForResult(intent, SELECT_AREA_IN_REQUEST_CODE);
-                    }
-                });
-        RxView.clicks(btnOutArea)
-                .throttleFirst(1, TimeUnit.SECONDS)
-                .subscribe(new Action1<Void>() {
-                    @Override
-                    public void call(Void aVoid) {
-                        //跳转到选择大区界面
-                        Intent intent = new Intent(PlanAdjustmentActivity.this, AreaQueryActivity.class);
-                        if (selectedOutArea != null) {
-                            intent.putExtra("selectAreaId", selectedOutArea.id);
-                        }
-                        startActivityForResult(intent, SELECT_AREA_OUT_REQUEST_CODE);
-                    }
-                });
+//        RxView.clicks(btnInArea)
+//                .throttleFirst(1, TimeUnit.SECONDS)
+//                .subscribe(new Action1<Void>() {
+//                    @Override
+//                    public void call(Void aVoid) {
+//                        //跳转到选择大区界面
+//                        Intent intent = new Intent(PlanAdjustmentActivity.this, AreaQueryActivity.class);
+//                        if (selectedInArea != null) {
+//                            intent.putExtra("selectAreaId", selectedInArea.id);
+//                        }
+//                        startActivityForResult(intent, SELECT_AREA_IN_REQUEST_CODE);
+//                    }
+//                });
+//        RxView.clicks(btnOutArea)
+//                .throttleFirst(1, TimeUnit.SECONDS)
+//                .subscribe(new Action1<Void>() {
+//                    @Override
+//                    public void call(Void aVoid) {
+//                        //跳转到选择大区界面
+//                        Intent intent = new Intent(PlanAdjustmentActivity.this, AreaQueryActivity.class);
+//                        if (selectedOutArea != null) {
+//                            intent.putExtra("selectAreaId", selectedOutArea.id);
+//                        }
+//                        startActivityForResult(intent, SELECT_AREA_OUT_REQUEST_CODE);
+//                    }
+//                });
     }
 
 
@@ -286,11 +286,11 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
         }
         else if (requestCode == SELECT_AREA_IN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             selectedInArea= (Area) data.getSerializableExtra("SelectArea");
-            btnInArea.setText(selectedInArea.name);
+//            btnInArea.setText(selectedInArea.name);
         }
         else if (requestCode == SELECT_AREA_OUT_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             selectedOutArea= (Area) data.getSerializableExtra("SelectArea");
-            btnOutArea.setText(selectedOutArea.name);
+//            btnOutArea.setText(selectedOutArea.name);
         }
     }
 

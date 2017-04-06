@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/layout_login_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_bg"
-    android:orientation="vertical"
     android:weightSum="1">
 
     <ImageView
         android:id="@+id/login_logo"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="100dp"
         android:src="@drawable/login_logo" />
 
@@ -19,10 +18,10 @@
         android:id="@+id/layout_account"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="80dp"
+        android:layout_centerInParent="true"
         android:background="@drawable/input_bg1">
 
         <ImageView
@@ -61,15 +60,19 @@
             android:textSize="18sp" />
     </RelativeLayout>
 
+
+
     <RelativeLayout
         android:id="@+id/layout_password"
         android:layout_width="match_parent"
+        android:layout_below="@+id/layout_account"
         android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
-        android:background="@drawable/input_bg1">
+        android:background="@drawable/input_bg1"
+        android:layout_marginBottom="40dp"
+        >
 
         <ImageView
             android:id="@+id/icon_password"
@@ -104,18 +107,17 @@
             android:textColor="@color/text_color1"
             android:textSize="18sp" />
     </RelativeLayout>
-
     <Button
+        android:layout_below="@+id/layout_password"
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_centerHorizontal="true"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:layout_marginTop="40dp"
         android:background="@drawable/btn_style1"
         android:focusable="true"
         android:text="@string/login"
         android:textColor="#fff"
-        android:textSize="20sp" />
-</LinearLayout>
+        android:textSize="20sp"
+        />
+</RelativeLayout>
