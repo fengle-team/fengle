@@ -572,15 +572,27 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
         }
     }
     private void openCamera() {  //调用相机拍照
+
+
+
+
+
         String state = Environment.getExternalStorageState();
         if (state.equals(Environment.MEDIA_MOUNTED)) {
             Uri imageUri;
-            File mTmpFile = new File(Environment.getExternalStorageDirectory(), "image.jpg");
             Intent getImageByCamera = new Intent("android.media.action.IMAGE_CAPTURE");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {  //针对Android7.0，需要通过FileProvider封装过的路径，提供给外部调用
 //                imageUri = FileProvider.getUriForFile(this, getPackageName(), mTmpFile);//通过FileProvider创建一个content类型的Uri，进行封装
+                File path = new File(FileUtil.getSDPath(this)+File.separator+"imgs");
+                if (!path.exists()) {
+                    path.mkdirs();
+                }
+                File file = new File(path, "temp.img");
+                if (file.exists()) {
+                    file.delete();
+                }
                 ContentValues contentValues = new ContentValues(1);
-                contentValues.put(MediaStore.Images.Media.DATA, mTmpFile.getAbsolutePath());
+                contentValues.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
                 imageUri= getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentValues);
             } else { //7.0以下，如果直接拿到相机返回的intent值，拿到的则是拍照的原图大小，很容易发生OOM，所以我们同样将返回的地址，保存到指定路径，返回到Activity时，去指定路径获取，压缩图片
                 imageUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "image.jpg"));
