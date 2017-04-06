@@ -1,16 +1,24 @@
 package com.yunqi.fengle.ui.activity;
 
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -62,6 +70,7 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
     private static final int REQUEST_CODE_CUSTOMER_QUERY = 3;
     private static final int REQUEST_CODE_PAYMENT_TYPE = 4;
     private static final int REQUEST_CODE_FUKUAN_TYPE = 5;
+    private static final int CAMERA_REQUEST_CODE = 6;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.btn_select_customer)
@@ -111,8 +120,8 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
 
     @Override
     protected void initEventAndData() {
-        userId= App.getInstance().getUserInfo().id;
-        person_code=App.getInstance().getUserInfo().user_code;
+        userId = App.getInstance().getUserInfo().id;
+        person_code = App.getInstance().getUserInfo().user_code;
         setToolBar(toolbar, getString(R.string.module_add_payment_declaration), getString(R.string.operater), new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -247,8 +256,8 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
                     ToastUtil.showErrorToast(this, "获取图片失败！");
                 }
             } else {
-                ContentResolver cr=getContentResolver();
-                showPhotoImage(cr,uri);
+                ContentResolver cr = getContentResolver();
+                showPhotoImage(cr, uri);
             }
         } else if (requestCode == REQUEST_CODE_CAPTURE_CAMEIA && resultCode == RESULT_OK) {
             //将保存在本地的图片取出并缩小后显示在界面上
@@ -265,18 +274,16 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
         } else if (requestCode == REQUEST_CODE_CUSTOMER_QUERY && resultCode == RESULT_OK) {
             selectCustomer = (Customer) data.getSerializableExtra("customer");
             btnSelectCustomer.setText(selectCustomer.name);
-        }
-        else if (requestCode == REQUEST_CODE_PAYMENT_TYPE && resultCode == RESULT_OK) {
+        } else if (requestCode == REQUEST_CODE_PAYMENT_TYPE && resultCode == RESULT_OK) {
             selectPaymentType = (PaymentType) data.getSerializableExtra("SelectPaymentType");
             btnPaymentType.setText(selectPaymentType.name);
-        }
-        else if (requestCode == REQUEST_CODE_FUKUAN_TYPE && resultCode == RESULT_OK) {
+        } else if (requestCode == REQUEST_CODE_FUKUAN_TYPE && resultCode == RESULT_OK) {
             selectFukuanType = (FukuanType) data.getSerializableExtra("SelectFukuanType");
             btnFukuaiType.setText(selectFukuanType.name);
         }
     }
 
-    private void showPhotoImage(final Bitmap photo){
+    private void showPhotoImage(final Bitmap photo) {
         Observable.create(new Observable.OnSubscribe<Bitmap>() {
             @Override
             public void call(Subscriber<? super Bitmap> subscriber) {
@@ -307,7 +314,8 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
                     }
                 });
     }
-    private void showPhotoImage(final ContentResolver cr,final Uri uri){
+
+    private void showPhotoImage(final ContentResolver cr, final Uri uri) {
         Observable.create(new Observable.OnSubscribe<Bitmap>() {
             @Override
             public void call(Subscriber<? super Bitmap> subscriber) {
@@ -351,8 +359,7 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
     }
 
 
-
-    private void showCameraImage(){
+    private void showCameraImage() {
         Observable.create(new Observable.OnSubscribe<Bitmap>() {
             @Override
             public void call(Subscriber<? super Bitmap> subscriber) {
@@ -367,19 +374,19 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
         }).subscribeOn(Schedulers.io()) // 指定 subscribe() 发生在 IO 线程
                 .observeOn(AndroidSchedulers.mainThread()) // 指定 Subscriber 的回调发生在主线程
                 .subscribe(new Observer<Bitmap>() {
-            @Override
-            public void onNext(Bitmap bitmap) {
-                imgShow.setImageBitmap(bitmap);
-            }
+                    @Override
+                    public void onNext(Bitmap bitmap) {
+                        imgShow.setImageBitmap(bitmap);
+                    }
 
-            @Override
-            public void onCompleted() {
-            }
+                    @Override
+                    public void onCompleted() {
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-            }
-        });
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+                });
     }
 
     public void saveImage(Bitmap photo, String spath) {
@@ -413,19 +420,19 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
                 popWindow.dismiss();
                 switch (v.getId()) {
                     case R.id.btn_commit: {
-                        if(selectCustomer==null){
+                        if (selectCustomer == null) {
                             ToastUtil.showNoticeToast(AddPaymentDeclarationActivity.this, "请选择客户！");
                             return;
                         }
-                        if(TextUtils.isEmpty(remittanceDate)){
+                        if (TextUtils.isEmpty(remittanceDate)) {
                             ToastUtil.showNoticeToast(AddPaymentDeclarationActivity.this, "请选择汇款日期！");
                             return;
                         }
-                        if(selectFukuanType==null){
+                        if (selectFukuanType == null) {
                             ToastUtil.showNoticeToast(AddPaymentDeclarationActivity.this, "请选择付款类型！");
                             return;
                         }
-                        if(selectPaymentType==null){
+                        if (selectPaymentType == null) {
                             ToastUtil.showNoticeToast(AddPaymentDeclarationActivity.this, "请选择回款类型！");
                             return;
                         }
@@ -446,27 +453,24 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
                             ToastUtil.showNoticeToast(AddPaymentDeclarationActivity.this, "请输入汇款金额！");
                             return;
                         }
-//                        if (TextUtils.isEmpty(sPath)) {
-//                            ToastUtil.showNoticeToast(AddPaymentDeclarationActivity.this, "请上传单据图片！");
-//                            return;
-//                        }
-                        remark=editRemark.getText().toString();
+                        if (TextUtils.isEmpty(sPath)) {
+                            ToastUtil.showNoticeToast(AddPaymentDeclarationActivity.this, "请上传单据图片！");
+                            return;
+                        }
+                        remark = editRemark.getText().toString();
                         PaymentAddRequest request = new PaymentAddRequest();
                         request.userid = userId;
                         request.remark = remark;
-                        request.pay_type=selectFukuanType.name;
-                        request.pay_type_code=selectFukuanType.code;
-                        request.person_code=person_code;
+                        request.pay_type = selectFukuanType.name;
+                        request.pay_type_code = selectFukuanType.code;
+                        request.person_code = person_code;
                         request.client_code = selectCustomer.custom_code;
-                        request.client_name=selectCustomer.name;
+                        request.client_name = selectCustomer.name;
                         request.huikuan_type = selectPaymentType.name;
-                        request.huikuan_type_code=selectPaymentType.code;
+                        request.huikuan_type_code = selectPaymentType.code;
                         request.huikuan_time = remittanceDate;
                         request.huikuan_name = remitterName;
                         request.huikuan_amount = remittanceAmount;
-                        if(!TextUtils.isEmpty(imgUrl)){
-                            request.images = imgUrl;
-                        }
                         mPresenter.addPayment(request, sPath);
                     }
                     break;
@@ -495,7 +499,12 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
                 popWindow.dismiss();
                 switch (v.getId()) {
                     case R.id.btn_commit:// 拍照
-                        getImageFromCamera();
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {  //针对Android7.0，需要通过FileProvider封装过的路径，提供给外部调用
+                            checkPremission();
+                        } else { //7.0以下，如果直接拿到相机返回的intent值，拿到的则是拍照的原图大小，很容易发生OOM，所以我们同样将返回的地址，保存到指定路径，返回到Activity时，去指定路径获取，压缩图片
+                            openCamera();
+                        }
+//                        getImageFromCamera();
                         break;
                     case R.id.btn_temporary:// 相册选择图片
                         getImageFromAlbum();
@@ -517,6 +526,22 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
         startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE);
     }
 
+    private void checkPremission() {
+        final String permission = Manifest.permission.CAMERA;  //相机权限
+        final String permission1 = Manifest.permission.WRITE_EXTERNAL_STORAGE; //写入数据权限
+        if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(this, permission1) != PackageManager.PERMISSION_GRANTED) {  //先判断是否被赋予权限，没有则申请权限
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {  //给出权限申请说明
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, CAMERA_REQUEST_CODE);
+            } else { //直接申请权限
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE); //申请权限，可同时申请多个权限，并根据用户是否赋予权限进行判断
+            }
+        } else {  //赋予过权限，则直接调用相机拍照
+            openCamera();
+        }
+    }
+
+
     protected void getImageFromCamera() {
         //指定照片保存路径（SD卡），image.jpg为一个临时文件，每次拍照后这个图片都会被替换
         String state = Environment.getExternalStorageState();
@@ -528,6 +553,44 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
         } else {
             ToastUtil.showErrorToast(this, "请确认已经插入SD卡");
         }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {  //申请权限的返回值
+            case CAMERA_REQUEST_CODE:
+                int length = grantResults.length;
+                final boolean isGranted = length >= 1 && PackageManager.PERMISSION_GRANTED == grantResults[length - 1];
+                if (isGranted) {  //如果用户赋予权限，则调用相机
+                    openCamera();
+                } else { //未赋予权限，则做出对应提示
+
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+    private void openCamera() {  //调用相机拍照
+        String state = Environment.getExternalStorageState();
+        if (state.equals(Environment.MEDIA_MOUNTED)) {
+            Uri imageUri;
+            File mTmpFile = new File(Environment.getExternalStorageDirectory(), "image.jpg");
+            Intent getImageByCamera = new Intent("android.media.action.IMAGE_CAPTURE");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {  //针对Android7.0，需要通过FileProvider封装过的路径，提供给外部调用
+//                imageUri = FileProvider.getUriForFile(this, getPackageName(), mTmpFile);//通过FileProvider创建一个content类型的Uri，进行封装
+                ContentValues contentValues = new ContentValues(1);
+                contentValues.put(MediaStore.Images.Media.DATA, mTmpFile.getAbsolutePath());
+                imageUri= getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentValues);
+            } else { //7.0以下，如果直接拿到相机返回的intent值，拿到的则是拍照的原图大小，很容易发生OOM，所以我们同样将返回的地址，保存到指定路径，返回到Activity时，去指定路径获取，压缩图片
+                imageUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "image.jpg"));
+            }
+            getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+            startActivityForResult(getImageByCamera, REQUEST_CODE_CAPTURE_CAMEIA);
+        } else {
+            ToastUtil.showErrorToast(this, "请确认已经插入SD卡");
+        }
+
     }
 
 
