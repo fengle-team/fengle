@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -16,7 +15,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
-import com.yunqi.fengle.model.bean.Customer;
+import com.yunqi.fengle.model.bean.Area;
 import com.yunqi.fengle.model.bean.PlanAdjustmentApply;
 import com.yunqi.fengle.presenter.PlanAdjustmentQueryPresenter;
 import com.yunqi.fengle.presenter.contract.PlanAdjustmentRequestContract;
@@ -48,6 +47,8 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
     public static final int DEL_DETAIL_RESULT_CODE = 1;
     public static final int UPDATE_DETAIL_RESULT_CODE = 2;
     public static final int APPROVAL_DETAIL_RESULT_CODE = 3;
+    public static final int SELECT_AREA_IN_REQUEST_CODE = 4;
+    public static final int SELECT_AREA_OUT_REQUEST_CODE = 5;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.radioGroup)
@@ -60,6 +61,10 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
     RadioButton radioBtn3;
     @BindView(R.id.tableViewEx)
     ExTableView tableViewEx;
+    @BindView(R.id.btn_in_area)
+    Button btnInArea;
+    @BindView(R.id.btn_out_area)
+    Button btnOutArea;
     @BindView(R.id.btn_start_time)
     Button btnStartTime;
     @BindView(R.id.btn_end_time)
@@ -80,6 +85,8 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
     List<PlanAdjustmentApply> mlistPlanAdjustmentApply = new ArrayList<>();
     private PlanAdjustmentTableDataAdapter adapter;
     private String keyword = "";
+    private Area selectedInArea;
+    private Area selectedOutArea;
 
     @Override
     protected void initInject() {
@@ -88,7 +95,7 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_delivery_request;
+        return R.layout.activity_plan_request;
     }
 
     @Override
@@ -107,7 +114,7 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
         columnModel.setColumnWeight(2, 1);
         columnModel.setColumnWeight(3, 1);
         tableViewEx.tableView.setColumnModel(columnModel);
-        final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_bill_request));
+        final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_plan_request));
         tableViewEx.tableView.setHeaderAdapter(tableHeader1Adapter);
         adapter = new PlanAdjustmentTableDataAdapter(this, mlistPlanAdjustmentApply);
         tableViewEx.tableView.setDataAdapter(adapter);
@@ -197,6 +204,32 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
                         dialog.show();
                     }
                 });
+        RxView.clicks(btnInArea)
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        //跳转到选择大区界面
+                        Intent intent = new Intent(PlanAdjustmentActivity.this, AreaQueryActivity.class);
+                        if (selectedInArea != null) {
+                            intent.putExtra("selectAreaId", selectedInArea.id);
+                        }
+                        startActivityForResult(intent, SELECT_AREA_IN_REQUEST_CODE);
+                    }
+                });
+        RxView.clicks(btnOutArea)
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        //跳转到选择大区界面
+                        Intent intent = new Intent(PlanAdjustmentActivity.this, AreaQueryActivity.class);
+                        if (selectedOutArea != null) {
+                            intent.putExtra("selectAreaId", selectedOutArea.id);
+                        }
+                        startActivityForResult(intent, SELECT_AREA_OUT_REQUEST_CODE);
+                    }
+                });
     }
 
 
@@ -250,6 +283,14 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
             if (2 == mStatus) {
                 mPresenter.queryPlanAdjustmentApply(userId,keyword, mStatus, startTime, endTime, page);
             }
+        }
+        else if (requestCode == SELECT_AREA_IN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            selectedInArea= (Area) data.getSerializableExtra("SelectArea");
+            btnInArea.setText(selectedInArea.name);
+        }
+        else if (requestCode == SELECT_AREA_OUT_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            selectedOutArea= (Area) data.getSerializableExtra("SelectArea");
+            btnOutArea.setText(selectedOutArea.name);
         }
     }
 

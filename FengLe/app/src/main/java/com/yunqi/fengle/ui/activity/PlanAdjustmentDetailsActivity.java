@@ -191,6 +191,7 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
                             }
                             intent.putExtra("goodsArray",goodsArray);
                         }
+                        intent.putExtra("module",this.getClass().getName());
                         startActivityForResult(intent, SELECT_GOODS_REQUEST_CODE);
                     }
                 });

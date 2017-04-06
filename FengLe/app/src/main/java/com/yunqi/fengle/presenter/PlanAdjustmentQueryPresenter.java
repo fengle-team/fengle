@@ -32,22 +32,22 @@ public class PlanAdjustmentQueryPresenter extends RxPresenter<PlanAdjustmentRequ
     }
     @Override
     public void queryPlanAdjustmentApply(String userid,String keyword, int status, String startTime, String endTime, final int page) {
-        Subscription rxSubscription = mRetrofitHelper.queryPlanAdjustmentApply(userid,keyword, status, startTime, endTime, page)
-                .compose(RxUtil.<CommonHttpRsp<List<PlanAdjustmentApply>>>rxSchedulerHelper())
-                .compose(RxUtil.<List<PlanAdjustmentApply>>handleResult())
-                .subscribe(new ExSubscriber<List<PlanAdjustmentApply>>(mView) {
-                    @Override
-                    protected void onSuccess(List<PlanAdjustmentApply> listPlanAdjustmentApply) {
-                        //加载第一页数据
-                        if(page==1){
-                            mView.showContent(listPlanAdjustmentApply);
-                        }
-                        //加载更多数据
-                        else{
-                            mView.showMoreContent(listPlanAdjustmentApply);
-                        }
-                    }
-                });
-        addSubscrebe(rxSubscription);
+//        Subscription rxSubscription = mRetrofitHelper.queryPlanAdjustmentApply(userid,keyword, status, startTime, endTime, page)
+//                .compose(RxUtil.<CommonHttpRsp<List<PlanAdjustmentApply>>>rxSchedulerHelper())
+//                .compose(RxUtil.<List<PlanAdjustmentApply>>handleResult())
+//                .subscribe(new ExSubscriber<List<PlanAdjustmentApply>>(mView) {
+//                    @Override
+//                    protected void onSuccess(List<PlanAdjustmentApply> listPlanAdjustmentApply) {
+//                        //加载第一页数据
+//                        if(page==1){
+//                            mView.showContent(listPlanAdjustmentApply);
+//                        }
+//                        //加载更多数据
+//                        else{
+//                            mView.showMoreContent(listPlanAdjustmentApply);
+//                        }
+//                    }
+//                });
+//        addSubscrebe(rxSubscription);
     }
 }

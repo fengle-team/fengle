@@ -129,6 +129,12 @@
         <item>状态</item>
         <item>操作</item>
     </string-array>
+    <string-array name="header_title_plan_request">
+        <item>名称</item>
+        <item>规格</item>
+        <item>剩余计划</item>
+        <item>调剂剩余</item>
+    </string-array>
 
     <string-array name="header_title_add_delivey_request">
         <item>名称</item>
@@ -173,12 +179,12 @@
         <item>操作</item>
     </string-array>
     <string-array name="header_title_saler">
-        <item>哟哟哟</item>
-        <item>啦啦啦</item>
-        <item>哈哈哈</item>
-        <item>嘿嘿嘿</item>
-        <item>嘻嘻嘻</item>
-        <item>哦哦哦</item>
+        <item>业务员</item>
+        <item>业绩目标</item>
+        <item>发贷金额</item>
+        <item>回款金额</item>
+        <item>业绩排名</item>
+        <item>完成率</item>
     </string-array>
 
     <string name="operater">操作</string>
@@ -218,6 +224,9 @@
 
     <string name="start_time">开始时间</string>
     <string name="end_time">结束时间</string>
+
+    <string name="in_area">调入大区</string>
+    <string name="out_area">调出大区</string>
 
     <string name="basic_info">基本信息</string>
     <string name="tag_customer_name">客户名称：</string>

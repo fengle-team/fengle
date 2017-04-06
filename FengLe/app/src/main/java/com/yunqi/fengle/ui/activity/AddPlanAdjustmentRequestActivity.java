@@ -62,8 +62,6 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
     RelativeLayout rlayoutSelectGoods;
     @BindView(R.id.edit_remark)
     EditText editRemark;
-    @BindView(R.id.btn_query)
-    Button btnQuery;
     BottomOpraterPopWindow popWindow;
 
 
@@ -83,7 +81,7 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_add_transfer_request;
+        return R.layout.activity_add_plan_request;
     }
 
     @Override
@@ -95,14 +93,13 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
                 showBottomOpraterPopWindow();
             }
         });
-        final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_add_delivey_request));
+        final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_plan_request));
         tableView.setHeaderAdapter(tableHeader1Adapter);
-        TableColumnWeightModel columnModel = new TableColumnWeightModel(5);
+        TableColumnWeightModel columnModel = new TableColumnWeightModel(4);
         columnModel.setColumnWeight(0, 2);
         columnModel.setColumnWeight(1, 1);
         columnModel.setColumnWeight(2, 1);
         columnModel.setColumnWeight(3, 1);
-        columnModel.setColumnWeight(4, 1);
         tableView.setColumnModel(columnModel);
         setWidgetListener();
     }
@@ -153,14 +150,6 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
                             intent.putExtra("goodsArray",goodsArray);
                         }
                         startActivityForResult(intent, 2);
-                    }
-                });
-        RxView.clicks(btnQuery)
-                .throttleFirst(1, TimeUnit.SECONDS)
-                .subscribe(new Action1<Void>() {
-                    @Override
-                    public void call(Void aVoid) {
-
                     }
                 });
         tableView.addDataClickListener(new TableDataClickListener<GoodsAndWarehouse>() {

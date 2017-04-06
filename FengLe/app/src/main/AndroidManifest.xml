@@ -46,7 +46,6 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="3495b931915aa1faaaa394bbab67056c" />
-
         <!--<activity-->
             <!--android:name="com.yunqi.fengle.ui.activity.MainActivity"-->
             <!--android:theme="@style/SplashTheme"-->
@@ -316,6 +315,21 @@
             />
         <activity
             android:name="com.yunqi.fengle.ui.activity.AddBillingRequestActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.PlanAdjustmentActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.AddPlanAdjustmentRequestActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.PlanAdjustmentDetailsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"
             />

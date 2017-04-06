@@ -38,7 +38,7 @@ public class RegionalHeaderAdapter extends BaseTableDataAdapter<Object> {
     public View getCellView(int rowIndex, int columnIndex, ViewGroup parentView) {
         View renderedView = null;
 
-         renderedView = renderString("呵呵");
+         renderedView = renderString("测试");
 
         return renderedView;
     }

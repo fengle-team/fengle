@@ -29,7 +29,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.jakewharton.rxbinding.view.RxView;
+import com.luck.picture.lib.model.FunctionConfig;
+import com.luck.picture.lib.model.PictureConfig;
+import com.yalantis.ucrop.entity.LocalMedia;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
@@ -43,12 +48,15 @@ import com.yunqi.fengle.ui.view.BottomOpraterPopWindow;
 import com.yunqi.fengle.ui.view.TimeSelectDialog;
 import com.yunqi.fengle.util.FileUtil;
 import com.yunqi.fengle.util.ImageTools;
+import com.yunqi.fengle.util.LogEx;
 import com.yunqi.fengle.util.ToastUtil;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -107,6 +115,7 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
     private FukuanType selectFukuanType;//付款类型
     private Customer selectCustomer;
     private String remark;
+    private List<LocalMedia> selectMedia = new ArrayList<>();
 
     @Override
     protected void initInject() {
@@ -162,7 +171,8 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
-                        showPicturePopupWindow();
+                        open3rdCamera();
+//                        showPicturePopupWindow();
                     }
                 });
         RxView.clicks(btnPaymentType)
@@ -363,10 +373,10 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
         Observable.create(new Observable.OnSubscribe<Bitmap>() {
             @Override
             public void call(Subscriber<? super Bitmap> subscriber) {
-                Bitmap bitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + "/image.jpg");
+                String cacheFilePath = FileUtil.getSDPath(AddPaymentDeclarationActivity.this)+File.separator+"fengle";
+                Bitmap bitmap = BitmapFactory.decodeFile(cacheFilePath + File.separator+"temp.jpg");
                 Bitmap newBitmap = ImageTools.zoomBitmap(bitmap, bitmap.getWidth() / SCALE, bitmap.getHeight() / SCALE);
                 bitmap.recycle();
-                String cacheFilePath = FileUtil.getSDPath(AddPaymentDeclarationActivity.this) + File.separator + "fengle" + File.separator;
                 sPath = ImageTools.savePhotoToSDCard(newBitmap, cacheFilePath, String.valueOf(System.currentTimeMillis()));
                 subscriber.onNext(newBitmap);
                 subscriber.onCompleted();
@@ -499,11 +509,12 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
                 popWindow.dismiss();
                 switch (v.getId()) {
                     case R.id.btn_commit:// 拍照
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {  //针对Android7.0，需要通过FileProvider封装过的路径，提供给外部调用
-                            checkPremission();
-                        } else { //7.0以下，如果直接拿到相机返回的intent值，拿到的则是拍照的原图大小，很容易发生OOM，所以我们同样将返回的地址，保存到指定路径，返回到Activity时，去指定路径获取，压缩图片
-                            openCamera();
-                        }
+                        open3rdCamera();
+//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {  //针对Android7.0，需要通过FileProvider封装过的路径，提供给外部调用
+//                            checkPremission();
+//                        } else { //7.0以下，如果直接拿到相机返回的intent值，拿到的则是拍照的原图大小，很容易发生OOM，所以我们同样将返回的地址，保存到指定路径，返回到Activity时，去指定路径获取，压缩图片
+//                            openCamera();
+//                        }
 //                        getImageFromCamera();
                         break;
                     case R.id.btn_temporary:// 相册选择图片
@@ -520,6 +531,43 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
         popWindow.showAtLocation(findViewById(R.id.main_layout), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
+
+    private void open3rdCamera(){
+        int selector = R.drawable.select_cb;
+        FunctionConfig config = new FunctionConfig();
+        config.setEnablePixelCompress(true);
+        config.setEnableQualityCompress(true);
+        config.setMaxSelectNum(1);
+        config.setCheckNumMode(true);
+        config.setCompressQuality(100);
+        config.setImageSpanCount(4);
+        config.setEnablePreview(true);
+//        config.setSelectMedia(selectMedia);
+        config.setCheckedBoxDrawable(selector);
+        // 先初始化参数配置，在启动相册
+        PictureConfig.init(config);
+        PictureConfig.getPictureConfig().openPhoto(this, resultCallback);
+    }
+
+    /**
+     * 图片回调方法0
+     */
+    private PictureConfig.OnSelectResultCallback resultCallback = new PictureConfig.OnSelectResultCallback() {
+        @Override
+        public void onSelectSuccess(List<LocalMedia> resultList) {
+            selectMedia = resultList;
+            if (selectMedia != null&&selectMedia.size()>0) {
+                sPath=selectMedia.get(0).getPath();
+                Glide.with(mContext)
+                        .load(selectMedia.get(0).getPath())
+                        .asBitmap().centerCrop()
+                        .placeholder(R.color.color_f6)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(imgShow);
+            }
+        }
+    };
+
     protected void getImageFromAlbum() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");//相片类型
@@ -534,7 +582,7 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {  //给出权限申请说明
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, CAMERA_REQUEST_CODE);
             } else { //直接申请权限
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_REQUEST_CODE); //申请权限，可同时申请多个权限，并根据用户是否赋予权限进行判断
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE}, CAMERA_REQUEST_CODE); //申请权限，可同时申请多个权限，并根据用户是否赋予权限进行判断
             }
         } else {  //赋予过权限，则直接调用相机拍照
             openCamera();
@@ -572,22 +620,18 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
         }
     }
     private void openCamera() {  //调用相机拍照
-
-
-
-
-
         String state = Environment.getExternalStorageState();
         if (state.equals(Environment.MEDIA_MOUNTED)) {
             Uri imageUri;
             Intent getImageByCamera = new Intent("android.media.action.IMAGE_CAPTURE");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {  //针对Android7.0，需要通过FileProvider封装过的路径，提供给外部调用
 //                imageUri = FileProvider.getUriForFile(this, getPackageName(), mTmpFile);//通过FileProvider创建一个content类型的Uri，进行封装
-                File path = new File(FileUtil.getSDPath(this)+File.separator+"imgs");
+                sPath=FileUtil.getSDPath(this)+File.separator+"fengle";
+                File path = new File(sPath);
                 if (!path.exists()) {
                     path.mkdirs();
                 }
-                File file = new File(path, "temp.img");
+                File file = new File(sPath, "temp.jpg");
                 if (file.exists()) {
                     file.delete();
                 }
@@ -595,7 +639,7 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
                 contentValues.put(MediaStore.Images.Media.DATA, file.getAbsolutePath());
                 imageUri= getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,contentValues);
             } else { //7.0以下，如果直接拿到相机返回的intent值，拿到的则是拍照的原图大小，很容易发生OOM，所以我们同样将返回的地址，保存到指定路径，返回到Activity时，去指定路径获取，压缩图片
-                imageUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "image.jpg"));
+                imageUri = Uri.fromFile(new File(FileUtil.getSDPath(this)+File.separator+"fengle", "temp.jpg"));
             }
             getImageByCamera.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
             startActivityForResult(getImageByCamera, REQUEST_CODE_CAPTURE_CAMEIA);

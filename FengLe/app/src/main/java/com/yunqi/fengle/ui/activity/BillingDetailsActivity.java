@@ -205,6 +205,7 @@ public class BillingDetailsActivity extends BaseActivity<BillingDetailsPresenter
                             }
                             intent.putExtra("goodsArray",goodsArray);
                         }
+                        intent.putExtra("module",this.getClass().getName());
                         startActivityForResult(intent, SELECT_GOODS_REQUEST_CODE);
                     }
                 });

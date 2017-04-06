@@ -83,23 +83,23 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
         goodsArray= (ArrayList<GoodsAndWarehouse>) getIntent().getSerializableExtra("goodsArray");
         type=getIntent().getIntExtra("type",0);
         module=getIntent().getStringExtra("module");
-        if(module.equals(AddDeliveryRequestActivity.class.getName())){
+        if(module.equals(AddDeliveryRequestActivity.class.getName())||module.equals(DeliveryDetailsActivity.class.getName())){
             maxGoodsNumTip=getString(R.string.tip_max_goods_num_delivery);
             hintGoodsNum=getString(R.string.hint_edit_num_delivery);
         }
-        else if(module.equals(AddTransferRequestActivity.class.getName())){
+        else if(module.equals(AddTransferRequestActivity.class.getName())||module.equals(TransferDetailsActivity.class.getName())){
             maxGoodsNumTip=getString(R.string.tip_max_goods_num_transfer);
             hintGoodsNum=getString(R.string.hint_edit_num_transfer);
         }
-        else if(module.equals(AddReturnRequestActivity.class.getName())){
+        else if(module.equals(AddReturnRequestActivity.class.getName())||module.equals(ReturnDetailsActivity.class.getName())){
             maxGoodsNumTip=getString(R.string.tip_max_goods_num_return);
             hintGoodsNum=getString(R.string.hint_edit_num_return);
         }
-        else if(module.equals(AddBillingRequestActivity.class.getName())){
+        else if(module.equals(AddBillingRequestActivity.class.getName())||module.equals(BillingDetailsActivity.class.getName())){
             maxGoodsNumTip=getString(R.string.tip_max_goods_num_bill);
             hintGoodsNum=getString(R.string.hint_edit_num_bill);
         }
-        else if(module.equals(AddPlanAdjustmentRequestActivity.class.getName())){
+        else if(module.equals(AddPlanAdjustmentRequestActivity.class.getName())||module.equals(PlanAdjustmentDetailsActivity.class.getName())){
             maxGoodsNumTip=getString(R.string.tip_max_goods_num_plan);
             hintGoodsNum=getString(R.string.hint_edit_num_plan);
         }

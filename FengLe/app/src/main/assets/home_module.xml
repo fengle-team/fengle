@@ -57,7 +57,7 @@
     <Module>
         <id>9</id>
         <name>客户分析</name>
-        <className>com.yunqi.fengle.ui.activity.CustomerAnalysisActivity1</className>
+        <className>com.yunqi.fengle.ui.activity.CustomerAnalysisActivity</className>
         <icon>home_khfx</icon>
     </Module>
     <Module>
@@ -99,7 +99,7 @@
     <Module>
         <id>15</id>
         <name>业绩管理</name>
-        <className>com.yunqi.fengle.ui.activity.AchievementManagerActivity1</className>
+        <className>com.yunqi.fengle.ui.activity.AchievementManagerActivity</className>
         <icon>home_yjgl</icon>
     </Module>
     <Module>
