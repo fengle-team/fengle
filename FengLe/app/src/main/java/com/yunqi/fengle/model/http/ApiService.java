@@ -27,6 +27,7 @@ import com.yunqi.fengle.model.request.DailySendRequest;
 import com.yunqi.fengle.model.request.BillAddRequest;
 import com.yunqi.fengle.model.request.PaymentAddRequest;
 import com.yunqi.fengle.model.request.AddMaintainRequest;
+import com.yunqi.fengle.model.request.PlanAdjustmentAddRequest;
 import com.yunqi.fengle.model.request.SignAddRequest;
 import com.yunqi.fengle.model.request.TransferAddRequest;
 import com.yunqi.fengle.model.request.TypeRequest;
@@ -230,7 +231,7 @@ public interface ApiService {
      * @return
      */
     @POST("invoice/add")
-    Observable<BaseHttpRsp> addPlanAdjustment(@Body TransferAddRequest request);
+    Observable<BaseHttpRsp> addPlanAdjustment(@Body PlanAdjustmentAddRequest request);
 
     /**
      * 添加拜访计划

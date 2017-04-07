@@ -32,6 +32,7 @@ import com.yunqi.fengle.model.request.DailySendRequest;
 import com.yunqi.fengle.model.request.BillAddRequest;
 import com.yunqi.fengle.model.request.PaymentAddRequest;
 import com.yunqi.fengle.model.request.AddMaintainRequest;
+import com.yunqi.fengle.model.request.PlanAdjustmentAddRequest;
 import com.yunqi.fengle.model.request.SignAddRequest;
 import com.yunqi.fengle.model.request.TransferAddRequest;
 import com.yunqi.fengle.model.request.TypeRequest;
@@ -74,7 +75,6 @@ public class RetrofitHelper {
     private OkHttpClient okHttpClient = null;
     private ApiService apiService = null;
     private static final int PAGE_SIZE = 10;
-    private static final int PAGE_SIZE_MAX = 100;
     private Context mContext;
 
     public RetrofitHelper(Context context) {
@@ -221,7 +221,7 @@ public class RetrofitHelper {
      * @return
      */
     public Observable<CommonHttpRsp<List<Goods>>> queryStock(String warehouse_code,String area_code,String keywords,final int page) {
-        return apiService.queryStock(warehouse_code,area_code, keywords, page,PAGE_SIZE_MAX);
+        return apiService.queryStock(warehouse_code,area_code, keywords, page,PAGE_SIZE);
     }
 
     /**
@@ -272,7 +272,7 @@ public class RetrofitHelper {
      * @return
      */
     public Observable<CommonHttpRsp<List<Goods>>> queryGoods(String keyword, String userid, String warehouseId,int page) {
-        return apiService.queryGoods(keyword,userid,warehouseId,page,PAGE_SIZE_MAX);
+        return apiService.queryGoods(keyword,userid,warehouseId,page,PAGE_SIZE);
     }
     /**
      * 区域查询
@@ -466,7 +466,7 @@ public class RetrofitHelper {
     public Observable<BaseHttpRsp> addReturn(BillAddRequest request) {
         return apiService.addReturn(request);
     }
-    public Observable<BaseHttpRsp> addPlanAdjustment(TransferAddRequest request) {
+    public Observable<BaseHttpRsp> addPlanAdjustment(PlanAdjustmentAddRequest request) {
         return apiService.addPlanAdjustment(request);
     }
     public Observable<BaseHttpRsp> addBilling(BillAddRequest request) {

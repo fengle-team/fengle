@@ -14,9 +14,11 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
-import com.yunqi.fengle.model.bean.Customer;
+import com.yunqi.fengle.model.bean.Area;
+import com.yunqi.fengle.model.bean.Area;
 import com.yunqi.fengle.model.bean.Goods;
 import com.yunqi.fengle.model.bean.GoodsAndWarehouse;
+import com.yunqi.fengle.model.request.PlanAdjustmentAddRequest;
 import com.yunqi.fengle.model.request.TransferAddRequest;
 import com.yunqi.fengle.presenter.AddPlanAdjustmentPresenter;
 import com.yunqi.fengle.presenter.contract.AddPlanAdjustmentContract;
@@ -41,21 +43,21 @@ import rx.functions.Action1;
  * 添加计划调剂申请
  */
 public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjustmentPresenter> implements AddPlanAdjustmentContract.View {
-    private static final int OUT_CUSTOMER_REQUEST_CODE = 1;
+    private static final int OUT_AREA_REQUEST_CODE = 1;
     private static final int SELECT_GOODS_REQUEST_CODE = 2;
-    private static final int IN_CUSTOMER_REQUEST_CODE = 3;
+    private static final int IN_AREA_REQUEST_CODE = 3;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tableView)
     TableView tableView;
-    @BindView(R.id.btn_out_customer)
-    Button btnOutCustomer;
-    @BindView(R.id.rlayout_out_customer)
-    RelativeLayout rlayoutOutCustomer;
-    @BindView(R.id.btn_in_customer)
-    Button btnInCustomer;
-    @BindView(R.id.rlayout_in_customer)
-    RelativeLayout rlayoutInCustomer;
+    @BindView(R.id.btn_out_area)
+    Button btnOutArea;
+    @BindView(R.id.rlayout_out_area)
+    RelativeLayout rlayoutOutArea;
+    @BindView(R.id.btn_in_area)
+    Button btnInArea;
+    @BindView(R.id.rlayout_in_area)
+    RelativeLayout rlayoutInArea;
     @BindView(R.id.btn_select_goods)
     Button btnSelectGoods;
     @BindView(R.id.rlayout_select_goods)
@@ -69,8 +71,8 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
     private int mStatus = 0;
     public String clientName = "";
     public ArrayList<GoodsAndWarehouse> goodsArray = new ArrayList<>();
-    private Customer outCustomer;
-    private Customer inCustomer;
+    private Area outArea;
+    private Area inArea;
     private GoodsAndWarehouseTableDataAdapter adapter;
 
 
@@ -81,7 +83,7 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_add_delivery_request;
+        return R.layout.activity_add_plan_request;
     }
 
     @Override
@@ -93,45 +95,44 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
                 showBottomOpraterPopWindow();
             }
         });
-        final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_plan_request));
+        final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_add_plan_request));
         tableView.setHeaderAdapter(tableHeader1Adapter);
-        TableColumnWeightModel columnModel = new TableColumnWeightModel(4);
+        TableColumnWeightModel columnModel = new TableColumnWeightModel(5);
         columnModel.setColumnWeight(0, 2);
         columnModel.setColumnWeight(1, 1);
         columnModel.setColumnWeight(2, 1);
         columnModel.setColumnWeight(3, 1);
+        columnModel.setColumnWeight(4, 1);
         tableView.setColumnModel(columnModel);
         setWidgetListener();
     }
 
     private void setWidgetListener() {
-        RxView.clicks(rlayoutOutCustomer)
+        RxView.clicks(rlayoutOutArea)
                 .throttleFirst(1, TimeUnit.SECONDS)
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
                         if(goodsArray.size()>0){
-                            DialogHelper.showDialog(AddPlanAdjustmentRequestActivity.this, getString(R.string.warimg_selected_goods_clear), new SimpleDialogFragment.OnSimpleDialogListener() {
+                            DialogHelper.showDialog(AddPlanAdjustmentRequestActivity.this, getString(R.string.warimg_area_selected_goods_clear), new SimpleDialogFragment.OnSimpleDialogListener() {
                                 @Override
                                 public void onOk() {
                                     goodsArray.clear();
                                     adapter.notifyDataSetChanged();
-                                    jump2SelectCustomer();
+                                    jump2SelectArea(OUT_AREA_REQUEST_CODE);
                                 }
                             });
                             return;
                         }
-                        jump2SelectCustomer();
+                        jump2SelectArea(OUT_AREA_REQUEST_CODE);
                     }
                 });
-        RxView.clicks(rlayoutInCustomer)
+        RxView.clicks(rlayoutInArea)
                 .throttleFirst(1, TimeUnit.SECONDS)
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
-                        Intent intent = new Intent(AddPlanAdjustmentRequestActivity.this, CustomerQueryActivity.class);
-                        intent.putExtra("module", 1);
-                        startActivityForResult(intent, IN_CUSTOMER_REQUEST_CODE);
+                        jump2SelectArea(IN_AREA_REQUEST_CODE);
                     }
                 });
         RxView.clicks(rlayoutSelectGoods)
@@ -139,17 +140,17 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
-                        if(outCustomer==null){
-                            ToastUtil.showNoticeToast(AddPlanAdjustmentRequestActivity.this,getString(R.string.warimg_unselect_customer));
+                        if(outArea==null){
+                            ToastUtil.showNoticeToast(AddPlanAdjustmentRequestActivity.this,getString(R.string.warimg_unselect_area));
                             return;
                         }
                         Intent intent = new Intent(AddPlanAdjustmentRequestActivity.this, GoodsQueryActivity.class);
-                        intent.putExtra("userid",outCustomer.id);
+                        intent.putExtra("userid",outArea.id);
                         intent.putExtra("module",AddPlanAdjustmentRequestActivity.this.getClass().getName());
                         if(!goodsArray.isEmpty()){
                             intent.putExtra("goodsArray",goodsArray);
                         }
-                        startActivityForResult(intent, 2);
+                        startActivityForResult(intent, SELECT_GOODS_REQUEST_CODE);
                     }
                 });
         tableView.addDataClickListener(new TableDataClickListener<GoodsAndWarehouse>() {
@@ -166,10 +167,9 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
         });
     }
 
-    private void jump2SelectCustomer(){
-        Intent intent = new Intent(this, CustomerQueryActivity.class);
-        intent.putExtra("module", 1);
-        startActivityForResult(intent, OUT_CUSTOMER_REQUEST_CODE);
+    private void jump2SelectArea(int requestCode){
+        Intent intent = new Intent(this, AreaQueryActivity.class);
+        startActivityForResult(intent, requestCode);
     }
 
 
@@ -186,8 +186,8 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
                 switch (v.getId()) {
                     case R.id.btn_commit:// 提交
                     {
-                        if (outCustomer == null||inCustomer==null) {
-                            ToastUtil.showNoticeToast(AddPlanAdjustmentRequestActivity.this,getString(R.string.warimg_unselect_in_or_out_customer));
+                        if (outArea == null||inArea==null) {
+                            ToastUtil.showNoticeToast(AddPlanAdjustmentRequestActivity.this,getString(R.string.warimg_unselect_in_or_out_area));
                             return;
                         }
                         mStatus =2;
@@ -196,8 +196,8 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
                     break;
                     case R.id.btn_temporary:// 暂存
                     {
-                        if (outCustomer == null||inCustomer==null) {
-                            ToastUtil.showNoticeToast(AddPlanAdjustmentRequestActivity.this,getString(R.string.warimg_unselect_in_or_out_customer));
+                        if (outArea == null||inArea==null) {
+                            ToastUtil.showNoticeToast(AddPlanAdjustmentRequestActivity.this,getString(R.string.warimg_unselect_in_or_out_area));
                             return;
                         }
                         mStatus = 1;
@@ -215,12 +215,12 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
     }
 
     private void addBill() {
-        TransferAddRequest request = new TransferAddRequest();
+        PlanAdjustmentAddRequest request = new PlanAdjustmentAddRequest();
         request.userid = userId;
-        request.client_code_from = outCustomer.custom_code;
-        request.client_code_to = inCustomer.custom_code;
-        request.client_name_from = outCustomer.name;
-        request.client_name_to = inCustomer.name;
+        request.area_code_from = outArea.area_code;
+        request.area_code_to = inArea.area_code;
+        request.area_name_from = outArea.name;
+        request.area_name_to = inArea.name;
         request.remark = editRemark.getText().toString();
         request.status = mStatus;
         List<Goods> listGoods=new ArrayList<>();
@@ -268,18 +268,18 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == OUT_CUSTOMER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            outCustomer = (Customer) data.getSerializableExtra("customer");
-            btnOutCustomer.setText(outCustomer.name);
+        if (requestCode == OUT_AREA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            outArea = (Area) data.getSerializableExtra("SelectArea");
+            btnOutArea.setText(outArea.name);
         } else if (requestCode == SELECT_GOODS_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             ArrayList<GoodsAndWarehouse> goodsArray = (ArrayList<GoodsAndWarehouse>) data.getSerializableExtra("listSelectGoods");
             this.goodsArray.addAll(goodsArray);
             adapter = new GoodsAndWarehouseTableDataAdapter(this, this.goodsArray);
             tableView.setDataAdapter(adapter);
         }
-        else if (requestCode == IN_CUSTOMER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            inCustomer = (Customer) data.getSerializableExtra("customer");
-            btnInCustomer.setText(inCustomer.name);
+        else if (requestCode == IN_AREA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            inArea = (Area) data.getSerializableExtra("SelectArea");
+            btnInArea.setText(inArea.name);
         }
     }
 }

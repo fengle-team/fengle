@@ -5,6 +5,7 @@ import com.yunqi.fengle.base.RxPresenter;
 import com.yunqi.fengle.model.http.BaseHttpRsp;
 import com.yunqi.fengle.model.http.RetrofitHelper;
 import com.yunqi.fengle.model.request.BillAddRequest;
+import com.yunqi.fengle.model.request.PlanAdjustmentAddRequest;
 import com.yunqi.fengle.model.request.TransferAddRequest;
 import com.yunqi.fengle.presenter.contract.AddPlanAdjustmentContract;
 import com.yunqi.fengle.rx.BaseSubscriber;
@@ -31,7 +32,7 @@ public class AddPlanAdjustmentPresenter extends RxPresenter<AddPlanAdjustmentCon
 
 
     @Override
-    public void addPlanAdjustment(TransferAddRequest request) {
+    public void addPlanAdjustment(PlanAdjustmentAddRequest request) {
         Subscription rxSubscription = mRetrofitHelper.addPlanAdjustment(request)
                 .compose(RxUtil.<BaseHttpRsp>rxSchedulerHelper())
                 .subscribe(new BaseSubscriber(mView) {
