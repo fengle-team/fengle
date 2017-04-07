@@ -51,6 +51,7 @@
     <string name="module_my_message">我的消息</string>
     <string name="module_customer_query">客户查询</string>
     <string name="module_sales_detail">销售明细</string>
+    <string name="module_goods_sale_detail">单一货物销售明细</string>
     <string name="module_customer_contact">客户往来</string>
     <string name="module_add_payment_declaration">添加回款申报</string>
     <string name="module_payment_declaration_details">回款申报详情</string>
@@ -234,6 +235,16 @@
     <string name="tag_current_payment">本年回款：</string>
     <string name="tag_trust_rate">信任比率：</string>
     <string name="tag_real_rate">实际比率：</string>
+    <string name="tag_stock_name">存货名称：</string>
+    <string name="tag_begin_count">期初数量：</string>
+    <string name="tag_deliver_tonnage">发货吨位：</string>
+    <string name="tag_transfer_tonnage">调货吨位：</string>
+    <string name="tag_return_tonnage">退货吨位：</string>
+    <string name="tag_consignment_value">代销市值：</string>
+    <string name="tag_billing_amount">开票金额（不含税）：</string>
+    <string name="tag_tax_amount">含税金额：</string>
+    <string name="tag_binlling_tonnage">开票吨位：</string>
+    <string name="tag_total_price">合计欠结：</string>
 
     <string name="select">选择</string>
     <string name="customer_contact_table">客户往来表</string>

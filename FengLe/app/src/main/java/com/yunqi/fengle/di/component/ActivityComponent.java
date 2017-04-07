@@ -28,6 +28,7 @@ import com.yunqi.fengle.ui.activity.CustomerQueryActivity;
 import com.yunqi.fengle.ui.activity.DeliveryRequestActivity;
 import com.yunqi.fengle.ui.activity.FukuanTypeActivity;
 import com.yunqi.fengle.ui.activity.GoodsQueryActivity;
+import com.yunqi.fengle.ui.activity.GoodsSaleDetailActivity;
 import com.yunqi.fengle.ui.activity.LoginActivity;
 import com.yunqi.fengle.ui.activity.MainActivity;
 import com.yunqi.fengle.ui.activity.MessageActivity;
@@ -173,6 +174,8 @@ public interface ActivityComponent {
     void inject(CustomersSituationActivity activity);
 
     void inject(FukuanTypeActivity activity);
+
+    void inject(GoodsSaleDetailActivity activity);
 
 //    void inject(MessageActivity activity);
 }

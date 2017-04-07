@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import de.codecrafters.tableview.listeners.TableDataClickListener;
 import rx.functions.Action1;
 
 
@@ -82,6 +83,14 @@ public class SalesDetailActivity extends BaseActivity<SaleDetailPresenter> imple
     }
 
     private void setWidgetListener() {
+        tableViewEx.tableView.addDataClickListener(new TableDataClickListener<SaleInfo>() {
+            @Override
+            public void onDataClicked(int rowIndex, SaleInfo saleInfo) {
+                    Intent intent=new Intent(SalesDetailActivity.this,GoodsSaleDetailActivity.class);
+                    intent.putExtra("goods_code",saleInfo.goods_code);
+                    startActivity(intent);
+            }
+        });
         RxView.clicks(btnQuery)
                 .throttleFirst(1, TimeUnit.SECONDS)
                 .subscribe(new Action1<Void>() {

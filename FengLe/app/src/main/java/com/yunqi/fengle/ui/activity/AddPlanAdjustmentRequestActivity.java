@@ -81,7 +81,7 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_add_plan_request;
+        return R.layout.activity_add_delivery_request;
     }
 
     @Override
