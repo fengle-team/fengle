@@ -59,13 +59,13 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
     private String keyword = "";
     private Warehouse selectedWarehouse;
     private ArrayList<GoodsAndWarehouse> listSelectGoods = new ArrayList<>();
-    private int type=0;//0：表示根据用户查询货物 1：表示根据仓库查询货物
-    private String module="";
-    private String user_code="";
-    private String warehouse_code="";
+    private int type = 0;//0：表示根据用户查询货物 1：表示根据仓库查询货物
+    private String module = "";
+    private String user_code = "";
+    private String warehouse_code = "";
     private String maxGoodsNumTip;
     private String hintGoodsNum;
-    public ArrayList<GoodsAndWarehouse> goodsArray ;
+    public ArrayList<GoodsAndWarehouse> goodsArray;
 
     @Override
     protected void initInject() {
@@ -80,34 +80,29 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
     @Override
     protected void initEventAndData() {
 
-        goodsArray= (ArrayList<GoodsAndWarehouse>) getIntent().getSerializableExtra("goodsArray");
-        type=getIntent().getIntExtra("type",0);
-        module=getIntent().getStringExtra("module");
-        if(module.equals(AddDeliveryRequestActivity.class.getName())||module.equals(DeliveryDetailsActivity.class.getName())){
-            maxGoodsNumTip=getString(R.string.tip_max_goods_num_delivery);
-            hintGoodsNum=getString(R.string.hint_edit_num_delivery);
+        goodsArray = (ArrayList<GoodsAndWarehouse>) getIntent().getSerializableExtra("goodsArray");
+        type = getIntent().getIntExtra("type", 0);
+        module = getIntent().getStringExtra("module");
+        if (module.equals(AddDeliveryRequestActivity.class.getName()) || module.equals(DeliveryDetailsActivity.class.getName())) {
+            maxGoodsNumTip = getString(R.string.tip_max_goods_num_delivery);
+            hintGoodsNum = getString(R.string.hint_edit_num_delivery);
+        } else if (module.equals(AddTransferRequestActivity.class.getName()) || module.equals(TransferDetailsActivity.class.getName())) {
+            maxGoodsNumTip = getString(R.string.tip_max_goods_num_transfer);
+            hintGoodsNum = getString(R.string.hint_edit_num_transfer);
+        } else if (module.equals(AddReturnRequestActivity.class.getName()) || module.equals(ReturnDetailsActivity.class.getName())) {
+            maxGoodsNumTip = getString(R.string.tip_max_goods_num_return);
+            hintGoodsNum = getString(R.string.hint_edit_num_return);
+        } else if (module.equals(AddBillingRequestActivity.class.getName()) || module.equals(BillingDetailsActivity.class.getName())) {
+            maxGoodsNumTip = getString(R.string.tip_max_goods_num_bill);
+            hintGoodsNum = getString(R.string.hint_edit_num_bill);
+        } else if (module.equals(AddPlanAdjustmentRequestActivity.class.getName()) || module.equals(PlanAdjustmentDetailsActivity.class.getName())) {
+            maxGoodsNumTip = getString(R.string.tip_max_goods_num_plan);
+            hintGoodsNum = getString(R.string.hint_edit_num_plan);
         }
-        else if(module.equals(AddTransferRequestActivity.class.getName())||module.equals(TransferDetailsActivity.class.getName())){
-            maxGoodsNumTip=getString(R.string.tip_max_goods_num_transfer);
-            hintGoodsNum=getString(R.string.hint_edit_num_transfer);
-        }
-        else if(module.equals(AddReturnRequestActivity.class.getName())||module.equals(ReturnDetailsActivity.class.getName())){
-            maxGoodsNumTip=getString(R.string.tip_max_goods_num_return);
-            hintGoodsNum=getString(R.string.hint_edit_num_return);
-        }
-        else if(module.equals(AddBillingRequestActivity.class.getName())||module.equals(BillingDetailsActivity.class.getName())){
-            maxGoodsNumTip=getString(R.string.tip_max_goods_num_bill);
-            hintGoodsNum=getString(R.string.hint_edit_num_bill);
-        }
-        else if(module.equals(AddPlanAdjustmentRequestActivity.class.getName())||module.equals(PlanAdjustmentDetailsActivity.class.getName())){
-            maxGoodsNumTip=getString(R.string.tip_max_goods_num_plan);
-            hintGoodsNum=getString(R.string.hint_edit_num_plan);
-        }
-        if(type==1){
+        if (type == 1) {
             rlayoutSelectWarehouse.setVisibility(View.VISIBLE);
-        }
-        else{
-            user_code=getIntent().getStringExtra("userid");
+        } else {
+            user_code = getIntent().getStringExtra("userid");
         }
         setToolBar(toolbar, getString(R.string.module_goods_query));
         setWigetListener();
@@ -119,12 +114,12 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
         columnModel.setColumnWeight(2, 1);
         columnModel.setColumnWeight(3, 1);
         tableViewEx.tableView.setColumnModel(columnModel);
-        mPresenter.queryGoods(keyword, user_code,warehouse_code, page);
+        mPresenter.queryGoods(keyword, user_code, warehouse_code, page);
     }
 
     @Override
     public void onBackPressedSupport() {
-        if(!listSelectGoods.isEmpty()){
+        if (!listSelectGoods.isEmpty()) {
             Intent intent = new Intent();
             intent.putExtra("listSelectGoods", listSelectGoods);
             setResult(Activity.RESULT_OK, intent);
@@ -136,14 +131,14 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
         tableViewEx.setOnLoadMoreListener(new ExTableView.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                mPresenter.queryGoods(keyword, user_code,warehouse_code, ++page);
+                mPresenter.queryGoods(keyword, user_code, warehouse_code, ++page);
             }
         });
 
         tableViewEx.setOnLoadRetryListener(new ExTableView.OnLoadRetryListener() {
             @Override
             public void onLoadRetry() {
-                mPresenter.queryGoods(keyword, user_code,warehouse_code, page);
+                mPresenter.queryGoods(keyword, user_code, warehouse_code, page);
             }
         });
         RxView.clicks(btnSelectWarehouse)
@@ -162,50 +157,54 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
                     public void call(Void aVoid) {
                         page = 1;
                         keyword = editGoodsKeyword.getText().toString();
-                        mPresenter.queryGoods(keyword, user_code,warehouse_code, page);
+                        mPresenter.queryGoods(keyword, user_code, warehouse_code, page);
                     }
                 });
         tableViewEx.tableView.addDataClickListener(new TableDataClickListener<Goods>() {
             @Override
             public void onDataClicked(int rowIndex, final Goods goods) {
-                if (type==1&&selectedWarehouse == null) {
+                if (type == 1 && selectedWarehouse == null) {
                     ToastUtil.showNoticeToast(GoodsQueryActivity.this, "请先选择仓库！");
                     return;
                 }
-                int goods_num=(int)goods.goods_num;
+                int goods_num = (int) goods.goods_num;
                 //检查之前是否已经有选择过的货物，如果有需要重新计算库存
-                if(goodsArray!=null){
-                    for (GoodsAndWarehouse goodsAndWarehouse:goodsArray){
-                        if(goods.goods_code.equals(goodsAndWarehouse.goods.goods_code)){
-                            goods_num-=goodsAndWarehouse.goods.goods_num;
+                if (goodsArray != null) {
+                    for (GoodsAndWarehouse goodsAndWarehouse : goodsArray) {
+                        if (goods.goods_code.equals(goodsAndWarehouse.goods.goods_code)) {
+                            goods_num -= goodsAndWarehouse.goods.goods_num;
                         }
                     }
                 }
-                if (goods_num> 0) {
-                    InputDialog dialog=new InputDialog(GoodsQueryActivity.this, goods_num,maxGoodsNumTip,hintGoodsNum, goods,new InputDialog.OnConfirmListener() {
+                if (goods_num > 0) {
+                    InputDialog dialog = new InputDialog(GoodsQueryActivity.this, goods_num, maxGoodsNumTip, hintGoodsNum, goods, new InputDialog.OnConfirmListener() {
                         @Override
                         public void onText(int num) {
                             GoodsAndWarehouse goodsAndWarehouse = new GoodsAndWarehouse();
-                            Goods selectGoods=new Goods();
-                            selectGoods.goods_num=num;
-                            selectGoods.goods_id=goods.goods_id;
-                            selectGoods.goods_code=goods.goods_code;
-                            selectGoods.goods_name=goods.goods_name;
-                            selectGoods.goods_standard=goods.goods_standard;
-                            selectGoods.goods_units_num=goods.goods_units_num;
-                            selectGoods.goods_price=goods.goods_price;
-                            selectGoods.phone=goods.phone;
-                            selectGoods.warehouse_code=goods.warehouse_code;
+                            Goods selectGoods = new Goods();
+                            selectGoods.goods_num = num;
+                            selectGoods.goods_id = goods.goods_id;
+                            selectGoods.goods_code = goods.goods_code;
+                            selectGoods.goods_name = goods.goods_name;
+                            selectGoods.goods_standard = goods.goods_standard;
+                            if (goods.goods_units_num <= 1) {
+                                goods.goods_units_num = 1;
+                            }
+                            float goods_units_num = num / goods.goods_units_num;
+                            selectGoods.goods_units_num = goods_units_num;
+                            selectGoods.goods_price = goods.goods_price;
+                            selectGoods.phone = goods.phone;
+                            selectGoods.warehouse_code = goods.warehouse_code;
                             goodsAndWarehouse.goods = selectGoods;
                             goodsAndWarehouse.warehouse = selectedWarehouse;
                             listSelectGoods.add(goodsAndWarehouse);
-                            DialogHelper.showDialog(GoodsQueryActivity.this, "添加成功，是否继续添加货物？", "继续添加", "返回单据", new SimpleDialogFragment.OnSimpleDialogListener(){
+                            DialogHelper.showDialog(GoodsQueryActivity.this, "添加成功，是否继续添加货物？", "继续添加", "返回单据", new SimpleDialogFragment.OnSimpleDialogListener() {
                                 @Override
                                 public void onOk() {
 
                                 }
 
-                            },new SimpleDialogFragment.OnBackDialogListener(){
+                            }, new SimpleDialogFragment.OnBackDialogListener() {
 
                                 @Override
                                 public void onBack() {
@@ -312,10 +311,10 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == WAREHOUSE_SELECT_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             selectedWarehouse = (Warehouse) data.getSerializableExtra("SelectWarehouse");
-            warehouse_code=selectedWarehouse.warehouse_code;
+            warehouse_code = selectedWarehouse.warehouse_code;
             btnSelectWarehouse.setText(selectedWarehouse.name);
             page = 1;
-            mPresenter.queryGoods(keyword, user_code,warehouse_code, page);
+            mPresenter.queryGoods(keyword, user_code, warehouse_code, page);
         }
     }
 }

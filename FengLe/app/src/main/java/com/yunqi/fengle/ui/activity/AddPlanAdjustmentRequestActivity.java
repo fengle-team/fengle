@@ -75,7 +75,6 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
     private Area inArea;
     private GoodsAndWarehouseTableDataAdapter adapter;
 
-
     @Override
     protected void initInject() {
         getActivityComponent().inject(this);
@@ -89,6 +88,10 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
     @Override
     protected void initEventAndData() {
         userId= App.getInstance().getUserInfo().id;
+        outArea=new Area();
+        outArea.area_code=App.getInstance().getUserInfo().area_code;
+        outArea.name=App.getInstance().getUserInfo().name;
+        btnOutArea.setText(outArea.name);
         setToolBar(toolbar, getString(R.string.module_add_plan_adjustment), getString(R.string.operater), new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,25 +111,25 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
     }
 
     private void setWidgetListener() {
-        RxView.clicks(rlayoutOutArea)
-                .throttleFirst(1, TimeUnit.SECONDS)
-                .subscribe(new Action1<Void>() {
-                    @Override
-                    public void call(Void aVoid) {
-                        if(goodsArray.size()>0){
-                            DialogHelper.showDialog(AddPlanAdjustmentRequestActivity.this, getString(R.string.warimg_area_selected_goods_clear), new SimpleDialogFragment.OnSimpleDialogListener() {
-                                @Override
-                                public void onOk() {
-                                    goodsArray.clear();
-                                    adapter.notifyDataSetChanged();
-                                    jump2SelectArea(OUT_AREA_REQUEST_CODE);
-                                }
-                            });
-                            return;
-                        }
-                        jump2SelectArea(OUT_AREA_REQUEST_CODE);
-                    }
-                });
+//        RxView.clicks(rlayoutOutArea)
+//                .throttleFirst(1, TimeUnit.SECONDS)
+//                .subscribe(new Action1<Void>() {
+//                    @Override
+//                    public void call(Void aVoid) {
+//                        if(goodsArray.size()>0){
+//                            DialogHelper.showDialog(AddPlanAdjustmentRequestActivity.this, getString(R.string.warimg_area_selected_goods_clear), new SimpleDialogFragment.OnSimpleDialogListener() {
+//                                @Override
+//                                public void onOk() {
+//                                    goodsArray.clear();
+//                                    adapter.notifyDataSetChanged();
+//                                    jump2SelectArea(OUT_AREA_REQUEST_CODE);
+//                                }
+//                            });
+//                            return;
+//                        }
+//                        jump2SelectArea(OUT_AREA_REQUEST_CODE);
+//                    }
+//                });
         RxView.clicks(rlayoutInArea)
                 .throttleFirst(1, TimeUnit.SECONDS)
                 .subscribe(new Action1<Void>() {

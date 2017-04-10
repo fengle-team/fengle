@@ -51,8 +51,10 @@
             android:textColor="@color/text_color2"
             android:textSize="@dimen/comom_txt_size_m" />
     </LinearLayout>
+
     <include
         layout="@layout/layout_time_select" />
+
     <EditText
         android:id="@+id/edit_keyword"
         android:layout_width="match_parent"

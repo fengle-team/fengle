@@ -12,7 +12,7 @@ public class Goods implements Serializable{
     public String goods_name;
     public String goods_standard;
     public double goods_num;
-    public int goods_units_num;
+    public float goods_units_num;
     public float goods_price;
     public String goods_warehouse;
     public String goods_plan;
