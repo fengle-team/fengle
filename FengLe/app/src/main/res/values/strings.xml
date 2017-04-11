@@ -79,6 +79,8 @@
     <string name="in_customer">调入客户</string>
     <string name="out_customer_tag">调出客户:</string>
     <string name="in_customer_tag">调入客户:</string>
+    <string name="out_area_tag">调出客户:</string>
+    <string name="in_area_tag">调入客户:</string>
     <string name="selected_goods">已选货物如下:</string>
     <string name="warimg_unselect_customer">请选择调出客户</string>
     <string name="warimg_unselect_in_or_out_customer">请选择调出调入客户</string>

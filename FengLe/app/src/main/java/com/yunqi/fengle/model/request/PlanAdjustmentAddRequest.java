@@ -19,10 +19,10 @@ public class PlanAdjustmentAddRequest {
 
     public String area_id;
 
-    public String area_code_from;
-    public String area_name_from;
-    public String area_name_to;
-    public String area_code_to;
+    public String from_area_code;
+    public String from_area_name;
+    public String to_area_name;
+    public String to_area_code;
 
     public String remark;
 

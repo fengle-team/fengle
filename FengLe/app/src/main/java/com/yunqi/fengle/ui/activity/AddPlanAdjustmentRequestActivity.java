@@ -15,11 +15,9 @@ import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
 import com.yunqi.fengle.model.bean.Area;
-import com.yunqi.fengle.model.bean.Area;
 import com.yunqi.fengle.model.bean.Goods;
 import com.yunqi.fengle.model.bean.GoodsAndWarehouse;
 import com.yunqi.fengle.model.request.PlanAdjustmentAddRequest;
-import com.yunqi.fengle.model.request.TransferAddRequest;
 import com.yunqi.fengle.presenter.AddPlanAdjustmentPresenter;
 import com.yunqi.fengle.presenter.contract.AddPlanAdjustmentContract;
 import com.yunqi.fengle.ui.adapter.GoodsAndWarehouseTableDataAdapter;
@@ -143,12 +141,12 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
-                        if(outArea==null){
-                            ToastUtil.showNoticeToast(AddPlanAdjustmentRequestActivity.this,getString(R.string.warimg_unselect_area));
-                            return;
-                        }
+//                        if(outArea==null){
+//                            ToastUtil.showNoticeToast(AddPlanAdjustmentRequestActivity.this,getString(R.string.warimg_unselect_area));
+//                            return;
+//                        }
                         Intent intent = new Intent(AddPlanAdjustmentRequestActivity.this, GoodsQueryActivity.class);
-                        intent.putExtra("userid",outArea.id);
+                        intent.putExtra("userid",userId);
                         intent.putExtra("module",AddPlanAdjustmentRequestActivity.this.getClass().getName());
                         if(!goodsArray.isEmpty()){
                             intent.putExtra("goodsArray",goodsArray);
@@ -220,10 +218,10 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
     private void addBill() {
         PlanAdjustmentAddRequest request = new PlanAdjustmentAddRequest();
         request.userid = userId;
-        request.area_code_from = outArea.area_code;
-        request.area_code_to = inArea.area_code;
-        request.area_name_from = outArea.name;
-        request.area_name_to = inArea.name;
+        request.from_area_code = outArea.area_code;
+        request.to_area_code = inArea.area_code;
+        request.from_area_name = outArea.name;
+        request.to_area_name = inArea.name;
         request.remark = editRemark.getText().toString();
         request.status = mStatus;
         List<Goods> listGoods=new ArrayList<>();

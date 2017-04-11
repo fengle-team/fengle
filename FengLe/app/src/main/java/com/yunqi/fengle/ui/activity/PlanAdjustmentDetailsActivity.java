@@ -49,10 +49,10 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
     Toolbar toolbar;
     @BindView(R.id.tableView)
     TableView tableView;
-    @BindView(R.id.txt_out_customer)
-    TextView txtOutCustomer;
-    @BindView(R.id.txt_in_customer)
-    TextView txtInCustomer;
+    @BindView(R.id.txt_out_area)
+    TextView txtOutArea;
+    @BindView(R.id.txt_in_area)
+    TextView txtInArea;
     @BindView(R.id.txt_status)
     TextView txtStatus;
     @BindView(R.id.llayout_status)
@@ -81,7 +81,7 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_transfer_details;
+        return R.layout.activity_plan_adjustment_details;
     }
 
     @Override
@@ -106,8 +106,8 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
     }
 
     private void initData() {
-        txtOutCustomer.setText(planAdjustmentApply.client_name_from);
-        txtInCustomer.setText(planAdjustmentApply.client_name_to);
+        txtOutArea.setText(planAdjustmentApply.client_name_from);
+        txtInArea.setText(planAdjustmentApply.client_name_to);
         txtRemark.setText(planAdjustmentApply.remark);
         txtCode.setText(planAdjustmentApply.order_code);
         String strStatus = "";
@@ -313,8 +313,8 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
 
     @Override
     public void showContent(PlanAdjustmentApply planAdjustmentApply) {
-        txtOutCustomer.setText(planAdjustmentApply.client_name_from);
-        txtInCustomer.setText(planAdjustmentApply.client_name_to);
+        txtOutArea.setText(planAdjustmentApply.client_name_from);
+        txtInArea.setText(planAdjustmentApply.client_name_to);
         mlistPlanAdjustmentDetail = planAdjustmentApply.detail;
         adapter = new PlanAdjustmentDetailTableDataAdapter(this, mlistPlanAdjustmentDetail);
         tableView.setDataAdapter(adapter);

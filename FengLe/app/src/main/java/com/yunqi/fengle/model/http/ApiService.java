@@ -325,7 +325,7 @@ public interface ApiService {
     /**
      * 计划查询接口
      */
-    @GET("delivered/get")
+    @GET("goods_plan/get")
     Observable<CommonHttpRsp<List<PlanAdjustmentApply>>> queryPlanAdjustmentApply(@Query("userid") String userid, @Query("keyword") String keyword, @Query("status") int status, @Query("start_time") String start_time, @Query("end_time") String end_time, @Query("page") int page, @Query("size") int size);
 
     /**
@@ -352,7 +352,7 @@ public interface ApiService {
     /**
      * 计划调剂详情查询接口
      */
-    @GET("invoice/get_by_id")
+    @GET("goods_plan/get_by_id")
     Observable<CommonHttpRsp<PlanAdjustmentApply>> getPlanAdjustmentDetails(@Query("id") int id);
     /**
      * 更新状态
@@ -398,14 +398,14 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("dispatch_bill/update_status")
+    @POST("goods_plan/update_status")
     Observable<BaseHttpRsp> updatePlanAdjustmentStatus(@Field("id") int id,@Field("status")int status);
     /**
      * 更新状态
      * @param request
      * @return
      */
-    @POST("dispatch_bill/update_status")
+    @POST("goods_plan/update_status")
     Observable<BaseHttpRsp> updatePlanAdjustmentStatus(@Body BillUpdateRequest request);
     /**
      * 更新状态
@@ -517,7 +517,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("sale_return/delete")
+    @POST("goods_plan/delete")
     Observable<BaseHttpRsp> deletePlanAdjustment(@Field("id") int id);
 
     /**
@@ -555,7 +555,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("sale_return/delete_selected_goods")
+    @POST("goods_plan/delete_selected_goods")
     Observable<BaseHttpRsp> delPlanAdjustmentSelectedGoods(@Field("id") int id);
     /**
      * 删除退货选择货物
@@ -615,7 +615,7 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("return_bill/approval")
+    @POST("goods_plan/approval")
     Observable<BaseHttpRsp> approvalPlanAdjustmentBill(@Field("userid") String userid,@Field("order_code") String order_code,@Field("status") int status);
     /**
      * 修改密码
