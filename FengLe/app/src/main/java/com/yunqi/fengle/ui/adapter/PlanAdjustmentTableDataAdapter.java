@@ -26,27 +26,36 @@ public class PlanAdjustmentTableDataAdapter extends BaseTableDataAdapter<PlanAdj
 
     @Override
     public View getCellView(int rowIndex, int columnIndex, ViewGroup parentView) {
-        PlanAdjustmentApply PlanAdjustmentApply = getRowData(rowIndex);
+        PlanAdjustmentApply planAdjustmentApply = getRowData(rowIndex);
         View renderedView = null;
 
         switch (columnIndex) {
             case 0:
-                renderedView = renderPlanAdjustmentApplyTime(PlanAdjustmentApply);
+                renderedView = renderPlanAdjustmentApplyTime(planAdjustmentApply);
                 break;
             case 1:
-                renderedView = renderCustomerName(PlanAdjustmentApply);
+                renderedView = renderFromArea(planAdjustmentApply);
                 break;
             case 2:
-                renderedView = renderStatus(PlanAdjustmentApply);
+                renderedView = renderToArea(planAdjustmentApply);
                 break;
             case 3:
-                renderedView = renderOprater(PlanAdjustmentApply);
+                renderedView = renderStatus(planAdjustmentApply);
+                break;
+            case 4:
+                renderedView = renderOprater();
                 break;
         }
         return renderedView;
     }
 
-    private View renderOprater(PlanAdjustmentApply PlanAdjustmentApply) {
+    private View renderFromArea(PlanAdjustmentApply planAdjustmentApply) {
+        return renderString(planAdjustmentApply.from_area_code);
+    }
+    private View renderToArea(PlanAdjustmentApply planAdjustmentApply) {
+        return renderString(planAdjustmentApply.to_area_code);
+    }
+    private View renderOprater() {
         return renderString("编辑/查看");
     }
 
@@ -55,9 +64,6 @@ public class PlanAdjustmentTableDataAdapter extends BaseTableDataAdapter<PlanAdj
         String strStatus = null;
         switch (PlanAdjustmentApply.status){
             case 1:
-                strStatus = context.getString(R.string.bill_status_1);
-                break;
-            case 2:
                 String id = App.getInstance().getUserInfo().id;
                 //如果单据是本人提交的，则是未完成状态
                 if (id.equals(PlanAdjustmentApply.userid)) {
@@ -66,21 +72,18 @@ public class PlanAdjustmentTableDataAdapter extends BaseTableDataAdapter<PlanAdj
                     strStatus = context.getString(R.string.bill_status_2);
                 }
                 break;
-            case 3:
+            case 2:
                 strStatus = context.getString(R.string.bill_status_3);
                 break;
-            case 4:
+            case 3:
                 strStatus = context.getString(R.string.bill_status_4);
-                break;
-            default:
-                strStatus =context.getString(R.string.bill_status_unknown);
                 break;
         }
         return renderString(strStatus);
     }
 
-    private View renderCustomerName(PlanAdjustmentApply planAdjustmentApply) {
-        return renderString(planAdjustmentApply.client_name_from);
+    private View renderStandard(PlanAdjustmentApply planAdjustmentApply) {
+        return renderString(planAdjustmentApply.from_area_code);
     }
 
     private View renderPlanAdjustmentApplyTime(PlanAdjustmentApply PlanAdjustmentApply) {

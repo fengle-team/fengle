@@ -152,7 +152,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     private void hideSoftInput() {
         ((InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-
     }
 
 

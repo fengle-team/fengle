@@ -84,6 +84,7 @@
         android:layout_marginRight="@dimen/common_right_margin"
         android:layout_marginTop="@dimen/common_top_margin"
         android:orientation="horizontal"
+        android:visibility="gone"
         android:background="@drawable/input_bg2">
 
         <TextView

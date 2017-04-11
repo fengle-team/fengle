@@ -86,36 +86,33 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
 
     @Override
     protected void initEventAndData() {
-//        role= App.getInstance().getUserInfo().role;
         planAdjustmentApply = (PlanAdjustmentApply) getIntent().getExtras().getSerializable("PlanAdjustmentApply");
         position = getIntent().getExtras().getInt("position");
         status = planAdjustmentApply.status;
         id = planAdjustmentApply.id;
-        if (status > 2) {
-            setToolBar(toolbar, getString(R.string.module_plan_adjustment_detail));
-        } else {
-            setToolBar(toolbar, getString(R.string.module_plan_adjustment_detail), getString(R.string.operater), new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    showBottomOpraterPopWindow(type);
-                }
-            });
-        }
+        setToolBar(toolbar, getString(R.string.module_plan_adjustment_detail), getString(R.string.drop), new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogHelper.showDialog(PlanAdjustmentDetailsActivity.this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
+                    @Override
+                    public void onOk() {
+                        mPresenter.delete(id);
+                    }
+                });
+            }
+        });
         initData();
         setWidgetListener();
     }
 
     private void initData() {
-        txtOutArea.setText(planAdjustmentApply.client_name_from);
-        txtInArea.setText(planAdjustmentApply.client_name_to);
+        txtOutArea.setText(planAdjustmentApply.from_area_name);
+        txtInArea.setText(planAdjustmentApply.to_area_name);
         txtRemark.setText(planAdjustmentApply.remark);
         txtCode.setText(planAdjustmentApply.order_code);
         String strStatus = "";
         switch (status) {
             case 1:
-                strStatus = getString(R.string.bill_status_1);
-                break;
-            case 2:
                 String id = App.getInstance().getUserInfo().id;
                 //如果单据是本人提交的，则是未完成状态
                 if (id.equals(planAdjustmentApply.userid)) {
@@ -126,28 +123,25 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
                     type=1;
                 }
                 break;
-            case 3:
+            case 2:
                 strStatus = getString(R.string.bill_status_3);
                 break;
-            case 4:
+            case 3:
                 strStatus = getString(R.string.bill_status_4);
                 break;
             default:
                 strStatus = getString(R.string.bill_status_unknown);
                 break;
         }
-        if(status>1){
-            btnSelectGoods.setVisibility(View.GONE);
-        }
+        btnSelectGoods.setVisibility(View.GONE);
         txtStatus.setText(strStatus);
         final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_add_delivey_request));
         tableView.setHeaderAdapter(tableHeader1Adapter);
-        TableColumnWeightModel columnModel = new TableColumnWeightModel(5);
+        TableColumnWeightModel columnModel = new TableColumnWeightModel(4);
         columnModel.setColumnWeight(0, 2);
         columnModel.setColumnWeight(1, 1);
         columnModel.setColumnWeight(2, 1);
         columnModel.setColumnWeight(3, 1);
-        columnModel.setColumnWeight(4, 1);
         tableView.setColumnModel(columnModel);
         tableView.addDataClickListener(new TableDataClickListener<PlanAdjustmentDetail>() {
             @Override
@@ -155,7 +149,9 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
 
             }
         });
-        mPresenter.getPlanAdjustmentDetails(planAdjustmentApply.id);
+
+        showData(planAdjustmentApply);
+//        mPresenter.getPlanAdjustmentDetails(planAdjustmentApply.id);
     }
 
     private void setWidgetListener() {
@@ -201,77 +197,18 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
     /**
      *
      */
-    public void showBottomOpraterPopWindow(final int type) {
+    public void showBottomOpraterPopWindow() {
         popWindow = new BottomOpraterPopWindow(this, new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 // 隐藏弹出窗口
                 popWindow.dismiss();
-                if(type==0){
-                    switch (v.getId()) {
-                        case R.id.btn_commit:// 提交
-                            if (status == 2) {
-                                ToastUtil.showNoticeToast(PlanAdjustmentDetailsActivity.this, "单据已提交,不可操作");
-                                return;
-                            }
-//                            mPresenter.updateStatus(id, 2);
-                            BillUpdateRequest request=new BillUpdateRequest();
-                            request.id=id;
-                            List<Goods> listGoods=new ArrayList<>();
-                            for (PlanAdjustmentDetail planAdjustmentDetail:mlistPlanAdjustmentDetail){
-                                listGoods.add(planAdjustmentDetail);
-                            }
-                            request.goods_array=listGoods;
-                            request.order_code=planAdjustmentApply.order_code;
-                            request.status=2;
-                            mPresenter.updateStatus(request);
-                            break;
-                        case R.id.btn_temporary:// 暂存
-                            if (status == 2) {
-                                ToastUtil.showNoticeToast(PlanAdjustmentDetailsActivity.this, "单据已提交,不可操作");
-                                return;
-                            }
-                            if (status == 1) {
-                                ToastUtil.showNoticeToast(PlanAdjustmentDetailsActivity.this, "单据已暂存");
-                                return;
-                            }
-                            break;
-                        case R.id.btn_cancel:// 取消
-                            DialogHelper.showDialog(PlanAdjustmentDetailsActivity.this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
-                                @Override
-                                public void onOk() {
-                                    mPresenter.delete(id);
-                                }
-                            });
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                else {
-                    String userid=App.getInstance().getUserInfo().id;
-                    String orderCode=planAdjustmentApply.order_code;
-                    switch (v.getId()) {
-                        case R.id.btn_commit:// 待审核
-                            mPresenter.approval(userid,orderCode,3);
-                            break;
-                        case R.id.btn_temporary:// 审核驳回
-                            mPresenter.approval(userid,orderCode,4);
-                            break;
-                        case R.id.btn_cancel:// 取消
 
-                            break;
-                        default:
-                            break;
-                    }
-                }
 
             }
         });
-        if(type==1){
-            popWindow.setPopWindowTexts( getResources().getStringArray(R.array.oprater_audit));
-        }
+        popWindow.setOpraterType(2);
         popWindow.showAtLocation(findViewById(R.id.main_layout), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
@@ -311,10 +248,18 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
     }
 
 
+    private void showData(PlanAdjustmentApply planAdjustmentApply){
+        txtOutArea.setText(planAdjustmentApply.from_area_name);
+        txtInArea.setText(planAdjustmentApply.to_area_name);
+        mlistPlanAdjustmentDetail = planAdjustmentApply.detail;
+        adapter = new PlanAdjustmentDetailTableDataAdapter(this, mlistPlanAdjustmentDetail);
+        tableView.setDataAdapter(adapter);
+    }
+
     @Override
     public void showContent(PlanAdjustmentApply planAdjustmentApply) {
-        txtOutArea.setText(planAdjustmentApply.client_name_from);
-        txtInArea.setText(planAdjustmentApply.client_name_to);
+        txtOutArea.setText(planAdjustmentApply.from_area_name);
+        txtInArea.setText(planAdjustmentApply.to_area_name);
         mlistPlanAdjustmentDetail = planAdjustmentApply.detail;
         adapter = new PlanAdjustmentDetailTableDataAdapter(this, mlistPlanAdjustmentDetail);
         tableView.setDataAdapter(adapter);

@@ -22,9 +22,11 @@ public class BottomOpraterPopWindow extends PopupWindow {
     /**
      */
     private Button btnCommit;
+    private View diver1;
     /**
      */
     private Button btnTemporary;
+    private View diver2;
     /**
      */
     private Button btnCancel;
@@ -40,6 +42,13 @@ public class BottomOpraterPopWindow extends PopupWindow {
     }
     public void setOpraterType(int type){
         if(type==1){
+            diver2.setVisibility(View.GONE);
+            btnTemporary.setVisibility(View.GONE);
+        }
+        else if(type==2){
+            diver1.setVisibility(View.GONE);
+            btnCommit.setVisibility(View.GONE);
+            diver2.setVisibility(View.GONE);
             btnTemporary.setVisibility(View.GONE);
         }
     }
@@ -51,7 +60,9 @@ public class BottomOpraterPopWindow extends PopupWindow {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mMenuView = inflater.inflate(R.layout.layout_popwindow_bottom_oprater, null);
         btnCommit = (Button) mMenuView.findViewById(R.id.btn_commit);
+        diver1 = mMenuView.findViewById(R.id.diver1);
         btnTemporary = (Button) mMenuView.findViewById(R.id.btn_temporary);
+        diver2 = mMenuView.findViewById(R.id.diver2);
         btnCancel = (Button) mMenuView.findViewById(R.id.btn_cancel);
         btnCancel.setOnClickListener(itemsOnClick);
         btnTemporary.setOnClickListener(itemsOnClick);

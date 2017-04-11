@@ -15,7 +15,7 @@ public class Goods implements Serializable{
     public float goods_units_num;
     public float goods_price;
     public String goods_warehouse;
-    public String goods_plan;
+    public int goods_plan_left;
     public String phone;
     public float freight;
     public String warehouse_code;

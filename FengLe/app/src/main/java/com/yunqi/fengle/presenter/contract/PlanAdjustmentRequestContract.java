@@ -27,6 +27,6 @@ public interface PlanAdjustmentRequestContract {
          * @param page 页码
          * @return
          */
-        void queryPlanAdjustmentApply(String userid,String keyword, int status, String startTime, String endTime, final int page);
+        void queryPlanAdjustmentApply(String userid,String from_area_code,String to_area_code, int status, String startTime, String endTime, final int page);
     }
 }

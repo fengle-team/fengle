@@ -40,10 +40,10 @@ public class GoodsAndWarehouseTableDataAdapter extends BaseTableDataAdapter<Good
                 renderedView = renderGoodsStandard(goodsAndWarehouse);
                 break;
             case 2:
-                renderedView = renderGoodsNum(goodsAndWarehouse);
+                renderedView = renderGoodsPlanLeftNum(goodsAndWarehouse);
                 break;
             case 3:
-                renderedView = renderGoodsUnitsNum(goodsAndWarehouse);
+                renderedView = renderGoodsNum(goodsAndWarehouse);
                 break;
             case 4:
                 renderedView = renderOprater(goodsAndWarehouse);
@@ -54,8 +54,8 @@ public class GoodsAndWarehouseTableDataAdapter extends BaseTableDataAdapter<Good
 
 
 
-    private View renderGoodsUnitsNum(GoodsAndWarehouse goodsAndWarehouse) {
-        return renderString(goodsAndWarehouse.goods.goods_units_num+"");
+    private View renderGoodsPlanLeftNum(GoodsAndWarehouse goodsAndWarehouse) {
+        return renderString(goodsAndWarehouse.goods.goods_plan_left+"");
     }
     private View renderGoodsPrice(GoodsAndWarehouse goodsAndWarehouse) {
         return renderString(goodsAndWarehouse.goods.goods_price+"");

@@ -71,8 +71,6 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
     Button btnEndTime;
     @BindView(R.id.btn_query)
     Button btnQuery;
-    @BindView(R.id.edit_keyword)
-    EditText editKeyword;
     private int mStatus = 1;
     private long lstartTime = 0;
     private long lendTime = 0;
@@ -84,7 +82,8 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
     private String lastEndTime = null;
     List<PlanAdjustmentApply> mlistPlanAdjustmentApply = new ArrayList<>();
     private PlanAdjustmentTableDataAdapter adapter;
-    private String keyword = "";
+    private String from_area_code = "";
+    private String to_area_code = "";
     private Area selectedInArea;
     private Area selectedOutArea;
 
@@ -108,11 +107,12 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
                 startActivityForResult(intent, ADD_REQUEST_CODE);
             }
         });
-        TableColumnWeightModel columnModel = new TableColumnWeightModel(4);
+        TableColumnWeightModel columnModel = new TableColumnWeightModel(5);
         columnModel.setColumnWeight(0, 1);
-        columnModel.setColumnWeight(1, 2);
+        columnModel.setColumnWeight(1, 1);
         columnModel.setColumnWeight(2, 1);
         columnModel.setColumnWeight(3, 1);
+        columnModel.setColumnWeight(4, 1);
         tableViewEx.tableView.setColumnModel(columnModel);
         final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_plan_request));
         tableViewEx.tableView.setHeaderAdapter(tableHeader1Adapter);
@@ -127,7 +127,7 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
         radioBtn1.setText(R.string.bill_undeal);
         radioBtn2.setText(R.string.bill_undone);
         radioBtn3.setText(R.string.bill_history);
-        mPresenter.queryPlanAdjustmentApply(userId, keyword,mStatus, "", "", page);
+        mPresenter.queryPlanAdjustmentApply(userId, from_area_code,to_area_code,mStatus, "", "", page);
         radioGroup.check(R.id.radioBtn1);
         radioGroup.setOnCheckedChangeListener(this);
 
@@ -147,13 +147,13 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
         tableViewEx.setOnLoadMoreListener(new ExTableView.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                mPresenter.queryPlanAdjustmentApply(userId,keyword, mStatus, lastStartTime, lastEndTime, ++page);
+                mPresenter.queryPlanAdjustmentApply(userId,from_area_code,to_area_code, mStatus, lastStartTime, lastEndTime, ++page);
             }
         });
         tableViewEx.setOnLoadRetryListener(new ExTableView.OnLoadRetryListener() {
             @Override
             public void onLoadRetry() {
-                mPresenter.queryPlanAdjustmentApply(userId,keyword, mStatus, lastStartTime, lastEndTime, page);
+                mPresenter.queryPlanAdjustmentApply(userId,from_area_code,to_area_code, mStatus, lastStartTime, lastEndTime, page);
             }
         });
         RxView.clicks(btnQuery)
@@ -166,10 +166,9 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
                             ToastUtil.showNoticeToast(PlanAdjustmentActivity.this, getString(R.string.warming_time_select));
                             return;
                         }
-                        keyword =editKeyword.getText().toString();
                         lastStartTime = startTime;
                         lastEndTime = endTime;
-                        mPresenter.queryPlanAdjustmentApply(userId,keyword, mStatus, startTime, endTime, page);
+                        mPresenter.queryPlanAdjustmentApply(userId,from_area_code,to_area_code, mStatus, startTime, endTime, page);
                     }
                 });
         RxView.clicks(btnStartTime)
@@ -267,7 +266,7 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
         if (requestCode == ADD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             int status = data.getIntExtra("status", 0);
             if (2 == mStatus) {
-                mPresenter.queryPlanAdjustmentApply(userId,keyword, mStatus, startTime, endTime, page);
+                mPresenter.queryPlanAdjustmentApply(userId,from_area_code,to_area_code, mStatus, startTime, endTime, page);
             }
         }  else if (requestCode == DETAIL_REQUEST_CODE && resultCode == DEL_DETAIL_RESULT_CODE) {
             int position = data.getIntExtra("postion", 0);
@@ -276,20 +275,22 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
         } else if (requestCode == DETAIL_REQUEST_CODE && resultCode == UPDATE_DETAIL_RESULT_CODE) {
             int status = data.getIntExtra("status", 0);
             if (1 == mStatus) {
-                mPresenter.queryPlanAdjustmentApply(userId,keyword, mStatus, startTime, endTime, page);
+                mPresenter.queryPlanAdjustmentApply(userId,from_area_code,to_area_code, mStatus, startTime, endTime, page);
             }
         }
         else if (requestCode == DETAIL_REQUEST_CODE && resultCode == APPROVAL_DETAIL_RESULT_CODE) {
             if (2 == mStatus) {
-                mPresenter.queryPlanAdjustmentApply(userId,keyword, mStatus, startTime, endTime, page);
+                mPresenter.queryPlanAdjustmentApply(userId,from_area_code,to_area_code, mStatus, startTime, endTime, page);
             }
         }
         else if (requestCode == SELECT_AREA_IN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             selectedInArea= (Area) data.getSerializableExtra("SelectArea");
+            to_area_code=selectedInArea.area_code;
             btnInArea.setText(selectedInArea.name);
         }
         else if (requestCode == SELECT_AREA_OUT_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             selectedOutArea= (Area) data.getSerializableExtra("SelectArea");
+            from_area_code=selectedOutArea.area_code;
             btnOutArea.setText(selectedOutArea.name);
         }
     }
@@ -308,10 +309,24 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
                 mStatus = 3;
                 break;
         }
+        resetData();
+        mPresenter.queryPlanAdjustmentApply(userId,from_area_code,to_area_code, mStatus, "", "", page);
+    }
+
+    private void resetData(){
+        page = 1;
         btnStartTime.setText(R.string.start_time);
         btnEndTime.setText(R.string.end_time);
-        page = 1;
-        mPresenter.queryPlanAdjustmentApply(userId,keyword, mStatus, "", "", page);
+        btnInArea.setText(R.string.in_area);
+        btnOutArea.setText(R.string.out_area);
+        lstartTime=0;
+        startTime="";
+        lendTime=0;
+        endTime="";
+        from_area_code="";
+        to_area_code="";
+        selectedInArea=null;
+        selectedOutArea=null;
     }
 
     @Override

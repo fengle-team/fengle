@@ -89,6 +89,7 @@
     <string name="warimg_unselect_area">请选择调出大区</string>
     <string name="warimg_area_selected_goods_clear">大区一旦更改，所选货物即将被清空</string>
     <string name="warimg_customer_no_same">调出客户不能与调入客户相同</string>
+    <string name="warimg_unselect_goods">请选择货物</string>
     <string name="hint_customer">客户名称</string>
 
     <string-array name="header_title_stock">
@@ -136,16 +137,17 @@
         <item>操作</item>
     </string-array>
     <string-array name="header_title_plan_request">
-        <item>名称</item>
-        <item>规格</item>
-        <item>剩余计划</item>
-        <item>调剂剩余</item>
+        <item>时间</item>
+        <item>调出大区</item>
+        <item>调入大区</item>
+        <item>状态</item>
+        <item>操作</item>
     </string-array>
     <string-array name="header_title_add_plan_request">
         <item>名称</item>
         <item>规格</item>
         <item>剩余计划</item>
-        <item>调剂剩余</item>
+        <item>调剂数量</item>
         <item>操作</item>
     </string-array>
 
@@ -154,7 +156,6 @@
         <item>规格</item>
         <item>数量</item>
         <item>件数</item>
-        <item>操作</item>
     </string-array>
 
     <string-array name="header_title_payment_request">
@@ -205,7 +206,7 @@
     <string-array name="oprater_add">
         <item>提交</item>
         <item>暂存</item>
-        <item>删除</item>
+        <item>放弃</item>
     </string-array>
 
     <string-array name="oprater_audit">

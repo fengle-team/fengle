@@ -112,8 +112,8 @@ public interface ApiService {
     /**
      * 客户分析查询
      */
-    @GET("custom/analysis")
-    Observable<CommonHttpRsp<List<CustomerAnalysis>>> queryCustomerAnalysis(@Query("user_code")String user_code);
+    @GET("custom_analysis/get")
+    Observable<CommonHttpRsp<List<CustomerAnalysis>>> queryCustomerAnalysis(@Query("user_code")String user_code,@Query("page")int page,@Query("size")int size);
     /**
      * 回款类型查询
      */
@@ -233,7 +233,7 @@ public interface ApiService {
      * @param request
      * @return
      */
-    @POST("invoice/add")
+    @POST("goods_plan/add")
     Observable<BaseHttpRsp> addPlanAdjustment(@Body PlanAdjustmentAddRequest request);
 
     /**
@@ -329,7 +329,7 @@ public interface ApiService {
      * 计划查询接口
      */
     @GET("goods_plan/get")
-    Observable<CommonHttpRsp<List<PlanAdjustmentApply>>> queryPlanAdjustmentApply(@Query("userid") String userid, @Query("keyword") String keyword, @Query("status") int status, @Query("start_time") String start_time, @Query("end_time") String end_time, @Query("page") int page, @Query("size") int size);
+    Observable<CommonHttpRsp<List<PlanAdjustmentApply>>> queryPlanAdjustmentApply(@Query("userid") String userid, @Query("from_area_code") String from_area_code,  @Query("to_area_code") String to_area_code, @Query("status") int status, @Query("start_time") String start_time, @Query("end_time") String end_time, @Query("page") int page, @Query("size") int size);
 
     /**
      * 发货单详情查询接口

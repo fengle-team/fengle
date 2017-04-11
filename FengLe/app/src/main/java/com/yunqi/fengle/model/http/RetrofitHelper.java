@@ -74,7 +74,7 @@ import rx.Observable;
 public class RetrofitHelper {
     private OkHttpClient okHttpClient = null;
     private ApiService apiService = null;
-    private static final int PAGE_SIZE = 10;
+    private static final int PAGE_SIZE = 20;
     private Context mContext;
 
     public RetrofitHelper(Context context) {
@@ -287,7 +287,7 @@ public class RetrofitHelper {
      * @return
      */
     public Observable<CommonHttpRsp<List<CustomerAnalysis>>> queryCustomerAnalysis(String user_code){
-        return apiService.queryCustomerAnalysis(user_code);
+        return apiService.queryCustomerAnalysis(user_code,1,PAGE_SIZE);
     }
     /**
      * 回款类型查询
@@ -410,8 +410,8 @@ public class RetrofitHelper {
      * @param page
      * @return
      */
-    public Observable<CommonHttpRsp<List<PlanAdjustmentApply>>> queryPlanAdjustmentApply(String userid,String keyword, int status, String startTime, String endTime, int page) {
-        return apiService.queryPlanAdjustmentApply(userid, keyword,status, startTime, endTime, page, PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<PlanAdjustmentApply>>> queryPlanAdjustmentApply(String userid,String from_area_code,String to_area_code, int status, String startTime, String endTime, int page) {
+        return apiService.queryPlanAdjustmentApply(userid, from_area_code,to_area_code,status, startTime, endTime, page, PAGE_SIZE);
     }
 
     /**

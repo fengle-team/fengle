@@ -27,6 +27,7 @@
             android:textColor="@color/color_selector2"
             android:textSize="@dimen/comom_txt_size_s" />
         <View
+            android:id="@+id/diver1"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/diver_coloer"/>
@@ -43,6 +44,7 @@
             android:textColor="@color/color_selector2"
             android:textSize="@dimen/comom_txt_size_s" />
         <View
+            android:id="@+id/diver2"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/diver_coloer"/>

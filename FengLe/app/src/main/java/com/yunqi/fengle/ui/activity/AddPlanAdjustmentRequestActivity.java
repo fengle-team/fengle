@@ -187,22 +187,7 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
                 switch (v.getId()) {
                     case R.id.btn_commit:// 提交
                     {
-                        if (outArea == null||inArea==null) {
-                            ToastUtil.showNoticeToast(AddPlanAdjustmentRequestActivity.this,getString(R.string.warimg_unselect_in_or_out_area));
-                            return;
-                        }
-                        mStatus =2;
-                        addBill();
-                    }
-                    break;
-                    case R.id.btn_temporary:// 暂存
-                    {
-                        if (outArea == null||inArea==null) {
-                            ToastUtil.showNoticeToast(AddPlanAdjustmentRequestActivity.this,getString(R.string.warimg_unselect_in_or_out_area));
-                            return;
-                        }
-                        mStatus = 1;
-                        addBill();
+                        addBill(2);
                     }
                     break;
                     case R.id.btn_cancel:// 放弃
@@ -212,10 +197,20 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
                 }
             }
         });
+        popWindow.setOpraterType(1);
         popWindow.showAtLocation(findViewById(R.id.main_layout), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
-    private void addBill() {
+    private void addBill(int status) {
+        if (outArea == null||inArea==null) {
+            ToastUtil.showNoticeToast(AddPlanAdjustmentRequestActivity.this,getString(R.string.warimg_unselect_in_or_out_area));
+            return;
+        }
+        if (goodsArray.isEmpty()) {
+            ToastUtil.showNoticeToast(AddPlanAdjustmentRequestActivity.this,getString(R.string.warimg_unselect_goods));
+            return;
+        }
+        mStatus =status;
         PlanAdjustmentAddRequest request = new PlanAdjustmentAddRequest();
         request.userid = userId;
         request.from_area_code = outArea.area_code;

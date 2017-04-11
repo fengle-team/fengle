@@ -1,5 +1,7 @@
 package com.yunqi.fengle.model.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,19 +11,20 @@ import java.util.List;
  * @time 2017/2/15
  */
 public class PlanAdjustmentApply implements Serializable{
-    public int id;
-    public String userid;
-    public String order_code;
-    public String client_name_to;
-    public String client_name_from;
-    public String client_code_from;
-    public String client_code_to;
-    public String create_time;
-    public int status;
-    public String remark;
+
 
 
     public List<PlanAdjustmentDetail> detail;
+    public int id;
+    public String from_area_code;
+    public String from_area_name;
+    public String to_area_code;
+    public String to_area_name;
+    public String create_time;
+    public int status;
+    public int userid;
+    public String order_code;
+    public String remark;
 
     public PlanAdjustmentApply() {
     }

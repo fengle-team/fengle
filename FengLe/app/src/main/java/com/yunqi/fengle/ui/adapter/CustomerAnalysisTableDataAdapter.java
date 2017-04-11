@@ -55,7 +55,7 @@ public class CustomerAnalysisTableDataAdapter extends BaseTableDataAdapter<Custo
     private View renderLift(CustomerAnalysis customer) {
         View view = LayoutInflater.from(context).inflate(R.layout.table_data_select_view, null);
         ImageView img= (ImageView) view.findViewById(R.id.img);
-        if(customer.lift==1){
+        if(customer.status==1){
             img.setImageResource(R.drawable.up);
         }
         else{
@@ -65,20 +65,20 @@ public class CustomerAnalysisTableDataAdapter extends BaseTableDataAdapter<Custo
     }
 
     private View renderName(CustomerAnalysis customer) {
-        return renderString(customer.name);
+        return renderString(customer.client_name);
     }
     private View renderLastRanking(CustomerAnalysis customer) {
-        return renderString(customer.ranking+"");
+        return renderString(customer.fh_amount_rank+"");
     }
     private View renderRanking(CustomerAnalysis customer) {
-        return renderString(customer.ranking+"");
+        return renderString(customer.fh_num_rank+"");
     }
     private View renderLastShipment(CustomerAnalysis customer) {
-        return renderString(customer.last_shipment+"");
+        return renderString(customer.huikuan_amount+"");
     }
 
     private View renderAmount(CustomerAnalysis customer) {
-        return renderString(customer.amount+"");
+        return renderString(customer.fh_amount+"");
     }
 
     private View renderString(final String value) {
