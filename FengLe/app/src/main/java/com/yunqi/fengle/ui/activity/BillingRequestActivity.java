@@ -267,10 +267,19 @@ public class BillingRequestActivity extends BaseActivity<BillingQueryPresenter> 
                 mStatus = 3;
                 break;
         }
+        resetData();
+        mPresenter.queryBillingApply(userId, keyword,mStatus, "", "", page);
+    }
+    private void resetData(){
+        page = 1;
         btnStartTime.setText(R.string.start_time);
         btnEndTime.setText(R.string.end_time);
-        page = 1;
-        mPresenter.queryBillingApply(userId, keyword,mStatus, "", "", page);
+        lstartTime=0;
+        startTime="";
+        lendTime=0;
+        endTime="";
+        editKeyword.setText("");
+        keyword="";
     }
 
     @Override

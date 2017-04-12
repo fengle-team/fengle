@@ -82,7 +82,7 @@
     <string name="out_area_tag">调出客户:</string>
     <string name="in_area_tag">调入客户:</string>
     <string name="selected_goods">已选货物如下:</string>
-    <string name="warimg_unselect_customer">请选择调出客户</string>
+    <string name="warimg_unselect_customer">请选择客户</string>
     <string name="warimg_unselect_in_or_out_customer">请选择调出调入客户</string>
     <string name="warimg_unselect_in_or_out_area">请选择调出调入大区</string>
     <string name="warimg_selected_goods_clear">客户一旦更改，所选货物即将被清空</string>

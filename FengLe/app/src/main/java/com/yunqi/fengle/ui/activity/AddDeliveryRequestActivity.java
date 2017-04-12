@@ -172,20 +172,13 @@ public class AddDeliveryRequestActivity extends BaseActivity<AddDeliveryPresente
                 switch (v.getId()) {
                     case R.id.btn_commit:// 提交
                     {
-                        if (selectCustomer == null) {
-                            ToastUtil.showNoticeToast(AddDeliveryRequestActivity.this,getString(R.string.warimg_unselect_customer));
-                            return;
-                        }
+
                         mStatus = 2;
                         addBill();
                     }
                     break;
                     case R.id.btn_temporary:// 暂存
                     {
-                        if (selectCustomer == null) {
-                            ToastUtil.showNoticeToast(AddDeliveryRequestActivity.this,getString(R.string.warimg_unselect_customer));
-                            return;
-                        }
                         mStatus = 1;
                         addBill();
                     }
@@ -201,6 +194,14 @@ public class AddDeliveryRequestActivity extends BaseActivity<AddDeliveryPresente
     }
 
     private void addBill() {
+        if (selectCustomer == null) {
+            ToastUtil.showNoticeToast(AddDeliveryRequestActivity.this,getString(R.string.warimg_unselect_customer));
+            return;
+        }
+        if (goodsArray.isEmpty()) {
+            ToastUtil.showNoticeToast(AddDeliveryRequestActivity.this,getString(R.string.warimg_unselect_goods));
+            return;
+        }
         BillAddRequest request = new BillAddRequest();
         request.userid = userId;
         request.client_code = selectCustomer.custom_code;
