@@ -152,7 +152,6 @@ public class AddMaintainActivity extends BaseActivity<AddMaintainPresenter> impl
     private void initRecyclerView() {
         rvPhoto.setLayoutManager(new FullyGridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false));
         adapter = new GridImageAdapter(this, this);
-
         rvPhoto.setAdapter(adapter);
 
     }
@@ -318,8 +317,8 @@ public class AddMaintainActivity extends BaseActivity<AddMaintainPresenter> impl
                 config.setCheckedBoxDrawable(selector);
                 // 先初始化参数配置，在启动相册
                 PictureConfig.init(config);
-                PictureConfig.getPictureConfig().openPhoto(mContext, resultCallback);
-
+//                PictureConfig.getPictureConfig().openPhoto(mContext, resultCallback);
+                PictureConfig.getPictureConfig().startOpenCamera(mContext, resultCallback);
                 break;
             case 1:
                 // 删除图片
