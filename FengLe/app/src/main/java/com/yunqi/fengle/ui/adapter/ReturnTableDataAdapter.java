@@ -18,10 +18,14 @@ import de.codecrafters.tableview.TableDataAdapter;
 
 public class ReturnTableDataAdapter extends BaseTableDataAdapter<ReturnApply> {
     private Context context;
+    private int billStatus;
 
     public ReturnTableDataAdapter(Context context, List<ReturnApply> data) {
         super(context, data);
         this.context = context;
+    }
+    public void setBillStatus(int billStatus){
+        this.billStatus=billStatus;
     }
 
     @Override
@@ -63,7 +67,12 @@ public class ReturnTableDataAdapter extends BaseTableDataAdapter<ReturnApply> {
                 if (id.equals(ReturnApply.userid)) {
                     strStatus = context.getString(R.string.bill_status_undone);
                 } else {
-                    strStatus = context.getString(R.string.bill_status_2);
+                    if(billStatus==3){
+                        strStatus = context.getString(R.string.bill_status_5);
+                    }
+                    else {
+                        strStatus = context.getString(R.string.bill_status_2);
+                    }
                 }
                 break;
             case 3:

@@ -270,6 +270,7 @@ public class TransferRequestActivity extends BaseActivity<TransferQueryPresenter
                 mStatus = 3;
                 break;
         }
+        adapter.setBillStatus(mStatus);
         resetData();
         mPresenter.queryTransferApply(userId,keyword, mStatus, "", "", page);
     }

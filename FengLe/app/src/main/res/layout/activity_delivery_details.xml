@@ -69,6 +69,7 @@
             android:focusable="true"
             android:gravity="center"
             android:paddingLeft="15dp"
+            android:visibility="gone"
             android:text="@string/select_goods"
             android:textColor="@color/text_color2"
             android:textSize="@dimen/comom_txt_size_m" />

@@ -79,7 +79,6 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
 
     @Override
     protected void initEventAndData() {
-
         goodsArray = (ArrayList<GoodsAndWarehouse>) getIntent().getSerializableExtra("goodsArray");
         type = getIntent().getIntExtra("type", 0);
         module = getIntent().getStringExtra("module");
@@ -176,6 +175,10 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
                         }
                     }
                 }
+                else
+                {
+                    goodsArray=new ArrayList<GoodsAndWarehouse>();
+                }
                 if (goods_num > 0) {
                     InputDialog dialog = new InputDialog(GoodsQueryActivity.this, goods_num, maxGoodsNumTip, hintGoodsNum, goods, new InputDialog.OnConfirmListener() {
                         @Override
@@ -198,6 +201,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
                             goodsAndWarehouse.goods = selectGoods;
                             goodsAndWarehouse.warehouse = selectedWarehouse;
                             listSelectGoods.add(goodsAndWarehouse);
+                            goodsArray.addAll(listSelectGoods);
                             DialogHelper.showDialog(GoodsQueryActivity.this, "添加成功，是否继续添加货物？", "继续添加", "返回单据", new SimpleDialogFragment.OnSimpleDialogListener() {
                                 @Override
                                 public void onOk() {
@@ -277,13 +281,14 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
     }
 
     @Override
     public void showContent(List<Goods> listGoods) {
         if (listGoods.isEmpty()) {
             Log.w(TAG, "No data!");
+            mListGoods.clear();
+            adapter.notifyDataSetChanged();
             tableViewEx.setEmptyData();
             return;
         }

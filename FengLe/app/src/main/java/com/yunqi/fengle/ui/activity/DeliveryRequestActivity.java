@@ -266,6 +266,7 @@ public class DeliveryRequestActivity extends BaseActivity<DeliveryQueryPresenter
                 mStatus = 3;
                 break;
         }
+        adapter.setBillStatus(mStatus);
         resetData();
         mPresenter.queryInvoiceApply(userId,keyword, mStatus, "", "", page);
     }

@@ -76,6 +76,8 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
     private List<DeliveryDetail> mlistDeliveryDetail;
     private int positionGoods;
     private int type;
+    private int bill_status = 0;//单据在列表中所处的状态 1:待处理 2：未完成 3：历史单据
+    private boolean isEditor = false;
 
     @Override
     protected void initInject() {
@@ -91,10 +93,33 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
     protected void initEventAndData() {
 //        role= App.getInstance().getUserInfo().role;
         invoiceApply = (InvoiceApply) getIntent().getExtras().getSerializable("invoiceApply");
+        bill_status = getIntent().getExtras().getInt("status");
         position = getIntent().getExtras().getInt("position");
         status = invoiceApply.status;
         id = invoiceApply.id;
-        if (status > 2) {
+        initData();
+        setWidgetListener();
+    }
+
+    private void initData() {
+        txtCustomer.setText(invoiceApply.client_name);
+        txtRemark.setText(invoiceApply.remark);
+        txtCode.setText(invoiceApply.order_code);
+        boolean hideOperater = true;
+        switch (bill_status) {
+            case 1:
+                type = 1;
+                hideOperater = false;
+                break;
+            case 2:
+                type = 0;
+                hideOperater = false;
+                break;
+            case 3:
+                hideOperater = true;
+                break;
+        }
+        if (hideOperater) {
             setToolBar(toolbar, getString(R.string.module_delivery_detail));
         } else {
             setToolBar(toolbar, getString(R.string.module_delivery_detail), getString(R.string.operater), new View.OnClickListener() {
@@ -104,41 +129,42 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                 }
             });
         }
-        initData();
-        setWidgetListener();
-    }
-
-    private void initData() {
-        txtCustomer.setText(invoiceApply.client_name);
-        txtRemark.setText(invoiceApply.remark);
-        txtCode.setText(invoiceApply.order_code);
         String strStatus = "";
         switch (status) {
             case 1:
                 strStatus = getString(R.string.bill_status_1);
+                isEditor = true;
                 break;
-            case 2:
+            case 2: {
                 String id = App.getInstance().getUserInfo().id;
                 //如果单据是本人提交的，则是未完成状态
                 if (id.equals(invoiceApply.userid)) {
                     strStatus = getString(R.string.bill_status_undone);
-                    type = 0;
                 } else {
-                    strStatus = getString(R.string.bill_status_2);
-                    type = 1;
+                    if (bill_status == 3) {
+                        strStatus = getString(R.string.bill_status_5);
+                    } else {
+                        strStatus = getString(R.string.bill_status_2);
+                    }
                 }
-                break;
+            }
+            break;
             case 3:
                 strStatus = getString(R.string.bill_status_3);
                 break;
             case 4:
                 strStatus = getString(R.string.bill_status_4);
+                if (bill_status == 2) {
+                    isEditor = true;
+                }
                 break;
             default:
                 strStatus = getString(R.string.bill_status_unknown);
                 break;
         }
-        if (status > 1) {
+        if (isEditor) {
+            btnSelectGoods.setVisibility(View.VISIBLE);
+        } else {
             btnSelectGoods.setVisibility(View.GONE);
         }
         txtStatus.setText(strStatus);
@@ -151,12 +177,6 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
         columnModel.setColumnWeight(3, 1);
         columnModel.setColumnWeight(4, 1);
         tableView.setColumnModel(columnModel);
-        tableView.addDataClickListener(new TableDataClickListener<DeliveryDetail>() {
-            @Override
-            public void onDataClicked(int rowIndex, DeliveryDetail deliveryDetail) {
-
-            }
-        });
         mPresenter.getDeliveryDetails(invoiceApply.id);
     }
 
@@ -164,7 +184,7 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
         tableView.addDataClickListener(new TableDataClickListener<DeliveryDetail>() {
             @Override
             public void onDataClicked(final int rowIndex, DeliveryDetail deliveryDetail) {
-                if (status > 1) {
+                if (!isEditor) {
                     ToastUtil.showNoticeToast(DeliveryDetailsActivity.this, "单据已提交，不可操作！");
                     return;
                 }
@@ -194,7 +214,7 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                             }
                             intent.putExtra("goodsArray", goodsArray);
                         }
-                        intent.putExtra("module",this.getClass().getName());
+                        intent.putExtra("module", DeliveryDetailsActivity.this.getClass().getName());
                         startActivityForResult(intent, SELECT_GOODS_REQUEST_CODE);
                     }
                 });
@@ -218,17 +238,7 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                                 ToastUtil.showNoticeToast(DeliveryDetailsActivity.this, "单据已提交,不可操作");
                                 return;
                             }
-//                            mPresenter.updateStatus(id, 2);
-                            BillUpdateRequest request = new BillUpdateRequest();
-                            request.id = id;
-                            List<Goods> listGoods = new ArrayList<>();
-                            for (DeliveryDetail deliveryDetail : mlistDeliveryDetail) {
-                                listGoods.add(deliveryDetail);
-                            }
-                            request.order_code = invoiceApply.order_code;
-                            request.goods_array = listGoods;
-                            request.status = 2;
-                            mPresenter.updateStatus(request);
+                            updateBillStatus(2);
                             break;
                         case R.id.btn_temporary:// 暂存
                             if (status == 2) {
@@ -239,6 +249,7 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                                 ToastUtil.showNoticeToast(DeliveryDetailsActivity.this, "单据已暂存");
                                 return;
                             }
+                            updateBillStatus(1);
                             break;
                         case R.id.btn_cancel:// 取消
                             DialogHelper.showDialog(DeliveryDetailsActivity.this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
@@ -275,6 +286,23 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
             popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_audit));
         }
         popWindow.showAtLocation(findViewById(R.id.main_layout), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+    }
+
+    private void updateBillStatus(int status) {
+        if (mlistDeliveryDetail == null || mlistDeliveryDetail.isEmpty()) {
+            ToastUtil.showNoticeToast(this, getString(R.string.warimg_unselect_goods));
+            return;
+        }
+        BillUpdateRequest request = new BillUpdateRequest();
+        request.id = id;
+        List<Goods> listGoods = new ArrayList<>();
+        for (DeliveryDetail deliveryDetail : mlistDeliveryDetail) {
+            listGoods.add(deliveryDetail);
+        }
+        request.order_code = invoiceApply.order_code;
+        request.goods_array = listGoods;
+        request.status = status;
+        mPresenter.updateStatus(request);
     }
 
     @Override

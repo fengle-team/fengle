@@ -155,7 +155,7 @@ public interface ApiService {
      * 查询货物接口
      */
     @GET("goods/get")
-    Observable<CommonHttpRsp<List<Goods>>> queryGoods(@Query("keyword") String keyword,@Query("userid")String userid,@Query("warehouse_id")String warehouse_id,@Query("page") int page,@Query("size") int size);
+    Observable<CommonHttpRsp<List<Goods>>> queryGoods(@Query("keyword") String keyword,@Query("userid")String userid,@Query("warehouse_code")String warehouse_code,@Query("page") int page,@Query("size") int size);
 
     /**
      * 查询活动 {@link com.yunqi.fengle.ui.activity.ActivityPlanActivity}

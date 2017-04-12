@@ -53,8 +53,8 @@ public class CustomerAnalysisActivity extends BaseActivity<CustomerAnalysisPrese
         columnModel.setColumnWeight(0, 2);
         columnModel.setColumnWeight(1, 2);
         columnModel.setColumnWeight(2, 1);
-        columnModel.setColumnWeight(3, 2);
         columnModel.setColumnWeight(4, 2);
+        columnModel.setColumnWeight(3, 2);
         columnModel.setColumnWeight(5, 1);
         tableView.setColumnModel(columnModel);
         tableView.setDataAdapter(adapter);

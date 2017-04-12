@@ -268,6 +268,7 @@ public class ReturnRequestActivity extends BaseActivity<ReturnQueryPresenter> im
                 mStatus = 3;
                 break;
         }
+        adapter.setBillStatus(mStatus);
         resetData();
         mPresenter.queryReturnApply(userId, keyword,mStatus, "", "", page);
     }

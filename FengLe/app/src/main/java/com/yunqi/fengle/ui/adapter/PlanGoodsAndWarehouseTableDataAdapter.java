@@ -4,22 +4,17 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yunqi.fengle.R;
-import com.yunqi.fengle.model.bean.Goods;
 import com.yunqi.fengle.model.bean.GoodsAndWarehouse;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import de.codecrafters.tableview.TableDataAdapter;
 
-
-public class GoodsAndWarehouseTableDataAdapter extends BaseTableDataAdapter<GoodsAndWarehouse> {
+public class PlanGoodsAndWarehouseTableDataAdapter extends BaseTableDataAdapter<GoodsAndWarehouse> {
     private Context context;
-    public GoodsAndWarehouseTableDataAdapter(Context context, List<GoodsAndWarehouse> data) {
+    public PlanGoodsAndWarehouseTableDataAdapter(Context context, List<GoodsAndWarehouse> data) {
         super(context, data);
         this.context=context;
     }
@@ -40,10 +35,10 @@ public class GoodsAndWarehouseTableDataAdapter extends BaseTableDataAdapter<Good
                 renderedView = renderGoodsStandard(goodsAndWarehouse);
                 break;
             case 2:
-                renderedView = renderGoodsNum(goodsAndWarehouse);
+                renderedView = renderGoodsPlanLeftNum(goodsAndWarehouse);
                 break;
             case 3:
-                renderedView = renderGoodsUitsNum(goodsAndWarehouse);
+                renderedView = renderGoodsNum(goodsAndWarehouse);
                 break;
             case 4:
                 renderedView = renderOprater(goodsAndWarehouse);
@@ -66,9 +61,6 @@ public class GoodsAndWarehouseTableDataAdapter extends BaseTableDataAdapter<Good
 
     private View renderGoodsNum(GoodsAndWarehouse goodsAndWarehouse) {
         return renderString(goodsAndWarehouse.goods.goods_num+"");
-    }
-    private View renderGoodsUitsNum(GoodsAndWarehouse goodsAndWarehouse) {
-        return renderString(goodsAndWarehouse.goods.goods_units_num+"");
     }
 
     private View renderGoodsName(GoodsAndWarehouse goodsAndWarehouse) {

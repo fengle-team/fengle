@@ -14,6 +14,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
+import com.yunqi.fengle.model.bean.BillingDetail;
 import com.yunqi.fengle.model.bean.Goods;
 import com.yunqi.fengle.model.bean.GoodsAndWarehouse;
 import com.yunqi.fengle.model.bean.ReturnApply;
@@ -58,6 +59,8 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
     LinearLayout llayoutStatus;
     @BindView(R.id.txt_remark)
     TextView txtRemark;
+    @BindView(R.id.txt_code_tag)
+    TextView txtCodeTag;
     @BindView(R.id.txt_code)
     TextView txtCode;
     @BindView(R.id.btn_select_goods)
@@ -72,6 +75,8 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
     private List<ReturnDetail> mlistReturnDetail;
     private int positionGoods;
     private int type;
+    private int bill_status = 0;//单据在列表中所处的状态 1:待处理 2：未完成 3：历史单据
+    private boolean isEditor=false;
 
     @Override
     protected void initInject() {
@@ -87,10 +92,34 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
     protected void initEventAndData() {
 //        role= App.getInstance().getUserInfo().role;
         returnApply = (ReturnApply) getIntent().getExtras().getSerializable("ReturnApply");
+        bill_status =  getIntent().getExtras().getInt("status");
         position = getIntent().getExtras().getInt("position");
         status = returnApply.status;
         id = returnApply.id;
-        if (status > 2) {
+        initData();
+        setWidgetListener();
+    }
+
+    private void initData() {
+        txtCodeTag.setText("生成退货单号：");
+        txtCustomer.setText(returnApply.client_name);
+        txtRemark.setText(returnApply.remark);
+        txtCode.setText(returnApply.order_code);
+        boolean hideOperater=true;
+        switch (bill_status){
+            case 1:
+                type = 1;
+                hideOperater = false;
+                break;
+            case 2:
+                type = 0;
+                hideOperater = false;
+                break;
+            case 3:
+                hideOperater = true;
+                break;
+        }
+        if (hideOperater) {
             setToolBar(toolbar, getString(R.string.module_return_detail));
         } else {
             setToolBar(toolbar, getString(R.string.module_return_detail), getString(R.string.operater), new View.OnClickListener() {
@@ -100,41 +129,56 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
                 }
             });
         }
-        initData();
-        setWidgetListener();
-    }
-
-    private void initData() {
-        txtCustomer.setText(returnApply.client_name);
-        txtRemark.setText(returnApply.remark);
-        txtCode.setText(returnApply.order_code);
         String strStatus = "";
         switch (status) {
             case 1:
                 strStatus = getString(R.string.bill_status_1);
+                isEditor=true;
                 break;
-            case 2:
+            case 2: {
+                hideOperater = false;
                 String id = App.getInstance().getUserInfo().id;
                 //如果单据是本人提交的，则是未完成状态
                 if (id.equals(returnApply.userid)) {
                     strStatus = getString(R.string.bill_status_undone);
-                    type=0;
                 } else {
-                    strStatus = getString(R.string.bill_status_2);
-                    type=1;
+                    if(bill_status==3){
+                        strStatus = getString(R.string.bill_status_5);
+                    }
+                    else {
+                        strStatus = getString(R.string.bill_status_2);
+                    }
                 }
+            }
                 break;
             case 3:
                 strStatus = getString(R.string.bill_status_3);
                 break;
-            case 4:
+            case 4: {
+                if(bill_status==2){
+                    isEditor=true;
+                }
                 strStatus = getString(R.string.bill_status_4);
+            }
                 break;
             default:
                 strStatus = getString(R.string.bill_status_unknown);
                 break;
         }
-        if(status>1){
+        if (hideOperater) {
+            setToolBar(toolbar, getString(R.string.module_return_detail));
+        } else {
+            setToolBar(toolbar, getString(R.string.module_return_detail), getString(R.string.operater), new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showBottomOpraterPopWindow(type);
+                }
+            });
+        }
+        if(isEditor){
+            btnSelectGoods.setVisibility(View.VISIBLE);
+        }
+        else {
             btnSelectGoods.setVisibility(View.GONE);
         }
         txtStatus.setText(strStatus);
@@ -147,18 +191,6 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
         columnModel.setColumnWeight(3, 1);
         columnModel.setColumnWeight(4, 1);
         tableView.setColumnModel(columnModel);
-        tableView.addDataClickListener(new TableDataClickListener<ReturnDetail>() {
-            @Override
-            public void onDataClicked(int rowIndex, ReturnDetail ReturnDetail) {
-                if(status>1){
-                    ToastUtil.showNoticeToast(ReturnDetailsActivity.this,"单据已提交，不可操作！");
-                    return;
-                }
-                positionGoods = rowIndex;
-                int id = mlistReturnDetail.get(rowIndex).id;
-                mPresenter.delSelectedGoods(id);
-            }
-        });
         mPresenter.getReturnDetails(returnApply.id);
     }
 
@@ -166,7 +198,7 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
         tableView.addDataClickListener(new TableDataClickListener<ReturnDetail>() {
             @Override
             public void onDataClicked(final int rowIndex, ReturnDetail ReturnDetail) {
-                if(status>1){
+                if(!isEditor){
                     ToastUtil.showNoticeToast(ReturnDetailsActivity.this,"单据已提交，不可操作！");
                     return;
                 }
@@ -195,7 +227,7 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
                             }
                             intent.putExtra("goodsArray",goodsArray);
                         }
-                        intent.putExtra("module",this.getClass().getName());
+                        intent.putExtra("module",ReturnDetailsActivity.this.getClass().getName());
                         startActivityForResult(intent, SELECT_GOODS_REQUEST_CODE);
                     }
                 });
@@ -219,17 +251,7 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
                                 ToastUtil.showNoticeToast(ReturnDetailsActivity.this, "单据已提交,不可操作");
                                 return;
                             }
-//                            mPresenter.updateStatus(id, 2);
-                             BillUpdateRequest request=new BillUpdateRequest();
-                            request.id=id;
-                            List<Goods> listGoods=new ArrayList<>();
-                            for (ReturnDetail returnDetail:mlistReturnDetail){
-                                listGoods.add(returnDetail);
-                            }
-                            request.goods_array=listGoods;
-                            request.order_code=returnApply.order_code;
-                            request.status=2;
-                            mPresenter.updateStatus(request);
+                            updateBillStatus(2);
                             break;
                         case R.id.btn_temporary:// 暂存
                             if (status == 2) {
@@ -240,6 +262,7 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
                                 ToastUtil.showNoticeToast(ReturnDetailsActivity.this, "单据已暂存");
                                 return;
                             }
+                            updateBillStatus(1);
                             break;
                         case R.id.btn_cancel:// 取消
                             DialogHelper.showDialog(ReturnDetailsActivity.this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
@@ -278,6 +301,23 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
         }
         popWindow.showAtLocation(findViewById(R.id.main_layout), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
+    private void updateBillStatus(int status){
+        if (mlistReturnDetail == null || mlistReturnDetail.isEmpty()) {
+            ToastUtil.showNoticeToast(this, getString(R.string.warimg_unselect_goods));
+            return;
+        }
+        BillUpdateRequest request=new BillUpdateRequest();
+        request.id=id;
+        List<Goods> listGoods=new ArrayList<>();
+        for (ReturnDetail returnDetail:mlistReturnDetail){
+            listGoods.add(returnDetail);
+        }
+        request.goods_array=listGoods;
+        request.order_code=returnApply.order_code;
+        request.status=status;
+        mPresenter.updateStatus(request);
+    }
+
 
     @Override
     public void showLoading() {

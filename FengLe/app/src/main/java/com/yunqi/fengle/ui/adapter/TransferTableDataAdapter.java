@@ -18,10 +18,14 @@ import de.codecrafters.tableview.TableDataAdapter;
 
 public class TransferTableDataAdapter extends BaseTableDataAdapter<TransferApply> {
     private Context context;
+    private int billStatus;
 
     public TransferTableDataAdapter(Context context, List<TransferApply> data) {
         super(context, data);
         this.context = context;
+    }
+    public void setBillStatus(int billStatus){
+        this.billStatus=billStatus;
     }
 
     @Override
@@ -63,7 +67,12 @@ public class TransferTableDataAdapter extends BaseTableDataAdapter<TransferApply
                 if (id.equals(TransferApply.userid)) {
                     strStatus = context.getString(R.string.bill_status_undone);
                 } else {
-                    strStatus = context.getString(R.string.bill_status_2);
+                    if(billStatus==3){
+                        strStatus = context.getString(R.string.bill_status_5);
+                    }
+                    else {
+                        strStatus = context.getString(R.string.bill_status_2);
+                    }
                 }
                 break;
             case 3:

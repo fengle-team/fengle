@@ -21,6 +21,7 @@ import com.yunqi.fengle.model.request.PlanAdjustmentAddRequest;
 import com.yunqi.fengle.presenter.AddPlanAdjustmentPresenter;
 import com.yunqi.fengle.presenter.contract.AddPlanAdjustmentContract;
 import com.yunqi.fengle.ui.adapter.GoodsAndWarehouseTableDataAdapter;
+import com.yunqi.fengle.ui.adapter.PlanGoodsAndWarehouseTableDataAdapter;
 import com.yunqi.fengle.ui.adapter.TableHeader1Adapter;
 import com.yunqi.fengle.ui.fragment.dialog.SimpleDialogFragment;
 import com.yunqi.fengle.ui.view.BottomOpraterPopWindow;
@@ -71,7 +72,7 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
     public ArrayList<GoodsAndWarehouse> goodsArray = new ArrayList<>();
     private Area outArea;
     private Area inArea;
-    private GoodsAndWarehouseTableDataAdapter adapter;
+    private PlanGoodsAndWarehouseTableDataAdapter adapter;
 
     @Override
     protected void initInject() {
@@ -270,7 +271,7 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
         } else if (requestCode == SELECT_GOODS_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             ArrayList<GoodsAndWarehouse> goodsArray = (ArrayList<GoodsAndWarehouse>) data.getSerializableExtra("listSelectGoods");
             this.goodsArray.addAll(goodsArray);
-            adapter = new GoodsAndWarehouseTableDataAdapter(this, this.goodsArray);
+            adapter = new PlanGoodsAndWarehouseTableDataAdapter(this, this.goodsArray);
             tableView.setDataAdapter(adapter);
         }
         else if (requestCode == IN_AREA_REQUEST_CODE && resultCode == Activity.RESULT_OK) {

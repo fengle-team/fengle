@@ -267,12 +267,12 @@ public class RetrofitHelper {
      * 货物查询
      * @param keyword 货物名或编号
      * @param userid 编号
-     * @param warehouseId 仓库id
+     * @param warehouse_code 仓库code
      * @param page 页码
      * @return
      */
-    public Observable<CommonHttpRsp<List<Goods>>> queryGoods(String keyword, String userid, String warehouseId,int page) {
-        return apiService.queryGoods(keyword,userid,warehouseId,page,PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<Goods>>> queryGoods(String keyword, String userid, String warehouse_code,int page) {
+        return apiService.queryGoods(keyword,userid,warehouse_code,page,PAGE_SIZE);
     }
     /**
      * 区域查询

@@ -23,11 +23,11 @@ public interface GoodsQueryContract {
          * 客户查询
          * @param keyword 客户名或者编号
          * @param userid 用户id
-         * @param warehouseId 用户id
+         * @param warehouse_code 仓库code
          * @param page 页码
          * @return
          */
-        void queryGoods(String keyword, String userid, String warehouseId,int page);
+        void queryGoods(String keyword, String userid, String warehouse_code,int page);
 
     }
 }
