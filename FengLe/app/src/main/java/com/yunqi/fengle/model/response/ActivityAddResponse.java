@@ -1,12 +1,14 @@
 package com.yunqi.fengle.model.response;
 
+import java.io.Serializable;
+
 /**
  * @Author: Huangweicai
  * @date 2017-02-20 22:05
  * @Description:添加活动
  */
 
-public class ActivityAddResponse {
+public class ActivityAddResponse implements Serializable{
 
     private int id;
     private String region;//区域

@@ -3,7 +3,6 @@ package com.yunqi.fengle.presenter.contract;
 import com.yunqi.fengle.base.BasePresenter;
 import com.yunqi.fengle.base.BaseView;
 import com.yunqi.fengle.model.request.ActivitySummaryRequest;
-import com.yunqi.fengle.model.request.VisitingAddRequest;
 import com.yunqi.fengle.util.map.ResponseListener;
 
 /**
@@ -12,12 +11,13 @@ import com.yunqi.fengle.util.map.ResponseListener;
  * @Description:
  */
 
-public interface ActivitySummaryContract {
+public interface ActivitySummaryDetailContract {
     interface View extends BaseView {
     }
 
-    interface Presenter extends BasePresenter<ActivitySummaryContract.View> {
-        void showData(final ResponseListener listener);
-//        void getData(ResponseListener listener);
+    interface Presenter extends BasePresenter<ActivitySummaryDetailContract.View> {
+        void addSummary(ActivitySummaryRequest request, ResponseListener listener);
+
+        void getData(ResponseListener listener);
     }
 }

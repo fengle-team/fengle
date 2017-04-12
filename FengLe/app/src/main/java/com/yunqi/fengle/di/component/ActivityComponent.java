@@ -6,6 +6,7 @@ import com.yunqi.fengle.ui.activity.ActivityExpenseActivity;
 import com.yunqi.fengle.ui.activity.ActivityNewPlanActivity;
 import com.yunqi.fengle.ui.activity.ActivityPlanActivity;
 import com.yunqi.fengle.ui.activity.ActivityPlanDetailActivity;
+import com.yunqi.fengle.ui.activity.ActivitySummaryDetailActivity;
 import com.yunqi.fengle.ui.activity.AddPlanAdjustmentRequestActivity;
 import com.yunqi.fengle.ui.activity.AddTransferRequestActivity;
 import com.yunqi.fengle.ui.activity.ActivityPlanManagerActivity;
@@ -176,6 +177,8 @@ public interface ActivityComponent {
     void inject(FukuanTypeActivity activity);
 
     void inject(GoodsSaleDetailActivity activity);
+
+    void inject(ActivitySummaryDetailActivity activity);
 
 //    void inject(MessageActivity activity);
 }

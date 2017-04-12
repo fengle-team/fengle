@@ -51,6 +51,11 @@ public class MyCustomersPresenter extends RxPresenter<MyCustomersContract.View> 
                     public void onError(Throwable e) {
                         listener.onFaild(new NetResponse(-1,e.getMessage()));
                     }
+
+                    @Override
+                    public void onCompleted() {
+                        super.onCompleted();
+                    }
                 });
         addSubscrebe(rxSubscription);
     }

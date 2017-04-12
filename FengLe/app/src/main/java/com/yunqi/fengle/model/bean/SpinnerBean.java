@@ -43,6 +43,17 @@ public class SpinnerBean implements Serializable{
 
     }
 
+    public String getValue(String key) {
+
+        for (SpinnerBean bean : dataList) {
+            if (bean.getKey().equals(key)) {
+                setKey(key);
+                return bean.getValue();
+            }
+        }
+        return "";
+    }
+
     public boolean isEmpty() {
         return TextUtils.isEmpty(key);
     }
