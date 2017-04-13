@@ -59,7 +59,7 @@
             android:text="@string/selected_goods"
             android:textColor="@color/text_color2"
             android:textSize="@dimen/comom_txt_size_m" />
-
+`
         <Button
             android:id="@+id/btn_select_goods"
             android:layout_width="match_parent"
@@ -69,6 +69,7 @@
             android:gravity="center"
             android:paddingLeft="15dp"
             android:text="@string/select_goods"
+            android:visibility="gone"
             android:textColor="@color/text_color2"
             android:textSize="@dimen/comom_txt_size_m" />
     </LinearLayout>
