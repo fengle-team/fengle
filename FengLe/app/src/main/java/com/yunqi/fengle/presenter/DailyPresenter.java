@@ -33,34 +33,19 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
 
     private RetrofitHelper mRetrofitHelper;
 
-    private Map<String,List<DailyResponse>> dailyMap = new HashMap<>(5);
-
     @Inject
     public DailyPresenter(RetrofitHelper retrofitHelper) {
         this.mRetrofitHelper = retrofitHelper;
     }
 
     @Override
-    public void getDaily(final Date date, final ResponseListener listener) {
-        final String startTime = DateUtil.getFirstDay(date);//开始时间
-        String endTime = DateUtil.getLastDay(date);//结束时间
-
-        LogEx.i("startTime:" + startTime + "  endTime:" + endTime);
-        LogEx.i("dailyMap size:" + dailyMap.size());
-
-
-        if (dailyMap.containsKey(startTime)) {
-            listener.onSuccess(new NetResponse(1,"success",dailyMap.get(startTime)));
-            return;
-        }
-        mView.showLoading();
+    public void getDaily(String startTime, String endTime, final ResponseListener listener) {
         Subscription rxSubscription = mRetrofitHelper.getDaily(App.getInstance().getUserInfo().id,startTime,endTime)
                 .compose(RxUtil.<CommonHttpRsp<List<DailyResponse>>>rxSchedulerHelper())
                 .subscribe(new ExSubscriber<CommonHttpRsp<List<DailyResponse>>>(mView) {
 
                     @Override
                     protected void onSuccess(CommonHttpRsp<List<DailyResponse>> listCommonHttpRsp) {
-                        dailyMap.put(startTime, listCommonHttpRsp.getData());
                         listener.onSuccess(new NetResponse(0,"success",listCommonHttpRsp.getData()));
                     }
 
@@ -72,14 +57,5 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
         addSubscrebe(rxSubscription);
     }
 
-    public void clearMap() {
-        if (dailyMap != null) {
-            dailyMap.clear();
-        }
-    }
-
-    public List<DailyResponse> getList(Date date) {
-        return dailyMap.get(DateUtil.getFirstDay(date));
-    }
 
 }
