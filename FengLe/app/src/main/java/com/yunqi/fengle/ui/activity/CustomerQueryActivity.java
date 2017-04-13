@@ -76,14 +76,6 @@ public class CustomerQueryActivity extends BaseActivity<CustomerQueryPresenter> 
         tableViewEx.tableView.setColumnModel(columnModel);
         adapter = new CustomerTableDataAdapter(this, mListCustomer);
         tableViewEx.tableView.setDataAdapter(adapter);
-        tableViewEx.setOnLoadMoreListener(new ExTableView.OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-
-                mPresenter.queryCustomer(keyword, user_code, ++page);
-            }
-        });
-
         mPresenter.queryCustomer(keyword, user_code, page);
     }
 

@@ -150,6 +150,16 @@ public class PaymentDeclarationActivity extends BaseActivity<PaymentQueryPresent
                 mPresenter.queryPayment(userId, status,keyword, lastStartTime, lastEndTime, ++page);
             }
         });
+        tableViewEx.setOnLoadRetryListener(new ExTableView.OnLoadRetryListener() {
+            @Override
+            public void onLoadRetry() {
+                if (lstartTime > 0 && lendTime > 0 && lstartTime >= lendTime) {
+                    ToastUtil.showNoticeToast(PaymentDeclarationActivity.this, getString(R.string.warming_time_select));
+                    return;
+                }
+                mPresenter.queryPayment(userId, status,keyword, lastStartTime, lastEndTime, page);
+            }
+        });
         RxView.clicks(btnQuery)
                 .throttleFirst(1, TimeUnit.SECONDS)
                 .subscribe(new Action1<Void>() {
