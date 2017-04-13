@@ -36,7 +36,7 @@ public class InputDialog extends Dialog {
         super(context, R.style.MyDialog);
         this.listener = listener;
         this.context = context;
-        this.maxNum=maxNum;
+        this.maxNum = maxNum;
         this.goods = goods;
         this.tip = tip;
         this.hint = hint;
@@ -56,7 +56,12 @@ public class InputDialog extends Dialog {
         edit = (EditText) view.findViewById(R.id.edit);
         txtTip = (TextView) view.findViewById(R.id.txt_tip);
         String strHint = String.format(tip, maxNum);
-        String strTip = goods.goods_name+"--"+goods.goods_standard;
+        String strTip;
+        if (!TextUtils.isEmpty(goods.goods_standard)) {
+            strTip = goods.goods_name + "--" + goods.goods_standard;
+        } else {
+            strTip = goods.goods_name + "";
+        }
         txtTip.setText(strTip);
         edit.setHint(strHint);
         TextView btnConfirm = (TextView) view.findViewById(R.id.btn_confirm);
@@ -71,7 +76,7 @@ public class InputDialog extends Dialog {
                 }
                 int num = 0;
                 try {
-                    num=Integer.parseInt(txt);
+                    num = Integer.parseInt(txt);
                 } catch (NumberFormatException e) {
                     ToastUtil.showErrorToast(context, "数量输入不正确!");
                     e.printStackTrace();

@@ -106,7 +106,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             IModuleParse parser = new ModuleParse();
             //调用pbp的parse()方法，将输入流传进去解析，返回的链表结果赋给beautyList
             moduleList = parser.parse(is);
-            mPresenter.authModule("13",moduleList);
+            mPresenter.authModule(App.getInstance().getUserInfo().id,moduleList);
             gridModule.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {

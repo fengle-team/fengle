@@ -31,20 +31,21 @@ public class PaymentQueryPresenter extends RxPresenter<PaymentQueryContract.View
     public PaymentQueryPresenter(RetrofitHelper retrofitHelper) {
         this.mRetrofitHelper = retrofitHelper;
     }
+
     @Override
-    public void queryPayment(String userid, int status, String startTime, String endTime, final int page) {
-        Subscription rxSubscription = mRetrofitHelper.queryPayment(userid, status, startTime, endTime, page)
+    public void queryPayment(String userid, int status, String keyword, String startTime, String endTime, final int page) {
+        Subscription rxSubscription = mRetrofitHelper.queryPayment(userid, status, keyword, startTime, endTime, page)
                 .compose(RxUtil.<CommonHttpRsp<List<Payment>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<Payment>>handleResult())
                 .subscribe(new ExSubscriber<List<Payment>>(mView) {
                     @Override
                     protected void onSuccess(List<Payment> paymentList) {
                         //加载第一页数据
-                        if(page==1){
+                        if (page == 1) {
                             mView.showContent(paymentList);
                         }
                         //加载更多数据
-                        else{
+                        else {
                             mView.showMoreContent(paymentList);
                         }
                     }
@@ -53,19 +54,19 @@ public class PaymentQueryPresenter extends RxPresenter<PaymentQueryContract.View
     }
 
     @Override
-    public void queryPayment(String userid, int status, int type, final int page) {
-        Subscription rxSubscription = mRetrofitHelper.queryPayment(userid, status, type, page)
+    public void queryPayment(String userid, int status, String keyword, int type, final int page) {
+        Subscription rxSubscription = mRetrofitHelper.queryPayment(userid, status, keyword, type, page)
                 .compose(RxUtil.<CommonHttpRsp<List<Payment>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<Payment>>handleResult())
                 .subscribe(new ExSubscriber<List<Payment>>(mView) {
                     @Override
                     protected void onSuccess(List<Payment> paymentList) {
                         //加载第一页数据
-                        if(page==1){
+                        if (page == 1) {
                             mView.showContent(paymentList);
                         }
                         //加载更多数据
-                        else{
+                        else {
                             mView.showMoreContent(paymentList);
                         }
                     }
@@ -77,7 +78,7 @@ public class PaymentQueryPresenter extends RxPresenter<PaymentQueryContract.View
     public void deletePayment(int huikuan_id) {
         Subscription rxSubscription = mRetrofitHelper.deletePayment(huikuan_id)
                 .compose(RxUtil.<BaseHttpRsp>rxSchedulerHelper())
-                .subscribe(new BaseSubscriber(mView,3) {
+                .subscribe(new BaseSubscriber(mView, 3) {
                     @Override
                     protected void onSuccess() {
                         mView.onSuccess();

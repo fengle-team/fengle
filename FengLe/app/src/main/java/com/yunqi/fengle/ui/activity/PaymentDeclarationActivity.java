@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -58,6 +59,8 @@ public class PaymentDeclarationActivity extends BaseActivity<PaymentQueryPresent
     Button btnEndTime;
     @BindView(R.id.btn_query)
     Button btnQuery;
+    @BindView(R.id.edit_keyword)
+    EditText editKeyword;
 
     private long lstartTime = 0;
     private long lendTime = 0;
@@ -72,7 +75,7 @@ public class PaymentDeclarationActivity extends BaseActivity<PaymentQueryPresent
     private String lastStartTime = null;
     private String lastEndTime = null;
     private int positionPayment;
-
+    private String keyword="";
 
     @Override
     protected void initInject() {
@@ -105,7 +108,7 @@ public class PaymentDeclarationActivity extends BaseActivity<PaymentQueryPresent
         adapter = new PaymentTableDataAdapter(this, mlistPayment);
         tableViewEx.tableView.setDataAdapter(adapter);
         initRadioGroup();
-        mPresenter.queryPayment(userId, status, "", "", page);
+        mPresenter.queryPayment(userId, status,keyword, "", "", page);
         setWidgetListener();
 
     }
@@ -144,7 +147,7 @@ public class PaymentDeclarationActivity extends BaseActivity<PaymentQueryPresent
                     ToastUtil.showNoticeToast(PaymentDeclarationActivity.this, getString(R.string.warming_time_select));
                     return;
                 }
-                mPresenter.queryPayment(userId, status, lastStartTime, lastEndTime, ++page);
+                mPresenter.queryPayment(userId, status,keyword, lastStartTime, lastEndTime, ++page);
             }
         });
         RxView.clicks(btnQuery)
@@ -157,9 +160,10 @@ public class PaymentDeclarationActivity extends BaseActivity<PaymentQueryPresent
                             ToastUtil.showNoticeToast(PaymentDeclarationActivity.this, getString(R.string.warming_time_select));
                             return;
                         }
+                        keyword=editKeyword.getText().toString();
                         lastStartTime = startTime;
                         lastEndTime = endTime;
-                        mPresenter.queryPayment(userId, status, startTime, endTime, page);
+                        mPresenter.queryPayment(userId, status,keyword, startTime, endTime, page);
                     }
                 });
         RxView.clicks(btnStartTime)
@@ -255,7 +259,7 @@ public class PaymentDeclarationActivity extends BaseActivity<PaymentQueryPresent
                 break;
         }
         resetData();
-        mPresenter.queryPayment(userId, status, "", "", page);
+        mPresenter.queryPayment(userId, status,keyword, "", "", page);
     }
     private void resetData(){
         page = 1;
@@ -265,6 +269,8 @@ public class PaymentDeclarationActivity extends BaseActivity<PaymentQueryPresent
         startTime="";
         lendTime=0;
         endTime="";
+        keyword="";
+        editKeyword.setText("");
     }
 
     @Override
@@ -308,7 +314,7 @@ public class PaymentDeclarationActivity extends BaseActivity<PaymentQueryPresent
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             if(status==1){
                 page=1;
-                mPresenter.queryPayment(userId, status, lastStartTime, lastEndTime, page);
+                mPresenter.queryPayment(userId, status,keyword, lastStartTime, lastEndTime, page);
             }
         }
     }

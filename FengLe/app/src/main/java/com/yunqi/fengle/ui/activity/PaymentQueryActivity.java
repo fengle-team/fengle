@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -61,7 +62,8 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
     SwipeRefreshLayout swipeLayout;
     @BindView(R.id.btn_query)
     Button btnQuery;
-
+    @BindView(R.id.edit_keyword)
+    EditText editKeyword;
     @BindView(R.id.txt_total_amount)
     TextView txtTotalAmount;
     PlaymentAdapter adapter;
@@ -76,8 +78,10 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
     private int page = 1;
     private List<Payment> mlistPayment = new ArrayList<>();
 
-    private int queryType=0;//0：是按照今日/本月查询  1：按照时间过滤查询
-    private float totalAmount=0;//回款总金额
+    private int queryType = 0;//0：是按照今日/本月查询  1：按照时间过滤查询
+    private float totalAmount = 0;//回款总金额
+    private String keyword = "";
+
     @Override
     protected void initInject() {
         getActivityComponent().inject(this);
@@ -90,12 +94,12 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
 
     @Override
     protected void initEventAndData() {
-        userId= App.getInstance().getUserInfo().id;
+        userId = App.getInstance().getUserInfo().id;
         setToolBar(toolbar, getString(R.string.module_payment_query));
         initRadioGroup();
         initRecyclerView();
         setWidgetListener();
-        mPresenter.queryPayment(userId, status, type, page);
+        mPresenter.queryPayment(userId, status, keyword, type, page);
     }
 
     private void initRadioGroup() {
@@ -129,7 +133,7 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
             ToastUtil.showNoticeToast(PaymentQueryActivity.this, getString(R.string.warming_time_select));
             return;
         }
-        mPresenter.queryPayment(userId, status, startTime, endTime, page);
+        mPresenter.queryPayment(userId, status, keyword, startTime, endTime, page);
     }
 
 
@@ -171,15 +175,16 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
-                        if (lstartTime <= 0 ) {
+                        if (lstartTime <= 0) {
                             ToastUtil.showNoticeToast(PaymentQueryActivity.this, getString(R.string.warming_no_start_time));
                             return;
                         }
-                        if (lendTime<= 0) {
+                        if (lendTime <= 0) {
                             ToastUtil.showNoticeToast(PaymentQueryActivity.this, getString(R.string.warming_no_end_time));
                             return;
                         }
-                        queryType=1;
+                        queryType = 1;
+                        keyword=editKeyword.getText().toString();
                         loadFirstPageData();
                     }
                 });
@@ -224,11 +229,10 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                page=1;
-                if(queryType==0){
-                    mPresenter.queryPayment(userId, status, type, page);
-                }
-                else {
+                page = 1;
+                if (queryType == 0) {
+                    mPresenter.queryPayment(userId, status, keyword, type, page);
+                } else {
                     loadFirstPageData();
                 }
 
@@ -239,7 +243,7 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
     @Override
     public void onLoadMoreRequested() {
 
-        mPresenter.queryPayment(userId, status, startTime, endTime, ++page);
+        mPresenter.queryPayment(userId, status, keyword, startTime, endTime, ++page);
     }
 
     @Override
@@ -250,11 +254,11 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
         mlistPayment.addAll(listPayment);
         adapter.setNewData(mlistPayment);
         adapter.loadMoreComplete();
-        totalAmount=0;
-        for (Payment payment:listPayment){
-            totalAmount+=payment.huikuan_amount;
+        totalAmount = 0;
+        for (Payment payment : listPayment) {
+            totalAmount += payment.huikuan_amount;
         }
-        txtTotalAmount.setText("合计:"+totalAmount+"元");
+        txtTotalAmount.setText("合计:" + totalAmount + "元");
     }
 
     @Override
@@ -266,10 +270,10 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
         }
         mlistPayment.addAll(listPaymentMore);
         adapter.loadMoreComplete();
-        for (Payment payment:listPaymentMore){
-            totalAmount+=payment.huikuan_amount;
+        for (Payment payment : listPaymentMore) {
+            totalAmount += payment.huikuan_amount;
         }
-        txtTotalAmount.setText("合计:"+totalAmount+"元");
+        txtTotalAmount.setText("合计:" + totalAmount + "元");
     }
 
     @Override
@@ -288,18 +292,20 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
                 type = 2;
                 break;
         }
-        resetTime();
-        page=1;
-        queryType=0;
-        mPresenter.queryPayment(userId, status, type, page);
+        resetData();
+        page = 1;
+        queryType = 0;
+        mPresenter.queryPayment(userId, status, keyword, type, page);
     }
 
-    private void resetTime() {
-        startTime="";
-        lstartTime=0;
+    private void resetData() {
+        editKeyword.setText("");
+        keyword = "";
+        startTime = "";
+        lstartTime = 0;
         btnStartTime.setText(R.string.start_time);
-        endTime="";
-        lendTime=0;
+        endTime = "";
+        lendTime = 0;
         btnEndTime.setText(R.string.end_time);
     }
 }

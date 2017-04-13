@@ -26,13 +26,13 @@ public interface PaymentQueryContract {
          * @param page 页码
          * @return
          */
-        void queryPayment(String userid,int status,String startTime,String endTime,int page);
+        void queryPayment(String userid,int status,String keyword,String startTime,String endTime,int page);
         /**
          * 回款查询
          * @param page 页码
          * @return
          */
-        void queryPayment(String userid,int status,int type,int page);
+        void queryPayment(String userid,int status,String keyword,int type,int page);
         /**
          * 删除回款
          * @param huikuan_id 回款id

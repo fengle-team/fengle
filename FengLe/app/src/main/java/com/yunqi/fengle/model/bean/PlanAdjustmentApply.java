@@ -16,15 +16,13 @@ public class PlanAdjustmentApply implements Serializable{
 
     public List<PlanAdjustmentDetail> detail;
     public int id;
-    public String from_area_code;
-    public String from_area_name;
-    public String to_area_code;
-    public String to_area_name;
     public String create_time;
     public int status;
-    public int userid;
+    public String userid;
     public String order_code;
     public String remark;
+    public Area from_area_detail;
+    public Area to_area_detail;
 
     public PlanAdjustmentApply() {
     }

@@ -8,16 +8,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
-import com.yunqi.fengle.model.bean.Customer;
 import com.yunqi.fengle.model.bean.ReturnApply;
 import com.yunqi.fengle.presenter.ReturnQueryPresenter;
 import com.yunqi.fengle.presenter.contract.ReturnRequestContract;

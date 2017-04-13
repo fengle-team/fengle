@@ -8,6 +8,7 @@ import com.yunqi.fengle.model.bean.CustomerAnalysis;
 import com.yunqi.fengle.model.bean.CustomerContactDetail;
 import com.yunqi.fengle.model.bean.FukuanType;
 import com.yunqi.fengle.model.bean.Goods;
+import com.yunqi.fengle.model.bean.GoodsSaleDetail;
 import com.yunqi.fengle.model.bean.InvoiceApply;
 import com.yunqi.fengle.model.bean.Module;
 import com.yunqi.fengle.model.bean.Payment;
@@ -267,12 +268,12 @@ public interface ApiService {
      * 查询回款接口
      */
     @GET("huikuan/get")
-    Observable<CommonHttpRsp<List<Payment>>> queryPayment(@Query("userid") String userid, @Query("status") int status, @Query("start_time") String start_time, @Query("end_time") String end_time, @Query("page") int page, @Query("size") int size);
+    Observable<CommonHttpRsp<List<Payment>>> queryPayment(@Query("userid") String userid, @Query("status") int status,@Query("keyword") String keyword, @Query("start_time") String start_time, @Query("end_time") String end_time, @Query("page") int page, @Query("size") int size);
     /**
      * 查询回款接口
      */
     @GET("huikuan/get")
-    Observable<CommonHttpRsp<List<Payment>>> queryPayment(@Query("userid") String userid, @Query("status") int status,@Query("type") int type,@Query("page") int page, @Query("size") int size);
+    Observable<CommonHttpRsp<List<Payment>>> queryPayment(@Query("userid") String userid, @Query("status") int status,@Query("keyword") String keyword,@Query("type") int type,@Query("page") int page, @Query("size") int size);
     /**
      * 添加回款申报
      *
@@ -317,6 +318,11 @@ public interface ApiService {
      */
     @GET("invoice/get")
     Observable<CommonHttpRsp<List<BillingApply>>> queryBillingApply(@Query("userid") String userid,  @Query("keyword") String keyword,@Query("status") int status, @Query("start_time") String start_time, @Query("end_time") String end_time, @Query("page") int page, @Query("size") int size);
+    /**
+     * 单一货物销售明细
+     */
+    @GET("invoice/get")
+    Observable<CommonHttpRsp<GoodsSaleDetail>> queryGoodsSaleDetail(@Query("sale_id") String sale_id);
 
 
     /**

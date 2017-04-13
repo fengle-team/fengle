@@ -88,6 +88,7 @@ public class SalesDetailActivity extends BaseActivity<SaleDetailPresenter> imple
             public void onDataClicked(int rowIndex, SaleInfo saleInfo) {
                     Intent intent=new Intent(SalesDetailActivity.this,GoodsSaleDetailActivity.class);
                     intent.putExtra("goods_code",saleInfo.goods_code);
+                    intent.putExtra("sale_id",saleInfo.id);
                     startActivity(intent);
             }
         });
