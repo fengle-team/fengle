@@ -8,9 +8,16 @@ import android.widget.RadioGroup;
 
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.base.BaseActivity;
+import com.yunqi.fengle.model.response.RegionalRankingResponse;
+import com.yunqi.fengle.model.response.SaleRankingResponse;
 import com.yunqi.fengle.presenter.AchievementManagerPresenter;
+import com.yunqi.fengle.presenter.contract.AchievementManagerContract;
 import com.yunqi.fengle.ui.fragment.RegionalRankingFragment;
 import com.yunqi.fengle.ui.fragment.SalerRankingFragment;
+import com.yunqi.fengle.util.map.NetResponse;
+import com.yunqi.fengle.util.map.ResponseListener;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -20,14 +27,14 @@ import butterknife.BindView;
  * @Description:业绩管理
  */
 
-public class AchievementManagerActivity extends BaseActivity<AchievementManagerPresenter> implements RadioGroup.OnCheckedChangeListener {
+public class AchievementManagerActivity extends BaseActivity<AchievementManagerPresenter> implements AchievementManagerContract.View, RadioGroup.OnCheckedChangeListener {
 
     @BindView(R.id.rgRank)
     RadioGroup rgRank;
 
     private Fragment mTempFragment;
-    private Fragment regionalFragment; //大区排名
-    private Fragment salerFragment; //业务员排名
+    private RegionalRankingFragment regionalFragment; //大区排名
+    private SalerRankingFragment salerFragment; //业务员排名
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,6 +42,21 @@ public class AchievementManagerActivity extends BaseActivity<AchievementManagerP
         showTitleBack();
         setTitleText("业绩管理");
         initView();
+//        getData();
+    }
+
+    private void getData() {
+        mPresenter.getRegionalRanke(new ResponseListener() {
+            @Override
+            public void onSuccess(NetResponse response) {
+                super.onSuccess(response);
+            }
+
+            @Override
+            public void onFaild(NetResponse response) {
+                super.onFaild(response);
+            }
+        });
     }
 
     private void initView() {
@@ -111,4 +133,21 @@ public class AchievementManagerActivity extends BaseActivity<AchievementManagerP
 
     }
 
+    @Override
+    public void showContentRegional(List<RegionalRankingResponse> listRegional) {
+    }
+
+    @Override
+    public void showMoreContentRegional(List<RegionalRankingResponse> listRegional) {
+    }
+
+    @Override
+    public void showContentSale(List<SaleRankingResponse> listInvoiceApply) {
+
+    }
+
+    @Override
+    public void showMoreContentSale(List<SaleRankingResponse> listInvoiceApplyMore) {
+
+    }
 }

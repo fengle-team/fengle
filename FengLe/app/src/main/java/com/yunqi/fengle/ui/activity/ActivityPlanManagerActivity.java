@@ -17,12 +17,16 @@ import com.yunqi.fengle.ui.adapter.ActivityPlanManagerAdapter;
 import com.yunqi.fengle.ui.swipe.SwipyRefreshLayout;
 import com.yunqi.fengle.ui.swipe.SwipyRefreshLayoutDirection;
 import com.yunqi.fengle.ui.view.RecycleViewDivider;
+import com.yunqi.fengle.util.RxBus;
 import com.yunqi.fengle.util.map.NetResponse;
 import com.yunqi.fengle.util.map.ResponseListener;
 
 import java.util.List;
 
 import butterknife.BindView;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * @Author: Huangweicai
@@ -40,6 +44,10 @@ public class ActivityPlanManagerActivity extends BaseActivity<ActivityPlanPresen
 
     private ActivityPlanManagerAdapter adapter;
 
+    Observable<Boolean> addOb;
+
+    public static String RX_TAG = "ActivityPlanManagerActivityTAG";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +58,18 @@ public class ActivityPlanManagerActivity extends BaseActivity<ActivityPlanPresen
 
         progresser.showProgress();
         initData();
+
+        addOb = RxBus.get().register(ActivityPlanManagerActivity.RX_TAG, Boolean.class);
+        addOb.observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Boolean>() {
+            @Override
+            public void call(Boolean aBoolean) {
+                if (aBoolean) {
+                    swipe.setRefreshing(true);
+                    progresser.showProgress();
+                    initData();
+                }
+            }
+        });
     }
 
     private void initData() {

@@ -1,11 +1,15 @@
 package com.yunqi.fengle.ui.activity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +21,7 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.CameraUpdateFactory;
 import com.amap.api.maps2d.LocationSource;
 import com.amap.api.maps2d.MapView;
 import com.amap.api.maps2d.UiSettings;
@@ -32,11 +37,14 @@ import com.yunqi.fengle.util.DateUtil;
 import com.yunqi.fengle.util.DialogHelper;
 import com.yunqi.fengle.util.PermissionsUtils;
 import com.yunqi.fengle.util.ToastUtil;
+import com.yunqi.fengle.util.map.MapLocationMgr;
 import com.yunqi.fengle.util.map.NetResponse;
 import com.yunqi.fengle.util.map.ResponseListener;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -63,6 +71,12 @@ public class MoveAttendanceSignInActivity extends BaseActivity<MoveAttendancePre
     TextView tvReq;
     @BindView(R.id.tvDate)
     TextView tvDate;
+
+    private static final int PERMISSON_REQUESTCODE = 0;
+    /**
+     * 判断是否需要检测，防止不停的弹框
+     */
+    private boolean isNeedCheck = true;
 
     public static int TYPE_SIGN_IN = 0x01;
     public static int TYPE_SIGN_OUT = 0x02;
@@ -93,7 +107,11 @@ public class MoveAttendanceSignInActivity extends BaseActivity<MoveAttendancePre
 
         initMap(savedInstanceState);
         doLocation();
+
+
     }
+
+
 
     private void initView() {
         timeNow = System.currentTimeMillis();
@@ -175,7 +193,9 @@ public class MoveAttendanceSignInActivity extends BaseActivity<MoveAttendancePre
 
             @Override
             public void onFaild(NetResponse response) {
-                progresser.showError(response.getMsg());
+                progresser.showContent();
+                ToastUtil.toast(mContext, response.getMsg());
+                return;
             }
         });
     }
@@ -190,11 +210,13 @@ public class MoveAttendanceSignInActivity extends BaseActivity<MoveAttendancePre
         if (aMap == null) {
             aMap = mapView.getMap();
             mUiSettings = aMap.getUiSettings();
+            aMap.moveCamera(CameraUpdateFactory.zoomTo(17));
         }
     }
 
     private void doLocation() {
         aMap.setLocationSource(this);// 设置定位监听
+        mUiSettings.setMyLocationButtonEnabled(true); // 是否显示默认的定位按钮
         aMap.setMyLocationEnabled(true);// 是否可触发定位并显示定位层
     }
 
@@ -219,6 +241,9 @@ public class MoveAttendanceSignInActivity extends BaseActivity<MoveAttendancePre
     @Override
     protected void onResume() {
         super.onResume();
+        if(isNeedCheck){
+            checkPermissions(MapLocationMgr.needPermissions);
+        }
         mapView.onResume();
     }
 
@@ -271,6 +296,75 @@ public class MoveAttendanceSignInActivity extends BaseActivity<MoveAttendancePre
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
+    }
+
+    private void checkPermissions(String... permissions) {
+        List<String> needRequestPermissonList = findDeniedPermissions(permissions);
+        if (null != needRequestPermissonList
+                && needRequestPermissonList.size() > 0) {
+            ActivityCompat.requestPermissions(this,
+                    needRequestPermissonList.toArray(
+                            new String[needRequestPermissonList.size()]),
+                    PERMISSON_REQUESTCODE);
+        }
+    }
+
+    /**
+     * 获取权限集中需要申请权限的列表
+     *
+     * @param permissions
+     * @return
+     * @since 2.5.0
+     *
+     */
+    private List<String> findDeniedPermissions(String[] permissions) {
+        List<String> needRequestPermissonList = new ArrayList<String>();
+        for (String perm : permissions) {
+            if (ContextCompat.checkSelfPermission(this,
+                    perm) != PackageManager.PERMISSION_GRANTED
+                    || ActivityCompat.shouldShowRequestPermissionRationale(
+                    this, perm)) {
+                needRequestPermissonList.add(perm);
+            }
+        }
+        return needRequestPermissonList;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] paramArrayOfInt) {
+        if (requestCode == PERMISSON_REQUESTCODE) {
+            if (!verifyPermissions(paramArrayOfInt)) {
+                showMissingPermissionDialog();
+                isNeedCheck = false;
+            }
+        }
+    }
+
+    private void showMissingPermissionDialog() {
+        DialogHelper.showDialog(this, "当前应用缺少必要权限。请点击设置-权限打开所需权限", new SimpleDialogFragment.OnSimpleDialogListener() {
+            @Override
+            public void onOk() {
+                Intent intent = new Intent(
+                        Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                intent.setData(Uri.parse("package:" + getPackageName()));
+                startActivity(intent);
+            }
+        }, new SimpleDialogFragment.OnBackDialogListener() {
+            @Override
+            public void onBack() {
+                MoveAttendanceSignInActivity.this.finish();
+            }
+        });
+    }
+
+    private boolean verifyPermissions(int[] grantResults) {
+        for (int result : grantResults) {
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

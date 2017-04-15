@@ -1,5 +1,7 @@
 package com.yunqi.fengle.presenter;
 
+import android.text.TextUtils;
+
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.RxPresenter;
 import com.yunqi.fengle.model.bean.ADInfo;
@@ -27,7 +29,7 @@ import rx.Subscription;
  * @Description: {@link com.yunqi.fengle.ui.activity.DailySendActivity}
  */
 
-public class MyCustomersPresenter extends RxPresenter<MyCustomersContract.View> implements MyCustomersContract.Presenter{
+public class MyCustomersPresenter extends RxPresenter<MyCustomersContract.View> implements MyCustomersContract.Presenter {
     private RetrofitHelper mRetrofitHelper;
 
     @Inject
@@ -44,12 +46,12 @@ public class MyCustomersPresenter extends RxPresenter<MyCustomersContract.View> 
                 .subscribe(new ExSubscriber<List<CustomersResponse>>(mView) {
                     @Override
                     protected void onSuccess(List<CustomersResponse> list) {
-                        listener.onSuccess(new NetResponse(0,"success",list));
+                        listener.onSuccess(new NetResponse(0, "success", list));
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        listener.onFaild(new NetResponse(-1,e.getMessage()));
+                        listener.onFaild(new NetResponse(-1, e.getMessage()));
                     }
 
                     @Override
@@ -58,5 +60,22 @@ public class MyCustomersPresenter extends RxPresenter<MyCustomersContract.View> 
                     }
                 });
         addSubscrebe(rxSubscription);
+    }
+
+    @Override
+    public void doUpgradeClient(CustomersResponse request, final ResponseListener listener) {
+        mRetrofitHelper.doUpgradeClient(request)
+                .compose(RxUtil.<BaseHttpRsp>rxSchedulerHelper())
+                .subscribe(new ExSubscriber<BaseHttpRsp>(mView) {
+                    @Override
+                    protected void onSuccess(BaseHttpRsp httpRsp) {
+                        //成功
+                        if (httpRsp.getCode() == 200) {
+                            listener.onSuccess();
+                        } else {
+                            listener.onFaild(new NetResponse(-1,httpRsp.getMessage()));
+                        }
+                    }
+                });
     }
 }

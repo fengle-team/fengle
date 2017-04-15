@@ -45,6 +45,8 @@ import com.yunqi.fengle.model.response.CustomersSituationResponse;
 import com.yunqi.fengle.model.response.DailyResponse;
 import com.yunqi.fengle.model.response.MessageResponse;
 import com.yunqi.fengle.model.response.NoticeResponse;
+import com.yunqi.fengle.model.response.RegionalRankingResponse;
+import com.yunqi.fengle.model.response.SaleRankingResponse;
 import com.yunqi.fengle.model.response.VisitingPlanResponse;
 import com.yunqi.fengle.util.NetworkUtil;
 
@@ -75,7 +77,7 @@ import rx.Observable;
 public class RetrofitHelper {
     private OkHttpClient okHttpClient = null;
     private ApiService apiService = null;
-    private static final int PAGE_SIZE = 20;
+    public static final int PAGE_SIZE = 20;
     private Context mContext;
 
     public RetrofitHelper(Context context) {
@@ -399,6 +401,24 @@ public class RetrofitHelper {
      */
     public Observable<CommonHttpRsp<List<InvoiceApply>>> queryInvoiceApply(String userid,  String keyword,int status, String startTime, String endTime, int page) {
         return apiService.queryInvoiceApply(userid,keyword, status, startTime, endTime, page, PAGE_SIZE);
+    }
+
+    /**
+     * 大区排名
+     * @param page
+     * @return
+     */
+    public Observable<CommonHttpRsp<List<RegionalRankingResponse>>> queryRegional(int page) {
+        return apiService.queryRegional(page, PAGE_SIZE);
+    }
+
+    /**
+     * 销售员排名
+     * @param page
+     * @return
+     */
+    public Observable<CommonHttpRsp<List<SaleRankingResponse>>> querySaleRanke(int page) {
+        return apiService.querySaleRanke(page, PAGE_SIZE);
     }
 
     /**
@@ -884,5 +904,13 @@ public class RetrofitHelper {
      */
     public Observable<BaseHttpRsp> addSummary(ActivitySummaryRequest request) {
         return apiService.addSummary(request);
+    }
+
+    /**
+     * 升级客户类型
+     * @return
+     */
+    public Observable<BaseHttpRsp> doUpgradeClient(CustomersResponse request) {
+        return apiService.doUpgradeClient(request);
     }
 }

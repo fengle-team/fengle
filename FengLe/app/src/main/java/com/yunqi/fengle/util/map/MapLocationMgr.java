@@ -1,5 +1,6 @@
 package com.yunqi.fengle.util.map;
 
+import android.Manifest;
 import android.util.Log;
 
 import com.amap.api.location.AMapLocation;
@@ -16,6 +17,17 @@ import com.yunqi.fengle.util.LogEx;
  */
 
 public class MapLocationMgr {
+
+    /**
+     * 需要进行检测的权限数组
+     */
+    public static String[] needPermissions = {
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.READ_PHONE_STATE
+    };
 
     //声明AMapLocationClient类对象
     public AMapLocationClient mLocationClient = null;
@@ -65,7 +77,7 @@ public class MapLocationMgr {
                         Log.e("AmapError", "location Error, ErrCode:"
                                 + amapLocation.getErrorCode() + ", errInfo:"
                                 + amapLocation.getErrorInfo());
-                        listener.onFaild(new NetResponse(-1,"获取定位失败"));
+                        listener.onFaild(new NetResponse(-1,"获取定位失败.Error:" + amapLocation.getErrorCode()));
                     }
                 }
             }
@@ -80,6 +92,7 @@ public class MapLocationMgr {
 
         //设置定位模式为AMapLocationMode.Hight_Accuracy，高精度模式。
         mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        mLocationOption.setInterval(2000);
 
         //获取一次定位结果：
         //该方法默认为false。

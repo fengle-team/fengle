@@ -34,7 +34,7 @@ public class ActivityPlanAdapter extends BaseQuickAdapter<ActivityAddResponse,Ba
         ((TextView)helper.getView(R.id.tvApplyBudget)).setText(item.getApply_budget() + "");
         ((TextView)helper.getView(R.id.tvShopName)).setText(item.getShop_name());
         ((TextView)helper.getView(R.id.tvBaoxiaoBudget)).setText(item.getBaoxiao_budget() + "");
-        ((TextView)helper.getView(R.id.tvStartTime)).setText(DateUtil.formatA(item.getStart_time()));
-        ((TextView)helper.getView(R.id.tvEndTime)).setText(DateUtil.formatA(item.getEnd_time()));
+        ((TextView)helper.getView(R.id.tvStartTime)).setText(DateUtil.formatB(item.getStart_time()));
+        ((TextView)helper.getView(R.id.tvEndTime)).setText(DateUtil.formatB(item.getEnd_time()));
     }
 }

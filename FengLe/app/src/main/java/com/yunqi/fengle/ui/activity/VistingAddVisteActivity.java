@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
+import com.yunqi.fengle.model.bean.Customer;
 import com.yunqi.fengle.model.bean.SpinnerBean;
 import com.yunqi.fengle.model.request.VisitingAddRequest;
 import com.yunqi.fengle.model.response.CustomersResponse;
@@ -44,7 +45,7 @@ public class VistingAddVisteActivity extends BaseActivity<VisitingAddVistePresen
 
     public static final String RX_TAG = "rxTag";
 
-    CustomersResponse selectedData;
+    Customer selectedData;
 
     VisitingAddRequest request;
 
@@ -75,8 +76,8 @@ public class VistingAddVisteActivity extends BaseActivity<VisitingAddVistePresen
 
     private void initData() {
         if (getIntent().hasExtra(TAG_SELECTED)) {
-            selectedData = (CustomersResponse) getIntent().getSerializableExtra(TAG_SELECTED);
-            tvCompanyName.setText(selectedData.getCompany_name());
+            selectedData = (Customer) getIntent().getSerializableExtra(TAG_SELECTED);
+            tvCompanyName.setText(selectedData.company_name);
         }
         tvSale.setText(App.getInstance().getUserInfo().real_name);
 
@@ -121,7 +122,7 @@ public class VistingAddVisteActivity extends BaseActivity<VisitingAddVistePresen
         }
 
         request = new VisitingAddRequest();
-        request.setClient_name(selectedData.getCompany_name());
+        request.setClient_name(selectedData.company_name);
         request.setPlan_time(tvTime.getText().toString());
         request.setUserid(App.getInstance().getUserInfo().id);
         request.setReason(etReason.getText().toString());

@@ -32,7 +32,7 @@ public class ActivityPlanManagerAdapter extends BaseQuickAdapter<ActivityAddResp
         ((TextView)helper.getView(R.id.tvCompany)).setText(item.getClient_name());
         ((TextView)helper.getView(R.id.tvRegion)).setText(item.getRegion());
         ((TextView)helper.getView(R.id.tvApplyBudget)).setText(item.getApply_budget() + "");
-        ((TextView)helper.getView(R.id.tvStartTime)).setText(DateUtil.formatA(item.getStart_time()));
-        ((TextView)helper.getView(R.id.tvEndTime)).setText(DateUtil.formatA(item.getEnd_time()));
+        ((TextView)helper.getView(R.id.tvStartTime)).setText(DateUtil.formatB(item.getStart_time()));
+        ((TextView)helper.getView(R.id.tvEndTime)).setText(DateUtil.formatB(item.getEnd_time()));
     }
 }

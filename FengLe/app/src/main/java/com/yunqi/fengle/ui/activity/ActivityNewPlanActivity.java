@@ -1,5 +1,6 @@
 package com.yunqi.fengle.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,11 +12,14 @@ import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
 import com.yunqi.fengle.model.bean.Area;
+import com.yunqi.fengle.model.bean.Customer;
+import com.yunqi.fengle.model.bean.GoodsAndWarehouse;
 import com.yunqi.fengle.model.bean.SpinnerBean;
 import com.yunqi.fengle.model.request.ActivityAddPlanRequest;
 import com.yunqi.fengle.model.response.CustomersResponse;
 import com.yunqi.fengle.presenter.ActivityNewPlanPresenter;
 import com.yunqi.fengle.presenter.contract.ActivityNewPlanContract;
+import com.yunqi.fengle.ui.adapter.GoodsAndWarehouseTableDataAdapter;
 import com.yunqi.fengle.ui.fragment.dialog.SpinnerDialogFragment;
 import com.yunqi.fengle.ui.view.TimeSelectDialog;
 import com.yunqi.fengle.ui.view.UnderLineEditNewPlanContentEx;
@@ -23,16 +27,21 @@ import com.yunqi.fengle.ui.view.UnderLineEditNewPlanEx;
 import com.yunqi.fengle.ui.view.UnderLineTextNewPlanEx;
 import com.yunqi.fengle.util.DateUtil;
 import com.yunqi.fengle.util.DialogHelper;
+import com.yunqi.fengle.util.RxBus;
 import com.yunqi.fengle.util.StringUtil;
 import com.yunqi.fengle.util.ToastUtil;
 import com.yunqi.fengle.util.map.NetResponse;
 import com.yunqi.fengle.util.map.ResponseListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.OnClick;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 /**
  * @Author: Huangweicai
@@ -74,7 +83,7 @@ public class ActivityNewPlanActivity extends BaseActivity<ActivityNewPlanPresent
     UnderLineEditNewPlanEx etRemark;
 
 
-    CustomersResponse response;
+//    CustomersResponse response;
 
     private SpinnerBean spinnerAction = new SpinnerBean();//活动类型
     private SpinnerBean spinnerBaoxiao = new SpinnerBean();//报销类型
@@ -89,6 +98,7 @@ public class ActivityNewPlanActivity extends BaseActivity<ActivityNewPlanPresent
         setTitleRight("提交");
 
         initData();
+
     }
 
     private void initData() {
@@ -105,8 +115,9 @@ public class ActivityNewPlanActivity extends BaseActivity<ActivityNewPlanPresent
 
             @Override
             public void onFaild(NetResponse response) {
-                progresser.showContent();
                 ToastUtil.toast(mContext,response.getMsg());
+                progresser.showContent();
+                ActivityNewPlanActivity.this.finish();
             }
         });
     }
@@ -147,6 +158,7 @@ public class ActivityNewPlanActivity extends BaseActivity<ActivityNewPlanPresent
             public void onSuccess() {
                 progresser.showContent();
                 ToastUtil.toast(ActivityNewPlanActivity.this,"增加成功.");
+                RxBus.get().post(ActivityPlanManagerActivity.RX_TAG,true);
                 finish();
             }
 
@@ -180,9 +192,14 @@ public class ActivityNewPlanActivity extends BaseActivity<ActivityNewPlanPresent
 
     @OnClick(R.id.llClientName)
     public void onClientName() {
-        Intent mIntent = new Intent();
-        mIntent.setClass(this, VisitingAddCustomerActivity3.class);
-        startActivityForResult(mIntent,1);
+
+        Intent intent = new Intent(this, CustomerQueryActivity.class);
+        intent.putExtra("module", 1);
+        startActivityForResult(intent, 1);
+
+//        Intent mIntent = new Intent();
+//        mIntent.setClass(this, VisitingAddCustomerActivity3.class);
+//        startActivityForResult(mIntent,1);
     }
 
 
@@ -217,6 +234,8 @@ public class ActivityNewPlanActivity extends BaseActivity<ActivityNewPlanPresent
         });
     }
 
+    Customer selectCustomer;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -227,10 +246,16 @@ public class ActivityNewPlanActivity extends BaseActivity<ActivityNewPlanPresent
             return;
         }
 
-        if (resultCode == RESULT_OK) {
-            response = (CustomersResponse) data.getSerializableExtra(VisitingAddCustomerActivity3.TAG_RESULT);
-            etClientName.setText(response.getName());
+        if (resultCode == Activity.RESULT_OK) {
+            selectCustomer = (Customer) data.getSerializableExtra("customer");
+            etClientName.setText(selectCustomer.name);
         }
+
+
+//        if (resultCode == RESULT_OK) {
+//            response = (CustomersResponse) data.getSerializableExtra(VisitingAddCustomerActivity3.TAG_RESULT);
+//            etClientName.setText(response.getName());
+//        }
     }
 
     @Override
