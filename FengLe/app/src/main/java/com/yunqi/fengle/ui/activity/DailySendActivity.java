@@ -59,9 +59,9 @@ public class DailySendActivity extends BaseActivity<DailySendPresenter> implemen
         final DailySendRequest request = new DailySendRequest();
         request.setUserid(App.getInstance().getUserInfo().id);
         request.setDaily(etContent.getText().toString());
-//        request.setAddress(locationModel.getAddress());
-//        request.setLat(locationModel.getLatitude() + "");
-//        request.setLng(locationModel.getLongitude() + "");
+        request.setAddress("address不能为空?");
+        request.setLat("lat不能为空？");
+        request.setLng("lng不能为空？");
 
         progresser.showProgress();
         mPresenter.doSendDaily(request, new ResponseListener() {

@@ -817,6 +817,17 @@ public class RetrofitHelper {
     }
 
     /**
+     * 上级查询业务员日报
+     *
+     * @return
+     */
+    public Observable<CommonHttpRsp<List<DailyResponse>>> getSubDaily(String userId,String startTime,String endTime) {
+        return apiService.getSubDaily(userId, startTime, endTime);
+    }
+
+
+
+    /**
      * 查询拜访计划
      *
      * @return

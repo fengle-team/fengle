@@ -670,6 +670,14 @@ public interface ApiService {
     Observable<CommonHttpRsp<List<DailyResponse>>> getDaily(@Query("userid") String userid,@Query("start_time") String start_time,@Query("end_time") String end_time);
 
     /**
+     * 获取日报
+     *
+     * @return
+     */
+    @GET("daily/get_by_leader")
+    Observable<CommonHttpRsp<List<DailyResponse>>> getSubDaily(@Query("userid") String userid,@Query("start_time") String start_time,@Query("end_time") String end_time);
+
+    /**
      * 获取我的客户
      *
      * @return

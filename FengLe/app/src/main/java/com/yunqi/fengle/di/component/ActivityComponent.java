@@ -2,6 +2,7 @@ package com.yunqi.fengle.di.component;
 
 import android.app.Activity;
 
+import com.yunqi.fengle.ui.activity.AchievementManagerActivity;
 import com.yunqi.fengle.ui.activity.ActivityExpenseActivity;
 import com.yunqi.fengle.ui.activity.ActivityNewPlanActivity;
 import com.yunqi.fengle.ui.activity.ActivityPlanActivity;
@@ -179,6 +180,8 @@ public interface ActivityComponent {
     void inject(GoodsSaleDetailActivity activity);
 
     void inject(ActivitySummaryDetailActivity activity);
+
+    void inject(AchievementManagerActivity activity);
 
 //    void inject(MessageActivity activity);
 }

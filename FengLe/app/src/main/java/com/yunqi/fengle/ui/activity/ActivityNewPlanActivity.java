@@ -18,6 +18,7 @@ import com.yunqi.fengle.presenter.ActivityNewPlanPresenter;
 import com.yunqi.fengle.presenter.contract.ActivityNewPlanContract;
 import com.yunqi.fengle.ui.fragment.dialog.SpinnerDialogFragment;
 import com.yunqi.fengle.ui.view.TimeSelectDialog;
+import com.yunqi.fengle.ui.view.UnderLineEditNewPlanContentEx;
 import com.yunqi.fengle.ui.view.UnderLineEditNewPlanEx;
 import com.yunqi.fengle.ui.view.UnderLineTextNewPlanEx;
 import com.yunqi.fengle.util.DateUtil;
@@ -57,9 +58,9 @@ public class ActivityNewPlanActivity extends BaseActivity<ActivityNewPlanPresent
     @BindView(R.id.etShopName)
     UnderLineEditNewPlanEx etShopName;
     @BindView(R.id.etApplyReason)
-    UnderLineEditNewPlanEx etApplyReason;
+    UnderLineEditNewPlanContentEx etApplyReason;
     @BindView(R.id.etActionPlan)
-    UnderLineEditNewPlanEx etActionPlan;
+    UnderLineEditNewPlanContentEx etActionPlan;
     @BindView(R.id.etBaoxiaoBudget)
     UnderLineEditNewPlanEx etBaoxiaoBudget;
     @BindView(R.id.etOtherSupport)

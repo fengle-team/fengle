@@ -55,10 +55,10 @@ public class DailySendPresenter extends RxPresenter<DailySendContract.View> impl
                         listener.onFaild(new NetResponse(-1,e.getMessage()));
                     }
 
-                    @Override
-                    public void onCompleted() {
-                        listener.onSuccess();
-                    }
+//                    @Override
+//                    public void onCompleted() {
+//                        listener.onSuccess();
+//                    }
                 });
         addSubscrebe(rxSubscription);
     }

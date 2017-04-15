@@ -176,7 +176,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/activity_summary_height"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
                 style="@style/activitySummary"

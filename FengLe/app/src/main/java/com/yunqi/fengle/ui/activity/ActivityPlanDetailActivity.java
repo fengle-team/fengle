@@ -128,6 +128,7 @@ public class ActivityPlanDetailActivity extends BaseActivity<ActivityPlanDetailP
 
         etClientName.setText(data.getClient_name());
         etResponsibleName.setText(data.getResponsible_name());
+        etStartTime.setText(data.getPlan_time());
     }
 
     @OnClick(R.id.llStatus)
@@ -141,16 +142,16 @@ public class ActivityPlanDetailActivity extends BaseActivity<ActivityPlanDetailP
             }
         });
     }
-    @OnClick(R.id.llStartTime)
-    public void onStartTimeClick() {
-        new TimeSelectDialog(this, new TimeSelectDialog.TimeSelectListener() {
-            @Override
-            public void onTimeSelected(long ltime, String strTime) {
-                etStartTime.setText(strTime);
-            }
-        }).show();
-
-    }
+//    @OnClick(R.id.llStartTime)
+//    public void onStartTimeClick() {
+//        new TimeSelectDialog(this, new TimeSelectDialog.TimeSelectListener() {
+//            @Override
+//            public void onTimeSelected(long ltime, String strTime) {
+//                etStartTime.setText(strTime);
+//            }
+//        }).show();
+//
+//    }
 
     @OnClick(R.id.llEndTime)
     public void onEndTimeClick() {

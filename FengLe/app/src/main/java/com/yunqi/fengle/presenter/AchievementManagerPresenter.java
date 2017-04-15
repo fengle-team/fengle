@@ -12,4 +12,6 @@ import com.yunqi.fengle.presenter.contract.LoginContract;
 
 public class AchievementManagerPresenter extends RxPresenter<AchievementManagerContract.View> implements AchievementManagerContract.Presenter{
 
+
+
 }

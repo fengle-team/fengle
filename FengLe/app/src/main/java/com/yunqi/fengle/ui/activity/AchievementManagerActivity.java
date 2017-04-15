@@ -8,6 +8,7 @@ import android.widget.RadioGroup;
 
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.base.BaseActivity;
+import com.yunqi.fengle.presenter.AchievementManagerPresenter;
 import com.yunqi.fengle.ui.fragment.RegionalRankingFragment;
 import com.yunqi.fengle.ui.fragment.SalerRankingFragment;
 
@@ -19,7 +20,7 @@ import butterknife.BindView;
  * @Description:业绩管理
  */
 
-public class AchievementManagerActivity extends BaseActivity implements RadioGroup.OnCheckedChangeListener {
+public class AchievementManagerActivity extends BaseActivity<AchievementManagerPresenter> implements RadioGroup.OnCheckedChangeListener {
 
     @BindView(R.id.rgRank)
     RadioGroup rgRank;
@@ -82,7 +83,7 @@ public class AchievementManagerActivity extends BaseActivity implements RadioGro
 
     @Override
     protected void initInject() {
-
+        getActivityComponent().inject(this);
     }
 
     @Override
