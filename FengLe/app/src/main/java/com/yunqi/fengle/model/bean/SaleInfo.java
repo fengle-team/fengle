@@ -7,6 +7,7 @@ import java.io.Serializable;
  * @time 2017/2/15
  */
 public class SaleInfo implements Serializable{
+    public String id;
     public String client_name;
     public String goods_code;
     public String goods_name;

@@ -72,7 +72,6 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
     private PlanAdjustmentDetailTableDataAdapter adapter;
     private List<PlanAdjustmentDetail> mlistPlanAdjustmentDetail;
     private int positionGoods;
-    private int type;
 
     @Override
     protected void initInject() {
@@ -106,8 +105,8 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
     }
 
     private void initData() {
-        txtOutArea.setText(planAdjustmentApply.from_area_name);
-        txtInArea.setText(planAdjustmentApply.to_area_name);
+        txtOutArea.setText(planAdjustmentApply.from_area_detail.name);
+        txtInArea.setText(planAdjustmentApply.to_area_detail.name);
         txtRemark.setText(planAdjustmentApply.remark);
         txtCode.setText(planAdjustmentApply.order_code);
         String strStatus = "";
@@ -117,10 +116,8 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
                 //如果单据是本人提交的，则是未完成状态
                 if (id.equals(planAdjustmentApply.userid)) {
                     strStatus = getString(R.string.bill_status_undone);
-                    type=0;
                 } else {
                     strStatus = getString(R.string.bill_status_2);
-                    type=1;
                 }
                 break;
             case 2:
@@ -249,8 +246,8 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
 
 
     private void showData(PlanAdjustmentApply planAdjustmentApply){
-        txtOutArea.setText(planAdjustmentApply.from_area_name);
-        txtInArea.setText(planAdjustmentApply.to_area_name);
+        txtOutArea.setText(planAdjustmentApply.from_area_detail.name);
+        txtInArea.setText(planAdjustmentApply.to_area_detail.name);
         mlistPlanAdjustmentDetail = planAdjustmentApply.detail;
         adapter = new PlanAdjustmentDetailTableDataAdapter(this, mlistPlanAdjustmentDetail);
         tableView.setDataAdapter(adapter);
@@ -258,8 +255,8 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
 
     @Override
     public void showContent(PlanAdjustmentApply planAdjustmentApply) {
-        txtOutArea.setText(planAdjustmentApply.from_area_name);
-        txtInArea.setText(planAdjustmentApply.to_area_name);
+        txtOutArea.setText(planAdjustmentApply.from_area_detail.name);
+        txtInArea.setText(planAdjustmentApply.to_area_detail.name);
         mlistPlanAdjustmentDetail = planAdjustmentApply.detail;
         adapter = new PlanAdjustmentDetailTableDataAdapter(this, mlistPlanAdjustmentDetail);
         tableView.setDataAdapter(adapter);

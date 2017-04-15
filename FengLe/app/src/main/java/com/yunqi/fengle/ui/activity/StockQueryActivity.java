@@ -78,12 +78,6 @@ public class StockQueryActivity extends BaseActivity<StockQueryPresenter> implem
         columnModel.setColumnWeight(3, 1);
         columnModel.setColumnWeight(4, 1);
         tableViewEx.tableView.setColumnModel(columnModel);
-        tableViewEx.setOnLoadMoreListener(new ExTableView.OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                mPresenter.queryStock(warehouse_code,area_code,keyword, ++page);
-            }
-        });
         mPresenter.queryStock(warehouse_code,area_code,keyword, page);
     }
 
@@ -125,6 +119,18 @@ public class StockQueryActivity extends BaseActivity<StockQueryPresenter> implem
                         startActivityForResult(intent, 2);
                     }
                 });
+        tableViewEx.setOnLoadMoreListener(new ExTableView.OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                mPresenter.queryStock(warehouse_code,area_code,keyword, ++page);
+            }
+        });
+        tableViewEx.setOnLoadRetryListener(new ExTableView.OnLoadRetryListener() {
+            @Override
+            public void onLoadRetry() {
+                mPresenter.queryStock(warehouse_code,area_code,keyword, page);
+            }
+        });
     }
 
 

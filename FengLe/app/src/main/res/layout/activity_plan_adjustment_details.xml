@@ -190,7 +190,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="生成发货单号："
+                    android:text="生成调剂单号："
                     android:textSize="@dimen/comom_txt_size_xs"
                     android:textStyle="bold" />
 

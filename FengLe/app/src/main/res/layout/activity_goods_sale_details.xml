@@ -32,7 +32,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="28dp"
                     android:text="@string/tag_customer_name"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
 
                 <TextView
@@ -45,8 +45,7 @@
                     android:layout_toRightOf="@+id/tag_customer_name"
                     android:gravity="center"
                     android:minHeight="40dp"
-                    android:text="安徽大大哒哒哒撒哒安徽大大哒哒哒撒哒"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
 
                 <View
@@ -68,7 +67,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="28dp"
                     android:text="@string/tag_stock_name"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
 
                 <TextView
@@ -81,15 +80,17 @@
                     android:layout_toRightOf="@+id/tag_stock_name"
                     android:gravity="center"
                     android:minHeight="40dp"
-                    android:text="安徽大大哒哒哒撒哒安徽大大哒哒哒撒哒"
-                    android:textColor="@color/black"
+                    android:text=""
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_alignParentBottom="true"
                     android:background="@color/line_bg" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -102,7 +103,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="28dp"
                     android:text="@string/tag_begin_count"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
 
                 <TextView
@@ -115,15 +116,17 @@
                     android:layout_toRightOf="@+id/tag_begin_count"
                     android:gravity="center"
                     android:minHeight="40dp"
-                    android:text="安徽大大哒哒哒撒哒安徽大大哒哒哒撒哒"
-                    android:textColor="@color/black"
+                    android:text=""
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_alignParentBottom="true"
                     android:background="@color/line_bg" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -136,28 +139,30 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="28dp"
                     android:text="@string/tag_deliver_tonnage"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/line_bg" />
 
                 <TextView
                     android:id="@+id/txt_deliver_tonnage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
+                    android:layout_alignParentBottom="true"
                     android:layout_marginLeft="28dp"
                     android:layout_marginRight="5dp"
                     android:layout_toRightOf="@+id/tag_deliver_tonnage"
                     android:gravity="center"
                     android:minHeight="40dp"
-                    android:text="安徽大大哒哒哒撒哒安徽大大哒哒哒撒哒"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/line_bg" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -170,7 +175,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="28dp"
                     android:text="@string/tag_transfer_tonnage"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
 
                 <TextView
@@ -183,15 +188,16 @@
                     android:layout_toRightOf="@+id/tag_transfer_tonnage"
                     android:gravity="center"
                     android:minHeight="40dp"
-                    android:text="安徽大大哒哒哒撒哒安徽大大哒哒哒撒哒"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_alignParentBottom="true"
                     android:background="@color/line_bg" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -204,7 +210,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="28dp"
                     android:text="@string/tag_return_tonnage"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
 
                 <TextView
@@ -217,15 +223,16 @@
                     android:layout_toRightOf="@+id/tag_return_tonnage"
                     android:gravity="center"
                     android:minHeight="40dp"
-                    android:text="安徽大大哒哒哒撒哒安徽大大哒哒哒撒哒"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_alignParentBottom="true"
                     android:background="@color/line_bg" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -238,7 +245,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="28dp"
                     android:text="@string/tag_consignment_value"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
 
                 <TextView
@@ -251,15 +258,16 @@
                     android:layout_toRightOf="@+id/tag_consignment_value"
                     android:gravity="center"
                     android:minHeight="40dp"
-                    android:text="安徽大大哒哒哒撒哒安徽大大哒哒哒撒哒"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_alignParentBottom="true"
                     android:background="@color/line_bg" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -275,9 +283,9 @@
                     android:layout_toRightOf="@+id/tag_billing_amount"
                     android:gravity="center"
                     android:minHeight="40dp"
-                    android:text="安徽大大哒哒哒撒哒安徽大大哒哒哒撒哒"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
@@ -288,14 +296,15 @@
                     android:id="@+id/tag_billing_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="28dp"
-                    android:text="@string/tag_billing_amount"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/comom_txt_size_s"
-                    android:layout_centerVertical="true"
                     android:layout_alignParentStart="true"
-                    android:layout_marginStart="27dp" />
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="28dp"
+                    android:layout_marginStart="27dp"
+                    android:text="@string/tag_billing_amount"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/comom_txt_size_s" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -308,7 +317,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="28dp"
                     android:text="@string/tag_tax_amount"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
 
                 <TextView
@@ -321,15 +330,16 @@
                     android:layout_toRightOf="@+id/tag_tax_amount"
                     android:gravity="center"
                     android:minHeight="40dp"
-                    android:text="安徽大大哒哒哒撒哒安徽大大哒哒哒撒哒"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_alignParentBottom="true"
                     android:background="@color/line_bg" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -342,7 +352,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="28dp"
                     android:text="@string/tag_binlling_tonnage"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
 
                 <TextView
@@ -355,15 +365,16 @@
                     android:layout_toRightOf="@+id/tag_binlling_tonnage"
                     android:gravity="center"
                     android:minHeight="40dp"
-                    android:text="安徽大大哒哒哒撒哒安徽大大哒哒哒撒哒"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_alignParentBottom="true"
                     android:background="@color/line_bg" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -376,7 +387,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="28dp"
                     android:text="@string/tag_total_price"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
 
                 <TextView
@@ -389,9 +400,9 @@
                     android:layout_toRightOf="@+id/tag_total_price"
                     android:gravity="center"
                     android:minHeight="40dp"
-                    android:text="安徽大大哒哒哒撒哒安徽大大哒哒哒撒哒"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"

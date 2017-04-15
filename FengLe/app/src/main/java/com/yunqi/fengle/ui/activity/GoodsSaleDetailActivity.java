@@ -1,26 +1,21 @@
 package com.yunqi.fengle.ui.activity;
 
 
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.base.BaseActivity;
-import com.yunqi.fengle.model.bean.SaleInfo;
-import com.yunqi.fengle.presenter.SaleDetailPresenter;
-import com.yunqi.fengle.presenter.contract.SaleDetailContract;
-
-import java.util.List;
-
+import com.yunqi.fengle.model.bean.GoodsSaleDetail;
+import com.yunqi.fengle.presenter.GoodsSaleDetailPresenter;
+import com.yunqi.fengle.presenter.contract.GoodsSaleDetailContract;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 
 /**
  * 单一货物销售明细
  */
-public class GoodsSaleDetailActivity extends BaseActivity<SaleDetailPresenter> implements SaleDetailContract.View {
+public class GoodsSaleDetailActivity extends BaseActivity<GoodsSaleDetailPresenter> implements GoodsSaleDetailContract.View {
 
 
     @BindView(R.id.toolbar)
@@ -61,38 +56,11 @@ public class GoodsSaleDetailActivity extends BaseActivity<SaleDetailPresenter> i
     @Override
     protected void initEventAndData() {
         setToolBar(toolBar, getString(R.string.module_goods_sale_detail));
-
-
+        String sale_id=getIntent().getExtras().getString("sale_id");
+        mPresenter.getGoodsSaleDetail(sale_id);
     }
-
-    private void setWidgetListener() {
-    }
-
-
     @Override
-    public void showLoading() {
-    }
+    public void showContent(GoodsSaleDetail goodsSaleDetail) {
 
-
-    @Override
-    public void showError(String msg) {
-
-    }
-
-    @Override
-    public void showContent(List<SaleInfo> listSaleInfo) {
-
-    }
-
-    @Override
-    public void showMoreContent(List<SaleInfo> listMoreSaleInfo) {
-
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

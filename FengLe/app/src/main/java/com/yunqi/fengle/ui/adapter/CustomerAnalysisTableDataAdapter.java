@@ -12,9 +12,6 @@ import com.yunqi.fengle.model.bean.CustomerAnalysis;
 
 import java.util.List;
 
-import de.codecrafters.tableview.TableDataAdapter;
-
-
 public class CustomerAnalysisTableDataAdapter extends BaseTableDataAdapter<CustomerAnalysis> {
     private Context context;
     public CustomerAnalysisTableDataAdapter(Context context, List<CustomerAnalysis> data) {
@@ -68,13 +65,13 @@ public class CustomerAnalysisTableDataAdapter extends BaseTableDataAdapter<Custo
         return renderString(customer.client_name);
     }
     private View renderLastRanking(CustomerAnalysis customer) {
-        return renderString(customer.fh_amount_rank+"");
+        return renderString(customer.rank_last_year+"");
     }
     private View renderRanking(CustomerAnalysis customer) {
         return renderString(customer.fh_num_rank+"");
     }
     private View renderLastShipment(CustomerAnalysis customer) {
-        return renderString(customer.huikuan_amount+"");
+        return renderString(customer.fh_amount_last_year+"");
     }
 
     private View renderAmount(CustomerAnalysis customer) {

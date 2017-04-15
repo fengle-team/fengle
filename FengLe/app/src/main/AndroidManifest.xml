@@ -111,6 +111,7 @@
         <activity
             android:name="com.yunqi.fengle.ui.activity.PaymentQueryActivity"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"
             />
         <activity
             android:name="com.yunqi.fengle.ui.activity.AddDeliveryRequestActivity"
@@ -210,6 +211,7 @@
         <activity
             android:name="com.yunqi.fengle.ui.activity.PaymentDeclarationActivity"
             android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan"
             />
         <activity
             android:name="com.yunqi.fengle.ui.activity.AddPaymentDeclarationActivity"

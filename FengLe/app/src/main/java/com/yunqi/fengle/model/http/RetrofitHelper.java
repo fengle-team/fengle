@@ -13,6 +13,7 @@ import com.yunqi.fengle.model.bean.CustomerAnalysis;
 import com.yunqi.fengle.model.bean.CustomerContactDetail;
 import com.yunqi.fengle.model.bean.FukuanType;
 import com.yunqi.fengle.model.bean.Goods;
+import com.yunqi.fengle.model.bean.GoodsSaleDetail;
 import com.yunqi.fengle.model.bean.InvoiceApply;
 import com.yunqi.fengle.model.bean.Module;
 import com.yunqi.fengle.model.bean.Payment;
@@ -361,8 +362,8 @@ public class RetrofitHelper {
      * @param page
      * @return
      */
-    public Observable<CommonHttpRsp<List<Payment>>> queryPayment(String userid, int status, String startTime, String endTime, int page) {
-        return apiService.queryPayment(userid, status, startTime, endTime, page, PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<Payment>>> queryPayment(String userid, int status, String keyword,String startTime, String endTime, int page) {
+        return apiService.queryPayment(userid, status,keyword, startTime, endTime, page, PAGE_SIZE);
     }
     /**
      * 查询回款
@@ -373,8 +374,8 @@ public class RetrofitHelper {
      * @param page
      * @return
      */
-    public Observable<CommonHttpRsp<List<Payment>>> queryPayment(String userid, int status,int type,int page) {
-        return apiService.queryPayment(userid, status, type, page, PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<Payment>>> queryPayment(String userid, int status,String keyword,int type,int page) {
+        return apiService.queryPayment(userid, status,keyword, type, page, PAGE_SIZE);
     }
 
     /**
@@ -452,6 +453,16 @@ public class RetrofitHelper {
      */
     public Observable<CommonHttpRsp<List<BillingApply>>> queryBillingApply(String userid, String keyword,int status, String startTime, String endTime, int page) {
         return apiService.queryBillingApply(userid,keyword, status, startTime, endTime, page, PAGE_SIZE);
+    }
+
+    /**
+     * 单一货物销售明细
+     *
+     * @param sale_id
+     * @return
+     */
+    public Observable<CommonHttpRsp<GoodsSaleDetail>>queryGoodsSaleDetail(String sale_id) {
+        return apiService.queryGoodsSaleDetail(sale_id);
     }
 
 

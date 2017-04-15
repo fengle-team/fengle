@@ -50,23 +50,23 @@ public class PlanAdjustmentTableDataAdapter extends BaseTableDataAdapter<PlanAdj
     }
 
     private View renderFromArea(PlanAdjustmentApply planAdjustmentApply) {
-        return renderString(planAdjustmentApply.from_area_code);
+        return renderString(planAdjustmentApply.from_area_detail.name);
     }
     private View renderToArea(PlanAdjustmentApply planAdjustmentApply) {
-        return renderString(planAdjustmentApply.to_area_code);
+        return renderString(planAdjustmentApply.to_area_detail.name);
     }
     private View renderOprater() {
         return renderString("编辑/查看");
     }
 
 
-    private View renderStatus(PlanAdjustmentApply PlanAdjustmentApply) {
+    private View renderStatus(PlanAdjustmentApply planAdjustmentApply) {
         String strStatus = null;
-        switch (PlanAdjustmentApply.status){
+        switch (planAdjustmentApply.status){
             case 1:
                 String id = App.getInstance().getUserInfo().id;
                 //如果单据是本人提交的，则是未完成状态
-                if (id.equals(PlanAdjustmentApply.userid)) {
+                if (id.equals(planAdjustmentApply.userid)) {
                     strStatus = context.getString(R.string.bill_status_undone);
                 } else {
                     strStatus = context.getString(R.string.bill_status_2);
@@ -80,10 +80,6 @@ public class PlanAdjustmentTableDataAdapter extends BaseTableDataAdapter<PlanAdj
                 break;
         }
         return renderString(strStatus);
-    }
-
-    private View renderStandard(PlanAdjustmentApply planAdjustmentApply) {
-        return renderString(planAdjustmentApply.from_area_code);
     }
 
     private View renderPlanAdjustmentApplyTime(PlanAdjustmentApply PlanAdjustmentApply) {
