@@ -3,6 +3,7 @@ package com.yunqi.fengle.presenter.contract;
 import com.yunqi.fengle.base.BasePresenter;
 import com.yunqi.fengle.base.BaseView;
 import com.yunqi.fengle.model.request.DailySendRequest;
+import com.yunqi.fengle.model.response.CustomersResponse;
 import com.yunqi.fengle.util.map.ResponseListener;
 
 /**
@@ -19,5 +20,7 @@ public interface MyCustomersContract {
 
     interface Presenter extends BasePresenter<MyCustomersContract.View> {
         void getMyCustomers(ResponseListener listener);
+
+        void doUpgradeClient(CustomersResponse request,ResponseListener listener);
     }
 }

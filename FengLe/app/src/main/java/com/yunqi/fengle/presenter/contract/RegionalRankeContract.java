@@ -2,9 +2,10 @@ package com.yunqi.fengle.presenter.contract;
 
 import com.yunqi.fengle.base.BasePresenter;
 import com.yunqi.fengle.base.BaseView;
-import com.yunqi.fengle.model.bean.InvoiceApply;
+import com.yunqi.fengle.model.request.ActivityAddPlanRequest;
 import com.yunqi.fengle.model.response.RegionalRankingResponse;
 import com.yunqi.fengle.model.response.SaleRankingResponse;
+import com.yunqi.fengle.ui.view.UnderLineEditTextEx;
 import com.yunqi.fengle.util.map.ResponseListener;
 
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
  * @Description:
  */
 
-public interface AchievementManagerContract {
+public interface RegionalRankeContract {
     interface View extends BaseView {
         void showContentRegional(List<RegionalRankingResponse> listRegional);
         void showMoreContentRegional(List<RegionalRankingResponse> listRegional);
@@ -24,9 +25,9 @@ public interface AchievementManagerContract {
         void showMoreContentSale(List<SaleRankingResponse> listInvoiceApplyMore);
     }
 
-    interface Presenter extends BasePresenter<AchievementManagerContract.View> {
-        void getRegionalRanke(ResponseListener listener);
+    interface Presenter extends BasePresenter<RegionalRankeContract.View> {
+        void getRegionalRanke(int page,ResponseListener listener);
 
-        void getSaleRanke(ResponseListener listener);
+        void getSaleRanke(int page,ResponseListener listener);
     }
 }

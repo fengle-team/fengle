@@ -4,30 +4,28 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.model.response.RegionalRankingResponse;
+import com.yunqi.fengle.model.response.SaleRankingResponse;
 
 import java.util.List;
-
-import de.codecrafters.tableview.TableDataAdapter;
 
 /**
  * @Author: Huangweicai
  * @date 2017-02-18 14:12:33
- * @Description: 大区排名 {@link com.yunqi.fengle.ui.fragment.RegionalRankingFragment}
+ * @Description: 业务员
  */
 
-public class RegionalHeaderAdapter extends BaseTableDataAdapter<RegionalRankingResponse> {
+public class SaleHeaderAdapter extends BaseTableDataAdapter<SaleRankingResponse> {
 
     private Context mContext;
 
-    private List<RegionalRankingResponse> data;
+    private List<SaleRankingResponse> data;
 
 
-    public RegionalHeaderAdapter(Context context, List<RegionalRankingResponse> data) {
+    public SaleHeaderAdapter(Context context, List<SaleRankingResponse> data) {
         super(context, data);
         this.mContext=context;
         this.data = data;
@@ -37,12 +35,12 @@ public class RegionalHeaderAdapter extends BaseTableDataAdapter<RegionalRankingR
 
     @Override
     public View getCellView(int rowIndex, int columnIndex, ViewGroup parentView) {
-        RegionalRankingResponse response = getRowData(rowIndex);
+        SaleRankingResponse response = getRowData(rowIndex);
         View renderedView = null;
 
         switch (columnIndex) {
             case 0:
-                renderedView = renderString(response.getArea_info().getName());
+                renderedView = renderString(response.getUser_info().getReal_name());
                 break;
             case 1:
                 renderedView = renderString(response.getGoal_num() + "");

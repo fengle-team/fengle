@@ -52,6 +52,9 @@
 
     <!--客户-->
     <color name="whole_title_color">#ff525866</color>
+    <color name="whole_color1">#ff4c8d2e</color>
+    <color name="whole_color2">#ffe68944</color>
+    <color name="whole_color3">#ff6b6b6c</color>
 
     <!--客情维护-->
     <color name="customer_bg">#e6e5e7</color>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -15,7 +16,9 @@ import com.yunqi.fengle.model.response.CustomersResponse;
 import com.yunqi.fengle.presenter.MyCustomersPresenter;
 import com.yunqi.fengle.presenter.contract.MyCustomersContract;
 import com.yunqi.fengle.ui.adapter.MyCustomersAdapter;
+import com.yunqi.fengle.ui.fragment.dialog.SimpleDialogFragment;
 import com.yunqi.fengle.ui.view.RecycleViewDivider;
+import com.yunqi.fengle.util.DialogHelper;
 import com.yunqi.fengle.util.ToastUtil;
 import com.yunqi.fengle.util.map.NetResponse;
 import com.yunqi.fengle.util.map.ResponseListener;
@@ -72,16 +75,61 @@ public class MyCustomersActivity extends BaseActivity<MyCustomersPresenter> impl
         rvMyCustomers.setLayoutManager(new LinearLayoutManager(this));
         rvMyCustomers.addItemDecoration(new RecycleViewDivider(mContext, RecycleViewDivider.VERTICAL_LIST));
 
+
+
         rvMyCustomers.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent mIntent = new Intent(MyCustomersActivity.this, CustomerWholeActivity.class);
                 MyCustomersActivity.this.startActivity(mIntent);
             }
+
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
+                if (!dataList.get(position).isNeedUp()) {
+                    return;
+                }
+                String msg = dataList.get(position).getMsg();
+                DialogHelper.showDialog(MyCustomersActivity.this, msg, new SimpleDialogFragment.OnSimpleDialogListener() {
+                    @Override
+                    public void onOk() {
+                        doUpgrade(position);
+                    }
+                });
+            }
         });
 
         adapter = new MyCustomersAdapter(dataList);
         rvMyCustomers.setAdapter(adapter);
+
+
+    }
+
+    /**
+     * 升级客户类型
+     * @param position
+     */
+    private void doUpgrade(final int position) {
+        final CustomersResponse selectBean = dataList.get(position);
+        selectBean.up();
+        progresser.showProgress();
+        mPresenter.doUpgradeClient(selectBean, new ResponseListener() {
+            @Override
+            public void onSuccess() {
+                progresser.showContent();
+                ToastUtil.toast(mContext,"升级成功.");
+                adapter.getData().set(position, selectBean);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFaild(NetResponse response) {
+                progresser.showContent();
+                ToastUtil.toast(mContext,response.getMsg());
+            }
+        });
+
+
     }
 
     @Override

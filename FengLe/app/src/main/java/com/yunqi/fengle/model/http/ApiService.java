@@ -40,6 +40,8 @@ import com.yunqi.fengle.model.response.CustomersSituationResponse;
 import com.yunqi.fengle.model.response.DailyResponse;
 import com.yunqi.fengle.model.response.MessageResponse;
 import com.yunqi.fengle.model.response.NoticeResponse;
+import com.yunqi.fengle.model.response.RegionalRankingResponse;
+import com.yunqi.fengle.model.response.SaleRankingResponse;
 import com.yunqi.fengle.model.response.VisitingPlanResponse;
 
 import java.util.List;
@@ -265,6 +267,14 @@ public interface ApiService {
     Observable<BaseHttpRsp> deletePayment(@Field("id") int id);
 
     /**
+     *
+     * 修改客户
+     * @return
+     */
+    @POST("custom/update")
+    Observable<BaseHttpRsp> doUpgradeClient(@Body CustomersResponse request);
+
+    /**
      * 查询回款接口
      */
     @GET("huikuan/get")
@@ -307,6 +317,18 @@ public interface ApiService {
      */
     @GET("dispatch_bill/get")
     Observable<CommonHttpRsp<List<InvoiceApply>>> queryInvoiceApply(@Query("userid") String userid, @Query("keyword") String keyword,@Query("status") int status, @Query("start_time") String start_time, @Query("end_time") String end_time, @Query("page") int page, @Query("size") int size);
+
+    /**
+     * 大区排名
+     */
+    @GET("users/getAreaYeji")
+    Observable<CommonHttpRsp<List<RegionalRankingResponse>>> queryRegional(@Query("page") int page, @Query("size") int size);
+
+    /**
+     * 销售员排名
+     */
+    @GET("users/getYeji")
+    Observable<CommonHttpRsp<List<SaleRankingResponse>>> querySaleRanke(@Query("page") int page, @Query("size") int size);
 
     /**
      * 退货单查询接口

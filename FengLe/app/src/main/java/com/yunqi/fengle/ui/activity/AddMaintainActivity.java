@@ -1,8 +1,13 @@
 package com.yunqi.fengle.ui.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +23,7 @@ import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
 import com.yunqi.fengle.model.bean.Area;
+import com.yunqi.fengle.model.bean.Customer;
 import com.yunqi.fengle.model.bean.SpinnerBean;
 import com.yunqi.fengle.model.request.AddMaintainRequest;
 import com.yunqi.fengle.model.request.TypeRequest;
@@ -25,6 +31,7 @@ import com.yunqi.fengle.model.response.CustomersResponse;
 import com.yunqi.fengle.presenter.AddMaintainPresenter;
 import com.yunqi.fengle.presenter.contract.AddmaintainContract;
 import com.yunqi.fengle.ui.adapter.GridImageAdapter;
+import com.yunqi.fengle.ui.fragment.dialog.SimpleDialogFragment;
 import com.yunqi.fengle.ui.fragment.dialog.SpinnerDialogFragment;
 import com.yunqi.fengle.ui.view.FullyGridLayoutManager;
 import com.yunqi.fengle.ui.view.RecycleViewDivider;
@@ -57,6 +64,12 @@ import butterknife.OnClick;
 public class AddMaintainActivity extends BaseActivity<AddMaintainPresenter> implements AddmaintainContract.View, GridImageAdapter.OnAddPicClickListener {
 
     public static final String TAG_NAME = "tagName";
+
+    private static final int PERMISSON_REQUESTCODE = 0;
+    /**
+     * 判断是否需要检测，防止不停的弹框
+     */
+    private boolean isNeedCheck = true;
 
     @BindView(R.id.rvPhoto)
     RecyclerView rvPhoto;
@@ -109,6 +122,14 @@ public class AddMaintainActivity extends BaseActivity<AddMaintainPresenter> impl
         initData();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(isNeedCheck){
+            checkPermissions(MapLocationMgr.needPermissions);
+        }
+    }
+
     private void initData() {
 //        spinnerAction.addSpinner("1","活动类型001");
 //        spinnerAction.addSpinner("2","活动类型002");
@@ -122,9 +143,12 @@ public class AddMaintainActivity extends BaseActivity<AddMaintainPresenter> impl
         findViewById(R.id.llClientName).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent mIntent = new Intent();
-                mIntent.setClass(AddMaintainActivity.this, VisitingAddCustomerActivity3.class);
-                startActivityForResult(mIntent,1);
+                Intent intent = new Intent(AddMaintainActivity.this, CustomerQueryActivity.class);
+                intent.putExtra("module", 1);
+                startActivityForResult(intent, 1);
+//                Intent mIntent = new Intent();
+//                mIntent.setClass(AddMaintainActivity.this, VisitingAddCustomerActivity3.class);
+//                startActivityForResult(mIntent,1);
             }
         });
     }
@@ -213,6 +237,75 @@ public class AddMaintainActivity extends BaseActivity<AddMaintainPresenter> impl
         });
     }
 
+    private void checkPermissions(String... permissions) {
+        List<String> needRequestPermissonList = findDeniedPermissions(permissions);
+        if (null != needRequestPermissonList
+                && needRequestPermissonList.size() > 0) {
+            ActivityCompat.requestPermissions(this,
+                    needRequestPermissonList.toArray(
+                            new String[needRequestPermissonList.size()]),
+                    PERMISSON_REQUESTCODE);
+        }
+    }
+
+    /**
+     * 获取权限集中需要申请权限的列表
+     *
+     * @param permissions
+     * @return
+     * @since 2.5.0
+     *
+     */
+    private List<String> findDeniedPermissions(String[] permissions) {
+        List<String> needRequestPermissonList = new ArrayList<String>();
+        for (String perm : permissions) {
+            if (ContextCompat.checkSelfPermission(this,
+                    perm) != PackageManager.PERMISSION_GRANTED
+                    || ActivityCompat.shouldShowRequestPermissionRationale(
+                    this, perm)) {
+                needRequestPermissonList.add(perm);
+            }
+        }
+        return needRequestPermissonList;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] paramArrayOfInt) {
+        if (requestCode == PERMISSON_REQUESTCODE) {
+            if (!verifyPermissions(paramArrayOfInt)) {
+                showMissingPermissionDialog();
+                isNeedCheck = false;
+            }
+        }
+    }
+
+    private void showMissingPermissionDialog() {
+        DialogHelper.showDialog(this, "当前应用缺少必要权限。请点击设置-权限打开所需权限", new SimpleDialogFragment.OnSimpleDialogListener() {
+            @Override
+            public void onOk() {
+                Intent intent = new Intent(
+                        Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                intent.setData(Uri.parse("package:" + getPackageName()));
+                startActivity(intent);
+            }
+        }, new SimpleDialogFragment.OnBackDialogListener() {
+            @Override
+            public void onBack() {
+                AddMaintainActivity.this.finish();
+            }
+        });
+    }
+
+    private boolean verifyPermissions(int[] grantResults) {
+        for (int result : grantResults) {
+            if (result != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     @OnClick(R.id.rlStartTime)
     public void clickStartTime() {
@@ -268,8 +361,11 @@ public class AddMaintainActivity extends BaseActivity<AddMaintainPresenter> impl
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
-            CustomersResponse response = (CustomersResponse) data.getSerializableExtra(VisitingAddCustomerActivity3.TAG_RESULT);
-            etClientName.setText(response.getName());
+//            CustomersResponse response = (CustomersResponse) data.getSerializableExtra(VisitingAddCustomerActivity3.TAG_RESULT);
+//            etClientName.setText(response.getName());
+
+            Customer selectCustomer = (Customer) data.getSerializableExtra("customer");
+            etClientName.setText(selectCustomer.name);
         }
     }
 

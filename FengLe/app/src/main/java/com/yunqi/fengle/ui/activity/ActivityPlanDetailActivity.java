@@ -128,7 +128,7 @@ public class ActivityPlanDetailActivity extends BaseActivity<ActivityPlanDetailP
 
         etClientName.setText(data.getClient_name());
         etResponsibleName.setText(data.getResponsible_name());
-        etStartTime.setText(data.getPlan_time());
+        etStartTime.setText(DateUtil.formatB(data.getPlan_time()));
     }
 
     @OnClick(R.id.llStatus)

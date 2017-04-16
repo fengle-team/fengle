@@ -1,5 +1,6 @@
 package com.yunqi.fengle.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.base.BaseActivity;
+import com.yunqi.fengle.model.bean.Customer;
 import com.yunqi.fengle.model.response.VisitingPlanResponse;
 import com.yunqi.fengle.presenter.VisitingPlanPresenter;
 import com.yunqi.fengle.presenter.contract.VisitingPlanContract;
@@ -154,16 +156,35 @@ public class VisitingPlanActivity extends BaseActivity<VisitingPlanPresenter> im
         if (TAG_FROM_CUSTOMER_SITUATION.equals(getIntent().getStringExtra(TAG_FROM)))
         {//客情维护跳转过来的
             mIntent.setClass(VisitingPlanActivity.this, AddMaintainActivity.class);
+            startActivity(mIntent);
         } else {
-            mIntent.setClass(VisitingPlanActivity.this, VisitingAddCustomerActivity2.class);
+
+            Intent intent = new Intent(this, CustomerQueryActivity.class);
+            intent.putExtra("module", 1);
+            startActivityForResult(intent, 1);
+//            mIntent.setClass(VisitingPlanActivity.this, VisitingAddCustomerActivity2.class);
         }
-        startActivity(mIntent);
+
     }
 
     @Override
     public void onRefresh(SwipyRefreshLayoutDirection direction) {
         if (direction == SwipyRefreshLayoutDirection.TOP) {
             initData();
+        }
+    }
+
+    Customer selectCustomer;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            selectCustomer = (Customer) data.getSerializableExtra("customer");
+            Intent mIntent = new Intent();
+            mIntent.putExtra(VistingAddVisteActivity.TAG_SELECTED, selectCustomer);
+            mIntent.setClass(this, VistingAddVisteActivity.class);
+            this.startActivity(mIntent);
         }
     }
 

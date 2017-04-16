@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3333"
         android:orientation="vertical"
-
         android:padding="12dp">
 
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="北京有限公司有限你妹"
+            android:text="北京有限公司有限你妹北京有限公司有限你妹北京有限公司有限你妹北京有限公司有限你妹北京有限公司有限你妹"
+            android:textColor="@color/whole_color3"
             android:textSize="@dimen/text_normal_size" />
 
         <TextView
@@ -29,18 +33,25 @@
 
     </LinearLayout>
 
-
     <LinearLayout
+        android:id="@+id/llRight"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerInParent="true"
-        android:layout_marginRight="10dp">
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="#fffafafa"
+        android:orientation="horizontal"
+        android:paddingRight="10dp">
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:background="@color/line_bg" />
 
         <ImageView
             android:id="@+id/ivIcon"
-            android:layout_width="12dp"
-            android:layout_height="12dp"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
             android:layout_gravity="center"
             android:layout_marginRight="3dp"
             android:background="@drawable/icon_up01" />
@@ -50,9 +61,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="潜在客户"
+            android:lines="1"
+            android:text="钱钱"
+            android:textColor="@color/black"
             android:textSize="@dimen/text_normal_size" />
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

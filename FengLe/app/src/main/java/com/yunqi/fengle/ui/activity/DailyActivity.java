@@ -67,6 +67,7 @@ public class DailyActivity extends BaseActivity<DailyPresenter> implements Daily
     }
 
     private void initData() {
+        dataList = new ArrayList<>();
         progresser.showProgress();
         mPresenter.getDaily("", "", new ResponseListener() {
             @Override
@@ -155,7 +156,7 @@ public class DailyActivity extends BaseActivity<DailyPresenter> implements Daily
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK)
         {//需要刷新界面
-
+            initData();
         }
     }
 

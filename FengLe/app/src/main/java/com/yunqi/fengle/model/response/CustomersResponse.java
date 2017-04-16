@@ -1,5 +1,7 @@
 package com.yunqi.fengle.model.response;
 
+import com.yunqi.fengle.R;
+
 import java.io.Serializable;
 
 /**
@@ -115,4 +117,86 @@ public class CustomersResponse implements Serializable{
         }
         return "";
     }
+
+    /**
+     * 根据类型获得icon资源
+     * @return
+     */
+    public int getResource() {
+        int resource = R.drawable.icon_up01;
+        switch (type) {
+            case TYPE_POTENTIAL:
+                resource = R.drawable.icon_up01;
+                break;
+            case TYPE_INTENTION:
+                resource = R.drawable.icon_type_yx;
+                break;
+            case TYPE_DEAL:
+                resource = R.drawable.icon_type_cj;
+                break;
+            case TYPE_LOSS:
+                resource = R.drawable.icon_type_ls;
+                break;
+
+        }
+        return resource;
+    }
+
+    /**
+     * 根据类型获得icon资源
+     * @return
+     */
+    public int getTxtColor() {
+        int resource = R.color.whole_color1;
+        switch (type) {
+            case TYPE_POTENTIAL:
+                resource = R.color.whole_color1;
+                break;
+            case TYPE_INTENTION:
+                resource = R.color.whole_color2;
+                break;
+            case TYPE_DEAL:
+                resource = R.color.whole_color3;
+                break;
+            case TYPE_LOSS:
+                resource = R.color.darkgray;
+                break;
+
+        }
+        return resource;
+    }
+
+    /**
+     * 是否需要升级
+     * @return
+     */
+    public boolean isNeedUp() {
+        if (type == TYPE_POTENTIAL || type == TYPE_INTENTION) {
+            return true;
+        }
+        return false;
+    }
+
+    public void up() {
+        if (type == TYPE_POTENTIAL) {//潜在客户
+            type = TYPE_INTENTION;
+        } else if (type == TYPE_INTENTION) {//意向客户
+            type = TYPE_DEAL;
+        }
+    }
+
+    public String getMsg() {
+        String msg = "确认升级?";
+        switch (type) {
+            case TYPE_POTENTIAL:
+                msg = "确认升级意向客户?";
+                break;
+            case TYPE_INTENTION:
+                msg = "确认升级成交客户";
+                break;
+
+        }
+        return msg;
+    }
+
 }

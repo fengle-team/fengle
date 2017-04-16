@@ -14,6 +14,7 @@ import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
 import com.yunqi.fengle.model.bean.Area;
+import com.yunqi.fengle.model.bean.Customer;
 import com.yunqi.fengle.model.bean.SpinnerBean;
 import com.yunqi.fengle.model.request.ActivitySummaryRequest;
 import com.yunqi.fengle.model.request.TypeRequest;
@@ -73,7 +74,7 @@ public class ActivitySummaryDetailActivity extends BaseActivity<ActivitySummaryD
 
     private SpinnerBean spinnerAction = new SpinnerBean();//活动类型
 
-    CustomersResponse response;
+//    CustomersResponse response;
 
 
     private GridImageAdapter adapter;
@@ -108,8 +109,8 @@ public class ActivitySummaryDetailActivity extends BaseActivity<ActivitySummaryD
         etRegion.setText(planBean.getRegion());
         etActionType.setText(spinnerAction.getValue(planBean.getAction_type() + ""));
         etShopName.setText(planBean.getShop_name());
-        etStartTime.setText(planBean.getStart_time());
-        etEndTime.setText(planBean.getEnd_time());
+        etStartTime.setText(DateUtil.formatB(planBean.getStart_time()));
+        etEndTime.setText(DateUtil.formatB(planBean.getEnd_time()));
 
     }
 
@@ -139,6 +140,7 @@ public class ActivitySummaryDetailActivity extends BaseActivity<ActivitySummaryD
             @Override
             public void onFaild(NetResponse response) {
                 progresser.showContent();
+                ActivitySummaryDetailActivity.this.finish();
                 ToastUtil.toast(mContext,response.getMsg());
             }
         });
@@ -175,7 +177,7 @@ public class ActivitySummaryDetailActivity extends BaseActivity<ActivitySummaryD
         request.setShop_name(etShopName.getText().toString());
         request.setAction_submit(etActionSubmit.getText().toString());
         request.setSummary(etActionSummary.getText().toString());
-        request.setClient_id(response.getId() + "");
+        request.setClient_id(planBean.getUserid() + "");
         request.setImage_urls(fileList);
         request.setUserid(App.getInstance().getUserInfo().id);
 
@@ -288,9 +290,13 @@ public class ActivitySummaryDetailActivity extends BaseActivity<ActivitySummaryD
 
     @OnClick(R.id.llClientName)
     public void onClientName2() {
-        Intent mIntent = new Intent();
-        mIntent.setClass(this, VisitingAddCustomerActivity3.class);
-        startActivityForResult(mIntent, 1);
+//        Intent mIntent = new Intent();
+//        mIntent.setClass(this, VisitingAddCustomerActivity3.class);
+//        startActivityForResult(mIntent, 1);
+
+        Intent intent = new Intent(this, CustomerQueryActivity.class);
+        intent.putExtra("module", 1);
+        startActivityForResult(intent, 1);
     }
 
     @OnClick(R.id.llRegion)
@@ -298,6 +304,8 @@ public class ActivitySummaryDetailActivity extends BaseActivity<ActivitySummaryD
         Intent intent = new Intent(this, AreaQueryActivity.class);
         startActivityForResult(intent, 111);
     }
+
+    Customer selectCustomer;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -307,9 +315,11 @@ public class ActivitySummaryDetailActivity extends BaseActivity<ActivitySummaryD
             etRegion.setText(area.name + "");
             return;
         }
+
+
         if (resultCode == RESULT_OK) {
-            response = (CustomersResponse) data.getSerializableExtra(VisitingAddCustomerActivity3.TAG_RESULT);
-            etClientName.setText(response.getName());
+            selectCustomer = (Customer) data.getSerializableExtra("customer");
+            etClientName.setText(selectCustomer.name);
         }
     }
 

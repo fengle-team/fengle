@@ -17,6 +17,9 @@ public class DialogHelper {
     public static void showDialog(FragmentActivity activity, String msg, SimpleDialogFragment.OnSimpleDialogListener listener) {
         showDialog(activity,msg,"","",listener,null);
     }
+    public static void showDialog(FragmentActivity activity, String msg, SimpleDialogFragment.OnSimpleDialogListener listener,SimpleDialogFragment.OnBackDialogListener backListener) {
+        showDialog(activity,msg,"","",listener,backListener);
+    }
     public static void showDialog(FragmentActivity activity, String msg, String okStr, String backStr, SimpleDialogFragment.OnSimpleDialogListener listener, SimpleDialogFragment.OnBackDialogListener backListener) {
         SimpleDialogFragment fragment = SimpleDialogFragment.newInstance(msg,okStr,backStr);
         fragment.setOnSimpleDialogListener(listener);
