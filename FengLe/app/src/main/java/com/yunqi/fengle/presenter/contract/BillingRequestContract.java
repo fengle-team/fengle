@@ -27,6 +27,6 @@ public interface BillingRequestContract {
          * @param page 页码
          * @return
          */
-        void queryBillingApply(String userid,String keyword, int status, String startTime, String endTime, final int page);
+        void queryBillingApply(String userid, String custom_code,String keyword, int status, String startTime, String endTime, final int page);
     }
 }

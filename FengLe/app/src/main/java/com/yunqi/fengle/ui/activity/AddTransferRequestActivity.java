@@ -148,7 +148,7 @@ public class AddTransferRequestActivity extends BaseActivity<AddTransferPresente
                         }
                         Intent intent = new Intent(AddTransferRequestActivity.this, GoodsQueryActivity.class);
                         intent.putExtra("module",AddTransferRequestActivity.this.getClass().getName());
-                        intent.putExtra("userid",outCustomer.id);
+                        intent.putExtra("customer_code",outCustomer.custom_code);
                         if(!goodsArray.isEmpty()){
                             intent.putExtra("goodsArray",goodsArray);
                         }

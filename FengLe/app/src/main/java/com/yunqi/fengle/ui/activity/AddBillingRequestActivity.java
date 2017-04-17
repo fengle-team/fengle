@@ -129,7 +129,7 @@ public class AddBillingRequestActivity extends BaseActivity<AddBillingPresenter>
                             return;
                         }
                         Intent intent = new Intent(AddBillingRequestActivity.this, GoodsQueryActivity.class);
-                        intent.putExtra("userid",selectCustomer.id);
+                        intent.putExtra("customer_code",selectCustomer.custom_code);
                         intent.putExtra("module",AddBillingRequestActivity.this.getClass().getName());
                         if(!goodsArray.isEmpty()){
                             intent.putExtra("goodsArray",goodsArray);

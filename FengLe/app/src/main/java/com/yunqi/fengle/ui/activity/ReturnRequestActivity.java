@@ -79,6 +79,7 @@ public class ReturnRequestActivity extends BaseActivity<ReturnQueryPresenter> im
     List<ReturnApply> mlistReturnApply = new ArrayList<>();
     private ReturnTableDataAdapter adapter;
     private String keyword = "";
+    private String custom_code = "";
 
     @Override
     protected void initInject() {
@@ -93,6 +94,10 @@ public class ReturnRequestActivity extends BaseActivity<ReturnQueryPresenter> im
     @Override
     protected void initEventAndData() {
         userId = App.getInstance().getUserInfo().id;
+        custom_code=getIntent().getStringExtra("custom_code");
+        if(custom_code==null){
+            custom_code="";
+        }
         setToolBar(toolbar, getString(R.string.module_return_request), R.drawable.right_add, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,7 +124,7 @@ public class ReturnRequestActivity extends BaseActivity<ReturnQueryPresenter> im
         radioBtn1.setText(R.string.bill_undeal);
         radioBtn2.setText(R.string.bill_undone);
         radioBtn3.setText(R.string.bill_history);
-        mPresenter.queryReturnApply(userId,keyword, mStatus, "", "", page);
+        mPresenter.queryReturnApply(userId,custom_code,keyword, mStatus, "", "", page);
         radioGroup.check(R.id.radioBtn1);
         radioGroup.setOnCheckedChangeListener(this);
 
@@ -139,13 +144,13 @@ public class ReturnRequestActivity extends BaseActivity<ReturnQueryPresenter> im
         tableViewEx.setOnLoadMoreListener(new ExTableView.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                mPresenter.queryReturnApply(userId,keyword, mStatus, lastStartTime, lastEndTime, ++page);
+                mPresenter.queryReturnApply(userId,custom_code,keyword, mStatus, lastStartTime, lastEndTime, ++page);
             }
         });
         tableViewEx.setOnLoadRetryListener(new ExTableView.OnLoadRetryListener() {
             @Override
             public void onLoadRetry() {
-                mPresenter.queryReturnApply(userId,keyword, mStatus, lastStartTime, lastEndTime, page);
+                mPresenter.queryReturnApply(userId,custom_code,keyword, mStatus, lastStartTime, lastEndTime, page);
             }
         });
         RxView.clicks(btnQuery)
@@ -161,7 +166,7 @@ public class ReturnRequestActivity extends BaseActivity<ReturnQueryPresenter> im
                         lastStartTime = startTime;
                         lastEndTime = endTime;
                         keyword =editKeyword.getText().toString();
-                        mPresenter.queryReturnApply(userId,keyword, mStatus, startTime, endTime, page);
+                        mPresenter.queryReturnApply(userId,custom_code,keyword, mStatus, startTime, endTime, page);
                     }
                 });
         RxView.clicks(btnStartTime)
@@ -233,7 +238,7 @@ public class ReturnRequestActivity extends BaseActivity<ReturnQueryPresenter> im
         if (requestCode == ADD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             int status = data.getIntExtra("status", 0);
             if (2 == mStatus) {
-                mPresenter.queryReturnApply(userId,keyword, mStatus, startTime, endTime, page);
+                mPresenter.queryReturnApply(userId,custom_code,keyword, mStatus, startTime, endTime, page);
             }
         } else if (requestCode == DETAIL_REQUEST_CODE && resultCode == DEL_DETAIL_RESULT_CODE) {
             int position = data.getIntExtra("postion", 0);
@@ -242,11 +247,11 @@ public class ReturnRequestActivity extends BaseActivity<ReturnQueryPresenter> im
         } else if (requestCode == DETAIL_REQUEST_CODE && resultCode == UPDATE_DETAIL_RESULT_CODE) {
             int status = data.getIntExtra("status", 0);
             if (1 == mStatus) {
-                mPresenter.queryReturnApply(userId,keyword, mStatus, startTime, endTime, page);
+                mPresenter.queryReturnApply(userId,custom_code,keyword, mStatus, startTime, endTime, page);
             }
         }else if (requestCode == DETAIL_REQUEST_CODE && resultCode == APPROVAL_DETAIL_RESULT_CODE) {
             if (2 == mStatus) {
-                mPresenter.queryReturnApply(userId,keyword, mStatus, startTime, endTime, page);
+                mPresenter.queryReturnApply(userId,custom_code,keyword, mStatus, startTime, endTime, page);
             }
         }
     }
@@ -267,7 +272,7 @@ public class ReturnRequestActivity extends BaseActivity<ReturnQueryPresenter> im
         }
         adapter.setBillStatus(mStatus);
         resetData();
-        mPresenter.queryReturnApply(userId, keyword,mStatus, "", "", page);
+        mPresenter.queryReturnApply(userId,custom_code, keyword,mStatus, "", "", page);
     }
     private void resetData(){
         page = 1;

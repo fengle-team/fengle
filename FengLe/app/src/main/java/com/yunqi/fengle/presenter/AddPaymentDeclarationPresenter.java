@@ -43,28 +43,45 @@ public class AddPaymentDeclarationPresenter extends RxPresenter<AddPaymentDeclar
 
 
     @Override
-    public void addPayment(final PaymentAddRequest request,String  filePath) {
+    public void addPayment(final PaymentAddRequest request, String filePath) {
+        Subscription rxSubscription = null;
+        if (TextUtils.isEmpty(filePath)) {
+            rxSubscription = mRetrofitHelper.addPayment(request)
+                    .compose(RxUtil.<BaseHttpRsp>rxSchedulerHelper())
+                    .subscribe(new BaseSubscriber(mView) {
+                        @Override
+                        protected void onSuccess() {
+                            mView.onSuccess();
+                        }
 
-        Subscription rxSubscription = mRetrofitHelper.upload(new File(filePath))
-        .flatMap(new Func1<CommonHttpRsp<String[]>, Observable<BaseHttpRsp>>() {
-                    @Override
-                    public Observable<BaseHttpRsp> call(CommonHttpRsp<String[]> httpRsp) {
-                        request.images=httpRsp.getData()[0];
-                        return mRetrofitHelper.addPayment(request);
-                    }
-                })
-                .compose(RxUtil.<BaseHttpRsp>rxSchedulerHelper())
-                .subscribe(new BaseSubscriber(mView) {
-                    @Override
-                    protected void onSuccess() {
-                        mView.onSuccess();
-                    }
+                        @Override
+                        protected void onFailure(int errorCode, String msg) {
 
-                    @Override
-                    protected void onFailure(int errorCode, String msg) {
+                        }
+                    });
+        }
+        else{
+            rxSubscription = mRetrofitHelper.upload(new File(filePath))
+                    .flatMap(new Func1<CommonHttpRsp<String[]>, Observable<BaseHttpRsp>>() {
+                        @Override
+                        public Observable<BaseHttpRsp> call(CommonHttpRsp<String[]> httpRsp) {
+                            request.images = httpRsp.getData()[0];
+                            return mRetrofitHelper.addPayment(request);
+                        }
+                    })
+                    .compose(RxUtil.<BaseHttpRsp>rxSchedulerHelper())
+                    .subscribe(new BaseSubscriber(mView) {
+                        @Override
+                        protected void onSuccess() {
+                            mView.onSuccess();
+                        }
 
-                    }
-                });
+                        @Override
+                        protected void onFailure(int errorCode, String msg) {
+
+                        }
+                    });
+        }
         addSubscrebe(rxSubscription);
     }
 }

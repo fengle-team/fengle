@@ -215,6 +215,7 @@ public class TransferDetailsActivity extends BaseActivity<TransferDetailsPresent
                             intent.putExtra("goodsArray",goodsArray);
                         }
                         intent.putExtra("module",TransferDetailsActivity.this.getClass().getName());
+                        intent.putExtra("customer_code",transferApply.client_code_from);
                         startActivityForResult(intent, SELECT_GOODS_REQUEST_CODE);
                     }
                 });

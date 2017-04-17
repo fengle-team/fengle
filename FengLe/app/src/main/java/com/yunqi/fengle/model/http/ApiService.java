@@ -2,6 +2,7 @@ package com.yunqi.fengle.model.http;
 
 import com.yunqi.fengle.model.bean.ADInfo;
 import com.yunqi.fengle.model.bean.Area;
+import com.yunqi.fengle.model.bean.BankCaption;
 import com.yunqi.fengle.model.bean.BillingApply;
 import com.yunqi.fengle.model.bean.Customer;
 import com.yunqi.fengle.model.bean.CustomerAnalysis;
@@ -69,9 +70,9 @@ public interface ApiService {
 //    String baseUrl = "http://60.174.196.101:3080";
 //    String baseUrl = "http://192.168.1.103:3080";
     //生产环境
-//    String baseUrl = "http://60.174.196.102:3080";
+    String baseUrl = "http://60.174.196.102:3080";
     //测试环境
-    String baseUrl = "http://60.174.196.102:3081";
+//    String baseUrl = "http://60.174.196.102:3081";
     String HOST = baseUrl + "/api/";
 
     /**
@@ -105,7 +106,7 @@ public interface ApiService {
      * 查询客户接口
      */
     @GET("custom/get")
-    Observable<CommonHttpRsp<List<Customer>>> queryCustomer(@Query("keyword") String keyword,@Query("user_code") String user_code,@Query("page") int page,@Query("type") int type);
+    Observable<CommonHttpRsp<List<Customer>>> queryCustomer(@Query("keyword") String keyword,@Query("user_code") String user_code,@Query("page") int page,@Query("size") int size,@Query("type") int type);
     /**
      * 查询大区
      */
@@ -158,7 +159,13 @@ public interface ApiService {
      * 查询货物接口
      */
     @GET("goods/get")
-    Observable<CommonHttpRsp<List<Goods>>> queryGoods(@Query("keyword") String keyword,@Query("userid")String userid,@Query("warehouse_code")String warehouse_code,@Query("page") int page,@Query("size") int size);
+    Observable<CommonHttpRsp<List<Goods>>> queryGoods(@Query("keyword") String keyword,@Query("warehouse_code")String warehouse_code,@Query("page") int page,@Query("size") int size);
+
+    /**
+     * 查询货物接口
+     */
+    @GET("goods/getFromDispatch")
+    Observable<CommonHttpRsp<List<Goods>>> queryGoodsFromDispatch(@Query("keyword") String keyword,@Query("custom_code")String custom_code,@Query("page") int page,@Query("size") int size);
 
     /**
      * 查询活动 {@link com.yunqi.fengle.ui.activity.ActivityPlanActivity}
@@ -280,6 +287,12 @@ public interface ApiService {
     @GET("huikuan/get")
     Observable<CommonHttpRsp<List<Payment>>> queryPayment(@Query("userid") String userid, @Query("status") int status,@Query("keyword") String keyword, @Query("start_time") String start_time, @Query("end_time") String end_time, @Query("page") int page, @Query("size") int size);
     /**
+     * 获取会计科目
+     */
+    @GET("huikuan/getBankCaption")
+    Observable<CommonHttpRsp<List<BankCaption>>> getBankCaption();
+
+    /**
      * 查询回款接口
      */
     @GET("huikuan/get")
@@ -334,12 +347,12 @@ public interface ApiService {
      * 退货单查询接口
      */
     @GET("sale_return/get")
-    Observable<CommonHttpRsp<List<ReturnApply>>> queryReturnApply(@Query("userid") String userid,  @Query("keyword") String keyword,@Query("status") int status, @Query("start_time") String start_time, @Query("end_time") String end_time, @Query("page") int page, @Query("size") int size);
+    Observable<CommonHttpRsp<List<ReturnApply>>> queryReturnApply(@Query("userid") String userid, @Query("custom_code") String custom_code, @Query("keyword") String keyword,@Query("status") int status, @Query("start_time") String start_time, @Query("end_time") String end_time, @Query("page") int page, @Query("size") int size);
     /**
      * 开票查询接口
      */
     @GET("invoice/get")
-    Observable<CommonHttpRsp<List<BillingApply>>> queryBillingApply(@Query("userid") String userid,  @Query("keyword") String keyword,@Query("status") int status, @Query("start_time") String start_time, @Query("end_time") String end_time, @Query("page") int page, @Query("size") int size);
+    Observable<CommonHttpRsp<List<BillingApply>>> queryBillingApply(@Query("userid") String userid,@Query("custom_code") String custom_code,  @Query("keyword") String keyword,@Query("status") int status, @Query("start_time") String start_time, @Query("end_time") String end_time, @Query("page") int page, @Query("size") int size);
     /**
      * 单一货物销售明细
      */
@@ -351,7 +364,7 @@ public interface ApiService {
      * 调货单查询接口
      */
     @GET("delivered/get")
-    Observable<CommonHttpRsp<List<TransferApply>>> queryTransferApply(@Query("userid") String userid, @Query("keyword") String keyword, @Query("status") int status, @Query("start_time") String start_time, @Query("end_time") String end_time, @Query("page") int page, @Query("size") int size);
+    Observable<CommonHttpRsp<List<TransferApply>>> queryTransferApply(@Query("userid") String userid,@Query("custom_code") String custom_code, @Query("keyword") String keyword, @Query("status") int status, @Query("start_time") String start_time, @Query("end_time") String end_time, @Query("page") int page, @Query("size") int size);
 
     /**
      * 计划查询接口

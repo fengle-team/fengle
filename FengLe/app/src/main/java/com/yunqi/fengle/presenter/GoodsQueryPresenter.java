@@ -1,6 +1,8 @@
 package com.yunqi.fengle.presenter;
 
 
+import android.text.TextUtils;
+
 import com.yunqi.fengle.base.RxPresenter;
 import com.yunqi.fengle.model.bean.Goods;
 import com.yunqi.fengle.model.http.CommonHttpRsp;
@@ -32,8 +34,8 @@ public class GoodsQueryPresenter extends RxPresenter<GoodsQueryContract.View> im
 
 
     @Override
-    public void queryGoods(String keyword, String userid, String warehouse_code,final int page) {
-        Subscription rxSubscription = mRetrofitHelper.queryGoods(keyword,userid,warehouse_code,page)
+    public void queryGoods(String keyword, String custom_code, String warehouse_code,final int page) {
+        Subscription rxSubscription = mRetrofitHelper.queryGoods(keyword,custom_code,warehouse_code,page)
                 .compose(RxUtil.<CommonHttpRsp<List<Goods>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<Goods>>handleResult())
                 .subscribe(new ExSubscriber<List<Goods>>(mView) {

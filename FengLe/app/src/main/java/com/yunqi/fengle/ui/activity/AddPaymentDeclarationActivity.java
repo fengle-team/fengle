@@ -38,6 +38,7 @@ import com.yalantis.ucrop.entity.LocalMedia;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
+import com.yunqi.fengle.model.bean.BankCaption;
 import com.yunqi.fengle.model.bean.Customer;
 import com.yunqi.fengle.model.bean.FukuanType;
 import com.yunqi.fengle.model.bean.PaymentType;
@@ -79,6 +80,7 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
     private static final int REQUEST_CODE_PAYMENT_TYPE = 4;
     private static final int REQUEST_CODE_FUKUAN_TYPE = 5;
     private static final int CAMERA_REQUEST_CODE = 6;
+    private static final int REQUEST_CODE_BANK_CODE= 7;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.btn_select_customer)
@@ -95,6 +97,8 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
     EditText editAmount;
     @BindView(R.id.btn_payment_type)
     Button btnPaymentType;
+    @BindView(R.id.btn_bank_code)
+    Button btnBankCode;
     @BindView(R.id.btn_fukui_type)
     Button btnFukuaiType;
     @BindView(R.id.btn_upload)
@@ -112,6 +116,7 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
     private String remittanceDate = "";
     private static final int SCALE = 5;//照片缩小比例
     private PaymentType selectPaymentType;//汇款类型
+    private BankCaption selectBankCaption;//会计科目
     private FukuanType selectFukuanType;//付款类型
     private Customer selectCustomer;
     private String remark;
@@ -185,6 +190,18 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
                             intent.putExtra("selectPaymentTypeId", selectPaymentType.id);
                         }
                         startActivityForResult(intent, REQUEST_CODE_PAYMENT_TYPE);
+                    }
+                });
+        RxView.clicks(btnBankCode)
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        Intent intent = new Intent(AddPaymentDeclarationActivity.this, BankCodeActivity.class);
+                        if (selectBankCaption != null) {
+                            intent.putExtra("selectBankCode", selectBankCaption.bank_code);
+                        }
+                        startActivityForResult(intent, REQUEST_CODE_BANK_CODE);
                     }
                 });
         RxView.clicks(btnFukuaiType)
@@ -290,6 +307,10 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
         } else if (requestCode == REQUEST_CODE_FUKUAN_TYPE && resultCode == RESULT_OK) {
             selectFukuanType = (FukuanType) data.getSerializableExtra("SelectFukuanType");
             btnFukuaiType.setText(selectFukuanType.name);
+        }
+        else if (requestCode == REQUEST_CODE_BANK_CODE && resultCode == RESULT_OK) {
+            selectBankCaption = (BankCaption) data.getSerializableExtra("SelectBankCaption");
+            btnBankCode.setText(selectBankCaption.bank_name);
         }
     }
 
@@ -463,16 +484,22 @@ public class AddPaymentDeclarationActivity extends BaseActivity<AddPaymentDeclar
                             ToastUtil.showNoticeToast(AddPaymentDeclarationActivity.this, "请输入汇款金额！");
                             return;
                         }
-                        if (TextUtils.isEmpty(sPath)) {
-                            ToastUtil.showNoticeToast(AddPaymentDeclarationActivity.this, "请上传单据图片！");
+                        if (selectBankCaption == null) {
+                            ToastUtil.showNoticeToast(AddPaymentDeclarationActivity.this, "请输入会计科目！");
                             return;
                         }
+//                        if (TextUtils.isEmpty(sPath)) {
+//                            ToastUtil.showNoticeToast(AddPaymentDeclarationActivity.this, "请上传单据图片！");
+//                            return;
+//                        }
                         remark = editRemark.getText().toString();
                         PaymentAddRequest request = new PaymentAddRequest();
                         request.userid = userId;
                         request.remark = remark;
                         request.pay_type = selectFukuanType.name;
                         request.pay_type_code = selectFukuanType.code;
+                        request.bank_caption_code=selectBankCaption.bank_code;
+                        request.bank_caption_name=selectBankCaption.bank_name;
                         request.person_code = person_code;
                         request.client_code = selectCustomer.custom_code;
                         request.client_name = selectCustomer.name;

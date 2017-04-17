@@ -134,7 +134,6 @@ public class AddDeliveryRequestActivity extends BaseActivity<AddDeliveryPresente
                         if(!goodsArray.isEmpty()){
                             intent.putExtra("goodsArray",goodsArray);
                         }
-                        intent.putExtra("userid",selectCustomer.id);
                         startActivityForResult(intent, 2);
                     }
                 });

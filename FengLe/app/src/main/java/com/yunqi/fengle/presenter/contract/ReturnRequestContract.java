@@ -27,6 +27,6 @@ public interface ReturnRequestContract {
          * @param page 页码
          * @return
          */
-        void queryReturnApply(String userid, String keyword,int status, String startTime, String endTime, final int page);
+        void queryReturnApply(String userid,String custom_code, String keyword,int status, String startTime, String endTime, final int page);
     }
 }

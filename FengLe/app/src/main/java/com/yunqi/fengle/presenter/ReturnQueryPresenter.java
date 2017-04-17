@@ -31,8 +31,8 @@ public class ReturnQueryPresenter extends RxPresenter<ReturnRequestContract.View
         this.mRetrofitHelper = retrofitHelper;
     }
     @Override
-    public void queryReturnApply(String userid,String keyword, int status, String startTime, String endTime, final int page) {
-        Subscription rxSubscription = mRetrofitHelper.queryReturnApply(userid, keyword,status, startTime, endTime, page)
+    public void queryReturnApply(String userid,String custom_code,String keyword, int status, String startTime, String endTime, final int page) {
+        Subscription rxSubscription = mRetrofitHelper.queryReturnApply(userid,custom_code, keyword,status, startTime, endTime, page)
                 .compose(RxUtil.<CommonHttpRsp<List<ReturnApply>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<ReturnApply>>handleResult())
                 .subscribe(new ExSubscriber<List<ReturnApply>>(mView) {

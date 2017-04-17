@@ -4,6 +4,7 @@ package com.yunqi.fengle.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -83,6 +84,7 @@ public class TransferRequestActivity extends BaseActivity<TransferQueryPresenter
     List<TransferApply> mlistTransferApply = new ArrayList<>();
     private TransferTableDataAdapter adapter;
     private Customer selectCustomer;
+    private String custom_code = "";
 
     @Override
     protected void initInject() {
@@ -97,6 +99,10 @@ public class TransferRequestActivity extends BaseActivity<TransferQueryPresenter
     @Override
     protected void initEventAndData() {
         userId = App.getInstance().getUserInfo().id;
+        custom_code=getIntent().getStringExtra("custom_code");
+        if(custom_code==null){
+            custom_code="";
+        }
         setToolBar(toolbar, getString(R.string.module_transfer_request), R.drawable.right_add, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,7 +129,7 @@ public class TransferRequestActivity extends BaseActivity<TransferQueryPresenter
         radioBtn1.setText(R.string.bill_undeal);
         radioBtn2.setText(R.string.bill_undone);
         radioBtn3.setText(R.string.bill_history);
-        mPresenter.queryTransferApply(userId,keyword, mStatus, "", "", page);
+        mPresenter.queryTransferApply(userId,custom_code,keyword, mStatus, "", "", page);
         radioGroup.check(R.id.radioBtn1);
         radioGroup.setOnCheckedChangeListener(this);
 
@@ -143,13 +149,13 @@ public class TransferRequestActivity extends BaseActivity<TransferQueryPresenter
         tableViewEx.setOnLoadMoreListener(new ExTableView.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                mPresenter.queryTransferApply(userId,keyword, mStatus, lastStartTime, lastEndTime, ++page);
+                mPresenter.queryTransferApply(userId,custom_code,keyword, mStatus, lastStartTime, lastEndTime, ++page);
             }
         });
         tableViewEx.setOnLoadRetryListener(new ExTableView.OnLoadRetryListener() {
             @Override
             public void onLoadRetry() {
-                mPresenter.queryTransferApply(userId,keyword, mStatus, lastStartTime, lastEndTime, page);
+                mPresenter.queryTransferApply(userId,custom_code,keyword, mStatus, lastStartTime, lastEndTime, page);
             }
         });
         RxView.clicks(btnQuery)
@@ -165,7 +171,7 @@ public class TransferRequestActivity extends BaseActivity<TransferQueryPresenter
                         keyword =editKeyword.getText().toString();
                         lastStartTime = startTime;
                         lastEndTime = endTime;
-                        mPresenter.queryTransferApply(userId,keyword, mStatus, startTime, endTime, page);
+                        mPresenter.queryTransferApply(userId,custom_code,keyword, mStatus, startTime, endTime, page);
                     }
                 });
         RxView.clicks(btnStartTime)
@@ -237,7 +243,7 @@ public class TransferRequestActivity extends BaseActivity<TransferQueryPresenter
         if (requestCode == ADD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             int status = data.getIntExtra("status", 0);
             if (2 == mStatus) {
-                mPresenter.queryTransferApply(userId,keyword, mStatus, startTime, endTime, page);
+                mPresenter.queryTransferApply(userId,custom_code,keyword, mStatus, startTime, endTime, page);
             }
         }else if (requestCode == DETAIL_REQUEST_CODE && resultCode == DEL_DETAIL_RESULT_CODE) {
             int position = data.getIntExtra("postion", 0);
@@ -246,12 +252,12 @@ public class TransferRequestActivity extends BaseActivity<TransferQueryPresenter
         } else if (requestCode == DETAIL_REQUEST_CODE && resultCode == UPDATE_DETAIL_RESULT_CODE) {
             int status = data.getIntExtra("status", 0);
             if (1 == mStatus) {
-                mPresenter.queryTransferApply(userId,keyword, mStatus, startTime, endTime, page);
+                mPresenter.queryTransferApply(userId,custom_code,keyword, mStatus, startTime, endTime, page);
             }
         }else if (requestCode == DETAIL_REQUEST_CODE && resultCode == APPROVAL_DETAIL_RESULT_CODE) {
             int status = data.getIntExtra("status", 0);
             if (2 == mStatus) {
-                mPresenter.queryTransferApply(userId,keyword, mStatus, startTime, endTime, page);
+                mPresenter.queryTransferApply(userId,custom_code,keyword, mStatus, startTime, endTime, page);
             }
         }
     }
@@ -272,7 +278,7 @@ public class TransferRequestActivity extends BaseActivity<TransferQueryPresenter
         }
         adapter.setBillStatus(mStatus);
         resetData();
-        mPresenter.queryTransferApply(userId,keyword, mStatus, "", "", page);
+        mPresenter.queryTransferApply(userId,custom_code,keyword, mStatus, "", "", page);
     }
 
     private void resetData(){
