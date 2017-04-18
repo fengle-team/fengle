@@ -285,7 +285,7 @@ public interface ApiService {
      * 查询回款接口
      */
     @GET("huikuan/get")
-    Observable<CommonHttpRsp<List<Payment>>> queryPayment(@Query("userid") String userid, @Query("status") int status,@Query("keyword") String keyword, @Query("start_time") String start_time, @Query("end_time") String end_time, @Query("page") int page, @Query("size") int size);
+    Observable<CommonHttpRsp<List<Payment>>> queryPayment(@Query("userid") String userid,@Query("custom_code")String custom_code, @Query("status") int status,@Query("keyword") String keyword, @Query("start_time") String start_time, @Query("end_time") String end_time, @Query("page") int page, @Query("size") int size);
     /**
      * 获取会计科目
      */
@@ -296,7 +296,7 @@ public interface ApiService {
      * 查询回款接口
      */
     @GET("huikuan/get")
-    Observable<CommonHttpRsp<List<Payment>>> queryPayment(@Query("userid") String userid, @Query("status") int status,@Query("keyword") String keyword,@Query("type") int type,@Query("page") int page, @Query("size") int size);
+    Observable<CommonHttpRsp<List<Payment>>> queryPayment(@Query("userid") String userid,@Query("custom_code")String custom_code, @Query("status") int status,@Query("keyword") String keyword,@Query("type") int type,@Query("page") int page, @Query("size") int size);
     /**
      * 添加回款申报
      *

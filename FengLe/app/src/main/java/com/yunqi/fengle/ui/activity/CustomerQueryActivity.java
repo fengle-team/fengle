@@ -16,6 +16,7 @@ import com.yunqi.fengle.model.bean.Customer;
 import com.yunqi.fengle.presenter.CustomerQueryPresenter;
 import com.yunqi.fengle.presenter.contract.CustomerQueryContract;
 import com.yunqi.fengle.ui.adapter.CustomerTableDataAdapter;
+import com.yunqi.fengle.ui.adapter.GoodsTableDataAdapter;
 import com.yunqi.fengle.ui.adapter.TableHeader1Adapter;
 import com.yunqi.fengle.ui.fragment.dialog.SimpleDialogFragment;
 import com.yunqi.fengle.ui.view.ContactSelectDialog;
@@ -155,16 +156,16 @@ public class CustomerQueryActivity extends BaseActivity<CustomerQueryPresenter> 
 
     @Override
     public void showContent(List<Customer> listCustomer) {
-        if (listCustomer.isEmpty()) {
-            Log.w(TAG, "No data!");
-            tableViewEx.setEmptyData();
-            return;
-        }
-        tableViewEx.setLoadMoreEnabled(true);
-        mListCustomer.clear();
-        mListCustomer.addAll(listCustomer);
+        mListCustomer=listCustomer;
         adapter = new CustomerTableDataAdapter(this, mListCustomer);
         tableViewEx.tableView.setDataAdapter(adapter);
+        if(mListCustomer.isEmpty()){
+            tableViewEx.setEmptyData();
+        }
+        else{
+            tableViewEx.setLoadMoreEnabled(true);
+        }
+
     }
 
     @Override

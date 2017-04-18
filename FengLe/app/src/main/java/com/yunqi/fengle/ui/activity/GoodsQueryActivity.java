@@ -67,6 +67,8 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
     private String maxGoodsNumTip;
     private String hintGoodsNum;
     public ArrayList<GoodsAndWarehouse> goodsArray;
+    private boolean isTransfer=false;
+
     @Override
     protected void initInject() {
         getActivityComponent().inject(this);
@@ -82,15 +84,16 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
         goodsArray = (ArrayList<GoodsAndWarehouse>) getIntent().getSerializableExtra("goodsArray");
         type = getIntent().getIntExtra("type", 0);
         module = getIntent().getStringExtra("module");
-//        customer_code = getIntent().getStringExtra("customer_code");
-        customer_code="205070004";
+        customer_code = getIntent().getStringExtra("customer_code");
+//        customer_code = "205070004";
         if (module.equals(AddDeliveryRequestActivity.class.getName()) || module.equals(DeliveryDetailsActivity.class.getName())) {
             maxGoodsNumTip = getString(R.string.tip_max_goods_num_delivery);
             hintGoodsNum = getString(R.string.hint_edit_num_delivery);
-            customer_code="";
+            customer_code = "";
         } else if (module.equals(AddTransferRequestActivity.class.getName()) || module.equals(TransferDetailsActivity.class.getName())) {
             maxGoodsNumTip = getString(R.string.tip_max_goods_num_transfer);
             hintGoodsNum = getString(R.string.hint_edit_num_transfer);
+            isTransfer=true;
         } else if (module.equals(AddReturnRequestActivity.class.getName()) || module.equals(ReturnDetailsActivity.class.getName())) {
             maxGoodsNumTip = getString(R.string.tip_max_goods_num_return);
             hintGoodsNum = getString(R.string.hint_edit_num_return);
@@ -175,10 +178,8 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
                             goods_num -= goodsAndWarehouse.goods.goods_num;
                         }
                     }
-                }
-                else
-                {
-                    goodsArray=new ArrayList<GoodsAndWarehouse>();
+                } else {
+                    goodsArray = new ArrayList<GoodsAndWarehouse>();
                 }
                 if (goods_num > 0) {
                     InputDialog dialog = new InputDialog(GoodsQueryActivity.this, goods_num, maxGoodsNumTip, hintGoodsNum, goods, new InputDialog.OnConfirmListener() {
@@ -286,17 +287,14 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
 
     @Override
     public void showContent(List<Goods> listGoods) {
-        if (listGoods.isEmpty()) {
-            Log.w(TAG, "No data!");
-            mListGoods.clear();
-            tableViewEx.setEmptyData();
-            return;
-        }
-        tableViewEx.setLoadMoreEnabled(true);
-        mListGoods.clear();
-        mListGoods.addAll(listGoods);
+        mListGoods = listGoods;
         adapter = new GoodsTableDataAdapter(this, mListGoods);
         tableViewEx.tableView.setDataAdapter(adapter);
+        if (mListGoods.isEmpty()) {
+            tableViewEx.setEmptyData();
+        } else {
+            tableViewEx.setLoadMoreEnabled(true);
+        }
     }
 
     @Override

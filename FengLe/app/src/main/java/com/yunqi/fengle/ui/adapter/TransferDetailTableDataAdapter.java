@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.yunqi.fengle.R;
+import com.yunqi.fengle.model.bean.GoodsAndWarehouse;
 import com.yunqi.fengle.model.bean.TransferDetail;
 
 import java.util.List;
@@ -41,10 +42,17 @@ public class TransferDetailTableDataAdapter extends BaseTableDataAdapter<Transfe
                 renderedView = renderGoodsUnitsNum(transferDetail);
                 break;
             case 4:
+                renderedView = renderGoodsFreight(transferDetail);
+                break;
+            case 5:
                 renderedView = renderOperater(transferDetail);
                 break;
         }
         return renderedView;
+    }
+
+    private View renderGoodsFreight(TransferDetail transferDetail) {
+        return renderString(transferDetail.freight);
     }
 
 

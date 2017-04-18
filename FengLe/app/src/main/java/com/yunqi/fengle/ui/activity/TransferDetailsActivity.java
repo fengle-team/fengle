@@ -169,14 +169,15 @@ public class TransferDetailsActivity extends BaseActivity<TransferDetailsPresent
             btnSelectGoods.setVisibility(View.GONE);
         }
         txtStatus.setText(strStatus);
-        final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_add_delivey_request));
+        final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_add_transfer_request));
         tableView.setHeaderAdapter(tableHeader1Adapter);
-        TableColumnWeightModel columnModel = new TableColumnWeightModel(5);
+        TableColumnWeightModel columnModel = new TableColumnWeightModel(6);
         columnModel.setColumnWeight(0, 2);
         columnModel.setColumnWeight(1, 1);
         columnModel.setColumnWeight(2, 1);
         columnModel.setColumnWeight(3, 1);
         columnModel.setColumnWeight(4, 1);
+        columnModel.setColumnWeight(5, 1);
         tableView.setColumnModel(columnModel);
         mPresenter.getTransferDetails(transferApply.id);
     }

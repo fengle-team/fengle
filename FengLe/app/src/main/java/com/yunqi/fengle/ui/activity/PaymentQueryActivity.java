@@ -81,6 +81,7 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
     private int queryType = 0;//0：是按照今日/本月查询  1：按照时间过滤查询
     private float totalAmount = 0;//回款总金额
     private String keyword = "";
+    private String custom_code = "";
 
     @Override
     protected void initInject() {
@@ -95,11 +96,15 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
     @Override
     protected void initEventAndData() {
         userId = App.getInstance().getUserInfo().id;
+        custom_code=getIntent().getStringExtra("custom_code");
+        if(custom_code==null){
+            custom_code="";
+        }
         setToolBar(toolbar, getString(R.string.module_payment_query));
         initRadioGroup();
         initRecyclerView();
         setWidgetListener();
-        mPresenter.queryPayment(userId, status, keyword, type, page);
+        mPresenter.queryPayment(userId,custom_code, status, keyword, type, page);
     }
 
     private void initRadioGroup() {
@@ -133,7 +138,7 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
             ToastUtil.showNoticeToast(PaymentQueryActivity.this, getString(R.string.warming_time_select));
             return;
         }
-        mPresenter.queryPayment(userId, status, keyword, startTime, endTime, page);
+        mPresenter.queryPayment(userId,custom_code, status, keyword, startTime, endTime, page);
     }
 
 
@@ -231,7 +236,7 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
             public void run() {
                 page = 1;
                 if (queryType == 0) {
-                    mPresenter.queryPayment(userId, status, keyword, type, page);
+                    mPresenter.queryPayment(userId,custom_code, status, keyword, type, page);
                 } else {
                     loadFirstPageData();
                 }
@@ -243,7 +248,7 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
     @Override
     public void onLoadMoreRequested() {
 
-        mPresenter.queryPayment(userId, status, keyword, startTime, endTime, ++page);
+        mPresenter.queryPayment(userId,custom_code, status, keyword, startTime, endTime, ++page);
     }
 
     @Override
@@ -295,7 +300,7 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
         resetData();
         page = 1;
         queryType = 0;
-        mPresenter.queryPayment(userId, status, keyword, type, page);
+        mPresenter.queryPayment(userId,custom_code, status, keyword, type, page);
     }
 
     private void resetData() {

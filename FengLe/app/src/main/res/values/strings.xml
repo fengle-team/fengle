@@ -160,6 +160,15 @@
         <item>件数</item>
         <item>操作</item>
     </string-array>
+    <string-array name="header_title_add_transfer_request">
+        <item>名称</item>
+        <item>规格</item>
+        <item>数量</item>
+        <item>件数</item>
+        <item>运费</item>
+        <item>操作</item>
+    </string-array>
+
 
     <string-array name="header_title_payment_request">
         <item>编号</item>

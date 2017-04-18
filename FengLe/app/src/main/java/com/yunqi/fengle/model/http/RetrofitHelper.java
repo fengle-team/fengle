@@ -399,8 +399,8 @@ public class RetrofitHelper {
      * @param page
      * @return
      */
-    public Observable<CommonHttpRsp<List<Payment>>> queryPayment(String userid, int status, String keyword, String startTime, String endTime, int page) {
-        return apiService.queryPayment(userid, status, keyword, startTime, endTime, page, PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<Payment>>> queryPayment(String userid,String custom_code, int status, String keyword, String startTime, String endTime, int page) {
+        return apiService.queryPayment(userid,custom_code, status, keyword, startTime, endTime, page, PAGE_SIZE);
     }
 
     /**
@@ -412,8 +412,8 @@ public class RetrofitHelper {
      * @param page
      * @return
      */
-    public Observable<CommonHttpRsp<List<Payment>>> queryPayment(String userid, int status, String keyword, int type, int page) {
-        return apiService.queryPayment(userid, status, keyword, type, page, PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<Payment>>> queryPayment(String userid,String custom_code, int status, String keyword, int type, int page) {
+        return apiService.queryPayment(userid,custom_code, status, keyword, type, page, PAGE_SIZE);
     }
 
     /**

@@ -198,10 +198,14 @@ public class StockQueryActivity extends BaseActivity<StockQueryPresenter> implem
             selectedArea= (Area) data.getSerializableExtra("SelectArea");
             area_code=selectedArea.area_code;
             btnAreaSelect.setText(selectedArea.name);
+            page=1;
+            mPresenter.queryStock(warehouse_code,area_code,keyword, page);
         } else if (requestCode == 2 && resultCode == Activity.RESULT_OK) {
             selectedWarehouse= (Warehouse) data.getSerializableExtra("SelectWarehouse");
             warehouse_code=selectedWarehouse.warehouse_code;
             btnStockSelect.setText(selectedWarehouse.name);
+            page=1;
+            mPresenter.queryStock(warehouse_code,area_code,keyword, page);
         }
     }
 }

@@ -33,8 +33,8 @@ public class PaymentQueryPresenter extends RxPresenter<PaymentQueryContract.View
     }
 
     @Override
-    public void queryPayment(String userid, int status, String keyword, String startTime, String endTime, final int page) {
-        Subscription rxSubscription = mRetrofitHelper.queryPayment(userid, status, keyword, startTime, endTime, page)
+    public void queryPayment(String userid, String custom_code,  int status, String keyword, String startTime, String endTime, final int page) {
+        Subscription rxSubscription = mRetrofitHelper.queryPayment(userid,custom_code, status, keyword, startTime, endTime, page)
                 .compose(RxUtil.<CommonHttpRsp<List<Payment>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<Payment>>handleResult())
                 .subscribe(new ExSubscriber<List<Payment>>(mView) {
@@ -54,8 +54,8 @@ public class PaymentQueryPresenter extends RxPresenter<PaymentQueryContract.View
     }
 
     @Override
-    public void queryPayment(String userid, int status, String keyword, int type, final int page) {
-        Subscription rxSubscription = mRetrofitHelper.queryPayment(userid, status, keyword, type, page)
+    public void queryPayment(String userid, String custom_code, int status, String keyword, int type, final int page) {
+        Subscription rxSubscription = mRetrofitHelper.queryPayment(userid,custom_code, status, keyword, type, page)
                 .compose(RxUtil.<CommonHttpRsp<List<Payment>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<Payment>>handleResult())
                 .subscribe(new ExSubscriber<List<Payment>>(mView) {
