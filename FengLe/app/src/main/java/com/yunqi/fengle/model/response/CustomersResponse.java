@@ -34,6 +34,7 @@ public class CustomersResponse implements Serializable{
     private String company_name;
     private String phone;
     private String position;
+    private String custom_code;
     private int type;
     private int userid;
 
@@ -101,6 +102,14 @@ public class CustomersResponse implements Serializable{
 
     public void setChecked(boolean checked) {
         isChecked = checked;
+    }
+
+    public String getCustom_code() {
+        return custom_code;
+    }
+
+    public void setCustom_code(String custom_code) {
+        this.custom_code = custom_code;
     }
 
     public String getLev() {

@@ -2,6 +2,7 @@ package com.yunqi.fengle.presenter.contract;
 
 import com.yunqi.fengle.base.BasePresenter;
 import com.yunqi.fengle.base.BaseView;
+import com.yunqi.fengle.model.request.VisitingAddRequest;
 import com.yunqi.fengle.util.map.ResponseListener;
 
 /**
@@ -10,11 +11,11 @@ import com.yunqi.fengle.util.map.ResponseListener;
  * @Description:
  */
 
-public interface VisitingPlanContract {
+public interface CustomerWholeContract {
     interface View extends BaseView {
     }
 
-    interface Presenter extends BasePresenter<VisitingPlanContract.View> {
-        void getVisitingPlanList(String customerCode,ResponseListener listener);
+    interface Presenter extends BasePresenter<CustomerWholeContract.View> {
+        void getData(String userId,String custom_code,ResponseListener listener);
     }
 }

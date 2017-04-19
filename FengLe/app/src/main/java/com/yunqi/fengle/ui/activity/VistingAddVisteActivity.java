@@ -1,5 +1,7 @@
 package com.yunqi.fengle.ui.activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -45,7 +47,7 @@ public class VistingAddVisteActivity extends BaseActivity<VisitingAddVistePresen
 
     public static final String RX_TAG = "rxTag";
 
-    Customer selectedData;
+//    Customer selectedData;
 
     VisitingAddRequest request;
 
@@ -75,10 +77,10 @@ public class VistingAddVisteActivity extends BaseActivity<VisitingAddVistePresen
     }
 
     private void initData() {
-        if (getIntent().hasExtra(TAG_SELECTED)) {
-            selectedData = (Customer) getIntent().getSerializableExtra(TAG_SELECTED);
-            tvCompanyName.setText(selectedData.company_name);
-        }
+//        if (getIntent().hasExtra(TAG_SELECTED)) {
+//            selectedData = (Customer) getIntent().getSerializableExtra(TAG_SELECTED);
+//            tvCompanyName.setText(selectedData.company_name);
+//        }
         tvSale.setText(App.getInstance().getUserInfo().real_name);
 
         spinnerStatus = new SpinnerBean();
@@ -101,6 +103,13 @@ public class VistingAddVisteActivity extends BaseActivity<VisitingAddVistePresen
         }).show();
     }
 
+    @OnClick(R.id.llClient)
+    public void onllClient() {
+        Intent intent = new Intent(this, CustomerQueryActivity.class);
+        intent.putExtra("module", 1);
+        startActivityForResult(intent, 1);
+    }
+
     @OnClick(R.id.llStatus)
     public void onStatusClick() {
         DialogHelper.showSpinnerDialog(this, spinnerStatus, new SpinnerDialogFragment.OnSpinnerDialogListener() {
@@ -116,18 +125,19 @@ public class VistingAddVisteActivity extends BaseActivity<VisitingAddVistePresen
 
     @Override
     protected void onTitleRightClicked(View v) {
-        if (TextUtils.isEmpty(tvContact.getText().toString()) || TextUtils.isEmpty(etReason.getText().toString()) || TextUtils.isEmpty(tvTime.getText().toString())) {
+        if (TextUtils.isEmpty(tvCompanyName.getText().toString()) || TextUtils.isEmpty(tvContact.getText().toString()) || TextUtils.isEmpty(etReason.getText().toString()) || TextUtils.isEmpty(tvTime.getText().toString())) {
             ToastUtil.toast(mContext,"请填写完整信息");
             return;
         }
 
         request = new VisitingAddRequest();
-        request.setClient_name(selectedData.company_name);
+        request.setClient_name(tvCompanyName.getText().toString());
         request.setPlan_time(tvTime.getText().toString());
         request.setUserid(App.getInstance().getUserInfo().id);
         request.setReason(etReason.getText().toString());
         request.setResponsible_name(tvContact.getText().toString());
         request.setStatus(spinnerStatus.getKey());
+        request.setClient_code(selectCustomer.custom_code);
 
         progresser.showProgress();
         mPresenter.addVistePlan(request, new ResponseListener() {
@@ -147,7 +157,18 @@ public class VistingAddVisteActivity extends BaseActivity<VisitingAddVistePresen
         });
     }
 
-//    private void initRecyclerView() {
+    Customer selectCustomer;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            selectCustomer = (Customer) data.getSerializableExtra("customer");
+            tvCompanyName.setText(selectCustomer.company_name);
+        }
+    }
+
+    //    private void initRecyclerView() {
 //        rvVisPlan.setLayoutManager(new LinearLayoutManager(this));
 //        rvVisPlan.addItemDecoration(new RecycleViewDivider(this,RecycleViewDivider.VERTICAL_LIST));
 //

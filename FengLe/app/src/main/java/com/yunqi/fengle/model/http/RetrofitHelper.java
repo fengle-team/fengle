@@ -40,6 +40,7 @@ import com.yunqi.fengle.model.request.TypeRequest;
 import com.yunqi.fengle.model.request.VisitingAddRequest;
 import com.yunqi.fengle.model.request.VisitingUpdateRequest;
 import com.yunqi.fengle.model.response.ActivityAddResponse;
+import com.yunqi.fengle.model.response.CustomerWholeResponse;
 import com.yunqi.fengle.model.response.CustomersResponse;
 import com.yunqi.fengle.model.response.CustomersSituationResponse;
 import com.yunqi.fengle.model.response.DailyResponse;
@@ -848,6 +849,15 @@ public class RetrofitHelper {
     }
 
     /**
+     * 获取日报
+     *
+     * @return
+     */
+    public Observable<CommonHttpRsp<CustomerWholeResponse>> getCustomerWhole(String userId,String customCode) {
+        return apiService.getCustomerWhole(userId,customCode);
+    }
+
+    /**
      * 上级查询业务员日报
      *
      * @return
@@ -863,8 +873,8 @@ public class RetrofitHelper {
      *
      * @return
      */
-    public Observable<CommonHttpRsp<List<VisitingPlanResponse>>> getVisitePlanList(String userid) {
-        return apiService.getVisitePlanList(userid);
+    public Observable<CommonHttpRsp<List<VisitingPlanResponse>>> getVisitePlanList(String userid,String customerCode) {
+        return apiService.getVisitePlanList(userid,customerCode);
     }
 
     public Observable<CommonHttpRsp<Object>> doUploader(Map<String, RequestBody> params) {

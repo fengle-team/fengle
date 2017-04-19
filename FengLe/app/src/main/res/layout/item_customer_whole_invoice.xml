@@ -26,9 +26,9 @@
                 android:text="开票申请编号:"
                 android:textSize="@dimen/customer_whole_text_larger" />
             <TextView
+                android:id="@+id/tvKpId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="开票2016-02-A222"
                 android:layout_marginLeft="@dimen/customer_whole_margin_left"
                 android:textSize="@dimen/customer_whole_text_normal" />
         </LinearLayout>
@@ -45,9 +45,9 @@
                 android:text="开票日期"
                 android:textSize="@dimen/customer_whole_text_normal" />
             <TextView
+                android:id="@+id/tvKpDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2017年02月18日00:40:02"
                 android:layout_marginLeft="@dimen/customer_whole_margin_left"
                 android:textSize="@dimen/customer_whole_text_normal" />
         </LinearLayout>
@@ -68,9 +68,9 @@
             android:text="退款金额(元)"
             android:textSize="@dimen/customer_whole_text_normal" />
         <TextView
+            android:id="@+id/tvKpAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="78222.00"
             android:textSize="@dimen/customer_whole_text_normal" />
     </LinearLayout>
 

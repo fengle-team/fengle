@@ -3,7 +3,6 @@ package com.yunqi.fengle.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,15 +10,20 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.yunqi.fengle.R;
+import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
+import com.yunqi.fengle.model.response.CustomerWholeResponse;
+import com.yunqi.fengle.model.response.CustomersResponse;
+import com.yunqi.fengle.presenter.CustomerWholePresenter;
+import com.yunqi.fengle.presenter.contract.CustomerWholeContract;
 import com.yunqi.fengle.ui.adapter.CustomerWholeAdapter;
 import com.yunqi.fengle.ui.adapter.CustomerWholeMultiItem;
-import com.yunqi.fengle.ui.view.RecycleViewDivider;
 import com.yunqi.fengle.ui.view.RecycleViewDividerCustom;
 import com.yunqi.fengle.util.ToastUtil;
+import com.yunqi.fengle.util.map.NetResponse;
+import com.yunqi.fengle.util.map.ResponseListener;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 
@@ -29,12 +33,19 @@ import butterknife.BindView;
  * @Description: 客户全貌
  */
 
-public class CustomerWholeActivity extends BaseActivity implements CustomerWholeAdapter.CustomerListener {
+public class CustomerWholeActivity extends BaseActivity<CustomerWholePresenter> implements CustomerWholeAdapter.CustomerListener, CustomerWholeContract.View {
+
+    public static final String TAG = "CustomerWholeActivity";
 
     @BindView(R.id.rvList)
     RecyclerView rvList;
 
     CustomerWholeAdapter wholeAdapter;
+
+    /** 上个界面传过来的 {@link MyCustomersActivity}*/
+    CustomersResponse customerModel;
+
+    CustomerWholeResponse customerWholeResponse = new CustomerWholeResponse();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,6 +53,36 @@ public class CustomerWholeActivity extends BaseActivity implements CustomerWhole
         showTitleBack();
         setTitleText("客户全貌");
         initRecyclerView();
+
+        initData();
+    }
+
+    private void initData() {
+
+        if (!getIntent().hasExtra(MyCustomersActivity.TAG)) {
+            ToastUtil.toast(mContext,"null");
+            return;
+        }
+
+        customerModel = (CustomersResponse) getIntent().getSerializableExtra(MyCustomersActivity.TAG);
+
+        progresser.showProgress();
+
+        mPresenter.getData(App.getInstance().getUserInfo().id + "", customerModel.getCustom_code(), new ResponseListener() {
+            @Override
+            public void onSuccess(NetResponse response) {
+                progresser.showContent();
+                customerWholeResponse = (CustomerWholeResponse) response.getResult();
+                System.out.print("呵呵哒");
+                wholeAdapter.setNewData(CustomerWholeResponse.getMultiItemList(customerWholeResponse));
+            }
+
+            @Override
+            public void onFaild(NetResponse response) {
+                progresser.showContent();
+                ToastUtil.toast(mContext,response.getMsg());
+            }
+        });
     }
 
     private void initRecyclerView() {
@@ -50,16 +91,21 @@ public class CustomerWholeActivity extends BaseActivity implements CustomerWhole
         rvList.addItemDecoration(new RecycleViewDividerCustom(this, LinearLayoutManager.VERTICAL));
         rvList.setLayoutManager(new LinearLayoutManager(this));
 
-        wholeAdapter = new CustomerWholeAdapter(this, CustomerWholeMultiItem.getMultiItemList());
+        wholeAdapter = new CustomerWholeAdapter(this, CustomerWholeResponse.getMultiItemList(customerWholeResponse));
 
         wholeAdapter.setListener(this);
 
-//        rvList.addOnItemTouchListener(new OnItemClickListener() {
-//            @Override
-//            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
-//                onViewItemClick(adapter.getItemViewType(position),position);
-//            }
-//        });
+        rvList.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                onViewItemClick(adapter.getItemViewType(position),position);
+            }
+
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+        });
 
         rvList.setAdapter(wholeAdapter);
     }
@@ -70,7 +116,11 @@ public class CustomerWholeActivity extends BaseActivity implements CustomerWhole
         if (itemType == CustomerWholeMultiItem.TYPE_VISIT)
         {//拜访
             mIntent.setClass(this, VisitingPlanActivity.class);
+            mIntent.putExtra(TAG, customerWholeResponse.getCustom_code());
             startActivity(mIntent);
+        } else if(itemType == CustomerWholeMultiItem.TYPE_REFUND)
+        {//退款
+
         } else if (itemType == CustomerWholeMultiItem.TYPE_EXPENS)
         {//用费
 
@@ -95,7 +145,7 @@ public class CustomerWholeActivity extends BaseActivity implements CustomerWhole
 
     @Override
     protected void initInject() {
-
+        getActivityComponent().inject(this);
     }
 
     @Override

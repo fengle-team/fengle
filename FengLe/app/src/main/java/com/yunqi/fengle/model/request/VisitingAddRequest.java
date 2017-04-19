@@ -18,6 +18,7 @@ public class VisitingAddRequest {
 
     private String userid;
     private String client_name;//客户名称
+    private String client_code;//客户编码
     private String plan_time;//计划时间
     private String responsible_name;//责任人姓名
     private String reason;//理由
@@ -70,5 +71,13 @@ public class VisitingAddRequest {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getClient_code() {
+        return client_code;
+    }
+
+    public void setClient_code(String client_code) {
+        this.client_code = client_code;
     }
 }

@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:text="拜访"/>
     <TextView
+        android:id="@+id/tvCompany"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="国际洗衣企业管理有限公司"
@@ -28,6 +29,7 @@
             android:text="计划日期"
             android:textSize="@dimen/customer_whole_text_normal" />
         <TextView
+            android:id="@+id/tvPlanTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2017年02月18日00:40:02"
@@ -64,6 +66,7 @@
             android:text="查看全部拜访"
             android:textSize="@dimen/customer_whole_text_normal" />
         <TextView
+            android:id="@+id/tvNum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1"
