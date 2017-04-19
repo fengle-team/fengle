@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.model.response.CustomerWholeResponse;
+import com.yunqi.fengle.model.response.CustomersResponse;
 import com.yunqi.fengle.ui.activity.CustomerWholeActivity;
 import com.yunqi.fengle.util.LogEx;
 
@@ -37,14 +38,14 @@ public class CustomerWholeAdapter extends BaseMultiItemQuickAdapter<CustomerWhol
         super(data);
         this.mContext = context;
         addItemType(CustomerWholeMultiItem.TYPE_CONTENT, R.layout.item_customer_whole_content);
-        addItemType(CustomerWholeMultiItem.TYPE_CONTACT, R.layout.item_customer_whole_contack);
+//        addItemType(CustomerWholeMultiItem.TYPE_CONTACT, R.layout.item_customer_whole_contack);//联系人
         addItemType(CustomerWholeMultiItem.TYPE_VISIT, R.layout.item_customer_whole_visit);//拜访
 //        addItemType(CustomerWholeMultiItem.TYPE_SALE, R.layout.item_customer_whole_sale);//销售订单不用
         addItemType(CustomerWholeMultiItem.TYPE_RETURN, R.layout.item_customer_whole_return);//回款
         addItemType(CustomerWholeMultiItem.TYPE_REFUND, R.layout.item_customer_whole_refund);//退款
         addItemType(CustomerWholeMultiItem.TYPE_INVOICE, R.layout.item_customer_whole_invoice);
-        addItemType(CustomerWholeMultiItem.TYPE_EXPENS, R.layout.item_customer_expens);
-        addItemType(CustomerWholeMultiItem.TYPE_OTHER, R.layout.item_customer_other);
+//        addItemType(CustomerWholeMultiItem.TYPE_EXPENS, R.layout.item_customer_expens);
+//        addItemType(CustomerWholeMultiItem.TYPE_OTHER, R.layout.item_customer_other);//其他
 //        addItemType(CustomerWholeMultiItem.TYPE_CONTENT1, R.layout.item_customer_whole_content);
 //        addItemType(CustomerWholeMultiItem.TYPE_CONTENT2, R.layout.item_customer_whole_content);
     }
@@ -58,11 +59,20 @@ public class CustomerWholeAdapter extends BaseMultiItemQuickAdapter<CustomerWhol
                 TextView tvTuihuo = helper.getView(R.id.tvTuihuo);
                 TextView tvHuikuan = helper.getView(R.id.tvHuikuan);
                 TextView tvCompany = helper.getView(R.id.tvCompany);
+                TextView tvChengj = helper.getView(R.id.tvChengj);
 
                 tvFahuo.setText(item.getFahuo_amount() + "");
                 tvCompany.setText(item.getCompany_name() + "");
                 tvTuihuo.setText(item.getHuikuan_amount() + "");
                 tvHuikuan.setText(item.getHuikuan_amount() + "");
+
+                if (item.getType() == CustomersResponse.TYPE_DEAL)
+                {//已经成交
+                    tvChengj.setText("已成交");
+                } else {
+                    tvChengj.setText("未成交");
+                }
+
                 break;
             case CustomerWholeMultiItem.TYPE_CONTACT://联系人
 
@@ -77,12 +87,14 @@ public class CustomerWholeAdapter extends BaseMultiItemQuickAdapter<CustomerWhol
                 TextView tvCompanyVisit = helper.getView(R.id.tvCompany);
                 TextView tvPlanTime = helper.getView(R.id.tvPlanTime);
                 TextView tvNum = helper.getView(R.id.tvNum);
+                TextView tvFuz = helper.getView(R.id.tvFuz);
 
 
                 tvNum.setText(item.getVisit_plan().getVisite_plan_count() + "");
                 if (item.getVisit_plan().getLast_visite_plan() != null) {
                     tvPlanTime.setText(item.getVisit_plan().getLast_visite_plan().getPlan_time() + "");
                     tvCompanyVisit.setText(item.getVisit_plan().getLast_visite_plan().getClient_name() + "");
+                    tvFuz.setText(item.getVisit_plan().getLast_visite_plan().getResponsible_name() + "");
                 }
                 break;
             case CustomerWholeMultiItem.TYPE_RETURN://回款

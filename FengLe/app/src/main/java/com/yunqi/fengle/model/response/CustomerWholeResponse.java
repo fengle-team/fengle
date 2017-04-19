@@ -255,14 +255,14 @@ public class CustomerWholeResponse implements MultiItemEntity,Cloneable {
         CustomerWholeResponse other = bean.clone(TYPE_OTHER);
         List<CustomerWholeResponse> itemList = new ArrayList<>();
         itemList.add(content);//content
-        itemList.add(contact);//联系人
+//        itemList.add(contact);//联系人
         itemList.add(visit);//拜访
 //        itemList.add(sale);
         itemList.add(returN);//回款
         itemList.add(refund);//退款
         itemList.add(invoice);//开票
-        itemList.add(expens);//费用报销
-        itemList.add(other);//其他
+//        itemList.add(expens);//费用报销
+//        itemList.add(other);//其他
         return itemList;
     }
 

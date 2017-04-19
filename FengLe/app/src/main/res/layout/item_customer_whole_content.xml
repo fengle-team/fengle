@@ -59,7 +59,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/customer_whole_margin_top"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -88,10 +89,11 @@
             android:textSize="@dimen/customer_whole_text_normal" />
 
         <TextView
+            android:id="@+id/tvChengj"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/customer_whole_margin_left"
-            android:text="你猜"
+            android:text="未成交"
             android:textColor="@color/move_attend_light_green"
             android:textSize="@dimen/customer_whole_text_normal" />
     </LinearLayout>
@@ -120,7 +122,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/customer_whole_margin_left"
-                android:text="7.00万"
+                android:text="0"
+                android:textSize="@dimen/customer_whole_text_normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="元"
                 android:textSize="@dimen/customer_whole_text_normal" />
         </LinearLayout>
 
@@ -141,7 +148,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/customer_whole_margin_left"
-                android:text="7.00万"
+                android:text="0"
+                android:textSize="@dimen/customer_whole_text_normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="元"
                 android:textSize="@dimen/customer_whole_text_normal" />
         </LinearLayout>
 
@@ -162,7 +174,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/customer_whole_margin_left"
-                android:text="7.00万"
+                android:text="0"
+                android:textSize="@dimen/customer_whole_text_normal" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="元"
                 android:textSize="@dimen/customer_whole_text_normal" />
         </LinearLayout>
     </LinearLayout>

@@ -35,7 +35,7 @@ import butterknife.BindView;
 
 public class CustomerWholeActivity extends BaseActivity<CustomerWholePresenter> implements CustomerWholeAdapter.CustomerListener, CustomerWholeContract.View {
 
-    public static final String TAG = "CustomerWholeActivity";
+    public static final String TAG = "custom_code";
 
     @BindView(R.id.rvList)
     RecyclerView rvList;
@@ -111,20 +111,30 @@ public class CustomerWholeActivity extends BaseActivity<CustomerWholePresenter> 
     }
 
     private void onViewItemClick(int itemType,int position) {
-        ToastUtil.toast(this,itemType + "");
         Intent mIntent = new Intent();
+        mIntent.putExtra(TAG, customerWholeResponse.getCustom_code());
         if (itemType == CustomerWholeMultiItem.TYPE_VISIT)
         {//拜访
             mIntent.setClass(this, VisitingPlanActivity.class);
-            mIntent.putExtra(TAG, customerWholeResponse.getCustom_code());
             startActivity(mIntent);
         } else if(itemType == CustomerWholeMultiItem.TYPE_REFUND)
         {//退款
-
+            mIntent.setClass(this, ReturnRequestActivity.class);
+            startActivity(mIntent);
+        } else if(itemType == CustomerWholeMultiItem.TYPE_RETURN)
+        {//回款
+            mIntent.setClass(this, PaymentQueryActivity.class);
+            startActivity(mIntent);
+        } else if(itemType == CustomerWholeMultiItem.TYPE_INVOICE)
+        {//开票
+            mIntent.setClass(this, BillingRequestActivity.class);
+            startActivity(mIntent);
         } else if (itemType == CustomerWholeMultiItem.TYPE_EXPENS)
         {//用费
 
         }
+
+
     }
 
 
