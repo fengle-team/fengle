@@ -1,6 +1,7 @@
 package com.yunqi.fengle.ui.adapter;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.yunqi.fengle.model.response.CustomerWholeResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,8 @@ public class CustomerWholeMultiItem implements MultiItemEntity {
     }
 
     public static List<CustomerWholeMultiItem> getMultiItemList() {
+
+
         CustomerWholeMultiItem content = new CustomerWholeMultiItem(TYPE_CONTENT);
         CustomerWholeMultiItem contact = new CustomerWholeMultiItem(TYPE_CONTACT);
         CustomerWholeMultiItem visit = new CustomerWholeMultiItem(TYPE_VISIT);

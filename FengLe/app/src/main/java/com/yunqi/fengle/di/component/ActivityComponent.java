@@ -18,6 +18,7 @@ import com.yunqi.fengle.ui.activity.AreaQueryActivity;
 import com.yunqi.fengle.ui.activity.BankCodeActivity;
 import com.yunqi.fengle.ui.activity.BillingDetailsActivity;
 import com.yunqi.fengle.ui.activity.BillingRequestActivity;
+import com.yunqi.fengle.ui.activity.CustomerWholeActivity;
 import com.yunqi.fengle.ui.activity.CustomersSituationActivity;
 import com.yunqi.fengle.ui.activity.DailyActivity;
 import com.yunqi.fengle.ui.activity.DailySendActivity;
@@ -183,6 +184,8 @@ public interface ActivityComponent {
     void inject(ActivitySummaryDetailActivity activity);
 
     void inject(AchievementManagerActivity activity);
+
+    void inject(CustomerWholeActivity activity);
 
     void inject(BankCodeActivity activity);
 

@@ -36,8 +36,8 @@ public class VisitingPlanPresenter extends RxPresenter<VisitingPlanContract.View
 
 
     @Override
-    public void getVisitingPlanList(final ResponseListener listener) {
-        Subscription rxSubscription = mRetrofitHelper.getVisitePlanList(App.getInstance().getUserInfo().id)
+    public void getVisitingPlanList(String customerCode,final ResponseListener listener) {
+        Subscription rxSubscription = mRetrofitHelper.getVisitePlanList(App.getInstance().getUserInfo().id,customerCode)
                 .compose(RxUtil.<CommonHttpRsp<List<VisitingPlanResponse>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<VisitingPlanResponse>>handleResult())
                 .subscribe(new ExSubscriber<List<VisitingPlanResponse>>(mView) {

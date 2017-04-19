@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -56,17 +57,28 @@ public class VisitingPlanActivity extends BaseActivity<VisitingPlanPresenter> im
     private List<VisitingPlanResponse> responseList = new ArrayList<>();
     private VisitingMainAdapter adapter;
 
+    /** 上个界面传过来的code*/
+    String customerCode = "";
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         showTitleBack();
         setTitleText("拜访计划");
+
+        customerCode = getIntent().getStringExtra(CustomerWholeActivity.TAG);//是否从客户全貌跳转过来
+
         if (!TAG_FROM_CUSTOMER_SITUATION.equals(getIntent().getStringExtra(TAG_FROM))) {
-            setTitleRightImage(R.drawable.right_add);
+            if (TextUtils.isEmpty(customerCode)) {
+                setTitleRightImage(R.drawable.right_add);
+            }
         }
         initRecyclerView();
         swipyRefreshLayout.setOnRefreshListener(this);
+
+
+
 
         progresser.showProgress();
         initData();
@@ -100,7 +112,7 @@ public class VisitingPlanActivity extends BaseActivity<VisitingPlanPresenter> im
     }
 
     private void initData() {
-        mPresenter.getVisitingPlanList(new ResponseListener() {
+        mPresenter.getVisitingPlanList(customerCode,new ResponseListener() {
             @Override
             public void onSuccess(NetResponse response) {
                 progresser.showContent();
@@ -159,9 +171,13 @@ public class VisitingPlanActivity extends BaseActivity<VisitingPlanPresenter> im
             startActivity(mIntent);
         } else {
 
-            Intent intent = new Intent(this, CustomerQueryActivity.class);
-            intent.putExtra("module", 1);
-            startActivityForResult(intent, 1);
+            mIntent.putExtra(VistingAddVisteActivity.TAG_SELECTED, selectCustomer);
+            mIntent.setClass(this, VistingAddVisteActivity.class);
+            this.startActivity(mIntent);
+
+//            Intent intent = new Intent(this, CustomerQueryActivity.class);
+//            intent.putExtra("module", 1);
+//            startActivityForResult(intent, 1);
 //            mIntent.setClass(VisitingPlanActivity.this, VisitingAddCustomerActivity2.class);
         }
 

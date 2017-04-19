@@ -39,6 +39,8 @@ public class MyCustomersActivity extends BaseActivity<MyCustomersPresenter> impl
     @BindView(R.id.rvMyCustomers)
     RecyclerView rvMyCustomers;
 
+    public static String TAG = "MyCustomersActivity";
+
     List<CustomersResponse> dataList = new ArrayList<>();
     MyCustomersAdapter adapter;
 
@@ -81,6 +83,7 @@ public class MyCustomersActivity extends BaseActivity<MyCustomersPresenter> impl
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent mIntent = new Intent(MyCustomersActivity.this, CustomerWholeActivity.class);
+                mIntent.putExtra(MyCustomersActivity.TAG, dataList.get(position));
                 MyCustomersActivity.this.startActivity(mIntent);
             }
 

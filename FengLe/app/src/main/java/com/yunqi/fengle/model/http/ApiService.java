@@ -36,6 +36,7 @@ import com.yunqi.fengle.model.request.TypeRequest;
 import com.yunqi.fengle.model.request.VisitingAddRequest;
 import com.yunqi.fengle.model.request.VisitingUpdateRequest;
 import com.yunqi.fengle.model.response.ActivityAddResponse;
+import com.yunqi.fengle.model.response.CustomerWholeResponse;
 import com.yunqi.fengle.model.response.CustomersResponse;
 import com.yunqi.fengle.model.response.CustomersSituationResponse;
 import com.yunqi.fengle.model.response.DailyResponse;
@@ -727,6 +728,15 @@ public interface ApiService {
     Observable<CommonHttpRsp<List<CustomersResponse>>> getCustomers(@Query("user_code") String user_code);
 
     /**
+     * 获取客户全貌
+     *
+     * @return
+     */
+    @GET("custom/customStats")
+    Observable<CommonHttpRsp<CustomerWholeResponse>> getCustomerWhole(@Query("userid") String userid, @Query("custom_code") String custom_code);
+
+
+    /**
      * 获取客情维护
      *
      * @return
@@ -740,7 +750,8 @@ public interface ApiService {
      * @return
      */
     @GET("visite_plan/get")
-    Observable<CommonHttpRsp<List<VisitingPlanResponse>>> getVisitePlanList(@Query("userid") String userid);
+    Observable<CommonHttpRsp<List<VisitingPlanResponse>>> getVisitePlanList(@Query("userid") String userid,@Query("custom_code") String custom_code);
+
     /**
      * 查询货物销售明细接口
      * @param start_time 开始时间
