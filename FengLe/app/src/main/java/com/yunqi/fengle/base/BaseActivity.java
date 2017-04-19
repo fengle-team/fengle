@@ -76,21 +76,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
         init();
     }
 
-
-    private boolean checkLogined() {
-        if (TAG.equals(LoginActivity.class.getName()) || TAG.equals(SplashActivity.class.getName())) {
-            return true;
-        }
-        userBean = App.getInstance().getUserInfo();
-        if (userBean == null) {
-            App.getInstance().killAllActivities();
-            ToastUtil.showNoticeToast(this, "系统内存不足，重新登录！");
-            startActivity(new Intent(this, LoginActivity.class));
-            return false;
-        }
-        return true;
-    }
-
     @Override
     public void cancelLoading() {
         if (loadingDialog != null) {

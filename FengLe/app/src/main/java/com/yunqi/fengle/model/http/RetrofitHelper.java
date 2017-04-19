@@ -2,11 +2,13 @@ package com.yunqi.fengle.model.http;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.text.TextUtils;
 
 import com.yunqi.fengle.BuildConfig;
 import com.yunqi.fengle.constants.Constants;
 import com.yunqi.fengle.model.bean.ADInfo;
 import com.yunqi.fengle.model.bean.Area;
+import com.yunqi.fengle.model.bean.BankCaption;
 import com.yunqi.fengle.model.bean.BillingApply;
 import com.yunqi.fengle.model.bean.Customer;
 import com.yunqi.fengle.model.bean.CustomerAnalysis;
@@ -69,6 +71,7 @@ import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Query;
 import rx.Observable;
 
 /**
@@ -188,6 +191,7 @@ public class RetrofitHelper {
 
     /**
      * 添加维护
+     *
      * @param request
      * @return
      */
@@ -197,6 +201,7 @@ public class RetrofitHelper {
 
     /**
      * 添加维护
+     *
      * @param request
      * @return
      */
@@ -224,23 +229,25 @@ public class RetrofitHelper {
      * @param page
      * @return
      */
-    public Observable<CommonHttpRsp<List<Goods>>> queryStock(String warehouse_code,String area_code,String keywords,final int page) {
-        return apiService.queryStock(warehouse_code,area_code, keywords, page,PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<Goods>>> queryStock(String warehouse_code, String area_code, String keywords, final int page) {
+        return apiService.queryStock(warehouse_code, area_code, keywords, page, PAGE_SIZE);
     }
 
     /**
      * 客户查询
-     * @param keyword 客户名或编号
+     *
+     * @param keyword   客户名或编号
      * @param user_code 用户id
-     * @param page 页码
+     * @param page      页码
      * @return
      */
-    public Observable<CommonHttpRsp<List<Customer>>> queryCustomer(String keyword,String user_code, int page) {
-        return apiService.queryCustomer(keyword,user_code,page,3);
+    public Observable<CommonHttpRsp<List<Customer>>> queryCustomer(String keyword, String user_code, int page) {
+        return apiService.queryCustomer(keyword, user_code, page,PAGE_SIZE, 3);
     }
 
     /**
      * 我的客户
+     *
      * @return
      */
     public Observable<CommonHttpRsp<List<CustomersResponse>>> getCustomers(String user_code) {
@@ -249,6 +256,7 @@ public class RetrofitHelper {
 
     /**
      * 查询客情维护
+     *
      * @return
      */
     public Observable<CommonHttpRsp<List<CustomersSituationResponse>>> getMainTain(String userid) {
@@ -257,51 +265,70 @@ public class RetrofitHelper {
 
     /**
      * 查询货物销售明细接口
+     *
      * @param startTime 开始时间
-     * @param endTime  结束时间
+     * @param endTime   结束时间
      * @param goods_id  货物Id
-     * @param page 页码
+     * @param page      页码
      * @return
      */
-    public Observable<CommonHttpRsp<List<SaleInfo>>> querySales(String startTime, String endTime, String goods_id , int page){
-        return apiService.querySales(startTime,endTime,goods_id,page,PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<SaleInfo>>> querySales(String startTime, String endTime, String goods_id, int page) {
+        return apiService.querySales(startTime, endTime, goods_id, page, PAGE_SIZE);
     }
 
     /**
      * 货物查询
-     * @param keyword 货物名或编号
-     * @param userid 编号
+     *
+     * @param keyword        货物名或编号
+     * @param custom_code      编号
      * @param warehouse_code 仓库code
-     * @param page 页码
+     * @param page           页码
      * @return
      */
-    public Observable<CommonHttpRsp<List<Goods>>> queryGoods(String keyword, String userid, String warehouse_code,int page) {
-        return apiService.queryGoods(keyword,userid,warehouse_code,page,PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<Goods>>> queryGoods(String keyword, String custom_code, String warehouse_code, int page) {
+        if (TextUtils.isEmpty(custom_code)) {
+            return apiService.queryGoods(keyword, warehouse_code, page, PAGE_SIZE);
+        }
+        return apiService.queryGoodsFromDispatch(keyword, custom_code, page, PAGE_SIZE);
     }
+
     /**
      * 区域查询
+     *
      * @return
      */
     public Observable<CommonHttpRsp<List<Area>>> queryArea() {
-        return apiService.queryArea(1,1000);
+        return apiService.queryArea(1, 1000);
     }
 
     /**
      * 客户分析查询
+     *
      * @return
      */
-    public Observable<CommonHttpRsp<List<CustomerAnalysis>>> queryCustomerAnalysis(String user_code){
-        return apiService.queryCustomerAnalysis(user_code,1,PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<CustomerAnalysis>>> queryCustomerAnalysis(String user_code) {
+        return apiService.queryCustomerAnalysis(user_code, 1, PAGE_SIZE);
     }
+
     /**
      * 回款类型查询
+     *
      * @return
      */
     public Observable<CommonHttpRsp<List<PaymentType>>> queryPaymentType() {
         return apiService.queryPaymentType();
     }
+
+    /**
+     * 获取会计科目
+     */
+    public Observable<CommonHttpRsp<List<BankCaption>>> queryBankCaption() {
+        return apiService.getBankCaption();
+    }
+
     /**
      * 付款类型查询
+     *
      * @return
      */
     public Observable<CommonHttpRsp<List<FukuanType>>> queryFukuanType() {
@@ -310,27 +337,34 @@ public class RetrofitHelper {
 
     /**
      * 获得发票类型
+     *
      * @return
      */
     public Observable<CommonHttpRsp<List<TypeRequest>>> getInvoiceType() {
         return apiService.getInvoiceType();
     }
+
     /**
      * 获得回款类型
+     *
      * @return
      */
     public Observable<CommonHttpRsp<List<TypeRequest>>> getHuikuanType() {
         return apiService.getHuikuanType();
     }
+
     /**
      * 获得报销类型
+     *
      * @return
      */
     public Observable<CommonHttpRsp<List<TypeRequest>>> getReimburseType() {
         return apiService.getReimburseType();
     }
+
     /**
      * 获得活动类型
+     *
      * @return
      */
     public Observable<CommonHttpRsp<List<TypeRequest>>> getActionType() {
@@ -339,10 +373,11 @@ public class RetrofitHelper {
 
     /**
      * 仓库查询
+     *
      * @return
      */
     public Observable<CommonHttpRsp<List<Warehouse>>> queryWarehouse() {
-        return apiService.queryWarehouse(1,1000);
+        return apiService.queryWarehouse(1, 1000);
     }
 
     /**
@@ -365,9 +400,10 @@ public class RetrofitHelper {
      * @param page
      * @return
      */
-    public Observable<CommonHttpRsp<List<Payment>>> queryPayment(String userid, int status, String keyword,String startTime, String endTime, int page) {
-        return apiService.queryPayment(userid, status,keyword, startTime, endTime, page, PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<Payment>>> queryPayment(String userid,String custom_code, int status, String keyword, String startTime, String endTime, int page) {
+        return apiService.queryPayment(userid,custom_code, status, keyword, startTime, endTime, page, PAGE_SIZE);
     }
+
     /**
      * 查询回款
      *
@@ -377,12 +413,13 @@ public class RetrofitHelper {
      * @param page
      * @return
      */
-    public Observable<CommonHttpRsp<List<Payment>>> queryPayment(String userid, int status,String keyword,int type,int page) {
-        return apiService.queryPayment(userid, status,keyword, type, page, PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<Payment>>> queryPayment(String userid,String custom_code, int status, String keyword, int type, int page) {
+        return apiService.queryPayment(userid,custom_code, status, keyword, type, page, PAGE_SIZE);
     }
 
     /**
      * 删除回款
+     *
      * @param huikuan_id
      * @return
      */
@@ -400,12 +437,13 @@ public class RetrofitHelper {
      * @param page
      * @return
      */
-    public Observable<CommonHttpRsp<List<InvoiceApply>>> queryInvoiceApply(String userid,  String keyword,int status, String startTime, String endTime, int page) {
-        return apiService.queryInvoiceApply(userid,keyword, status, startTime, endTime, page, PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<InvoiceApply>>> queryInvoiceApply(String userid, String keyword, int status, String startTime, String endTime, int page) {
+        return apiService.queryInvoiceApply(userid, keyword, status, startTime, endTime, page, PAGE_SIZE);
     }
 
     /**
      * 大区排名
+     *
      * @param page
      * @return
      */
@@ -415,6 +453,7 @@ public class RetrofitHelper {
 
     /**
      * 销售员排名
+     *
      * @param page
      * @return
      */
@@ -432,8 +471,8 @@ public class RetrofitHelper {
      * @param page
      * @return
      */
-    public Observable<CommonHttpRsp<List<PlanAdjustmentApply>>> queryPlanAdjustmentApply(String userid,String from_area_code,String to_area_code, int status, String startTime, String endTime, int page) {
-        return apiService.queryPlanAdjustmentApply(userid, from_area_code,to_area_code,status, startTime, endTime, page, PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<PlanAdjustmentApply>>> queryPlanAdjustmentApply(String userid, String from_area_code, String to_area_code, int status, String startTime, String endTime, int page) {
+        return apiService.queryPlanAdjustmentApply(userid, from_area_code, to_area_code, status, startTime, endTime, page, PAGE_SIZE);
     }
 
     /**
@@ -446,9 +485,10 @@ public class RetrofitHelper {
      * @param page
      * @return
      */
-    public Observable<CommonHttpRsp<List<TransferApply>>> queryTransferApply(String userid,String keyword, int status, String startTime, String endTime, int page) {
-        return apiService.queryTransferApply(userid, keyword,status, startTime, endTime, page, PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<TransferApply>>> queryTransferApply(String userid,String custom_code, String keyword, int status, String startTime, String endTime, int page) {
+        return apiService.queryTransferApply(userid,custom_code, keyword, status, startTime, endTime, page, PAGE_SIZE);
     }
+
     /**
      * 退货单查询
      *
@@ -459,9 +499,10 @@ public class RetrofitHelper {
      * @param page
      * @return
      */
-    public Observable<CommonHttpRsp<List<ReturnApply>>> queryReturnApply(String userid,String keyword, int status, String startTime, String endTime, int page) {
-        return apiService.queryReturnApply(userid,keyword, status, startTime, endTime, page, PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<ReturnApply>>> queryReturnApply(String userid,  String custom_code, String keyword, int status, String startTime, String endTime, int page) {
+        return apiService.queryReturnApply(userid,custom_code, keyword, status, startTime, endTime, page, PAGE_SIZE);
     }
+
     /**
      * 开票查询
      *
@@ -472,8 +513,8 @@ public class RetrofitHelper {
      * @param page
      * @return
      */
-    public Observable<CommonHttpRsp<List<BillingApply>>> queryBillingApply(String userid, String keyword,int status, String startTime, String endTime, int page) {
-        return apiService.queryBillingApply(userid,keyword, status, startTime, endTime, page, PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<BillingApply>>> queryBillingApply(String userid,String custom_code, String keyword, int status, String startTime, String endTime, int page) {
+        return apiService.queryBillingApply(userid,custom_code, keyword, status, startTime, endTime, page, PAGE_SIZE);
     }
 
     /**
@@ -482,7 +523,7 @@ public class RetrofitHelper {
      * @param sale_id
      * @return
      */
-    public Observable<CommonHttpRsp<GoodsSaleDetail>>queryGoodsSaleDetail(String sale_id) {
+    public Observable<CommonHttpRsp<GoodsSaleDetail>> queryGoodsSaleDetail(String sale_id) {
         return apiService.queryGoodsSaleDetail(sale_id);
     }
 
@@ -498,9 +539,11 @@ public class RetrofitHelper {
     public Observable<BaseHttpRsp> addReturn(BillAddRequest request) {
         return apiService.addReturn(request);
     }
+
     public Observable<BaseHttpRsp> addPlanAdjustment(PlanAdjustmentAddRequest request) {
         return apiService.addPlanAdjustment(request);
     }
+
     public Observable<BaseHttpRsp> addBilling(BillAddRequest request) {
         return apiService.addBilling(request);
     }
@@ -551,6 +594,7 @@ public class RetrofitHelper {
     public Observable<CommonHttpRsp<InvoiceApply>> getDeliveryDetails(int id) {
         return apiService.getDeliveryDetails(id);
     }
+
     /**
      * 获取调货单详情
      *
@@ -568,6 +612,7 @@ public class RetrofitHelper {
     public Observable<CommonHttpRsp<ReturnApply>> getReturnDetails(int id) {
         return apiService.getReturnDetails(id);
     }
+
     /**
      * 获取开票详情
      *
@@ -597,6 +642,7 @@ public class RetrofitHelper {
     public Observable<BaseHttpRsp> updateDeliveryStatus(int id, int status) {
         return apiService.updateDeliveryStatus(id, status);
     }
+
     /**
      * 更新状态
      *
@@ -606,6 +652,7 @@ public class RetrofitHelper {
     public Observable<BaseHttpRsp> updateDeliveryStatus(BillUpdateRequest request) {
         return apiService.updateDeliveryStatus(request);
     }
+
     /**
      * 更新状态
      *
@@ -616,6 +663,7 @@ public class RetrofitHelper {
     public Observable<BaseHttpRsp> updateTransferStatus(int id, int status) {
         return apiService.updateTransferStatus(id, status);
     }
+
     /**
      * 更新状态
      *
@@ -625,6 +673,7 @@ public class RetrofitHelper {
     public Observable<BaseHttpRsp> updateTransferStatus(BillUpdateRequest request) {
         return apiService.updateTransferStatus(request);
     }
+
     /**
      * 更新状态
      *
@@ -635,6 +684,7 @@ public class RetrofitHelper {
     public Observable<BaseHttpRsp> updatePlanAdjustmentStatus(int id, int status) {
         return apiService.updatePlanAdjustmentStatus(id, status);
     }
+
     /**
      * 更新状态
      *
@@ -655,6 +705,7 @@ public class RetrofitHelper {
     public Observable<BaseHttpRsp> updateReturnStatus(int id, int status) {
         return apiService.updateReturnStatus(id, status);
     }
+
     /**
      * 更新状态
      *
@@ -664,6 +715,7 @@ public class RetrofitHelper {
     public Observable<BaseHttpRsp> updateReturnStatus(BillUpdateRequest request) {
         return apiService.updateReturnStatus(request);
     }
+
     /**
      * 更新状态
      *
@@ -674,6 +726,7 @@ public class RetrofitHelper {
     public Observable<BaseHttpRsp> updateBillingStatus(int id, int status) {
         return apiService.updateBillingStatus(id, status);
     }
+
     /**
      * 更新状态
      *
@@ -683,50 +736,64 @@ public class RetrofitHelper {
     public Observable<BaseHttpRsp> updateBillingStatus(BillUpdateRequest request) {
         return apiService.updateBillingStatus(request);
     }
+
     /**
      * 删除发货单据
+     *
      * @param id
      */
     public Observable<BaseHttpRsp> deleteDelivert(int id) {
         return apiService.deleteDelivery(id);
     }
+
     /**
      * 删除调货单据
+     *
      * @param id
      */
     public Observable<BaseHttpRsp> deleteTransfer(int id) {
         return apiService.deleteTransfer(id);
     }
+
     /**
      * 删除退货单据
+     *
      * @param id
      */
     public Observable<BaseHttpRsp> deleteReturn(int id) {
         return apiService.deleteReturn(id);
     }
+
     /**
      * 删除开票单据
+     *
      * @param id
      */
     public Observable<BaseHttpRsp> deleteBilling(int id) {
         return apiService.deleteBilling(id);
     }
+
     /**
      * 删除计划调剂单据
+     *
      * @param id
      */
     public Observable<BaseHttpRsp> deletePlanAdjustment(int id) {
         return apiService.deletePlanAdjustment(id);
     }
+
     /**
      * 删除单据
+     *
      * @param id
      */
     public Observable<BaseHttpRsp> delDelivertSelectedGoods(int id) {
         return apiService.delDelivertSelectedGoods(id);
     }
+
     /**
      * 删除调货选择货物
+     *
      * @param id
      */
     public Observable<BaseHttpRsp> delTransferSelectedGoods(int id) {
@@ -736,71 +803,84 @@ public class RetrofitHelper {
 
     /**
      * 删除退货选择货物
+     *
      * @param id
      */
     public Observable<BaseHttpRsp> delReturnSelectedGoods(int id) {
         return apiService.delReturnSelectedGoods(id);
     }
+
     /**
-     *  删除退货选择货物
+     * 删除退货选择货物
+     *
      * @param id
      */
     public Observable<BaseHttpRsp> delBillingSelectedGoods(int id) {
         return apiService.delBillingSelectedGoods(id);
     }
+
     /**
      * 删除计划调剂选择货物
+     *
      * @param id
      */
     public Observable<BaseHttpRsp> delPlanAdjustmentSelectedGoods(int id) {
         return apiService.delPlanAdjustmentSelectedGoods(id);
     }
+
     /**
      * 审批发货单据
+     *
      * @param userid
      * @param order_code
      * @param status
      */
     public Observable<BaseHttpRsp> approvalDispatchBill(String userid, String order_code, int status) {
-        return apiService.approvalDispatchBill(userid,order_code,status);
+        return apiService.approvalDispatchBill(userid, order_code, status);
     }
 
     /**
      * 审批调货单据
+     *
      * @param userid
      * @param order_code
      * @param status
      */
     public Observable<BaseHttpRsp> approvalTransferBill(String userid, String order_code, int status) {
-        return apiService.approvalTransferBill(userid,order_code,status);
+        return apiService.approvalTransferBill(userid, order_code, status);
     }
 
     /**
      * 审批退货单据
+     *
      * @param userid
      * @param order_code
      * @param status
      */
     public Observable<BaseHttpRsp> approvalReturnBill(String userid, String order_code, int status) {
-        return apiService.approvalReturnBill(userid,order_code,status);
+        return apiService.approvalReturnBill(userid, order_code, status);
     }
+
     /**
      * 审批开票单据
+     *
      * @param userid
      * @param order_code
      * @param status
      */
     public Observable<BaseHttpRsp> approvalBillingBill(String userid, String order_code, int status) {
-        return apiService.approvalBillingBill(userid,order_code,status);
+        return apiService.approvalBillingBill(userid, order_code, status);
     }
+
     /**
      * 审批计划调剂单据
+     *
      * @param userid
      * @param order_code
      * @param status
      */
     public Observable<BaseHttpRsp> approvalPlanAdjustmentBill(String userid, String order_code, int status) {
-        return apiService.approvalPlanAdjustmentBill(userid,order_code,status);
+        return apiService.approvalPlanAdjustmentBill(userid, order_code, status);
     }
 
     /**
@@ -808,8 +888,8 @@ public class RetrofitHelper {
      *
      * @return
      */
-    public Observable<BaseHttpRsp> updatePwd(String account,String oldPwd,String pwd) {
-        return apiService.updatePwd(account, oldPwd,pwd);
+    public Observable<BaseHttpRsp> updatePwd(String account, String oldPwd, String pwd) {
+        return apiService.updatePwd(account, oldPwd, pwd);
     }
 
     /**
@@ -844,7 +924,7 @@ public class RetrofitHelper {
      *
      * @return
      */
-    public Observable<CommonHttpRsp<List<DailyResponse>>> getDaily(String userId,String startTime,String endTime) {
+    public Observable<CommonHttpRsp<List<DailyResponse>>> getDaily(String userId, String startTime, String endTime) {
         return apiService.getDaily(userId, startTime, endTime);
     }
 
@@ -862,10 +942,9 @@ public class RetrofitHelper {
      *
      * @return
      */
-    public Observable<CommonHttpRsp<List<DailyResponse>>> getSubDaily(String userId,String startTime,String endTime) {
+    public Observable<CommonHttpRsp<List<DailyResponse>>> getSubDaily(String userId, String startTime, String endTime) {
         return apiService.getSubDaily(userId, startTime, endTime);
     }
-
 
 
     /**
@@ -883,7 +962,6 @@ public class RetrofitHelper {
 
     /**
      * 查询广告
-     *
      */
     public Observable<CommonHttpRsp<List<ADInfo>>> queryAdInfo() {
         return apiService.queryAdInfo();
@@ -891,6 +969,7 @@ public class RetrofitHelper {
 
     /**
      * 客户查询
+     *
      * @param id 客户id
      * @return
      */
@@ -901,14 +980,17 @@ public class RetrofitHelper {
 
     /**
      * 添加拜访计划
+     *
      * @param request
      * @return
      */
     public Observable<BaseHttpRsp> addViste(VisitingAddRequest request) {
         return apiService.addViste(request);
     }
+
     /**
      * 添加活动总结
+     *
      * @param request
      * @return
      */
@@ -918,6 +1000,7 @@ public class RetrofitHelper {
 
     /**
      * 升级客户类型
+     *
      * @return
      */
     public Observable<BaseHttpRsp> doUpgradeClient(CustomersResponse request) {

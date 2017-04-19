@@ -72,7 +72,7 @@ public class AddTransferRequestActivity extends BaseActivity<AddTransferPresente
     private Customer outCustomer;
     private Customer inCustomer;
     private GoodsAndWarehouseTableDataAdapter adapter;
-    private float freight=10;//运费
+    private String freight="每件10元";//运费
 
 
     @Override
@@ -94,14 +94,15 @@ public class AddTransferRequestActivity extends BaseActivity<AddTransferPresente
                 showBottomOpraterPopWindow();
             }
         });
-        final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_add_delivey_request));
+        final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_add_transfer_request));
         tableView.setHeaderAdapter(tableHeader1Adapter);
-        TableColumnWeightModel columnModel = new TableColumnWeightModel(5);
+        TableColumnWeightModel columnModel = new TableColumnWeightModel(6);
         columnModel.setColumnWeight(0, 2);
         columnModel.setColumnWeight(1, 1);
         columnModel.setColumnWeight(2, 1);
         columnModel.setColumnWeight(3, 1);
         columnModel.setColumnWeight(4, 1);
+        columnModel.setColumnWeight(5, 1);
         tableView.setColumnModel(columnModel);
         setWidgetListener();
     }
@@ -148,7 +149,7 @@ public class AddTransferRequestActivity extends BaseActivity<AddTransferPresente
                         }
                         Intent intent = new Intent(AddTransferRequestActivity.this, GoodsQueryActivity.class);
                         intent.putExtra("module",AddTransferRequestActivity.this.getClass().getName());
-                        intent.putExtra("userid",outCustomer.id);
+                        intent.putExtra("customer_code",outCustomer.custom_code);
                         if(!goodsArray.isEmpty()){
                             intent.putExtra("goodsArray",goodsArray);
                         }

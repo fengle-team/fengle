@@ -30,8 +30,8 @@ public class BillingQueryPresenter extends RxPresenter<BillingRequestContract.Vi
         this.mRetrofitHelper = retrofitHelper;
     }
     @Override
-    public void queryBillingApply(String userid, String keyword,int status, String startTime, String endTime, final int page) {
-        Subscription rxSubscription = mRetrofitHelper.queryBillingApply(userid,keyword, status, startTime, endTime, page)
+    public void queryBillingApply(String userid, String custom_code,String keyword,int status, String startTime, String endTime, final int page) {
+        Subscription rxSubscription = mRetrofitHelper.queryBillingApply(userid,custom_code,keyword, status, startTime, endTime, page)
                 .compose(RxUtil.<CommonHttpRsp<List<BillingApply>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<BillingApply>>handleResult())
                 .subscribe(new ExSubscriber<List<BillingApply>>(mView) {

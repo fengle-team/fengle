@@ -17,6 +17,8 @@ public class PaymentAddRequest {
     public String pay_type_code;
     public String huikuan_type;
     public String huikuan_type_code;
+    public String bank_caption_code;
+    public String bank_caption_name;
     public String huikuan_name;
     public double huikuan_amount;
     public String images;

@@ -32,8 +32,8 @@ public class TransferQueryPresenter extends RxPresenter<TransferRequestContract.
         this.mRetrofitHelper = retrofitHelper;
     }
     @Override
-    public void queryTransferApply(String userid, String keyword,int status,String startTime, String endTime, final int page) {
-        Subscription rxSubscription = mRetrofitHelper.queryTransferApply(userid, keyword,status, startTime, endTime, page)
+    public void queryTransferApply(String userid,String custom_code, String keyword,int status,String startTime, String endTime, final int page) {
+        Subscription rxSubscription = mRetrofitHelper.queryTransferApply(userid,custom_code, keyword,status, startTime, endTime, page)
                 .compose(RxUtil.<CommonHttpRsp<List<TransferApply>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<TransferApply>>handleResult())
                 .subscribe(new ExSubscriber<List<TransferApply>>(mView) {

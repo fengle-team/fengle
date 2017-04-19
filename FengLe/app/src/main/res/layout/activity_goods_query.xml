@@ -16,7 +16,7 @@
         android:layout_marginLeft="@dimen/common_left_margin"
         android:layout_marginRight="@dimen/common_right_margin"
         android:layout_marginTop="20dp"
-
+        android:visibility="gone"
         android:background="@drawable/input_bg2">
         <Button
             android:id="@+id/btn_select_warehouse"

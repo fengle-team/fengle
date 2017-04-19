@@ -59,6 +59,7 @@
     <string name="module_area_query">大区查询</string>
     <string name="module_warehouse_query">仓库查询</string>
     <string name="module_payment_type">回款类型查询</string>
+    <string name="module_bank_code">会计科目查询</string>
     <string name="module_fukuan_type">付款类型查询</string>
 
     <string name="area_select">选择大区</string>
@@ -75,6 +76,7 @@
     <string name="select_warehouse">选择仓库</string>
     <string name="fukui_type">付款类型</string>
     <string name="payment_type">回款类型</string>
+    <string name="bank_code">会计科目</string>
     <string name="out_customer">调出客户</string>
     <string name="in_customer">调入客户</string>
     <string name="out_customer_tag">调出客户:</string>
@@ -96,7 +98,7 @@
         <item>名称</item>
         <item>规格</item>
         <item>计划</item>
-        <item>仓库</item>
+        <item>可用数量</item>
         <item>价格</item>
     </string-array>
     <string-array name="header_title_goods_query">
@@ -158,6 +160,15 @@
         <item>件数</item>
         <item>操作</item>
     </string-array>
+    <string-array name="header_title_add_transfer_request">
+        <item>名称</item>
+        <item>规格</item>
+        <item>数量</item>
+        <item>件数</item>
+        <item>运费</item>
+        <item>操作</item>
+    </string-array>
+
 
     <string-array name="header_title_payment_request">
         <item>编号</item>

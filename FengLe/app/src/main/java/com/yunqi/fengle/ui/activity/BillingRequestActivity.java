@@ -81,6 +81,7 @@ public class BillingRequestActivity extends BaseActivity<BillingQueryPresenter> 
     List<BillingApply> mlistBillingApply = new ArrayList<>();
     private BillingTableDataAdapter adapter;
     private String keyword = "";
+    private String custom_code = "";
 
     @Override
     protected void initInject() {
@@ -95,6 +96,10 @@ public class BillingRequestActivity extends BaseActivity<BillingQueryPresenter> 
     @Override
     protected void initEventAndData() {
         userId = App.getInstance().getUserInfo().id;
+        custom_code=getIntent().getStringExtra("custom_code");
+        if(custom_code==null){
+            custom_code="";
+        }
         setToolBar(toolbar, getString(R.string.module_billing), R.drawable.right_add, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -121,7 +126,7 @@ public class BillingRequestActivity extends BaseActivity<BillingQueryPresenter> 
         radioBtn1.setText(R.string.bill_undeal);
         radioBtn2.setText(R.string.bill_undone);
         radioBtn3.setText(R.string.bill_history);
-        mPresenter.queryBillingApply(userId,keyword, mStatus, "", "", page);
+        mPresenter.queryBillingApply(userId,custom_code,keyword, mStatus, "", "", page);
         radioGroup.check(R.id.radioBtn1);
         radioGroup.setOnCheckedChangeListener(this);
 
@@ -141,13 +146,13 @@ public class BillingRequestActivity extends BaseActivity<BillingQueryPresenter> 
         tableViewEx.setOnLoadMoreListener(new ExTableView.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                mPresenter.queryBillingApply(userId,keyword, mStatus, lastStartTime, lastEndTime, ++page);
+                mPresenter.queryBillingApply(userId,custom_code,keyword, mStatus, lastStartTime, lastEndTime, ++page);
             }
         });
         tableViewEx.setOnLoadRetryListener(new ExTableView.OnLoadRetryListener() {
             @Override
             public void onLoadRetry() {
-                mPresenter.queryBillingApply(userId,keyword, mStatus, lastStartTime, lastEndTime, page);
+                mPresenter.queryBillingApply(userId,custom_code,keyword, mStatus, lastStartTime, lastEndTime, page);
             }
         });
         RxView.clicks(btnQuery)
@@ -163,7 +168,7 @@ public class BillingRequestActivity extends BaseActivity<BillingQueryPresenter> 
                         keyword =editKeyword.getText().toString();
                         lastStartTime = startTime;
                         lastEndTime = endTime;
-                        mPresenter.queryBillingApply(userId,keyword, mStatus, startTime, endTime, page);
+                        mPresenter.queryBillingApply(userId,custom_code,keyword, mStatus, startTime, endTime, page);
                     }
                 });
         RxView.clicks(btnStartTime)
@@ -235,7 +240,7 @@ public class BillingRequestActivity extends BaseActivity<BillingQueryPresenter> 
         if (requestCode == ADD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             int status = data.getIntExtra("status", 0);
             if (2 == mStatus) {
-                mPresenter.queryBillingApply(userId, keyword,mStatus, startTime, endTime, page);
+                mPresenter.queryBillingApply(userId,custom_code, keyword,mStatus, startTime, endTime, page);
             }
         } else if (requestCode == DETAIL_REQUEST_CODE && resultCode == DEL_DETAIL_RESULT_CODE) {
             int position = data.getIntExtra("postion", 0);
@@ -244,11 +249,11 @@ public class BillingRequestActivity extends BaseActivity<BillingQueryPresenter> 
         } else if (requestCode == DETAIL_REQUEST_CODE && resultCode == UPDATE_DETAIL_RESULT_CODE) {
             int status = data.getIntExtra("status", 0);
             if (1 == mStatus) {
-                mPresenter.queryBillingApply(userId, keyword,mStatus, startTime, endTime, page);
+                mPresenter.queryBillingApply(userId,custom_code, keyword,mStatus, startTime, endTime, page);
             }
         } else if (requestCode == DETAIL_REQUEST_CODE && resultCode == APPROVAL_DETAIL_RESULT_CODE) {
             if (2 == mStatus) {
-                mPresenter.queryBillingApply(userId, keyword,mStatus, startTime, endTime, page);
+                mPresenter.queryBillingApply(userId,custom_code, keyword,mStatus, startTime, endTime, page);
             }
         }
     }
@@ -268,7 +273,7 @@ public class BillingRequestActivity extends BaseActivity<BillingQueryPresenter> 
                 break;
         }
         resetData();
-        mPresenter.queryBillingApply(userId, keyword,mStatus, "", "", page);
+        mPresenter.queryBillingApply(userId,custom_code, keyword,mStatus, "", "", page);
     }
     private void resetData(){
         page = 1;

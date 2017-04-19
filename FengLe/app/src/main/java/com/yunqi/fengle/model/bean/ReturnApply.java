@@ -13,6 +13,7 @@ public class ReturnApply implements Serializable{
     public String userid;
     public String order_code;
     public String client_name;
+    public String client_code;
     public String create_time;
     public int status;
     public String remark;

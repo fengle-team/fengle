@@ -108,7 +108,7 @@ public class PaymentDeclarationActivity extends BaseActivity<PaymentQueryPresent
         adapter = new PaymentTableDataAdapter(this, mlistPayment);
         tableViewEx.tableView.setDataAdapter(adapter);
         initRadioGroup();
-        mPresenter.queryPayment(userId, status,keyword, "", "", page);
+        mPresenter.queryPayment(userId,"", status,keyword, "", "", page);
         setWidgetListener();
 
     }
@@ -147,7 +147,7 @@ public class PaymentDeclarationActivity extends BaseActivity<PaymentQueryPresent
                     ToastUtil.showNoticeToast(PaymentDeclarationActivity.this, getString(R.string.warming_time_select));
                     return;
                 }
-                mPresenter.queryPayment(userId, status,keyword, lastStartTime, lastEndTime, ++page);
+                mPresenter.queryPayment(userId,"", status,keyword, lastStartTime, lastEndTime, ++page);
             }
         });
         tableViewEx.setOnLoadRetryListener(new ExTableView.OnLoadRetryListener() {
@@ -157,7 +157,7 @@ public class PaymentDeclarationActivity extends BaseActivity<PaymentQueryPresent
                     ToastUtil.showNoticeToast(PaymentDeclarationActivity.this, getString(R.string.warming_time_select));
                     return;
                 }
-                mPresenter.queryPayment(userId, status,keyword, lastStartTime, lastEndTime, page);
+                mPresenter.queryPayment(userId,"", status,keyword, lastStartTime, lastEndTime, page);
             }
         });
         RxView.clicks(btnQuery)
@@ -173,7 +173,7 @@ public class PaymentDeclarationActivity extends BaseActivity<PaymentQueryPresent
                         keyword=editKeyword.getText().toString();
                         lastStartTime = startTime;
                         lastEndTime = endTime;
-                        mPresenter.queryPayment(userId, status,keyword, startTime, endTime, page);
+                        mPresenter.queryPayment(userId,"",status,keyword, startTime, endTime, page);
                     }
                 });
         RxView.clicks(btnStartTime)
@@ -269,7 +269,7 @@ public class PaymentDeclarationActivity extends BaseActivity<PaymentQueryPresent
                 break;
         }
         resetData();
-        mPresenter.queryPayment(userId, status,keyword, "", "", page);
+        mPresenter.queryPayment(userId,"", status,keyword, "", "", page);
     }
     private void resetData(){
         page = 1;
@@ -324,7 +324,7 @@ public class PaymentDeclarationActivity extends BaseActivity<PaymentQueryPresent
         if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
             if(status==1){
                 page=1;
-                mPresenter.queryPayment(userId, status,keyword, lastStartTime, lastEndTime, page);
+                mPresenter.queryPayment(userId,"", status,keyword, lastStartTime, lastEndTime, page);
             }
         }
     }

@@ -28,6 +28,6 @@ public interface TransferRequestContract {
          * @param page 页码
          * @return
          */
-        void queryTransferApply(String userid, String keyword, int status, String startTime, String endTime, final int page);
+        void queryTransferApply(String userid,String custom_code, String keyword, int status, String startTime, String endTime, final int page);
     }
 }

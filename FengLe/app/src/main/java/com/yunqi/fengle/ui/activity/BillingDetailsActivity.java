@@ -214,6 +214,7 @@ public class BillingDetailsActivity extends BaseActivity<BillingDetailsPresenter
                             }
                             intent.putExtra("goodsArray",goodsArray);
                         }
+                        intent.putExtra("customer_code",billingApply.client_code);
                         intent.putExtra("module",BillingDetailsActivity.this.getClass().getName());
                         startActivityForResult(intent, SELECT_GOODS_REQUEST_CODE);
                     }

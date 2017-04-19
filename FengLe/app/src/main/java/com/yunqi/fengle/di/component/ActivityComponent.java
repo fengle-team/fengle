@@ -15,6 +15,7 @@ import com.yunqi.fengle.ui.activity.ActivitySummaryActivity;
 import com.yunqi.fengle.ui.activity.AddBillingRequestActivity;
 import com.yunqi.fengle.ui.activity.AddReturnRequestActivity;
 import com.yunqi.fengle.ui.activity.AreaQueryActivity;
+import com.yunqi.fengle.ui.activity.BankCodeActivity;
 import com.yunqi.fengle.ui.activity.BillingDetailsActivity;
 import com.yunqi.fengle.ui.activity.BillingRequestActivity;
 import com.yunqi.fengle.ui.activity.CustomerWholeActivity;
@@ -185,6 +186,8 @@ public interface ActivityComponent {
     void inject(AchievementManagerActivity activity);
 
     void inject(CustomerWholeActivity activity);
+
+    void inject(BankCodeActivity activity);
 
 //    void inject(MessageActivity activity);
 }

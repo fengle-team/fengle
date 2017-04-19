@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.yunqi.fengle.R;
+import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
 import com.yunqi.fengle.model.bean.Goods;
 import com.yunqi.fengle.model.bean.GoodsAndWarehouse;
@@ -61,11 +62,12 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
     private ArrayList<GoodsAndWarehouse> listSelectGoods = new ArrayList<>();
     private int type = 0;//0：表示根据用户查询货物 1：表示根据仓库查询货物
     private String module = "";
-    private String user_code = "";
+    private String customer_code = "";
     private String warehouse_code = "";
     private String maxGoodsNumTip;
     private String hintGoodsNum;
     public ArrayList<GoodsAndWarehouse> goodsArray;
+    private boolean isTransfer=false;
 
     @Override
     protected void initInject() {
@@ -82,12 +84,16 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
         goodsArray = (ArrayList<GoodsAndWarehouse>) getIntent().getSerializableExtra("goodsArray");
         type = getIntent().getIntExtra("type", 0);
         module = getIntent().getStringExtra("module");
+        customer_code = getIntent().getStringExtra("customer_code");
+//        customer_code = "205070004";
         if (module.equals(AddDeliveryRequestActivity.class.getName()) || module.equals(DeliveryDetailsActivity.class.getName())) {
             maxGoodsNumTip = getString(R.string.tip_max_goods_num_delivery);
             hintGoodsNum = getString(R.string.hint_edit_num_delivery);
+            customer_code = "";
         } else if (module.equals(AddTransferRequestActivity.class.getName()) || module.equals(TransferDetailsActivity.class.getName())) {
             maxGoodsNumTip = getString(R.string.tip_max_goods_num_transfer);
             hintGoodsNum = getString(R.string.hint_edit_num_transfer);
+            isTransfer=true;
         } else if (module.equals(AddReturnRequestActivity.class.getName()) || module.equals(ReturnDetailsActivity.class.getName())) {
             maxGoodsNumTip = getString(R.string.tip_max_goods_num_return);
             hintGoodsNum = getString(R.string.hint_edit_num_return);
@@ -100,8 +106,6 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
         }
         if (type == 1) {
             rlayoutSelectWarehouse.setVisibility(View.VISIBLE);
-        } else {
-            user_code = getIntent().getStringExtra("userid");
         }
         setToolBar(toolbar, getString(R.string.module_goods_query));
         setWigetListener();
@@ -113,7 +117,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
         columnModel.setColumnWeight(2, 1);
         columnModel.setColumnWeight(3, 1);
         tableViewEx.tableView.setColumnModel(columnModel);
-        mPresenter.queryGoods(keyword, user_code, warehouse_code, page);
+        mPresenter.queryGoods(keyword, customer_code, warehouse_code, page);
     }
 
     @Override
@@ -130,14 +134,14 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
         tableViewEx.setOnLoadMoreListener(new ExTableView.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                mPresenter.queryGoods(keyword, user_code, warehouse_code, ++page);
+                mPresenter.queryGoods(keyword, customer_code, warehouse_code, ++page);
             }
         });
 
         tableViewEx.setOnLoadRetryListener(new ExTableView.OnLoadRetryListener() {
             @Override
             public void onLoadRetry() {
-                mPresenter.queryGoods(keyword, user_code, warehouse_code, page);
+                mPresenter.queryGoods(keyword, customer_code, warehouse_code, page);
             }
         });
         RxView.clicks(btnSelectWarehouse)
@@ -156,7 +160,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
                     public void call(Void aVoid) {
                         page = 1;
                         keyword = editGoodsKeyword.getText().toString();
-                        mPresenter.queryGoods(keyword, user_code, warehouse_code, page);
+                        mPresenter.queryGoods(keyword, customer_code, warehouse_code, page);
                     }
                 });
         tableViewEx.tableView.addDataClickListener(new TableDataClickListener<Goods>() {
@@ -174,10 +178,8 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
                             goods_num -= goodsAndWarehouse.goods.goods_num;
                         }
                     }
-                }
-                else
-                {
-                    goodsArray=new ArrayList<GoodsAndWarehouse>();
+                } else {
+                    goodsArray = new ArrayList<GoodsAndWarehouse>();
                 }
                 if (goods_num > 0) {
                     InputDialog dialog = new InputDialog(GoodsQueryActivity.this, goods_num, maxGoodsNumTip, hintGoodsNum, goods, new InputDialog.OnConfirmListener() {
@@ -285,18 +287,14 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
 
     @Override
     public void showContent(List<Goods> listGoods) {
-        if (listGoods.isEmpty()) {
-            Log.w(TAG, "No data!");
-            mListGoods.clear();
-            adapter.notifyDataSetChanged();
-            tableViewEx.setEmptyData();
-            return;
-        }
-        tableViewEx.setLoadMoreEnabled(true);
-        mListGoods.clear();
-        mListGoods.addAll(listGoods);
+        mListGoods = listGoods;
         adapter = new GoodsTableDataAdapter(this, mListGoods);
         tableViewEx.tableView.setDataAdapter(adapter);
+        if (mListGoods.isEmpty()) {
+            tableViewEx.setEmptyData();
+        } else {
+            tableViewEx.setLoadMoreEnabled(true);
+        }
     }
 
     @Override
@@ -319,7 +317,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
             warehouse_code = selectedWarehouse.warehouse_code;
             btnSelectWarehouse.setText(selectedWarehouse.name);
             page = 1;
-            mPresenter.queryGoods(keyword, user_code, warehouse_code, page);
+            mPresenter.queryGoods(keyword, customer_code, warehouse_code, page);
         }
     }
 }

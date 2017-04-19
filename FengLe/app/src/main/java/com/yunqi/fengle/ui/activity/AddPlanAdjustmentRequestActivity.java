@@ -67,6 +67,7 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
 
 
     private String userId = "";
+    private String custom_code = "";
     private int mStatus = 0;
     public String clientName = "";
     public ArrayList<GoodsAndWarehouse> goodsArray = new ArrayList<>();
@@ -87,6 +88,7 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
     @Override
     protected void initEventAndData() {
         userId= App.getInstance().getUserInfo().id;
+        custom_code= App.getInstance().getUserInfo().user_code;
         outArea=new Area();
         outArea.area_code=App.getInstance().getUserInfo().area_code;
         outArea.name=App.getInstance().getUserInfo().name;
@@ -142,12 +144,9 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
-//                        if(outArea==null){
-//                            ToastUtil.showNoticeToast(AddPlanAdjustmentRequestActivity.this,getString(R.string.warimg_unselect_area));
-//                            return;
-//                        }
                         Intent intent = new Intent(AddPlanAdjustmentRequestActivity.this, GoodsQueryActivity.class);
                         intent.putExtra("userid",userId);
+                        intent.putExtra("customer_code",custom_code);
                         intent.putExtra("module",AddPlanAdjustmentRequestActivity.this.getClass().getName());
                         if(!goodsArray.isEmpty()){
                             intent.putExtra("goodsArray",goodsArray);
