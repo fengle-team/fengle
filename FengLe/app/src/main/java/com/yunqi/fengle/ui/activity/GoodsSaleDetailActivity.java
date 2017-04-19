@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.base.BaseActivity;
 import com.yunqi.fengle.model.bean.GoodsSaleDetail;
+import com.yunqi.fengle.model.bean.SaleInfo;
 import com.yunqi.fengle.presenter.GoodsSaleDetailPresenter;
 import com.yunqi.fengle.presenter.contract.GoodsSaleDetailContract;
 import butterknife.BindView;
@@ -56,8 +57,21 @@ public class GoodsSaleDetailActivity extends BaseActivity<GoodsSaleDetailPresent
     @Override
     protected void initEventAndData() {
         setToolBar(toolBar, getString(R.string.module_goods_sale_detail));
-        String sale_id=getIntent().getExtras().getString("sale_id");
-        mPresenter.getGoodsSaleDetail(sale_id);
+        SaleInfo saleInfo= (SaleInfo) getIntent().getExtras().getSerializable("saleInfo");
+        showContent(saleInfo);
+    }
+    public void showContent(SaleInfo saleInfo) {
+        txtCustomerName.setText(saleInfo.ccusname);
+        txtStockName.setText(saleInfo.存货名称);
+        txtBeginCount.setText(saleInfo.期初数量+"");
+        txtDeliverTonnage.setText(saleInfo.发货吨位+"");
+        txtTransferTonnage.setText(saleInfo.调货吨位+"");
+        txtReturnTonnage.setText(saleInfo.退货吨位+"");
+        txtConsignmentValue.setText(saleInfo.代销市值+"");
+        txtBillingAmount.setText(saleInfo.开票金额+"");
+        txtTaxAmount.setText(saleInfo.含税金额+"");
+        txtBinllingTonnage.setText(saleInfo.开票吨位+"");
+        txtTotalPrice.setText(saleInfo.合计欠结+"");
     }
     @Override
     public void showContent(GoodsSaleDetail goodsSaleDetail) {

@@ -105,7 +105,9 @@ public class CustomerQueryActivity extends BaseActivity<CustomerQueryPresenter> 
                             } else {
                                 intent = new Intent(CustomerQueryActivity.this, SalesDetailActivity.class);
                             }
-                            intent.putExtra("customerId", customer.id);
+                            intent.putExtra("customer_name", customer.name);
+                            intent.putExtra("ccdcode", customer.area_code);
+                            intent.putExtra("customer_code", customer.custom_code);
                             startActivity(intent);
                         }
                     });

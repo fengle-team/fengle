@@ -166,7 +166,7 @@ public interface ApiService {
      * 查询货物接口
      */
     @GET("goods/getFromDispatch")
-    Observable<CommonHttpRsp<List<Goods>>> queryGoodsFromDispatch(@Query("keyword") String keyword,@Query("custom_code")String custom_code,@Query("page") int page,@Query("size") int size);
+    Observable<CommonHttpRsp<List<Goods>>> queryGoodsFromDispatch(@Query("keyword") String keyword,@Query("custom_code")String custom_code,@Query("user_code")String user_code,@Query("page") int page,@Query("size") int size);
 
     /**
      * 查询活动 {@link com.yunqi.fengle.ui.activity.ActivityPlanActivity}
@@ -697,7 +697,7 @@ public interface ApiService {
      * 客户往来详情查询
      */
     @GET("custom/get_wanglai")
-    Observable<CommonHttpRsp<CustomerContactDetail>> queryCustomerContact(@Query("id") String id);
+    Observable<CommonHttpRsp<CustomerContactDetail>> queryCustomerContact(@Query("user_code")String user_code,@Query("custom_code")String custom_code);
     /**
      * 获取公告
      *
@@ -765,13 +765,15 @@ public interface ApiService {
      * 查询货物销售明细接口
      * @param start_time 开始时间
      * @param end_time  结束时间
-     * @param goods_id  货物Id
+     * @param ccuscode  客户编码
+     * @param cpersoncode  业务员编码
+     * @param ccdcode  客户地区编码
      * @param page 页码
      * @param size 大小
      * @return
      */
     @GET("goods/sale_detail")
-    Observable<CommonHttpRsp<List<SaleInfo>>> querySales(@Query("start_time") String start_time, @Query("end_time") String end_time,@Query("goods_id") String goods_id, @Query("page") int page, @Query("size") int size);
+    Observable<CommonHttpRsp<List<SaleInfo>>> querySales(@Query("sdate1") String start_time, @Query("sdate2") String end_time,@Query("ccuscode") String ccuscode, @Query("cpersoncode") String cpersoncode, @Query("ccdcode") String ccdcode);
 
 
 }

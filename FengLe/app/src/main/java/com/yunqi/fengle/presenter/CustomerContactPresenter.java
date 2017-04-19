@@ -31,8 +31,8 @@ public class CustomerContactPresenter extends RxPresenter<CustomerContactContrac
 
 
     @Override
-    public void queryCustomerContact(String id) {
-        Subscription rxSubscription = mRetrofitHelper.queryCustomerContact(id)
+    public void queryCustomerContact(String user_code,String custom_code) {
+        Subscription rxSubscription = mRetrofitHelper.queryCustomerContact(user_code,custom_code)
                 .compose(RxUtil.<CommonHttpRsp<CustomerContactDetail>>rxSchedulerHelper())
                 .compose(RxUtil.<CustomerContactDetail>handleResult())
                 .subscribe(new ExSubscriber<CustomerContactDetail>(mView) {

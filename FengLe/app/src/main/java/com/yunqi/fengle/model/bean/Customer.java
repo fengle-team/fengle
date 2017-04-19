@@ -15,6 +15,7 @@ public class Customer implements Serializable{
     public String custom_code;
     public int type;
     public String userid;
+    public String area_code;
 
     public Customer(String id, String name) {
         this.id = id;

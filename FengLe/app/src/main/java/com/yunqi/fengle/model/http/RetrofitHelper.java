@@ -274,15 +274,15 @@ public class RetrofitHelper {
 
     /**
      * 查询货物销售明细接口
-     *
      * @param startTime 开始时间
-     * @param endTime   结束时间
-     * @param goods_id  货物Id
-     * @param page      页码
+     * @param endTime  结束时间
+     * @param ccuscode  客户编码
+     * @param cpersoncode  业务员编码
+     * @param ccdcode  客户地区编码
      * @return
      */
-    public Observable<CommonHttpRsp<List<SaleInfo>>> querySales(String startTime, String endTime, String goods_id, int page) {
-        return apiService.querySales(startTime, endTime, goods_id, page, PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<SaleInfo>>> querySales(String startTime, String endTime, String ccuscode, String cpersoncode, String ccdcode) {
+        return apiService.querySales(startTime, endTime, ccuscode,cpersoncode,ccdcode);
     }
 
     /**
@@ -294,11 +294,11 @@ public class RetrofitHelper {
      * @param page           页码
      * @return
      */
-    public Observable<CommonHttpRsp<List<Goods>>> queryGoods(String keyword, String custom_code, String warehouse_code, int page) {
+    public Observable<CommonHttpRsp<List<Goods>>> queryGoods(String keyword, String custom_code,String user_code, String warehouse_code, int page) {
         if (TextUtils.isEmpty(custom_code)) {
             return apiService.queryGoods(keyword, warehouse_code, page, PAGE_SIZE);
         }
-        return apiService.queryGoodsFromDispatch(keyword, custom_code, page, PAGE_SIZE);
+        return apiService.queryGoodsFromDispatch(keyword, custom_code,user_code, page, PAGE_SIZE);
     }
 
     /**
@@ -977,13 +977,13 @@ public class RetrofitHelper {
     }
 
     /**
-     * 客户查询
-     *
-     * @param id 客户id
+     * 客户往来详情查询
+     * @param user_code 用户id
+     ** @param user_code 客户code
      * @return
      */
-    public Observable<CommonHttpRsp<CustomerContactDetail>> queryCustomerContact(String id) {
-        return apiService.queryCustomerContact(id);
+    public Observable<CommonHttpRsp<CustomerContactDetail>> queryCustomerContact(String user_code,String custom_code) {
+        return apiService.queryCustomerContact(user_code,custom_code);
     }
 
 

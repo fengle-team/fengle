@@ -27,7 +27,7 @@ public interface GoodsQueryContract {
          * @param page 页码
          * @return
          */
-        void queryGoods(String keyword, String user_code, String warehouse_code,int page);
+        void queryGoods(String keyword, String customer_code,String user_code, String warehouse_code,int page);
 
     }
 }

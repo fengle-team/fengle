@@ -26,7 +26,7 @@ public class ExTableView<T> extends RelativeLayout {
     public TableView tableView;
     Button btnLoadmore;
     private int loadType = 0;//0：表示加载更多 1：表示尝试重新加载
-
+    private int mode;
     public ExTableView(Context context, AttributeSet attributes, int styleAttributes) {
         super(context, attributes, styleAttributes);
         this.mcontext = context;
@@ -48,6 +48,9 @@ public class ExTableView<T> extends RelativeLayout {
 
 
     public void setOnLoadMoreListener(OnLoadMoreListener listener) {
+        if(mode==Mode.ONLY_LIST){
+            return;
+        }
         this.loadMoreListener = listener;
     }
 
@@ -56,6 +59,9 @@ public class ExTableView<T> extends RelativeLayout {
     }
 
     public void setLoadMoreEnabled(boolean loadMoreEnabled) {
+        if(mode==Mode.ONLY_LIST){
+            return;
+        }
         this.loadType = 0;
         if (loadMoreEnabled) {
             btnLoadmore.setClickable(true);
@@ -66,6 +72,15 @@ public class ExTableView<T> extends RelativeLayout {
             btnLoadmore.setText("已经到最后一页了");
             btnLoadmore.setAlpha(0.7f);
         }
+    }
+
+    public void setMode(int mode){
+        this.mode=mode;
+        btnLoadmore.setText("共计0条记录");
+    }
+
+    public void setRecordCount(int count){
+        btnLoadmore.setText("共计"+count+"条记录");
     }
 
 
@@ -116,5 +131,8 @@ public class ExTableView<T> extends RelativeLayout {
         void onLoadRetry();
 
     }
-
+    public  class Mode{
+        public static final int MODE_LOADMORE=0;
+        public static final int ONLY_LIST=1;
+    }
 }

@@ -10,6 +10,7 @@ import android.widget.Button;
 
 import com.jakewharton.rxbinding.view.RxView;
 import com.yunqi.fengle.R;
+import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
 import com.yunqi.fengle.model.bean.Goods;
 import com.yunqi.fengle.model.bean.SaleInfo;
@@ -31,6 +32,7 @@ import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
 import de.codecrafters.tableview.listeners.TableDataClickListener;
+import de.codecrafters.tableview.model.TableColumnWeightModel;
 import rx.functions.Action1;
 
 
@@ -52,14 +54,17 @@ public class SalesDetailActivity extends BaseActivity<SaleDetailPresenter> imple
     Button btnEndTime;
     private String startTime = "";
     private String endTime = "";
-    private String lastStartTime = null;
-    private String lastEndTime = null;
+    private String lastStartTime = "";
+    private String lastEndTime = "";
     private List<SaleInfo> mlistSaleInfo=new ArrayList<>();
     private SaleTableDataAdapter adapter;
     private String goods_id;
     private int page=1;
     private long lstartTime = 0;
     private long lendTime = 0;
+    private String ccuscode;//客户编码
+    private String cpersoncode;//业务员编码
+    private String ccdcode;//客户地区编码
 
     @Override
     protected void initInject() {
@@ -74,12 +79,20 @@ public class SalesDetailActivity extends BaseActivity<SaleDetailPresenter> imple
     @Override
     protected void initEventAndData() {
         setToolBar(toolbar, getString(R.string.module_sales_detail));
+        cpersoncode= App.getInstance().getUserInfo().user_code;
+        ccuscode=getIntent().getStringExtra("customer_code");
+        ccdcode=getIntent().getStringExtra("ccdcode");
         final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_sales_detail));
         tableViewEx.tableView.setHeaderAdapter(tableHeader1Adapter);
         tableViewEx.tableView.setColumnCount(4);
+        TableColumnWeightModel columnModel = new TableColumnWeightModel(4);
+        columnModel.setColumnWeight(0, 3);
+        columnModel.setColumnWeight(1, 2);
+        columnModel.setColumnWeight(2, 2);
+        columnModel.setColumnWeight(3, 1);
+        tableViewEx.tableView.setColumnModel(columnModel);
+        tableViewEx.setMode(ExTableView.Mode.ONLY_LIST);
         setWidgetListener();
-        mPresenter.querySales("","",goods_id,page);
-
     }
 
     private void setWidgetListener() {
@@ -87,8 +100,7 @@ public class SalesDetailActivity extends BaseActivity<SaleDetailPresenter> imple
             @Override
             public void onDataClicked(int rowIndex, SaleInfo saleInfo) {
                     Intent intent=new Intent(SalesDetailActivity.this,GoodsSaleDetailActivity.class);
-                    intent.putExtra("goods_code",saleInfo.goods_code);
-                    intent.putExtra("sale_id",saleInfo.id);
+                    intent.putExtra("saleInfo",saleInfo);
                     startActivity(intent);
             }
         });
@@ -104,7 +116,7 @@ public class SalesDetailActivity extends BaseActivity<SaleDetailPresenter> imple
                         }
                         lastStartTime = startTime;
                         lastEndTime = endTime;
-                        mPresenter.querySales(startTime,endTime,goods_id,page);
+                        mPresenter.querySales(startTime,endTime,ccuscode,cpersoncode,ccdcode);
                     }
                 });
         RxView.clicks(btnStartTime)
@@ -139,16 +151,10 @@ public class SalesDetailActivity extends BaseActivity<SaleDetailPresenter> imple
                         dialog.show();
                     }
                 });
-        tableViewEx.setOnLoadMoreListener(new ExTableView.OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                mPresenter.querySales(lastStartTime,lastEndTime,goods_id,++page);
-            }
-        });
         tableViewEx.setOnLoadRetryListener(new ExTableView.OnLoadRetryListener() {
             @Override
             public void onLoadRetry() {
-                mPresenter.querySales(lastStartTime,lastEndTime,goods_id,page);
+                mPresenter.querySales(lastStartTime,lastEndTime,ccuscode,cpersoncode,ccdcode);
             }
         });
     }
@@ -175,27 +181,14 @@ public class SalesDetailActivity extends BaseActivity<SaleDetailPresenter> imple
 
     @Override
     public void showContent(List<SaleInfo> listSaleInfo) {
-        if (listSaleInfo.isEmpty()) {
-            Log.w(TAG, "No data!");
-            tableViewEx.setEmptyData();
-            return;
+        if(listSaleInfo.size()>0){
+            tableViewEx.setRecordCount(listSaleInfo.size());
         }
-        tableViewEx.setLoadMoreEnabled(true);
-        mlistSaleInfo.clear();
-        mlistSaleInfo.addAll(listSaleInfo);
+        else {
+            tableViewEx.setEmptyData();
+        }
+        mlistSaleInfo=listSaleInfo;
         adapter = new SaleTableDataAdapter(this, mlistSaleInfo);
         tableViewEx.tableView.setDataAdapter(adapter);
-    }
-
-    @Override
-    public void showMoreContent(List<SaleInfo> listMoreSaleInfo) {
-        if (listMoreSaleInfo.isEmpty()) {
-            tableViewEx.setLoadMoreEnabled(false);
-            Log.w(TAG, "No more data!");
-            return;
-        }
-        tableViewEx.setLoadMoreEnabled(true);
-        mlistSaleInfo.addAll(listMoreSaleInfo);
-        adapter.notifyDataSetChanged();
     }
 }
