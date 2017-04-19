@@ -2,11 +2,13 @@ package com.yunqi.fengle.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.RadioGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -53,14 +55,25 @@ import butterknife.OnClick;
  * @Description: 活动总结 {@link ActivitiesManagerActivity}
  */
 
-public class ActivitySummaryActivity extends BaseActivity<ActivitySummaryPresenter> {
+public class ActivitySummaryActivity extends BaseActivity<ActivitySummaryPresenter> implements RadioGroup.OnCheckedChangeListener{
 
     @BindView(R.id.rvList)
     RecyclerView rvList;
     @BindView(R.id.swipe)
     SwipyRefreshLayout swipe;
 
+    @BindView(R.id.rgRank)
+    RadioGroup rgRank;
+
     private ActivityPlanAdapter adapter;
+
+    private final String STATUS_1 = "1";//暂存
+    private final String STATUS_2 = "2";//提交待处理
+    private final String STATUS_3 = "3";//审核通过
+    private final String STATUS_4 = "4";//驳回
+
+    //1=暂存 2=提交待处理 3=审核通过 4=驳回
+    private String status = STATUS_1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,9 +82,16 @@ public class ActivitySummaryActivity extends BaseActivity<ActivitySummaryPresent
         setTitleText("活动总结");
 
         initView();
+        initRadio();
+
         progresser.showProgress();
 
         initData();
+    }
+
+    private void initRadio() {
+        rgRank.setOnCheckedChangeListener(this);
+        rgRank.check(R.id.rbBtn1);
     }
 
     private void initView() {
@@ -108,8 +128,26 @@ public class ActivitySummaryActivity extends BaseActivity<ActivitySummaryPresent
         startActivity(mIntent);
     }
 
+    @Override
+    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+        int id = group.getCheckedRadioButtonId();
+        switch (id) {
+            case R.id.rbBtn1://待处理
+                status = STATUS_1;
+                break;
+            case R.id.rbBtn2://未完成
+                status = STATUS_2;
+                break;
+            case R.id.rbBtn3://历史单据
+                status = STATUS_3;
+                break;
+        }
+        progresser.showProgress();
+        initData();
+    }
+
     private void initData() {
-        mPresenter.showData(new ResponseListener() {
+        mPresenter.showData(status,new ResponseListener() {
             @Override
             public void onSuccess(NetResponse response) {
                 List<ActivityAddResponse> responseList = (List<ActivityAddResponse>) response.getResult();
@@ -140,7 +178,7 @@ public class ActivitySummaryActivity extends BaseActivity<ActivitySummaryPresent
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_recycler_view;
+        return R.layout.activity_recycler_view2;
     }
 
     @Override

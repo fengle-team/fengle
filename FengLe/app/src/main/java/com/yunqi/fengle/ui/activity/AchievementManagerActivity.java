@@ -42,7 +42,7 @@ public class AchievementManagerActivity extends BaseActivity<AchievementManagerP
         showTitleBack();
         setTitleText("业绩管理");
         initView();
-//        getData();
+        getData();
     }
 
     private void getData() {

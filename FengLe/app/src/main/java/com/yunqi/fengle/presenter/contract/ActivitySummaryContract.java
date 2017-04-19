@@ -17,7 +17,7 @@ public interface ActivitySummaryContract {
     }
 
     interface Presenter extends BasePresenter<ActivitySummaryContract.View> {
-        void showData(final ResponseListener listener);
+        void showData(String status,final ResponseListener listener);
 //        void getData(ResponseListener listener);
     }
 }

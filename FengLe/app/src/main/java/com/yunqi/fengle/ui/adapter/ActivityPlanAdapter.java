@@ -19,6 +19,8 @@ import java.util.List;
 
 public class ActivityPlanAdapter extends BaseQuickAdapter<ActivityAddResponse,BaseViewHolder>{
 
+    private int selectStatus = 1;
+
     public ActivityPlanAdapter() {
         super(R.layout.item_activity_plan);
     }
@@ -36,5 +38,9 @@ public class ActivityPlanAdapter extends BaseQuickAdapter<ActivityAddResponse,Ba
         ((TextView)helper.getView(R.id.tvBaoxiaoBudget)).setText(item.getBaoxiao_budget() + "");
         ((TextView)helper.getView(R.id.tvStartTime)).setText(DateUtil.formatB(item.getStart_time()));
         ((TextView)helper.getView(R.id.tvEndTime)).setText(DateUtil.formatB(item.getEnd_time()));
+    }
+
+    public void setSelectStatus(int selectStatus) {
+        this.selectStatus = selectStatus;
     }
 }

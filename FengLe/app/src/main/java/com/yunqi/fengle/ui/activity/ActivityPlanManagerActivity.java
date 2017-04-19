@@ -2,11 +2,15 @@ package com.yunqi.fengle.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.RadioGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.base.BaseActivity;
 import com.yunqi.fengle.model.response.ActivityAddResponse;
@@ -35,7 +39,18 @@ import rx.functions.Action1;
  *              {@link ActivitiesManagerActivity}
  */
 
-public class ActivityPlanManagerActivity extends BaseActivity<ActivityPlanPresenter> implements ActivityPlanContract.View{
+public class ActivityPlanManagerActivity extends BaseActivity<ActivityPlanPresenter> implements ActivityPlanContract.View,RadioGroup.OnCheckedChangeListener{
+
+    private final String STATUS_1 = "1";//暂存
+    private final String STATUS_2 = "2";//提交待处理
+    private final String STATUS_3 = "3";//审核通过
+    private final String STATUS_4 = "4";//驳回
+
+    //1=暂存 2=提交待处理 3=审核通过 4=驳回
+    private String status = STATUS_1;
+
+    @BindView(R.id.rgRank)
+    RadioGroup rgRank;
 
     @BindView(R.id.rvList)
     RecyclerView rvList;
@@ -48,6 +63,8 @@ public class ActivityPlanManagerActivity extends BaseActivity<ActivityPlanPresen
 
     public static String RX_TAG = "ActivityPlanManagerActivityTAG";
 
+    List<ActivityAddResponse> responseList;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +74,7 @@ public class ActivityPlanManagerActivity extends BaseActivity<ActivityPlanPresen
         initView();
 
         progresser.showProgress();
-        initData();
+        initRadio();
 
         addOb = RxBus.get().register(ActivityPlanManagerActivity.RX_TAG, Boolean.class);
         addOb.observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<Boolean>() {
@@ -72,11 +89,37 @@ public class ActivityPlanManagerActivity extends BaseActivity<ActivityPlanPresen
         });
     }
 
+    private void initRadio() {
+        rgRank.setOnCheckedChangeListener(this);
+        rgRank.check(R.id.rbBtn1);
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+        int id = group.getCheckedRadioButtonId();
+        switch (id) {
+            case R.id.rbBtn1://待处理
+                status = STATUS_1;
+                adapter.setSelectStatus(1);
+                break;
+            case R.id.rbBtn2://未完成
+                status = STATUS_2;
+                adapter.setSelectStatus(2);
+                break;
+            case R.id.rbBtn3://历史单据
+                status = STATUS_3;
+                adapter.setSelectStatus(3);
+                break;
+        }
+        progresser.showProgress();
+        initData();
+    }
+
     private void initData() {
-        mPresenter.showData(new ResponseListener() {
+        mPresenter.showData(status,new ResponseListener() {
             @Override
             public void onSuccess(NetResponse response) {
-                List<ActivityAddResponse> responseList = (List<ActivityAddResponse>) response.getResult();
+                responseList = (List<ActivityAddResponse>) response.getResult();
                 adapter.setNewData(responseList);
                 progresser.showContent();
                 swipe.setRefreshing(false);
@@ -106,6 +149,19 @@ public class ActivityPlanManagerActivity extends BaseActivity<ActivityPlanPresen
         rvList.addItemDecoration(new RecycleViewDivider(this,RecycleViewDivider.VERTICAL_LIST));
 
         adapter = new ActivityPlanManagerAdapter();
+
+        rvList.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter1, View view, int position) {
+                if (adapter.getSelectStatus() == 1) {
+                    Intent mIntent = new Intent();
+                    mIntent.setClass(ActivityPlanManagerActivity.this, ActivityPlanUpdateActivity.class);
+                    mIntent.putExtra(ActivityPlanUpdateActivity.TAG, responseList.get(position));
+                    ActivityPlanManagerActivity.this.startActivity(mIntent);
+                }
+            }
+        });
+
         rvList.setAdapter(adapter);
     }
 
@@ -127,7 +183,7 @@ public class ActivityPlanManagerActivity extends BaseActivity<ActivityPlanPresen
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_recycler_view;
+        return R.layout.activity_recycler_view2;
     }
 
     @Override
@@ -152,6 +208,7 @@ public class ActivityPlanManagerActivity extends BaseActivity<ActivityPlanPresen
 
     @Override
     protected void onDestroy() {
+        RxBus.get().unregister(ActivityPlanManagerActivity.RX_TAG, addOb);
         mPresenter.unSubscribe();
         super.onDestroy();
     }

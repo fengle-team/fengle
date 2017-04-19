@@ -175,7 +175,7 @@ public interface ApiService {
      * @return
      */
     @GET("action/get")
-    Observable<CommonHttpRsp<List<ActivityAddResponse>>> queryActivities(@Query("userid") String userid);
+    Observable<CommonHttpRsp<List<ActivityAddResponse>>> queryActivities(@Query("status") String status,@Query("userid") String userid);
 
     /**
      * 添加活动计划
@@ -204,6 +204,15 @@ public interface ApiService {
      */
     @POST("visite_plan/update_status")
     Observable<BaseHttpRsp> updateVisiteStatus(@Body VisitingUpdateRequest request);
+
+    /**
+     * 更新活动计划审核
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("action/approval")
+    Observable<BaseHttpRsp> updatePlanStatus(@Field("userid")String userid,@Field("order_code")String order_code,@Field("status")String status);
 
     /**
      * 发货申请添加

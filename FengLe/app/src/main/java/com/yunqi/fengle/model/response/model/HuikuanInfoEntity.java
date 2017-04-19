@@ -89,10 +89,17 @@ public class HuikuanInfoEntity {
         }
 
         public String getHuikuan_time() {
+            if (huikuan_time == null) {
+                huikuan_time = "";
+            }
             return huikuan_time;
         }
 
         public void setHuikuan_time(String huikuan_time) {
+            if (huikuan_time == null) {
+                this.huikuan_time = "";
+                return;
+            }
             this.huikuan_time = huikuan_time;
         }
 

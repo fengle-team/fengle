@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        >
+
+        <RadioGroup
+            android:id="@+id/rgRank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/layout_bg1"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbBtn1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:text="待处理"
+                android:textSize="@dimen/text_small_size"
+                android:textColor="@color/color_selector3"
+                android:background="@drawable/table_radio"/>
+            <RadioButton
+                android:id="@+id/rbBtn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:text="未完成"
+                android:textSize="@dimen/text_small_size"
+                android:textColor="@color/color_selector3"
+                android:background="@drawable/table_radio"/>
+
+            <RadioButton
+                android:id="@+id/rbBtn3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@null"
+                android:text="历史单据"
+                android:textSize="@dimen/text_small_size"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="7dp"
+                android:paddingBottom="7dp"
+                android:textColor="@color/color_selector3"
+                android:background="@drawable/table_radio"/>
+        </RadioGroup>
+    </RelativeLayout>
+
+    <com.yunqi.fengle.ui.swipe.SwipyRefreshLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:direction="top">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.yunqi.fengle.ui.swipe.SwipyRefreshLayout>
+
+
+
+</LinearLayout>

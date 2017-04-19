@@ -2,11 +2,13 @@ package com.yunqi.fengle.presenter;
 
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.RxPresenter;
-import com.yunqi.fengle.model.bean.UserBean;
+import com.yunqi.fengle.model.http.BaseHttpRsp;
 import com.yunqi.fengle.model.http.CommonHttpRsp;
 import com.yunqi.fengle.model.http.RetrofitHelper;
 import com.yunqi.fengle.model.response.ActivityAddResponse;
 import com.yunqi.fengle.presenter.contract.ActivityPlanContract;
+import com.yunqi.fengle.presenter.contract.ActivityPlanUpdateContract;
+import com.yunqi.fengle.rx.BaseSubscriber;
 import com.yunqi.fengle.rx.ExSubscriber;
 import com.yunqi.fengle.util.RxUtil;
 import com.yunqi.fengle.util.map.NetResponse;
@@ -24,35 +26,31 @@ import rx.Subscription;
  * @Description: {@link com.yunqi.fengle.ui.activity.ActivityPlanActivity}
  */
 
-public class ActivityPlanPresenter extends RxPresenter<ActivityPlanContract.View> implements ActivityPlanContract.Presenter{
+public class ActivityPlanUpdatePresenter extends RxPresenter<ActivityPlanUpdateContract.View> implements ActivityPlanUpdateContract.Presenter{
 
     private RetrofitHelper mRetrofitHelper;
 
     @Inject
-    public ActivityPlanPresenter(RetrofitHelper retrofitHelper) {
+    public ActivityPlanUpdatePresenter(RetrofitHelper retrofitHelper) {
         this.mRetrofitHelper = retrofitHelper;
     }
 
 
     @Override
-    public void showData(String status,final ResponseListener listener) {
-
-        Subscription rxSubscription = mRetrofitHelper.queryActivities(status,App.getInstance().getUserInfo().id)
-                .compose(RxUtil.<CommonHttpRsp<List<ActivityAddResponse>>>rxSchedulerHelper())
-                .compose(RxUtil.<List<ActivityAddResponse>>handleResult())
-                .subscribe(new ExSubscriber<List<ActivityAddResponse>>(mView) {
+    public void updatePlanUpdateStatus(String userid, String order_code, String status, final ResponseListener listener) {
+        Subscription rxSubscription = mRetrofitHelper.updatePlanUpdateStatus(userid,order_code,status)
+                .compose(RxUtil.<BaseHttpRsp>rxSchedulerHelper())
+                .subscribe(new BaseSubscriber(mView) {
                     @Override
-                    protected void onSuccess(List<ActivityAddResponse> userBean) {
-                        listener.onSuccess(new NetResponse(0,"success",userBean));
+                    protected void onSuccess() {
+                        listener.onSuccess();
                     }
 
                     @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                        listener.onFaild(new NetResponse(-1,e.getMessage()));
+                    protected void onFailure(int errorCode, String msg) {
+                        listener.onFaild(new NetResponse(errorCode,msg));
                     }
                 });
-
         addSubscrebe(rxSubscription);
     }
 }

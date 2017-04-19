@@ -41,9 +41,9 @@ public class ActivitySummaryPresenter extends RxPresenter<ActivitySummaryContrac
     }
 
     @Override
-    public void showData(final ResponseListener listener) {
+    public void showData(String status,final ResponseListener listener) {
 
-        Subscription rxSubscription = mRetrofitHelper.queryActivities(App.getInstance().getUserInfo().id)
+        Subscription rxSubscription = mRetrofitHelper.queryActivities(status,App.getInstance().getUserInfo().id)
                 .compose(RxUtil.<CommonHttpRsp<List<ActivityAddResponse>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<ActivityAddResponse>>handleResult())
                 .subscribe(new ExSubscriber<List<ActivityAddResponse>>(mView) {

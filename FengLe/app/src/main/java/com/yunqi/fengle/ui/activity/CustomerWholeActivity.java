@@ -115,20 +115,28 @@ public class CustomerWholeActivity extends BaseActivity<CustomerWholePresenter> 
         mIntent.putExtra(TAG, customerWholeResponse.getCustom_code());
         if (itemType == CustomerWholeMultiItem.TYPE_VISIT)
         {//拜访
-            mIntent.setClass(this, VisitingPlanActivity.class);
-            startActivity(mIntent);
+            if (customerWholeResponse.getVisit_plan().getVisite_plan_count() > 0) {
+                mIntent.setClass(this, VisitingPlanActivity.class);
+                startActivity(mIntent);
+            }
         } else if(itemType == CustomerWholeMultiItem.TYPE_REFUND)
         {//退款
-            mIntent.setClass(this, ReturnRequestActivity.class);
-            startActivity(mIntent);
+            if (customerWholeResponse.getTuihuo_info().getTuihuo_count() > 0) {
+                mIntent.setClass(this, ReturnRequestActivity.class);
+                startActivity(mIntent);
+            }
         } else if(itemType == CustomerWholeMultiItem.TYPE_RETURN)
         {//回款
-            mIntent.setClass(this, PaymentQueryActivity.class);
-            startActivity(mIntent);
+            if (customerWholeResponse.getHuikuan_info().getHuikuan_count() > 0) {
+                mIntent.setClass(this, PaymentQueryActivity.class);
+                startActivity(mIntent);
+            }
         } else if(itemType == CustomerWholeMultiItem.TYPE_INVOICE)
         {//开票
-            mIntent.setClass(this, BillingRequestActivity.class);
-            startActivity(mIntent);
+            if (customerWholeResponse.getInvoce_info().getInvoice_count() > 0) {
+                mIntent.setClass(this, BillingRequestActivity.class);
+                startActivity(mIntent);
+            }
         } else if (itemType == CustomerWholeMultiItem.TYPE_EXPENS)
         {//用费
 
