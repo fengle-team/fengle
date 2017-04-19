@@ -79,10 +79,15 @@ public class CustomerWholeActivity extends BaseActivity<CustomerWholePresenter> 
 
             @Override
             public void onFaild(NetResponse response) {
-                progresser.showContent();
+                progresser.showError(true);
                 ToastUtil.toast(mContext,response.getMsg());
             }
         });
+    }
+
+    @Override
+    public void onRetry() {
+        initData();
     }
 
     private void initRecyclerView() {
