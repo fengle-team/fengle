@@ -68,18 +68,32 @@ public class InvoceInfoEntity {
         }
 
         public String getCreate_time() {
+            if (create_time == null) {
+                create_time = "";
+            }
             return create_time;
         }
 
         public void setCreate_time(String create_time) {
+            if (create_time == null) {
+                this.create_time = "";
+                return;
+            }
             this.create_time = create_time;
         }
 
         public String getOrder_code() {
+            if (order_code == null) {
+                order_code = "";
+            }
             return order_code;
         }
 
         public void setOrder_code(String order_code) {
+            if (order_code == null) {
+                this.order_code = "";
+                return;
+            }
             this.order_code = order_code;
         }
 

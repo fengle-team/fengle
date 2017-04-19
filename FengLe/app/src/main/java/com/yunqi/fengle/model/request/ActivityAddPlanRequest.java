@@ -26,6 +26,8 @@ public class ActivityAddPlanRequest {
     private String apply_name;//申请人姓名
     private String remark;//说明
 
+//    private int status = 2;
+
 
     public static ActivityAddPlanRequest getTest() {
         ActivityAddPlanRequest request = new ActivityAddPlanRequest();
@@ -167,4 +169,12 @@ public class ActivityAddPlanRequest {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+//    public int getStatus() {
+//        return status;
+//    }
+//
+//    public void setStatus(int status) {
+//        this.status = status;
+//    }
 }

@@ -63,6 +63,9 @@ public class VisitPlanEntity {
         }
 
         public String getClient_name() {
+            if (client_name == null) {
+                client_name = "";
+            }
             return client_name;
         }
 
@@ -71,10 +74,17 @@ public class VisitPlanEntity {
         }
 
         public String getPlan_time() {
+            if (plan_time == null) {
+                plan_time = "";
+            }
             return plan_time;
         }
 
         public void setPlan_time(String plan_time) {
+            if (plan_time == null) {
+                this.plan_time = "";
+                return;
+            }
             this.plan_time = plan_time;
         }
 
@@ -95,10 +105,17 @@ public class VisitPlanEntity {
         }
 
         public String getResponsible_name() {
+            if (responsible_name == null) {
+                responsible_name = "";
+            }
             return responsible_name;
         }
 
         public void setResponsible_name(String responsible_name) {
+            if (responsible_name == null) {
+                this.responsible_name = "";
+                return;
+            }
             this.responsible_name = responsible_name;
         }
 

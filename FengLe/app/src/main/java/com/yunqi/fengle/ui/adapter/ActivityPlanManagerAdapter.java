@@ -19,6 +19,8 @@ import java.util.List;
 
 public class ActivityPlanManagerAdapter extends BaseQuickAdapter<ActivityAddResponse,BaseViewHolder>{
 
+    private int selectStatus = 1;
+
     public ActivityPlanManagerAdapter() {
         super(R.layout.item_activity_plan_manager);
     }
@@ -34,5 +36,15 @@ public class ActivityPlanManagerAdapter extends BaseQuickAdapter<ActivityAddResp
         ((TextView)helper.getView(R.id.tvApplyBudget)).setText(item.getApply_budget() + "");
         ((TextView)helper.getView(R.id.tvStartTime)).setText(DateUtil.formatB(item.getStart_time()));
         ((TextView)helper.getView(R.id.tvEndTime)).setText(DateUtil.formatB(item.getEnd_time()));
+        TextView tvStatus = helper.getView(R.id.tvStatus);//审核状态
+        tvStatus.setText(item.getStatusDes(selectStatus));
+    }
+
+    public void setSelectStatus(int selectStatus) {
+        this.selectStatus = selectStatus;
+    }
+
+    public int getSelectStatus() {
+        return selectStatus;
     }
 }

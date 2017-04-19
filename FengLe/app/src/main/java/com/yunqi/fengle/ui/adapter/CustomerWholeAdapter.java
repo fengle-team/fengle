@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.model.response.CustomerWholeResponse;
 import com.yunqi.fengle.model.response.CustomersResponse;
+import com.yunqi.fengle.model.response.model.VisitPlanEntity;
 import com.yunqi.fengle.ui.activity.CustomerWholeActivity;
 import com.yunqi.fengle.util.LogEx;
 
@@ -90,11 +91,15 @@ public class CustomerWholeAdapter extends BaseMultiItemQuickAdapter<CustomerWhol
                 TextView tvFuz = helper.getView(R.id.tvFuz);
 
 
+                VisitPlanEntity.LastVisitePlanEntity planEntity = item.getVisit_plan().getLast_visite_plan();
                 tvNum.setText(item.getVisit_plan().getVisite_plan_count() + "");
                 if (item.getVisit_plan().getLast_visite_plan() != null) {
-                    tvPlanTime.setText(item.getVisit_plan().getLast_visite_plan().getPlan_time() + "");
-                    tvCompanyVisit.setText(item.getVisit_plan().getLast_visite_plan().getClient_name() + "");
-                    tvFuz.setText(item.getVisit_plan().getLast_visite_plan().getResponsible_name() + "");
+                    tvPlanTime.setText(planEntity.getPlan_time() + "");
+                    if (planEntity.getClient_name() == null || planEntity.getClient_name().equals("")) {
+                        tvCompanyVisit.setVisibility(View.GONE);
+                    }
+                    tvCompanyVisit.setText(planEntity.getClient_name() + "");
+                    tvFuz.setText(planEntity.getResponsible_name() + "");
                 }
                 break;
             case CustomerWholeMultiItem.TYPE_RETURN://回款

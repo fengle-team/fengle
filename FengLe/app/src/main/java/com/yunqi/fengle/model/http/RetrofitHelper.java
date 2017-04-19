@@ -175,8 +175,8 @@ public class RetrofitHelper {
      * @param userid
      * @return
      */
-    public Observable<CommonHttpRsp<List<ActivityAddResponse>>> queryActivities(String userid) {
-        return apiService.queryActivities(userid);
+    public Observable<CommonHttpRsp<List<ActivityAddResponse>>> queryActivities(String status,String userid) {
+        return apiService.queryActivities(status,userid);
     }
 
 
@@ -187,6 +187,15 @@ public class RetrofitHelper {
      */
     public Observable<BaseHttpRsp> updateVisiteStatus(VisitingUpdateRequest request) {
         return apiService.updateVisiteStatus(request);
+    }
+
+    /**
+     * 更新活动计划状态
+     *
+     * @return
+     */
+    public Observable<BaseHttpRsp> updatePlanUpdateStatus(String userid,String order_code,String status) {
+        return apiService.updatePlanStatus(userid,order_code,status);
     }
 
     /**

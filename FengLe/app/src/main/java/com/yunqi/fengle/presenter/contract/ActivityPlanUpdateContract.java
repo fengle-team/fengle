@@ -10,11 +10,14 @@ import com.yunqi.fengle.util.map.ResponseListener;
  * @Description:
  */
 
-public interface ActivityPlanContract {
+public interface ActivityPlanUpdateContract {
     interface View extends BaseView {
     }
 
-    interface Presenter extends BasePresenter<ActivityPlanContract.View> {
-        void showData(String status,ResponseListener listener);
+    interface Presenter extends BasePresenter<ActivityPlanUpdateContract.View> {
+
+        void updatePlanUpdateStatus(String userid,String order_code,String status,ResponseListener listener);
+
+
     }
 }

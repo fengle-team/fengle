@@ -360,6 +360,11 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden"
             />
+        <activity
+            android:name="com.yunqi.fengle.ui.activity.ActivityPlanUpdateActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            />
 
 
 
