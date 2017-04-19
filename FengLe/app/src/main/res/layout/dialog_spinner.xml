@@ -2,15 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:background="@drawable/layout_bg5"
     android:orientation="vertical"
-    android:padding="10dp">
+    >
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:text="请选择类型"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/line_bg"
+        android:layout_marginTop="8dp"/>
 
 
     <ListView
         android:id="@+id/rvList"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="6dp"
+        android:paddingLeft="7dp"
+        android:paddingRight="5dp"
+        android:paddingBottom="8dp">
 
     </ListView>
 
