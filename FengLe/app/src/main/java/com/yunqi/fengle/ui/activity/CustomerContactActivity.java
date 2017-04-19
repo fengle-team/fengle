@@ -5,6 +5,7 @@ import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.yunqi.fengle.R;
+import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
 import com.yunqi.fengle.model.bean.CustomerContactDetail;
 import com.yunqi.fengle.presenter.CustomerContactPresenter;
@@ -31,7 +32,7 @@ public class CustomerContactActivity extends BaseActivity<CustomerContactPresent
     TextView trustRate;
     @BindView(R.id.real_rate)
     TextView realRate;
-
+    String customer_name;
     @Override
     protected void initInject() {
         getActivityComponent().inject(this);
@@ -45,17 +46,18 @@ public class CustomerContactActivity extends BaseActivity<CustomerContactPresent
     @Override
     protected void initEventAndData() {
         setToolBar(toolbar, getString(R.string.module_customer_contact));
-        String id=getIntent().getExtras().getString("customerId");
-        mPresenter.queryCustomerContact(id);
+        customer_name=getIntent().getExtras().getString("customer_name");
+        String user_code= App.getInstance().getUserInfo().user_code;
+        String customer_code=getIntent().getExtras().getString("customer_code");
+        mPresenter.queryCustomerContact(user_code,customer_code);
     }
 
     @Override
     public void showContent(CustomerContactDetail customerContactDetail) {
-        customNname.setText(customerContactDetail.name);
+        customNname.setText(customer_name);
         currentDelivery.setText(customerContactDetail.fahuo_num+"");
         currentPayment.setText(customerContactDetail.huikuan_num+"");
         trustRate.setText(customerContactDetail.xinren_bili+"");
         realRate.setText(customerContactDetail.real_bili+"");
-
     }
 }

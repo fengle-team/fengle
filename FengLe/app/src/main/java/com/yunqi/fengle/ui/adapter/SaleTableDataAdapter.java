@@ -4,17 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yunqi.fengle.R;
-import com.yunqi.fengle.model.bean.Goods;
 import com.yunqi.fengle.model.bean.SaleInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import de.codecrafters.tableview.TableDataAdapter;
 
 
 public class SaleTableDataAdapter extends BaseTableDataAdapter<SaleInfo> {
@@ -41,7 +37,7 @@ public class SaleTableDataAdapter extends BaseTableDataAdapter<SaleInfo> {
                 renderedView = renderGoodsName(saleInfo);
                 break;
             case 3:
-                renderedView = renderGoodsDetail(saleInfo);
+                renderedView = renderGoodsDetail();
                 break;
         }
 
@@ -51,17 +47,17 @@ public class SaleTableDataAdapter extends BaseTableDataAdapter<SaleInfo> {
 
 
     private View renderClientName(SaleInfo saleInfo) {
-        return renderString(saleInfo.client_name);
+        return renderString(saleInfo.ccusname);
     }
 
     private View renderGoodsCode(SaleInfo saleInfo) {
-        return renderString(saleInfo.goods_code);
+        return renderString(saleInfo.cinvcode);
     }
 
     private View renderGoodsName(SaleInfo saleInfo) {
-        return renderString(saleInfo.goods_name);
+        return renderString(saleInfo.存货名称);
     }
-    private View renderGoodsDetail(SaleInfo saleInfo) {
+    private View renderGoodsDetail() {
         return renderString("查看");
     }
 

@@ -15,14 +15,17 @@ public interface SaleDetailContract {
     interface View extends BaseView {
         void showContent(List<SaleInfo> listSaleInfo);
 
-        void showMoreContent(List<SaleInfo> listMoreSaleInfo);
     }
     interface Presenter extends BasePresenter<SaleDetailContract.View> {
         /**
-         * 货物销售列表查询
-         * @param goods_id 货物id
+         * 查询货物销售明细接口
+         * @param startTime 开始时间
+         * @param endTime  结束时间
+         * @param ccuscode  客户编码
+         * @param cpersoncode  业务员编码
+         * @param ccdcode  客户地区编码
          * @return
          */
-        void querySales(String startTime, String endTime, String goods_id , int page);
+        void querySales(String startTime, String endTime, String ccuscode, String cpersoncode, String ccdcode);
     }
 }

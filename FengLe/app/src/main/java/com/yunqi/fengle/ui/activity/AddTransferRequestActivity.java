@@ -72,7 +72,6 @@ public class AddTransferRequestActivity extends BaseActivity<AddTransferPresente
     private Customer outCustomer;
     private Customer inCustomer;
     private GoodsAndWarehouseTableDataAdapter adapter;
-    private String freight="每件10元";//运费
 
 
     @Override
@@ -229,7 +228,6 @@ public class AddTransferRequestActivity extends BaseActivity<AddTransferPresente
         request.status = mStatus;
         List<Goods> listGoods=new ArrayList<>();
         for (GoodsAndWarehouse goodsAndWarehouse:goodsArray){
-            goodsAndWarehouse.goods.freight=freight;
             listGoods.add(goodsAndWarehouse.goods);
         }
         request.goods_array = listGoods;

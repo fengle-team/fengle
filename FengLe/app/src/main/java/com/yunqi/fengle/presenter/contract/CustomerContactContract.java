@@ -20,9 +20,10 @@ public interface CustomerContactContract {
     interface Presenter extends BasePresenter<CustomerContactContract.View> {
         /**
          * 客户往来详情查询
-         * @param id 客户id
+         * @param user_code 用户id
+         ** @param user_code 客户code
          * @return
          */
-        void queryCustomerContact(String id);
+        void queryCustomerContact(String user_code,String custom_code);
     }
 }

@@ -178,24 +178,25 @@
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
 
-                <TextView
-                    android:id="@+id/txt_transfer_tonnage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="28dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_toRightOf="@+id/tag_transfer_tonnage"
-                    android:gravity="center"
-                    android:minHeight="40dp"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/comom_txt_size_s" />
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:layout_alignParentBottom="true"
-                    android:background="@color/line_bg" />
+                    android:background="@color/line_bg"
+                    android:id="@+id/view2" />
+
+                <TextView
+                    android:id="@+id/txt_transfer_tonnage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="28dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:minHeight="40dp"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/comom_txt_size_s"
+                    android:layout_above="@+id/view2"
+                    android:layout_alignParentEnd="true" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -273,19 +274,6 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white">
 
-                <TextView
-                    android:id="@+id/txt_billing_amount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="28dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_toRightOf="@+id/tag_billing_amount"
-                    android:gravity="center"
-                    android:minHeight="40dp"
-                    android:textColor="@color/text_color"
-                    android:textSize="@dimen/comom_txt_size_s" />
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
@@ -303,6 +291,19 @@
                     android:text="@string/tag_billing_amount"
                     android:textColor="@color/text_color"
                     android:textSize="@dimen/comom_txt_size_s" />
+
+                <TextView
+                    android:id="@+id/txt_billing_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="28dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="center"
+                    android:minHeight="40dp"
+                    android:textColor="@color/text_color"
+                    android:textSize="@dimen/comom_txt_size_s"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true" />
             </RelativeLayout>
 
             <RelativeLayout

@@ -33,21 +33,14 @@ public class SaleDetailPresenter extends RxPresenter<SaleDetailContract.View> im
     }
 
     @Override
-    public void querySales(String startTime, String endTime, String goods_id , final int page) {
-        Subscription rxSubscription = mRetrofitHelper.querySales(startTime,endTime,goods_id,page)
+    public void querySales(String startTime, String endTime, String ccuscode, String cpersoncode, String ccdcode) {
+        Subscription rxSubscription = mRetrofitHelper.querySales(startTime, endTime, ccuscode,cpersoncode,ccdcode)
                 .compose(RxUtil.<CommonHttpRsp<List<SaleInfo>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<SaleInfo>>handleResult())
                 .subscribe(new ExSubscriber<List<SaleInfo>>(mView) {
                     @Override
                     protected void onSuccess(List<SaleInfo> listSaleInfo) {
-                        //加载第一页数据
-                        if(page==1){
-                            mView.showContent(listSaleInfo);
-                        }
-                        //加载更多数据
-                        else{
-                            mView.showMoreContent(listSaleInfo);
-                        }
+                        mView.showContent(listSaleInfo);
                     }
                 });
         addSubscrebe(rxSubscription);

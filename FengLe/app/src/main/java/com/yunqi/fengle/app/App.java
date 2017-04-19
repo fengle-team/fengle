@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatDelegate;
 
 import com.tencent.bugly.crashreport.CrashReport;
 import com.yunqi.fengle.base.BaseApplication;
-import com.yunqi.fengle.constants.Constants;
 import com.yunqi.fengle.di.component.AppComponent;
 import com.yunqi.fengle.di.component.DaggerAppComponent;
 import com.yunqi.fengle.di.module.AppModule;
