@@ -310,6 +310,7 @@
     <string name="warming_time_select">结束时间必须晚于开始时间</string>
     <string name="warming_no_start_time">请选择开始时间</string>
     <string name="warming_no_end_time">请选择结束时间</string>
+    <string name="warming_no_start_time_or_end_time">开始时间或结束时间没有选择</string>
     <string name="to_be_confirmed">待处理</string>
     <string name="confirmed">已确认</string>
     <string name="wariming_add_success">添加成功!</string>

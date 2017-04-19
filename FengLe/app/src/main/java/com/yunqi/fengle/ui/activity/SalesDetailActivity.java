@@ -58,8 +58,6 @@ public class SalesDetailActivity extends BaseActivity<SaleDetailPresenter> imple
     private String lastEndTime = "";
     private List<SaleInfo> mlistSaleInfo=new ArrayList<>();
     private SaleTableDataAdapter adapter;
-    private String goods_id;
-    private int page=1;
     private long lstartTime = 0;
     private long lendTime = 0;
     private String ccuscode;//客户编码
@@ -109,8 +107,11 @@ public class SalesDetailActivity extends BaseActivity<SaleDetailPresenter> imple
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
-                        page = 1;
-                        if (lstartTime > 0 && lendTime > 0 && lstartTime >= lendTime) {
+                        if (lstartTime <= 0 || lendTime <=0 ) {
+                            ToastUtil.showNoticeToast(SalesDetailActivity.this, getString(R.string.warming_no_start_time_or_end_time));
+                            return;
+                        }
+                        if (lstartTime >= lendTime) {
                             ToastUtil.showNoticeToast(SalesDetailActivity.this, getString(R.string.warming_time_select));
                             return;
                         }
