@@ -123,10 +123,16 @@ public class VisitingPlanActivity extends BaseActivity<VisitingPlanPresenter> im
 
             @Override
             public void onFaild(NetResponse response) {
-                progresser.showContent();
+                progresser.showError(true);
                 ToastUtil.toast(mContext, response.getMsg());
             }
         });
+    }
+
+    @Override
+    public void onRetry() {
+        progresser.showProgress();
+        initData();
     }
 
     private void onViewItemClick(int position) {

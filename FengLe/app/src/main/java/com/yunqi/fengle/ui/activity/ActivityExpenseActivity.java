@@ -52,6 +52,8 @@ public class ActivityExpenseActivity extends BaseActivity<ActivityExpensePresent
     private SpinnerBean spinnerInvoice = new SpinnerBean();//发票类型
     private SpinnerBean spinnerReimburse = new SpinnerBean();//报账类型
 
+    private boolean isTypeSuccess = false;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,21 +64,6 @@ public class ActivityExpenseActivity extends BaseActivity<ActivityExpensePresent
     }
 
     private void initData() {
-//        spinnerAction.addSpinner("1","活动类型001");
-//        spinnerAction.addSpinner("2","活动类型002");
-//        spinnerAction.addSpinner("3","活动类型003");
-//
-//        spinnerInvoice.addSpinner("1","发票类型001");
-//        spinnerInvoice.addSpinner("2","发票类型002");
-//        spinnerInvoice.addSpinner("3","发票类型003");
-//        spinnerInvoice.addSpinner("4","发票类型004");
-//
-//        spinnerReimburse.addSpinner("1","报账类型001");
-//        spinnerReimburse.addSpinner("2","报账类型002");
-//        spinnerReimburse.addSpinner("3","报账类型003");
-//        spinnerReimburse.addSpinner("4","报账类型004");
-//        spinnerReimburse.addSpinner("5","报账类型005");
-
         progresser.showProgress();
         mPresenter.getData(new ResponseListener() {
             @Override
@@ -85,14 +72,22 @@ public class ActivityExpenseActivity extends BaseActivity<ActivityExpensePresent
                 spinnerInvoice.format(mPresenter.spinnerInvoice);
                 spinnerReimburse.format(mPresenter.spinnerReimburse);
                 progresser.showContent();
+                isTypeSuccess = true;
             }
 
             @Override
             public void onFaild(NetResponse response) {
                 ToastUtil.toast(mContext,response.getMsg());
-                progresser.showContent();
+                progresser.showError(true);
             }
         });
+    }
+
+    @Override
+    public void onRetry() {
+        if (!isTypeSuccess) {
+            initData();
+        }
     }
 
     @Override

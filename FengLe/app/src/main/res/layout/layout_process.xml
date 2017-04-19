@@ -22,7 +22,7 @@
         android:layout_height="80dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        wheel:matProg_barColor="@color/soft_bule"
+        wheel:matProg_barColor="@color/colorPrimary"
         wheel:matProg_progressIndeterminate="true" />
 
     <TextView

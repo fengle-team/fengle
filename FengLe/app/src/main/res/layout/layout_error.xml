@@ -22,7 +22,7 @@
         android:layout_centerInParent="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
-        android:text="出错了!"
+        android:text="出错了!点击重试"
         android:textColor="@color/deepgray"
         android:textSize="18sp"
         android:textStyle="bold" />

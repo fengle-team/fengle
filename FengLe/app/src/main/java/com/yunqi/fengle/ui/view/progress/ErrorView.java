@@ -26,7 +26,7 @@ public class ErrorView extends FrameLayout implements OnClickListener {
 	 * 
 	 */
 	public interface OnRetryListener {
-		public void onRetry();
+		void onRetry();
 	}
 
 	private OnRetryListener listener;
@@ -64,6 +64,7 @@ public class ErrorView extends FrameLayout implements OnClickListener {
 		tvRetry = (TextView) errorView.findViewById(R.id.tvRetry);
 		tvErrorSub = (TextView) errorView.findViewById(R.id.tvErrorSub);
 		tvRetry.setOnClickListener(this);
+		tvError.setOnClickListener(this);
 	}
 
 	/**
@@ -111,7 +112,7 @@ public class ErrorView extends FrameLayout implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		if (v.getId() == R.id.tvRetry && listener != null) {
+		if ((v.getId() == R.id.tvRetry || v.getId() == R.id.tvError) && listener != null) {
 			listener.onRetry();
 		}
 	}

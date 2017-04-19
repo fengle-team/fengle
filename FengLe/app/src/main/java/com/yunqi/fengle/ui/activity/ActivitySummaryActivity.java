@@ -62,8 +62,8 @@ public class ActivitySummaryActivity extends BaseActivity<ActivitySummaryPresent
     @BindView(R.id.swipe)
     SwipyRefreshLayout swipe;
 
-    @BindView(R.id.rgRank)
-    RadioGroup rgRank;
+//    @BindView(R.id.rgRank)
+//    RadioGroup rgRank;
 
     private ActivityPlanAdapter adapter;
 
@@ -73,7 +73,7 @@ public class ActivitySummaryActivity extends BaseActivity<ActivitySummaryPresent
     private final String STATUS_4 = "4";//驳回
 
     //1=暂存 2=提交待处理 3=审核通过 4=驳回
-    private String status = STATUS_1;
+    private String status = STATUS_3;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -90,8 +90,8 @@ public class ActivitySummaryActivity extends BaseActivity<ActivitySummaryPresent
     }
 
     private void initRadio() {
-        rgRank.setOnCheckedChangeListener(this);
-        rgRank.check(R.id.rbBtn1);
+//        rgRank.setOnCheckedChangeListener(this);
+//        rgRank.check(R.id.rbBtn1);
     }
 
     private void initView() {
@@ -146,6 +146,12 @@ public class ActivitySummaryActivity extends BaseActivity<ActivitySummaryPresent
         initData();
     }
 
+    @Override
+    public void onRetry() {
+        progresser.showProgress();
+        initData();
+    }
+
     private void initData() {
         mPresenter.showData(status,new ResponseListener() {
             @Override
@@ -158,7 +164,7 @@ public class ActivitySummaryActivity extends BaseActivity<ActivitySummaryPresent
 
             @Override
             public void onFaild(NetResponse response) {
-                progresser.showError(response.getMsg());
+                progresser.showError(true);
                 swipe.setRefreshing(false);
             }
         });
@@ -178,7 +184,7 @@ public class ActivitySummaryActivity extends BaseActivity<ActivitySummaryPresent
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_recycler_view2;
+        return R.layout.activity_recycler_view;
     }
 
     @Override
