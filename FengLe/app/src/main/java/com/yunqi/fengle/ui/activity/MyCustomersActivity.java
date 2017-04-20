@@ -68,9 +68,15 @@ public class MyCustomersActivity extends BaseActivity<MyCustomersPresenter> impl
             @Override
             public void onFaild(NetResponse response) {
                 ToastUtil.toast(mContext, response.getMsg());
+                progresser.showError(true);
                 progresser.showContent();
             }
         });
+    }
+
+    @Override
+    public void onRetry() {
+        initData();
     }
 
     private void initRecyclerView() {

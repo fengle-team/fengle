@@ -66,9 +66,13 @@ public class ActivityPlanActivity extends BaseActivity<ActivityPlanPresenter> im
         setTitleRightImage(R.drawable.right_add);
         initView();
 
+
         initRadio();
 
         progresser.showProgress();
+
+
+
 //        initData();
     }
 
@@ -76,6 +80,12 @@ public class ActivityPlanActivity extends BaseActivity<ActivityPlanPresenter> im
         rgRank.setOnCheckedChangeListener(this);
         rgRank.check(R.id.rbBtn1);
 
+    }
+
+    @Override
+    public void onRetry() {
+        progresser.showProgress();
+        initData();
     }
 
     private void initData() {
@@ -90,7 +100,7 @@ public class ActivityPlanActivity extends BaseActivity<ActivityPlanPresenter> im
 
             @Override
             public void onFaild(NetResponse response) {
-                progresser.showError(response.getMsg());
+                progresser.showError(true);
                 swipe.setRefreshing(false);
             }
         });

@@ -24,6 +24,7 @@ import com.yunqi.fengle.model.bean.UserBean;
 import com.yunqi.fengle.ui.activity.LoginActivity;
 import com.yunqi.fengle.ui.activity.SplashActivity;
 import com.yunqi.fengle.ui.view.progress.BaseViewStateListener;
+import com.yunqi.fengle.ui.view.progress.ErrorView;
 import com.yunqi.fengle.ui.view.progress.ProgressLayout;
 import com.yunqi.fengle.util.ToastUtil;
 
@@ -38,7 +39,7 @@ import me.yokeyword.fragmentation.SupportActivity;
  * Created by codeest on 2016/8/2.
  * MVP activity基类
  */
-public abstract class BaseActivity<T extends BasePresenter> extends SupportActivity implements BaseView, View.OnClickListener, BaseViewStateListener {
+public abstract class BaseActivity<T extends BasePresenter> extends SupportActivity implements BaseView, View.OnClickListener, BaseViewStateListener ,ErrorView.OnRetryListener {
     protected String TAG = getClass().getName();
     @Inject
     protected T mPresenter;
@@ -70,6 +71,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
             initToolbar();
             rlMain = (RelativeLayout) findViewById(R.id.rlMain);
             progresser = (ProgressLayout) findViewById(R.id.progress);
+            progresser.setRetryListener(this);
             progresser.setBaseViewStateListener(this);
             setMainView(getLayout());
         }
@@ -215,6 +217,11 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
     }
 
     protected void onTitleRightClicked(View v) {
+    }
+
+    @Override
+    public void onRetry() {
+
     }
 
     /**
