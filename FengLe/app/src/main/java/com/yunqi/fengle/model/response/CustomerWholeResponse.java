@@ -262,7 +262,7 @@ public class CustomerWholeResponse implements MultiItemEntity,Cloneable {
         itemList.add(refund);//退款
         itemList.add(invoice);//开票
 //        itemList.add(expens);//费用报销
-//        itemList.add(other);//其他
+        itemList.add(other);//其他
         return itemList;
     }
 

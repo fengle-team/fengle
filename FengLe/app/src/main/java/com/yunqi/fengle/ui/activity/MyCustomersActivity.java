@@ -69,7 +69,6 @@ public class MyCustomersActivity extends BaseActivity<MyCustomersPresenter> impl
             public void onFaild(NetResponse response) {
                 ToastUtil.toast(mContext, response.getMsg());
                 progresser.showError(true);
-                progresser.showContent();
             }
         });
     }

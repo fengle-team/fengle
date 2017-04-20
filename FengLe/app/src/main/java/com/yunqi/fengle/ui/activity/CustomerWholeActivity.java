@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
+import com.yunqi.fengle.model.bean.UserBean;
 import com.yunqi.fengle.model.response.CustomerWholeResponse;
 import com.yunqi.fengle.model.response.CustomersResponse;
 import com.yunqi.fengle.presenter.CustomerWholePresenter;
@@ -108,11 +109,43 @@ public class CustomerWholeActivity extends BaseActivity<CustomerWholePresenter> 
 
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-
+                onViewItemChildClick(view,adapter.getItemViewType(position),position);
             }
         });
 
         rvList.setAdapter(wholeAdapter);
+    }
+
+    private void onViewItemChildClick(View view, int itemViewType, int position) {
+        if (itemViewType == CustomerWholeMultiItem.TYPE_OTHER)
+        {//其他
+            if (view.getId() == R.id.rlActivity)
+            {//活动记录
+                Intent mIntent = new Intent();
+                mIntent.putExtra(TAG, customerWholeResponse.getCustom_code());
+                if (App.getInstance().getUserInfo().role_code.equals(UserBean.ROLE_YWY))
+                {//业务员
+                    mIntent.setClass(this, ActivityPlanActivity.class);
+                } else
+                {//经理
+                    mIntent.setClass(this, ActivityPlanManagerActivity.class);
+                }
+                startActivity(mIntent);
+            } else if (view.getId() == R.id.rlPlan)
+            {//拜访计划
+
+                Intent mIntent = new Intent();
+                mIntent.putExtra(TAG, customerWholeResponse.getCustom_code());
+                mIntent.putExtra(VisitingPlanActivity.TAG_FROM, VisitingPlanActivity.TAG_FROM_CUSTOMER_SITUATION);
+                mIntent.setClass(this, VisitingPlanActivity.class);
+                this.startActivity(mIntent);
+
+//                Intent mIntent = new Intent();
+//                mIntent.putExtra(TAG, customerWholeResponse.getCustom_code());
+//                mIntent.setClass(this, VisitingPlanActivity.class);
+//                startActivity(mIntent);
+            }
+        }
     }
 
     private void onViewItemClick(int itemType,int position) {
@@ -144,6 +177,9 @@ public class CustomerWholeActivity extends BaseActivity<CustomerWholePresenter> 
             }
         } else if (itemType == CustomerWholeMultiItem.TYPE_EXPENS)
         {//用费
+
+        } else if (itemType == CustomerWholeMultiItem.TYPE_OTHER)
+        {//其他
 
         }
 

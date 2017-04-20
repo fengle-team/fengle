@@ -42,6 +42,7 @@ import com.yunqi.fengle.model.request.TypeRequest;
 import com.yunqi.fengle.model.request.VisitingAddRequest;
 import com.yunqi.fengle.model.request.VisitingUpdateRequest;
 import com.yunqi.fengle.model.response.ActivityAddResponse;
+import com.yunqi.fengle.model.response.ActivitySummaryResponse;
 import com.yunqi.fengle.model.response.CustomerWholeResponse;
 import com.yunqi.fengle.model.response.CustomersResponse;
 import com.yunqi.fengle.model.response.CustomersSituationResponse;
@@ -175,8 +176,18 @@ public class RetrofitHelper {
      * @param userid
      * @return
      */
-    public Observable<CommonHttpRsp<List<ActivityAddResponse>>> queryActivities(String status,String userid) {
-        return apiService.queryActivities(status,userid);
+    public Observable<CommonHttpRsp<List<ActivityAddResponse>>> queryActivities(String status,String customerCode,String userid) {
+        return apiService.queryActivities(status,customerCode,userid);
+    }
+
+    /**
+     * 查询活动总结
+     *
+     * @param userid
+     * @return
+     */
+    public Observable<CommonHttpRsp<List<ActivitySummaryResponse>>> queryActivitieSummary(String userid) {
+        return apiService.queryActivitieSummary(userid);
     }
 
 

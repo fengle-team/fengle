@@ -58,22 +58,25 @@ public class ActivityPlanActivity extends BaseActivity<ActivityPlanPresenter> im
     //1=暂存 2=提交待处理 3=审核通过 4=驳回
     private String status = STATUS_1;
 
+    private String customerCode = "";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         showTitleBack();
         setTitleText("活动计划");
-        setTitleRightImage(R.drawable.right_add);
         initView();
 
+        if (getIntent().hasExtra("custom_code")) {
+            customerCode = getIntent().getStringExtra("custom_code");
+        } else {
+            setTitleRightImage(R.drawable.right_add);
+        }
 
         initRadio();
 
         progresser.showProgress();
 
-
-
-//        initData();
     }
 
     private void initRadio() {
@@ -89,7 +92,7 @@ public class ActivityPlanActivity extends BaseActivity<ActivityPlanPresenter> im
     }
 
     private void initData() {
-        mPresenter.showData(status,new ResponseListener() {
+        mPresenter.showData(status,customerCode,new ResponseListener() {
             @Override
             public void onSuccess(NetResponse response) {
                 List<ActivityAddResponse> responseList = (List<ActivityAddResponse>) response.getResult();

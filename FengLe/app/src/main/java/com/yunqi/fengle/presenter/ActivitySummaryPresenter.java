@@ -9,6 +9,7 @@ import com.yunqi.fengle.model.request.ActivitySummaryRequest;
 import com.yunqi.fengle.model.request.AddMaintainRequest;
 import com.yunqi.fengle.model.request.TypeRequest;
 import com.yunqi.fengle.model.response.ActivityAddResponse;
+import com.yunqi.fengle.model.response.ActivitySummaryResponse;
 import com.yunqi.fengle.presenter.contract.ActivitySummaryContract;
 import com.yunqi.fengle.rx.ExSubscriber;
 import com.yunqi.fengle.util.ImageUploader.ImageUploaderUtils;
@@ -43,7 +44,7 @@ public class ActivitySummaryPresenter extends RxPresenter<ActivitySummaryContrac
     @Override
     public void showData(String status,final ResponseListener listener) {
 
-        Subscription rxSubscription = mRetrofitHelper.queryActivities(status,App.getInstance().getUserInfo().id)
+        Subscription rxSubscription = mRetrofitHelper.queryActivities(status,"",App.getInstance().getUserInfo().id)
                 .compose(RxUtil.<CommonHttpRsp<List<ActivityAddResponse>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<ActivityAddResponse>>handleResult())
                 .subscribe(new ExSubscriber<List<ActivityAddResponse>>(mView) {
@@ -62,7 +63,26 @@ public class ActivitySummaryPresenter extends RxPresenter<ActivitySummaryContrac
         addSubscrebe(rxSubscription);
     }
 
+    @Override
+    public void getSummaryData(final ResponseListener listener) {
+        Subscription rxSubscription = mRetrofitHelper.queryActivitieSummary(App.getInstance().getUserInfo().id)
+                .compose(RxUtil.<CommonHttpRsp<List<ActivitySummaryResponse>>>rxSchedulerHelper())
+                .compose(RxUtil.<List<ActivitySummaryResponse>>handleResult())
+                .subscribe(new ExSubscriber<List<ActivitySummaryResponse>>(mView) {
+                    @Override
+                    protected void onSuccess(List<ActivitySummaryResponse> data) {
+                        listener.onSuccess(new NetResponse(0,"success",data));
+                    }
 
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        listener.onFaild(new NetResponse(-1,e.getMessage()));
+                    }
+                });
+
+        addSubscrebe(rxSubscription);
+    }
 
 
 }

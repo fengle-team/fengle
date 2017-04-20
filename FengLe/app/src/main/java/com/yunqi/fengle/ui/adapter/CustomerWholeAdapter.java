@@ -46,7 +46,7 @@ public class CustomerWholeAdapter extends BaseMultiItemQuickAdapter<CustomerWhol
         addItemType(CustomerWholeMultiItem.TYPE_REFUND, R.layout.item_customer_whole_refund);//退款
         addItemType(CustomerWholeMultiItem.TYPE_INVOICE, R.layout.item_customer_whole_invoice);
 //        addItemType(CustomerWholeMultiItem.TYPE_EXPENS, R.layout.item_customer_expens);
-//        addItemType(CustomerWholeMultiItem.TYPE_OTHER, R.layout.item_customer_other);//其他
+        addItemType(CustomerWholeMultiItem.TYPE_OTHER, R.layout.item_customer_other);//其他
 //        addItemType(CustomerWholeMultiItem.TYPE_CONTENT1, R.layout.item_customer_whole_content);
 //        addItemType(CustomerWholeMultiItem.TYPE_CONTENT2, R.layout.item_customer_whole_content);
     }
@@ -142,7 +142,10 @@ public class CustomerWholeAdapter extends BaseMultiItemQuickAdapter<CustomerWhol
                     tvKpId.setText(item.getInvoce_info().getLast_invoice().getOrder_code() + "");
                 }
                 break;
-
+            case CustomerWholeMultiItem.TYPE_OTHER://其他
+                helper.addOnClickListener(R.id.rlActivity);
+                helper.addOnClickListener(R.id.rlPlan);
+                break;
 
         }
     }
