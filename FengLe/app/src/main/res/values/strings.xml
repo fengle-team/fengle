@@ -98,7 +98,7 @@
         <item>名称</item>
         <item>规格</item>
         <item>计划</item>
-        <item>可用数量</item>
+        <item>件数</item>
         <item>价格</item>
     </string-array>
     <string-array name="header_title_goods_query">
@@ -208,7 +208,7 @@
         <item>操作</item>
     </string-array>
     <string-array name="header_title_payment_declaration">
-        <item>汇款日期</item>
+        <item>回款日期</item>
         <item>客户名称</item>
         <item>金额</item>
         <item>操作</item>
@@ -286,16 +286,16 @@
     <string name="confirm">确认</string>
     <string name="quxiao">取消</string>
 
-    <string name="remittance_date">汇款日期:</string>
-    <string name="remitter">汇款人:</string>
-    <string name="amount">汇款金额:</string>
+    <string name="remittance_date">回款日期:</string>
+    <string name="remitter">回款人:</string>
+    <string name="amount">回款金额:</string>
 
     <string name="customer">客户名:</string>
     <string name="goods">货物:</string>
     <string name="goods_select_list">已选货物如下:</string>
 
-    <string name="hint_remitter">请输入汇款人</string>
-    <string name="hint_amount">请输入汇款金额</string>
+    <string name="hint_remitter">请输入回款人</string>
+    <string name="hint_amount">请输入回款金额</string>
     <string name="upload_img">上传单据图片</string>
 
     <string name="today_payment">今日回款</string>
