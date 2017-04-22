@@ -278,6 +278,7 @@ public class AddTransferRequestActivity extends BaseActivity<AddTransferPresente
             ArrayList<GoodsAndWarehouse> goodsArray = (ArrayList<GoodsAndWarehouse>) data.getSerializableExtra("listSelectGoods");
             this.goodsArray.addAll(goodsArray);
             adapter = new GoodsAndWarehouseTableDataAdapter(this, this.goodsArray);
+            adapter.setTransfer(true);
             tableView.setDataAdapter(adapter);
         }
         else if (requestCode == IN_CUSTOMER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {

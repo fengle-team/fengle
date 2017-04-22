@@ -49,8 +49,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     /**
      * 定义一个变量，来标识是否退出
      */
-    private  boolean isExit = false;
-    private  Handler mHandler = new Handler() {
+    private boolean isExit = false;
+    private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -106,7 +106,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             IModuleParse parser = new ModuleParse();
             //调用pbp的parse()方法，将输入流传进去解析，返回的链表结果赋给beautyList
             moduleList = parser.parse(is);
-            mPresenter.authModule(App.getInstance().getUserInfo().id,moduleList);
+            mPresenter.authModule(App.getInstance().getUserInfo().id, moduleList);
             gridModule.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -147,7 +147,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void showError(String msg) {
-        ToastUtil.showErrorToast(this,msg);
+        ToastUtil.showErrorToast(this, msg);
     }
 
     private CycleViewPager.ImageCycleViewListener mAdCycleViewListener = new CycleViewPager.ImageCycleViewListener() {
@@ -170,7 +170,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void showAdInfos(List<ADInfo> listAdInfos) {
-        if(listAdInfos.isEmpty()){
+        if (listAdInfos.isEmpty()) {
             return;
         }
         infos.clear();

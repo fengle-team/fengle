@@ -223,6 +223,14 @@ public interface ApiService {
     @POST("dispatch_bill/add")
     Observable<BaseHttpRsp> addDelivery(@Body BillAddRequest request);
     /**
+     * 促销申请添加
+     *
+     * @param request
+     * @return
+     */
+    @POST("promotion/add")
+    Observable<BaseHttpRsp> addPromotion(@Body BillAddRequest request);
+    /**
      * 退货申请添加
      *
      * @param request
@@ -342,6 +350,11 @@ public interface ApiService {
     Observable<CommonHttpRsp<List<InvoiceApply>>> queryInvoiceApply(@Query("userid") String userid, @Query("keyword") String keyword,@Query("status") int status, @Query("start_time") String start_time, @Query("end_time") String end_time, @Query("page") int page, @Query("size") int size);
 
     /**
+     * 促销单查询接口
+     */
+    @GET("promotion/get")
+    Observable<CommonHttpRsp<List<InvoiceApply>>> queryPromotionApply(@Query("userid") String userid, @Query("keyword") String keyword,@Query("status") int status, @Query("start_time") String start_time, @Query("end_time") String end_time, @Query("page") int page, @Query("size") int size);
+    /**
      * 大区排名
      */
     @GET("users/getAreaYeji")
@@ -388,6 +401,11 @@ public interface ApiService {
     @GET("dispatch_bill/get_by_id")
     Observable<CommonHttpRsp<InvoiceApply>> getDeliveryDetails(@Query("id") int id);
     /**
+     * 促销单详情查询接口
+     */
+    @GET("promotion/get_by_id")
+    Observable<CommonHttpRsp<InvoiceApply>> getPromotionDetails(@Query("id") int id);
+    /**
      * 调货单详情查询接口
      */
     @GET("delivered/get_by_id")
@@ -418,6 +436,16 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("dispatch_bill/update_status")
     Observable<BaseHttpRsp> updateDeliveryStatus(@Field("id") int id,@Field("status")int status);
+    /**
+     * 更新状态
+     *
+     * @param id
+     * @param status
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("promotion/update_status")
+    Observable<BaseHttpRsp> updatePromotionStatus(@Field("id") int id,@Field("status")int status);
 
 
     /**
@@ -427,6 +455,13 @@ public interface ApiService {
      */
     @POST("dispatch_bill/update_status")
     Observable<BaseHttpRsp> updateDeliveryStatus(@Body BillUpdateRequest request);
+    /**
+     * 更新状态
+     * @param request
+     * @return
+     */
+    @POST("promotion/update_status")
+    Observable<BaseHttpRsp> updatePromotionStatus(@Body BillUpdateRequest request);
     /**
      * 更新状态
      *
@@ -543,6 +578,15 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("dispatch_bill/delete")
     Observable<BaseHttpRsp> deleteDelivery(@Field("id") int id);
+    /**
+     * 删除促销单据
+     *
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("promotion/delete")
+    Observable<BaseHttpRsp> deletePromotion(@Field("id") int id);
 
     /**
      * 删除调货单据
@@ -593,6 +637,15 @@ public interface ApiService {
     @POST("dispatch_bill/delete_selected_goods")
     Observable<BaseHttpRsp> delDelivertSelectedGoods(@Field("id") int id);
     /**
+     * 删除促销选择货物
+     *
+     * @param id
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("promotion/delete_selected_goods")
+    Observable<BaseHttpRsp> delPromotionSelectedGoods(@Field("id") int id);
+    /**
      * 删除调货选择货物
      *
      * @param id
@@ -638,9 +691,17 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("dispatch_bill/approval")
     Observable<BaseHttpRsp> approvalDispatchBill(@Field("userid") String userid,@Field("order_code") String order_code,@Field("status") int status);
+    /**
+     * 审批促销单据
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("promotion/approval")
+    Observable<BaseHttpRsp> approvalPromotionBill(@Field("userid") String userid,@Field("order_code") String order_code,@Field("status") int status);
 
     /**
-     * 审批发货单据
+     * 审批调货单据
      *
      * @return
      */

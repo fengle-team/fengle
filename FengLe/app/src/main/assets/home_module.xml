@@ -8,6 +8,12 @@
     </Module>
     <Module>
         <id>30</id>
+        <name>促销申请</name>
+        <className>com.yunqi.fengle.ui.activity.PromotionRequestActivity</className>
+        <icon>home_fhsq</icon>
+    </Module>
+    <Module>
+        <id>30</id>
         <name>发货申请</name>
         <className>com.yunqi.fengle.ui.activity.DeliveryRequestActivity</className>
         <icon>home_fhsq</icon>

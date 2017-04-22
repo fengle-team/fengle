@@ -32,8 +32,8 @@ public class AddDeliveryPresenter extends RxPresenter<AddDeliveryContract.View> 
 
 
     @Override
-    public void addDelivery(BillAddRequest request) {
-        Subscription rxSubscription = mRetrofitHelper.addDelivery(request)
+    public void addDelivery(BillAddRequest request,boolean isPromotion) {
+        Subscription rxSubscription = mRetrofitHelper.addDelivery(request,isPromotion)
                 .compose(RxUtil.<BaseHttpRsp>rxSchedulerHelper())
                 .subscribe(new ExSubscriber<BaseHttpRsp>(mView) {
                     @Override

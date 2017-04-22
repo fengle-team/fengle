@@ -82,6 +82,8 @@ public class DeliveryRequestActivity extends BaseActivity<DeliveryQueryPresenter
     List<InvoiceApply> mlistInvoiceApply = new ArrayList<>();
     private DeliveryTableDataAdapter adapter;
 
+    protected boolean isPromotion=false;//是否是促销模块
+
     @Override
     protected void initInject() {
         getActivityComponent().inject(this);
@@ -95,20 +97,39 @@ public class DeliveryRequestActivity extends BaseActivity<DeliveryQueryPresenter
     @Override
     protected void initEventAndData() {
         userId = App.getInstance().getUserInfo().id;
-        setToolBar(toolbar, getString(R.string.module_delivery_request), R.drawable.right_add, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(DeliveryRequestActivity.this, AddDeliveryRequestActivity.class);
-                startActivityForResult(intent, ADD_REQUEST_CODE);
-            }
-        });
+        if(isPromotion){
+            setToolBar(toolbar, getString(R.string.module_promotion_request), R.drawable.right_add, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(DeliveryRequestActivity.this, AddDeliveryRequestActivity.class);
+                    intent.putExtra("isPromotion",isPromotion);
+                    startActivityForResult(intent, ADD_REQUEST_CODE);
+                }
+            });
+        }
+        else{
+            setToolBar(toolbar, getString(R.string.module_delivery_request), R.drawable.right_add, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(DeliveryRequestActivity.this, AddDeliveryRequestActivity.class);
+                    startActivityForResult(intent, ADD_REQUEST_CODE);
+                }
+            });
+        }
         TableColumnWeightModel columnModel = new TableColumnWeightModel(4);
         columnModel.setColumnWeight(0, 1);
         columnModel.setColumnWeight(1, 2);
         columnModel.setColumnWeight(2, 1);
         columnModel.setColumnWeight(3, 1);
         tableViewEx.tableView.setColumnModel(columnModel);
-        final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_bill_request));
+        String[] headers;
+        if(isPromotion){
+            headers= getResources().getStringArray(R.array.header_title_promotion_request);
+        }
+        else{
+            headers= getResources().getStringArray(R.array.header_title_bill_request);
+        }
+        final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, headers);
         tableViewEx.tableView.setHeaderAdapter(tableHeader1Adapter);
         adapter = new DeliveryTableDataAdapter(this, mlistInvoiceApply);
         tableViewEx.tableView.setDataAdapter(adapter);
@@ -121,7 +142,7 @@ public class DeliveryRequestActivity extends BaseActivity<DeliveryQueryPresenter
         radioBtn1.setText(R.string.bill_undeal);
         radioBtn2.setText(R.string.bill_undone);
         radioBtn3.setText(R.string.bill_history);
-        mPresenter.queryInvoiceApply(userId,keyword, mStatus, "", "", page);
+        mPresenter.queryInvoiceApply(isPromotion,userId,keyword, mStatus, "", "", page);
         radioGroup.check(R.id.radioBtn1);
         radioGroup.setOnCheckedChangeListener(this);
 
@@ -132,6 +153,7 @@ public class DeliveryRequestActivity extends BaseActivity<DeliveryQueryPresenter
             @Override
             public void onDataClicked(int rowIndex, InvoiceApply invoiceApply) {
                 Intent intent = new Intent(DeliveryRequestActivity.this, DeliveryDetailsActivity.class);
+                intent.putExtra("isPromotion",isPromotion);
                 intent.putExtra("position", rowIndex);
                 intent.putExtra("status", mStatus);
                 intent.putExtra("invoiceApply", invoiceApply);
@@ -141,13 +163,13 @@ public class DeliveryRequestActivity extends BaseActivity<DeliveryQueryPresenter
         tableViewEx.setOnLoadMoreListener(new ExTableView.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                mPresenter.queryInvoiceApply(userId,keyword, mStatus, lastStartTime, lastEndTime, ++page);
+                mPresenter.queryInvoiceApply(isPromotion,userId,keyword, mStatus, lastStartTime, lastEndTime, ++page);
             }
         });
         tableViewEx.setOnLoadRetryListener(new ExTableView.OnLoadRetryListener() {
             @Override
             public void onLoadRetry() {
-                mPresenter.queryInvoiceApply(userId,keyword, mStatus, lastStartTime, lastEndTime, page);
+                mPresenter.queryInvoiceApply(isPromotion,userId,keyword, mStatus, lastStartTime, lastEndTime, page);
             }
         });
         RxView.clicks(btnQuery)
@@ -163,7 +185,7 @@ public class DeliveryRequestActivity extends BaseActivity<DeliveryQueryPresenter
                         keyword =editKeyword.getText().toString();
                         lastStartTime = startTime;
                         lastEndTime = endTime;
-                        mPresenter.queryInvoiceApply(userId,keyword, mStatus, startTime, endTime, page);
+                        mPresenter.queryInvoiceApply(isPromotion,userId,keyword, mStatus, startTime, endTime, page);
                     }
                 });
         RxView.clicks(btnStartTime)
@@ -235,7 +257,7 @@ public class DeliveryRequestActivity extends BaseActivity<DeliveryQueryPresenter
         page = 1;
         if (requestCode == ADD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             if (2 == mStatus) {
-                mPresenter.queryInvoiceApply(userId,keyword, mStatus, startTime, endTime, page);
+                mPresenter.queryInvoiceApply(isPromotion,userId,keyword, mStatus, startTime, endTime, page);
             }
         } else if (requestCode == DETAIL_REQUEST_CODE && resultCode == DEL_DETAIL_RESULT_CODE) {
             int position = data.getIntExtra("postion", 0);
@@ -243,11 +265,11 @@ public class DeliveryRequestActivity extends BaseActivity<DeliveryQueryPresenter
             adapter.notifyDataSetChanged();
         } else if (requestCode == DETAIL_REQUEST_CODE && resultCode == UPDATE_DETAIL_RESULT_CODE) {
             if (1 == mStatus) {
-                mPresenter.queryInvoiceApply(userId,keyword, mStatus, startTime, endTime, page);
+                mPresenter.queryInvoiceApply(isPromotion,userId,keyword, mStatus, startTime, endTime, page);
             }
         } else if (requestCode == DETAIL_REQUEST_CODE && resultCode == APPROVAL_DETAIL_RESULT_CODE) {
             if (2 == mStatus) {
-                mPresenter.queryInvoiceApply(userId,keyword, mStatus, startTime, endTime, page);
+                mPresenter.queryInvoiceApply(isPromotion,userId,keyword, mStatus, startTime, endTime, page);
             }
         }
     }
@@ -268,7 +290,7 @@ public class DeliveryRequestActivity extends BaseActivity<DeliveryQueryPresenter
         }
         adapter.setBillStatus(mStatus);
         resetData();
-        mPresenter.queryInvoiceApply(userId,keyword, mStatus, "", "", page);
+        mPresenter.queryInvoiceApply(isPromotion,userId,keyword, mStatus, "", "", page);
     }
     private void resetData(){
         page = 1;

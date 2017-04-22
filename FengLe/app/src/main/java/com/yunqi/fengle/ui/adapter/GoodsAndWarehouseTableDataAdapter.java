@@ -19,9 +19,14 @@ import de.codecrafters.tableview.TableDataAdapter;
 
 public class GoodsAndWarehouseTableDataAdapter extends BaseTableDataAdapter<GoodsAndWarehouse> {
     private Context context;
+    private boolean isTransfer;
     public GoodsAndWarehouseTableDataAdapter(Context context, List<GoodsAndWarehouse> data) {
         super(context, data);
         this.context=context;
+    }
+
+    public void setTransfer(boolean isTransfer){
+        this.isTransfer=isTransfer;
     }
 
 
@@ -46,7 +51,13 @@ public class GoodsAndWarehouseTableDataAdapter extends BaseTableDataAdapter<Good
                 renderedView = renderGoodsUitsNum(goodsAndWarehouse);
                 break;
             case 4:
-                renderedView = renderGoodsFreight(goodsAndWarehouse);
+                if(isTransfer){
+                    renderedView = renderGoodsFreight(goodsAndWarehouse);
+                }
+                else{
+                    renderedView = renderOprater(goodsAndWarehouse);
+                }
+
                 break;
             case 5:
                 renderedView = renderOprater(goodsAndWarehouse);

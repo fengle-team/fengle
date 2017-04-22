@@ -29,10 +29,15 @@ public class DeliveryDetailsPresenter extends RxPresenter<DeliveryDetailsContrac
 
     public String TAG = getClass().getName();
     private RetrofitHelper mRetrofitHelper;
+    private boolean isPromotion;
 
     @Inject
     public DeliveryDetailsPresenter(RetrofitHelper retrofitHelper) {
         this.mRetrofitHelper = retrofitHelper;
+    }
+
+    public void setPromotion(boolean isPromotion){
+        this.isPromotion=isPromotion;
     }
 
 
@@ -40,7 +45,7 @@ public class DeliveryDetailsPresenter extends RxPresenter<DeliveryDetailsContrac
 
     @Override
     public void getDeliveryDetails(int id) {
-        Subscription rxSubscription = mRetrofitHelper.getDeliveryDetails(id)
+        Subscription rxSubscription = mRetrofitHelper.getDeliveryDetails(id,isPromotion)
                 .compose(RxUtil.<CommonHttpRsp<InvoiceApply>>rxSchedulerHelper())
                 .compose(RxUtil.<InvoiceApply>handleResult())
                 .subscribe(new ExSubscriber<InvoiceApply>(mView) {
@@ -55,7 +60,7 @@ public class DeliveryDetailsPresenter extends RxPresenter<DeliveryDetailsContrac
 
     @Override
     public void updateStatus(int id, int status) {
-        Subscription rxSubscription = mRetrofitHelper.updateDeliveryStatus(id,status)
+        Subscription rxSubscription = mRetrofitHelper.updateDeliveryStatus(id,status,isPromotion)
                 .compose(RxUtil.<BaseHttpRsp>rxSchedulerHelper())
                 .subscribe(new ExSubscriber<BaseHttpRsp>(mView) {
                     @Override
@@ -78,7 +83,7 @@ public class DeliveryDetailsPresenter extends RxPresenter<DeliveryDetailsContrac
 
     @Override
     public void updateStatus(BillUpdateRequest request) {
-        Subscription rxSubscription = mRetrofitHelper.updateDeliveryStatus(request)
+        Subscription rxSubscription = mRetrofitHelper.updateDeliveryStatus(request,isPromotion)
                 .compose(RxUtil.<BaseHttpRsp>rxSchedulerHelper())
                 .subscribe(new BaseSubscriber(mView) {
                     @Override
@@ -96,7 +101,7 @@ public class DeliveryDetailsPresenter extends RxPresenter<DeliveryDetailsContrac
 
     @Override
     public void delete(int id) {
-        Subscription rxSubscription = mRetrofitHelper.deleteDelivert(id)
+        Subscription rxSubscription = mRetrofitHelper.deleteDelivert(id,isPromotion)
                 .compose(RxUtil.<BaseHttpRsp>rxSchedulerHelper())
                 .subscribe(new ExSubscriber<BaseHttpRsp>(mView) {
                     @Override
@@ -119,7 +124,7 @@ public class DeliveryDetailsPresenter extends RxPresenter<DeliveryDetailsContrac
 
     @Override
     public void delSelectedGoods(int id) {
-        Subscription rxSubscription = mRetrofitHelper.delDelivertSelectedGoods(id)
+        Subscription rxSubscription = mRetrofitHelper.delDelivertSelectedGoods(id,isPromotion)
                 .compose(RxUtil.<BaseHttpRsp>rxSchedulerHelper())
                 .subscribe(new ExSubscriber<BaseHttpRsp>(mView) {
                     @Override
@@ -142,7 +147,7 @@ public class DeliveryDetailsPresenter extends RxPresenter<DeliveryDetailsContrac
 
     @Override
     public void approval(String userid, String order_code, final int status) {
-        Subscription rxSubscription = mRetrofitHelper.approvalDispatchBill(userid,order_code,status)
+        Subscription rxSubscription = mRetrofitHelper.approvalDispatchBill(userid,order_code,status,isPromotion)
                 .compose(RxUtil.<BaseHttpRsp>rxSchedulerHelper())
                 .subscribe(new BaseSubscriber(mView) {
                     @Override

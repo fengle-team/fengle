@@ -18,6 +18,6 @@ public interface AddDeliveryContract {
          * 添加发货申请
          * @param request
          */
-        void addDelivery(BillAddRequest request);
+        void addDelivery(BillAddRequest request,boolean isPromotion);
     }
 }

@@ -66,7 +66,13 @@ public class CustomerQueryActivity extends BaseActivity<CustomerQueryPresenter> 
     protected void initEventAndData() {
         user_code= App.getInstance().getUserInfo().user_code;
         module = getIntent().getIntExtra("module", 0);
-        setToolBar(toolbar, getString(R.string.module_customer_query));
+        boolean isPromotion=getIntent().getBooleanExtra("isPromotion",false);
+        if(isPromotion){
+            setToolBar(toolbar, getString(R.string.module_promotion_customer_query));
+        }
+        else{
+            setToolBar(toolbar, getString(R.string.module_customer_query));
+        }
         setWigetListener();
         final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_customer));
         tableViewEx.tableView.setHeaderAdapter(tableHeader1Adapter);

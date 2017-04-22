@@ -23,12 +23,10 @@ import com.yunqi.fengle.model.request.BillUpdateRequest;
 import com.yunqi.fengle.presenter.DeliveryDetailsPresenter;
 import com.yunqi.fengle.presenter.contract.DeliveryDetailsContract;
 import com.yunqi.fengle.ui.adapter.DeliveryDetailTableDataAdapter;
-import com.yunqi.fengle.ui.adapter.GoodsAndWarehouseTableDataAdapter;
 import com.yunqi.fengle.ui.adapter.TableHeader1Adapter;
 import com.yunqi.fengle.ui.fragment.dialog.SimpleDialogFragment;
 import com.yunqi.fengle.ui.view.BottomOpraterPopWindow;
 import com.yunqi.fengle.util.DialogHelper;
-import com.yunqi.fengle.util.StringUtil;
 import com.yunqi.fengle.util.ToastUtil;
 
 
@@ -42,8 +40,6 @@ import de.codecrafters.tableview.TableView;
 import de.codecrafters.tableview.listeners.TableDataClickListener;
 import de.codecrafters.tableview.model.TableColumnWeightModel;
 import rx.functions.Action1;
-
-import static com.yunqi.fengle.R.string.goods;
 
 /**
  * 发货申请详情
@@ -66,6 +62,8 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
     TextView txtRemark;
     @BindView(R.id.txt_code)
     TextView txtCode;
+    @BindView(R.id.txt_code_tag)
+    TextView txtCodeTag;
 
     BottomOpraterPopWindow popWindow;
     private int id;
@@ -78,7 +76,7 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
     private int type;
     private int bill_status = 0;//单据在列表中所处的状态 1:待处理 2：未完成 3：历史单据
     private boolean isEditor = false;
-
+    private boolean isPromotion;
     @Override
     protected void initInject() {
         getActivityComponent().inject(this);
@@ -92,6 +90,8 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
     @Override
     protected void initEventAndData() {
 //        role= App.getInstance().getUserInfo().role;
+        isPromotion=getIntent().getBooleanExtra("isPromotion",false);
+        mPresenter.setPromotion(isPromotion);
         invoiceApply = (InvoiceApply) getIntent().getExtras().getSerializable("invoiceApply");
         bill_status = getIntent().getExtras().getInt("status");
         position = getIntent().getExtras().getInt("position");
@@ -100,8 +100,13 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
         initData();
         setWidgetListener();
     }
-
     private void initData() {
+        if(isPromotion){
+            txtCodeTag.setText("生成促销单号：");
+        }
+        else {
+            txtCodeTag.setText("生成发货单号：");
+        }
         txtCustomer.setText(invoiceApply.client_name);
         txtRemark.setText(invoiceApply.remark);
         txtCode.setText(invoiceApply.order_code);
@@ -177,7 +182,11 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
         columnModel.setColumnWeight(3, 1);
         columnModel.setColumnWeight(4, 1);
         tableView.setColumnModel(columnModel);
-        mPresenter.getDeliveryDetails(invoiceApply.id);
+        txtCustomer.setText(invoiceApply.client_name);
+        mlistDeliveryDetail = invoiceApply.detail;
+        adapter = new DeliveryDetailTableDataAdapter(this, mlistDeliveryDetail);
+        tableView.setDataAdapter(adapter);
+//        mPresenter.getDeliveryDetails(invoiceApply.id);
     }
 
     private void setWidgetListener() {

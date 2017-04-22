@@ -373,4 +373,5 @@ public abstract class BaseActivity<T extends BasePresenter> extends SupportActiv
     protected abstract int getLayout();
 
     protected abstract void initEventAndData();
+
 }

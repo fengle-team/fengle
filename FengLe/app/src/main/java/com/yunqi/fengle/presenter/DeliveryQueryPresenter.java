@@ -30,8 +30,8 @@ public class DeliveryQueryPresenter extends RxPresenter<DeliveryRequestContract.
         this.mRetrofitHelper = retrofitHelper;
     }
     @Override
-    public void queryInvoiceApply(String userid, String keyword, int status, String startTime, String endTime, final int page) {
-        Subscription rxSubscription = mRetrofitHelper.queryInvoiceApply(userid,keyword, status, startTime, endTime, page)
+    public void queryInvoiceApply(boolean isPromotion,String userid, String keyword, int status, String startTime, String endTime, final int page) {
+        Subscription rxSubscription = mRetrofitHelper.queryInvoiceApply(isPromotion,userid,keyword, status, startTime, endTime, page)
                 .compose(RxUtil.<CommonHttpRsp<List<InvoiceApply>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<InvoiceApply>>handleResult())
                 .subscribe(new ExSubscriber<List<InvoiceApply>>(mView) {

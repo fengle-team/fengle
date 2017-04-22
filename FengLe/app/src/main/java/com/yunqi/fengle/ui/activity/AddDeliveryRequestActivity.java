@@ -66,6 +66,7 @@ public class AddDeliveryRequestActivity extends BaseActivity<AddDeliveryPresente
     public ArrayList<GoodsAndWarehouse> goodsArray = new ArrayList<>();
     private Customer selectCustomer;
     private GoodsAndWarehouseTableDataAdapter adapter;
+    protected boolean isPromotion;//是否是促销模块
 
 
     @Override
@@ -80,13 +81,27 @@ public class AddDeliveryRequestActivity extends BaseActivity<AddDeliveryPresente
 
     @Override
     protected void initEventAndData() {
+        isPromotion=getIntent().getBooleanExtra("isPromotion",false);
         userId= App.getInstance().getUserInfo().id;
-        setToolBar(toolbar, getString(R.string.module_add_delivery_request), getString(R.string.operater), new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showBottomOpraterPopWindow();
-            }
-        });
+        if(isPromotion){
+            btnSelectCustomer.setText(R.string.promotion_customer);
+            btnSelectGoods.setText(R.string.promotion_goods);
+            setToolBar(toolbar, getString(R.string.module_add_promotion_request), getString(R.string.operater), new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showBottomOpraterPopWindow();
+                }
+            });
+        }
+        else{
+            setToolBar(toolbar, getString(R.string.module_add_delivery_request), getString(R.string.operater), new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showBottomOpraterPopWindow();
+                }
+            });
+        }
+
         final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_add_delivey_request));
         tableView.setHeaderAdapter(tableHeader1Adapter);
         TableColumnWeightModel columnModel = new TableColumnWeightModel(5);
@@ -130,6 +145,7 @@ public class AddDeliveryRequestActivity extends BaseActivity<AddDeliveryPresente
                         }
                         Intent intent = new Intent(AddDeliveryRequestActivity.this, GoodsQueryActivity.class);
                         intent.putExtra("type",1);
+                        intent.putExtra("isPromotion",isPromotion);
                         intent.putExtra("module",AddDeliveryRequestActivity.this.getClass().getName());
                         if(!goodsArray.isEmpty()){
                             intent.putExtra("goodsArray",goodsArray);
@@ -153,6 +169,7 @@ public class AddDeliveryRequestActivity extends BaseActivity<AddDeliveryPresente
     private void jump2SelectCustomer(){
         Intent intent = new Intent(this, CustomerQueryActivity.class);
         intent.putExtra("module", 1);
+        intent.putExtra("isPromotion",isPromotion);
         startActivityForResult(intent, 1);
     }
 
@@ -212,7 +229,7 @@ public class AddDeliveryRequestActivity extends BaseActivity<AddDeliveryPresente
             listGoods.add(goodsAndWarehouse.goods);
         }
         request.goods_array = listGoods;
-        mPresenter.addDelivery(request);
+        mPresenter.addDelivery(request,isPromotion);
     }
 
     @Override

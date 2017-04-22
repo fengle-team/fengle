@@ -446,7 +446,10 @@ public class RetrofitHelper {
      * @param page
      * @return
      */
-    public Observable<CommonHttpRsp<List<InvoiceApply>>> queryInvoiceApply(String userid, String keyword, int status, String startTime, String endTime, int page) {
+    public Observable<CommonHttpRsp<List<InvoiceApply>>> queryInvoiceApply(boolean isPromotion,String userid, String keyword, int status, String startTime, String endTime, int page) {
+        if(isPromotion){
+            return apiService.queryPromotionApply(userid, keyword, status, startTime, endTime, page, PAGE_SIZE);
+        }
         return apiService.queryInvoiceApply(userid, keyword, status, startTime, endTime, page, PAGE_SIZE);
     }
 
@@ -541,7 +544,10 @@ public class RetrofitHelper {
         return apiService.addPayment(request);
     }
 
-    public Observable<BaseHttpRsp> addDelivery(BillAddRequest request) {
+    public Observable<BaseHttpRsp> addDelivery(BillAddRequest request,boolean isPromotion) {
+        if (isPromotion){
+            return apiService.addPromotion(request);
+        }
         return apiService.addDelivery(request);
     }
 
@@ -600,7 +606,10 @@ public class RetrofitHelper {
      *
      * @param id
      */
-    public Observable<CommonHttpRsp<InvoiceApply>> getDeliveryDetails(int id) {
+    public Observable<CommonHttpRsp<InvoiceApply>> getDeliveryDetails(int id,boolean isPromotion) {
+        if(isPromotion){
+            return apiService.getPromotionDetails(id);
+        }
         return apiService.getDeliveryDetails(id);
     }
 
@@ -648,7 +657,10 @@ public class RetrofitHelper {
      * @param status
      * @return
      */
-    public Observable<BaseHttpRsp> updateDeliveryStatus(int id, int status) {
+    public Observable<BaseHttpRsp> updateDeliveryStatus(int id, int status,boolean isPromotion) {
+        if(isPromotion){
+            return apiService.updatePromotionStatus(id, status);
+        }
         return apiService.updateDeliveryStatus(id, status);
     }
 
@@ -658,7 +670,10 @@ public class RetrofitHelper {
      * @param request
      * @return
      */
-    public Observable<BaseHttpRsp> updateDeliveryStatus(BillUpdateRequest request) {
+    public Observable<BaseHttpRsp> updateDeliveryStatus(BillUpdateRequest request,boolean isPromotion) {
+        if(isPromotion){
+            return apiService.updatePromotionStatus(request);
+        }
         return apiService.updateDeliveryStatus(request);
     }
 
@@ -751,7 +766,10 @@ public class RetrofitHelper {
      *
      * @param id
      */
-    public Observable<BaseHttpRsp> deleteDelivert(int id) {
+    public Observable<BaseHttpRsp> deleteDelivert(int id,boolean isPromotion) {
+        if (isPromotion){
+            return apiService.deletePromotion(id);
+        }
         return apiService.deleteDelivery(id);
     }
 
@@ -796,7 +814,10 @@ public class RetrofitHelper {
      *
      * @param id
      */
-    public Observable<BaseHttpRsp> delDelivertSelectedGoods(int id) {
+    public Observable<BaseHttpRsp> delDelivertSelectedGoods(int id,boolean isPromotion) {
+        if (isPromotion){
+            return apiService.delPromotionSelectedGoods(id);
+        }
         return apiService.delDelivertSelectedGoods(id);
     }
 
@@ -844,7 +865,10 @@ public class RetrofitHelper {
      * @param order_code
      * @param status
      */
-    public Observable<BaseHttpRsp> approvalDispatchBill(String userid, String order_code, int status) {
+    public Observable<BaseHttpRsp> approvalDispatchBill(String userid, String order_code, int status,boolean isPromotion) {
+        if(isPromotion){
+            return apiService.approvalPromotionBill(userid, order_code, status);
+        }
         return apiService.approvalDispatchBill(userid, order_code, status);
     }
 

@@ -20,8 +20,10 @@
     <string name="warming_doubleclick_logout">再次点击退出程序</string> <!-- 两次点击退出 -->
     <!-- 主界面Module相关 -->
     <string name="module_stock_query">库存查询</string>
+    <string name="module_promotion_request">促销申请</string>
     <string name="module_delivery_request">发货申请</string>
     <string name="module_add_delivery_request">添加发货申请</string>
+    <string name="module_add_promotion_request">添加促销申请</string>
     <string name="module_delivery_add">发货添加</string>
     <string name="module_delivery_detail">发货申请详情</string>
     <string name="module_transfer_request">调货申请</string>
@@ -50,12 +52,14 @@
     <string name="module_person">个人中心</string>
     <string name="module_my_message">我的消息</string>
     <string name="module_customer_query">客户查询</string>
+    <string name="module_promotion_customer_query">促销客户查询</string>
     <string name="module_sales_detail">销售明细</string>
     <string name="module_goods_sale_detail">单一货物销售明细</string>
     <string name="module_customer_contact">客户往来</string>
     <string name="module_add_payment_declaration">添加回款申报</string>
     <string name="module_payment_declaration_details">回款申报详情</string>
     <string name="module_goods_query">货物查询</string>
+    <string name="module_promotion_goods_query">促销货物查询</string>
     <string name="module_area_query">大区查询</string>
     <string name="module_warehouse_query">仓库查询</string>
     <string name="module_payment_type">回款类型查询</string>
@@ -135,6 +139,12 @@
     <string-array name="header_title_bill_request">
         <item>时间</item>
         <item>客户</item>
+        <item>状态</item>
+        <item>操作</item>
+    </string-array>
+    <string-array name="header_title_promotion_request">
+        <item>时间</item>
+        <item>促销客户</item>
         <item>状态</item>
         <item>操作</item>
     </string-array>
@@ -335,6 +345,9 @@
     <string name="bill_status_5">中心经理已审核</string>
     <string name="bill_status_unknown">未知状态</string>
     <string name="bill_status_undone">未完成</string>
+
+    <string name="promotion_goods">促销货物</string>
+    <string name="promotion_customer">促销客户</string>
 
 
 

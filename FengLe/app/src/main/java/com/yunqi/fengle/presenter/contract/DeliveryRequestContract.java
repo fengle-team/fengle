@@ -21,6 +21,7 @@ public interface DeliveryRequestContract {
     interface Presenter extends BasePresenter<DeliveryRequestContract.View> {
         /**
          * 发货单查询
+         * @param isPromotion 是否是促销模块
          * @param userid 用户id
          * @param status 状态
          * @param startTime 开始时间
@@ -28,6 +29,6 @@ public interface DeliveryRequestContract {
          * @param page 页码
          * @return
          */
-        void queryInvoiceApply(String userid,String keyword,  int status, String startTime, String endTime, final int page);
+        void queryInvoiceApply(boolean isPromotion,String userid,String keyword,  int status, String startTime, String endTime, final int page);
     }
 }
