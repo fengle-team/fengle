@@ -139,11 +139,15 @@ public class ActivitySummaryDetailActivity extends BaseActivity<ActivitySummaryD
 
             @Override
             public void onFaild(NetResponse response) {
-                progresser.showContent();
-                ActivitySummaryDetailActivity.this.finish();
+                progresser.showError(true);
                 ToastUtil.toast(mContext,response.getMsg());
             }
         });
+    }
+
+    @Override
+    public void onRetry() {
+        initData();
     }
 
     @Override

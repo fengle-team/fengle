@@ -65,13 +65,21 @@ public class ActivityPlanManagerActivity extends BaseActivity<ActivityPlanPresen
 
     List<ActivityAddResponse> responseList;
 
+    private String customerCode = "";
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         showTitleBack();
         setTitleText("活动计划");
-        setTitleRightImage(R.drawable.right_add);
         initView();
+
+        if (getIntent().hasExtra("custom_code")) {
+            customerCode = getIntent().getStringExtra("custom_code");
+        } else {
+            setTitleRightImage(R.drawable.right_add);
+        }
 
         progresser.showProgress();
         initRadio();
@@ -116,7 +124,7 @@ public class ActivityPlanManagerActivity extends BaseActivity<ActivityPlanPresen
     }
 
     private void initData() {
-        mPresenter.showData(status,new ResponseListener() {
+        mPresenter.showData(status,customerCode,new ResponseListener() {
             @Override
             public void onSuccess(NetResponse response) {
                 responseList = (List<ActivityAddResponse>) response.getResult();

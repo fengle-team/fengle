@@ -4,6 +4,7 @@ import android.app.Activity;
 
 import com.yunqi.fengle.ui.activity.AchievementManagerActivity;
 import com.yunqi.fengle.ui.activity.ActivityExpenseActivity;
+import com.yunqi.fengle.ui.activity.ActivityExpenseActivity2;
 import com.yunqi.fengle.ui.activity.ActivityNewPlanActivity;
 import com.yunqi.fengle.ui.activity.ActivityPlanActivity;
 import com.yunqi.fengle.ui.activity.ActivityPlanDetailActivity;
@@ -191,6 +192,8 @@ public interface ActivityComponent {
     void inject(BankCodeActivity activity);
 
     void inject(ActivityPlanUpdateActivity activity);
+
+    void inject(ActivityExpenseActivity2 activity);
 
 //    void inject(MessageActivity activity);
 }

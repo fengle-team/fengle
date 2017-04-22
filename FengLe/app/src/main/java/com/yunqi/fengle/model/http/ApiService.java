@@ -36,6 +36,7 @@ import com.yunqi.fengle.model.request.TypeRequest;
 import com.yunqi.fengle.model.request.VisitingAddRequest;
 import com.yunqi.fengle.model.request.VisitingUpdateRequest;
 import com.yunqi.fengle.model.response.ActivityAddResponse;
+import com.yunqi.fengle.model.response.ActivitySummaryResponse;
 import com.yunqi.fengle.model.response.CustomerWholeResponse;
 import com.yunqi.fengle.model.response.CustomersResponse;
 import com.yunqi.fengle.model.response.CustomersSituationResponse;
@@ -175,7 +176,10 @@ public interface ApiService {
      * @return
      */
     @GET("action/get")
-    Observable<CommonHttpRsp<List<ActivityAddResponse>>> queryActivities(@Query("status") String status,@Query("userid") String userid);
+    Observable<CommonHttpRsp<List<ActivityAddResponse>>> queryActivities(@Query("status") String status,@Query("custom_code") String custom_code,@Query("userid") String userid);
+
+    @GET("action_summary/get")
+    Observable<CommonHttpRsp<List<ActivitySummaryResponse>>> queryActivitieSummary(@Query("userid") String userId);
 
     /**
      * 添加活动计划

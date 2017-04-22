@@ -1,18 +1,34 @@
 package com.yunqi.fengle.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.RadioGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
 import com.yunqi.fengle.model.bean.SpinnerBean;
 import com.yunqi.fengle.model.request.ActivityExpenseRequest;
+import com.yunqi.fengle.model.response.ActivityAddResponse;
+import com.yunqi.fengle.model.response.ActivitySummaryResponse;
 import com.yunqi.fengle.presenter.ActivityExpensePresenter;
+import com.yunqi.fengle.presenter.ActivitySummaryPresenter;
 import com.yunqi.fengle.presenter.contract.ActivityExpenseContract;
+import com.yunqi.fengle.presenter.contract.ActivitySummaryContract;
+import com.yunqi.fengle.ui.adapter.ActivityPlanAdapter;
+import com.yunqi.fengle.ui.adapter.ActivityPlanSummaryAdapter;
 import com.yunqi.fengle.ui.fragment.dialog.SpinnerDialogFragment;
+import com.yunqi.fengle.ui.swipe.SwipyRefreshLayout;
+import com.yunqi.fengle.ui.swipe.SwipyRefreshLayoutDirection;
+import com.yunqi.fengle.ui.view.RecycleViewDivider;
 import com.yunqi.fengle.ui.view.TimeSelectDialog;
 import com.yunqi.fengle.ui.view.UnderLineEditTextEx;
 import com.yunqi.fengle.ui.view.UnderLineTextEx;
@@ -20,6 +36,8 @@ import com.yunqi.fengle.util.DialogHelper;
 import com.yunqi.fengle.util.ToastUtil;
 import com.yunqi.fengle.util.map.NetResponse;
 import com.yunqi.fengle.util.map.ResponseListener;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -29,197 +47,94 @@ import butterknife.OnClick;
  * @date 2017-02-18 17:00
  * @Description: 活动报销 {@link ActivitiesManagerActivity}
  */
-public class ActivityExpenseActivity extends BaseActivity<ActivityExpensePresenter> implements ActivityExpenseContract.View{
+public class ActivityExpenseActivity extends BaseActivity<ActivitySummaryPresenter> implements ActivitySummaryContract.View{
+    @BindView(R.id.rvList)
+    RecyclerView rvList;
+    @BindView(R.id.swipe)
+    SwipyRefreshLayout swipe;
 
-    @BindView(R.id.etTime)
-    UnderLineTextEx etTime;
-    @BindView(R.id.etName)
-    UnderLineEditTextEx etName;
-    @BindView(R.id.etReplyAmount)
-    UnderLineEditTextEx etReplyAmount;
-    @BindView(R.id.etReimburseAmount)
-    UnderLineEditTextEx etReimburseAmount;
-    @BindView(R.id.etActionType)
-    UnderLineTextEx etActionType;
-    @BindView(R.id.etReimburseType)
-    UnderLineTextEx etReimburseType;
-    @BindView(R.id.etInvoiceType)
-    UnderLineTextEx etInvoiceType;
-    @BindView(R.id.etActionTime)
-    UnderLineTextEx etActionTime;
+//    @BindView(R.id.rgRank)
+//    RadioGroup rgRank;
 
-    private SpinnerBean spinnerAction = new SpinnerBean();//活动类型
-    private SpinnerBean spinnerInvoice = new SpinnerBean();//发票类型
-    private SpinnerBean spinnerReimburse = new SpinnerBean();//报账类型
-
-    private boolean isTypeSuccess = false;
+    private ActivityPlanSummaryAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         showTitleBack();
-        setTitleText("费用报销");
-        setTitleRight("提交");
+        setTitleText("活动报销");
+
+        initView();
+        initRadio();
+
+        progresser.showProgress();
+
         initData();
     }
 
-    private void initData() {
-        progresser.showProgress();
-        mPresenter.getData(new ResponseListener() {
-            @Override
-            public void onSuccess() {
-                spinnerAction.format(mPresenter.spinnerAction);
-                spinnerInvoice.format(mPresenter.spinnerInvoice);
-                spinnerReimburse.format(mPresenter.spinnerReimburse);
-                progresser.showContent();
-                isTypeSuccess = true;
-            }
+    private void initRadio() {
+//        rgRank.setOnCheckedChangeListener(this);
+//        rgRank.check(R.id.rbBtn1);
+    }
 
+    private void initView() {
+        initRecyclerView();
+        swipe.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
-            public void onFaild(NetResponse response) {
-                ToastUtil.toast(mContext,response.getMsg());
-                progresser.showError(true);
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                initData();
+//                swipe.setRefreshing(false);
             }
         });
+    }
+
+    private void initRecyclerView() {
+        rvList.setLayoutManager(new LinearLayoutManager(this));
+        rvList.addItemDecoration(new RecycleViewDivider(this,RecycleViewDivider.VERTICAL_LIST));
+
+        adapter = new ActivityPlanSummaryAdapter();
+        rvList.setAdapter(adapter);
+
+        rvList.addOnItemTouchListener(new OnItemClickListener() {
+            @Override
+            public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                onViewItemClick(position);
+            }
+        });
+    }
+
+    private void onViewItemClick(int position) {
+        ActivitySummaryResponse response = adapter.getData().get(position);
+        Intent mIntent = new Intent();
+        mIntent.putExtra(ActivitySummaryDetailActivity.TAG_INFO, response);
+        mIntent.setClass(this, ActivityExpenseActivity2.class);
+        startActivity(mIntent);
     }
 
     @Override
     public void onRetry() {
-        if (!isTypeSuccess) {
-            initData();
-        }
+        progresser.showProgress();
+        initData();
     }
 
-    @Override
-    protected void onTitleRightClicked(View v) {
-
-        if (TextUtils.isEmpty(etTime.getText().toString()) || TextUtils.isEmpty(etName.getText().toString())
-                || TextUtils.isEmpty(etReplyAmount.getText().toString())
-                || TextUtils.isEmpty(etReimburseAmount.getText().toString())
-                || TextUtils.isEmpty(etActionTime.getText().toString())) {
-            ToastUtil.toast(this,"请填写完整.");
-            return;
-        }
-        if (spinnerAction.isEmpty() || spinnerInvoice.isEmpty() || spinnerReimburse.isEmpty()) {
-            ToastUtil.toast(this,"请填写完整.");
-            return ;
-        }
-
-
-        ActivityExpenseRequest request = new ActivityExpenseRequest();
-
-        request.setAction_time(etActionTime.getText().toString());
-        request.setClient_name(etName.getText().toString());
-        request.setUserid(App.getInstance().getUserInfo().id);
-        request.setReply_amount(etReplyAmount.getText().toString());
-        request.setReimburse_amount(etReimburseAmount.getText().toString());
-        request.setAction_type(spinnerAction.getKey());
-        request.setInvoice_type(spinnerInvoice.getKey());
-        request.setReimburse_type(spinnerReimburse.getKey());
-        request.setAdd_time(etTime.getText().toString());
-
-        mPresenter.addExpense(request, new ResponseListener() {
+    private void initData() {
+        mPresenter.getSummaryData(new ResponseListener() {
             @Override
-            public void onSuccess() {
-                ToastUtil.toast(mContext, "提交成功");
-                ActivityExpenseActivity.this.finish();
+            public void onSuccess(NetResponse response) {
+                List<ActivitySummaryResponse> responseList = (List<ActivitySummaryResponse>) response.getResult();
+                adapter.setNewData(responseList);
+                progresser.showContent();
+                swipe.setRefreshing(false);
             }
 
             @Override
             public void onFaild(NetResponse response) {
-                ToastUtil.toast(mContext, response.getMsg());
+                progresser.showError(true);
+                swipe.setRefreshing(false);
             }
         });
     }
 
-
-    /**
-     * 活动类型
-     */
-    @OnClick(R.id.llActionType)
-    public void clickActionType() {
-        DialogHelper.showSpinnerDialog(this, spinnerAction, new SpinnerDialogFragment.OnSpinnerDialogListener() {
-            @Override
-            public void onItemSelected(int position, SpinnerBean bean) {
-                spinnerAction.setKey(bean.getKey());
-                spinnerAction.setValue(bean.getValue());
-                etActionType.setText(bean.getValue());
-            }
-        });
-    }
-
-    /**
-     * 报销类型
-     */
-    @OnClick(R.id.llReimburseType)
-    public void clickReimburType() {
-        DialogHelper.showSpinnerDialog(this, spinnerReimburse, new SpinnerDialogFragment.OnSpinnerDialogListener() {
-            @Override
-            public void onItemSelected(int position, SpinnerBean bean) {
-                spinnerReimburse.setKey(bean.getKey());
-                spinnerReimburse.setValue(bean.getValue());
-                etReimburseType.setText(bean.getValue());
-            }
-        });
-    }
-
-    /**
-     * 发票类型
-     */
-    @OnClick(R.id.llInvoiceType)
-    public void clickInvoiceType() {
-        DialogHelper.showSpinnerDialog(this, spinnerInvoice, new SpinnerDialogFragment.OnSpinnerDialogListener() {
-            @Override
-            public void onItemSelected(int position, SpinnerBean bean) {
-                spinnerInvoice.setKey(bean.getKey());
-                spinnerInvoice.setValue(bean.getValue());
-                etInvoiceType.setText(bean.getValue());
-            }
-        });
-    }
-
-    /**
-     * 填报时间
-     */
-    @OnClick(R.id.llTime)
-    public void clickTime() {
-
-        new TimeSelectDialog(this, new TimeSelectDialog.TimeSelectListener() {
-            @Override
-            public void onTimeSelected(long ltime, String strTime) {
-                etTime.setText(strTime);
-            }
-        }).show();
-//        DialogHelper.showSpinnerDialog(this, spinnerInvoice, new SpinnerDialogFragment.OnSpinnerDialogListener() {
-//            @Override
-//            public void onItemSelected(int position, SpinnerBean bean) {
-//                spinnerInvoice.setKey(bean.getKey());
-//                spinnerInvoice.setValue(bean.getValue());
-//                etInvoiceType.setText(bean.getValue());
-//            }
-//        });
-    }
-    /**
-     *  活动时间
-     */
-    @OnClick(R.id.llActionTime)
-    public void clickActionTime() {
-
-        new TimeSelectDialog(this, new TimeSelectDialog.TimeSelectListener() {
-            @Override
-            public void onTimeSelected(long ltime, String strTime) {
-                etActionTime.setText(strTime);
-            }
-        }).show();
-//        DialogHelper.showSpinnerDialog(this, spinnerInvoice, new SpinnerDialogFragment.OnSpinnerDialogListener() {
-//            @Override
-//            public void onItemSelected(int position, SpinnerBean bean) {
-//                spinnerInvoice.setKey(bean.getKey());
-//                spinnerInvoice.setValue(bean.getValue());
-//                etInvoiceType.setText(bean.getValue());
-//            }
-//        });
-    }
 
 
     @Override
@@ -234,7 +149,7 @@ public class ActivityExpenseActivity extends BaseActivity<ActivityExpensePresent
 
     @Override
     protected int getLayout() {
-        return R.layout.activity_activity_expense;
+        return R.layout.activity_recycler_view;
     }
 
     @Override
