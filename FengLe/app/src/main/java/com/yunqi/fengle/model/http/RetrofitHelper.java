@@ -305,7 +305,10 @@ public class RetrofitHelper {
      * @param page           页码
      * @return
      */
-    public Observable<CommonHttpRsp<List<Goods>>> queryGoods(String keyword, String custom_code,String user_code, String warehouse_code, int page) {
+    public Observable<CommonHttpRsp<List<Goods>>> queryGoods(String area_code,String keyword, String custom_code,String user_code, String warehouse_code, int page) {
+        if(!TextUtils.isEmpty(area_code)){
+            return apiService.queryGoodsByAreaCode(area_code,keyword, page, PAGE_SIZE);
+        }
         if (TextUtils.isEmpty(custom_code)) {
             return apiService.queryGoods(keyword, warehouse_code, page, PAGE_SIZE);
         }

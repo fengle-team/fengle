@@ -50,6 +50,7 @@ public class CustomerQueryActivity extends BaseActivity<CustomerQueryPresenter> 
     private int page = 1;
     private String user_code = "";
     private int module = 0;
+    private int type = 0;//0：表示查询自己的客户，1：表示查询所有客户 ，默认为0
     private String keyword = "";
 
     @Override
@@ -64,8 +65,12 @@ public class CustomerQueryActivity extends BaseActivity<CustomerQueryPresenter> 
 
     @Override
     protected void initEventAndData() {
-        user_code= App.getInstance().getUserInfo().user_code;
+
         module = getIntent().getIntExtra("module", 0);
+        type = getIntent().getIntExtra("type", 0);
+        if(type==0){
+            user_code= App.getInstance().getUserInfo().user_code;
+        }
         boolean isPromotion=getIntent().getBooleanExtra("isPromotion",false);
         if(isPromotion){
             setToolBar(toolbar, getString(R.string.module_promotion_customer_query));

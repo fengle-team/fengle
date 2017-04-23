@@ -17,7 +17,6 @@ public class Goods implements Serializable{
     public String goods_warehouse;
     public int goods_plan_left;
     public int goods_plan;
-    public String phone;
     public String freight;
     public String warehouse_code;
 

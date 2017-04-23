@@ -408,7 +408,6 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                 deliveryDetail.goods_standard = goodsAndWarehouse.goods.goods_standard;
                 deliveryDetail.goods_units_num = goodsAndWarehouse.goods.goods_units_num;
                 deliveryDetail.goods_price = goodsAndWarehouse.goods.goods_price;
-                deliveryDetail.phone = goodsAndWarehouse.goods.phone;
                 mlistDeliveryDetail.add(deliveryDetail);
             }
         }

@@ -66,11 +66,9 @@ public class ExTableView<T> extends RelativeLayout {
         if (loadMoreEnabled) {
             btnLoadmore.setClickable(true);
             btnLoadmore.setText("加载更多");
-            btnLoadmore.setAlpha(1.0f);
         } else {
             btnLoadmore.setClickable(false);
             btnLoadmore.setText("已经到最后一页了");
-            btnLoadmore.setAlpha(0.7f);
         }
     }
 

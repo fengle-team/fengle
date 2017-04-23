@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -70,6 +71,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
     private String user_code = "";
     public ArrayList<GoodsAndWarehouse> goodsArray;
     private boolean isTransfer = false;
+    private String area_code="";
 
     @Override
     protected void initInject() {
@@ -87,6 +89,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
         type = getIntent().getIntExtra("type", 0);
         module = getIntent().getStringExtra("module");
         user_code = App.getInstance().getUserInfo().user_code;
+        area_code = getIntent().getStringExtra("area_code");
         customer_code = getIntent().getStringExtra("customer_code");
 //        customer_code = "205070004";
         if (module.equals(AddDeliveryRequestActivity.class.getName()) || module.equals(DeliveryDetailsActivity.class.getName())) {
@@ -126,7 +129,11 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
         columnModel.setColumnWeight(2, 1);
         columnModel.setColumnWeight(3, 1);
         tableViewEx.tableView.setColumnModel(columnModel);
-        mPresenter.queryGoods(keyword, customer_code, user_code, warehouse_code, page);
+        loadData();
+    }
+
+    private void loadData(){
+        mPresenter.queryGoods(area_code,keyword, customer_code, user_code, warehouse_code, page);
     }
 
     @Override
@@ -143,14 +150,15 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
         tableViewEx.setOnLoadMoreListener(new ExTableView.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                mPresenter.queryGoods(keyword, customer_code, user_code, warehouse_code, ++page);
+                ++page;
+                loadData();
             }
         });
 
         tableViewEx.setOnLoadRetryListener(new ExTableView.OnLoadRetryListener() {
             @Override
             public void onLoadRetry() {
-                mPresenter.queryGoods(keyword, customer_code, user_code, warehouse_code, page);
+                loadData();
             }
         });
         RxView.clicks(btnSelectWarehouse)
@@ -169,7 +177,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
                     public void call(Void aVoid) {
                         page = 1;
                         keyword = editGoodsKeyword.getText().toString();
-                        mPresenter.queryGoods(keyword, customer_code, user_code, warehouse_code, page);
+                        loadData();
                     }
                 });
         tableViewEx.tableView.addDataClickListener(new TableDataClickListener<Goods>() {
@@ -207,7 +215,6 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
                             float goods_units_num = num / goods.goods_units_num;
                             selectGoods.goods_units_num = goods_units_num;
                             selectGoods.goods_price = goods.goods_price;
-                            selectGoods.phone = goods.phone;
                             selectGoods.warehouse_code = goods.warehouse_code;
                             goodsAndWarehouse.goods = selectGoods;
                             goodsAndWarehouse.warehouse = selectedWarehouse;
@@ -343,7 +350,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
             warehouse_code = selectedWarehouse.warehouse_code;
             btnSelectWarehouse.setText(selectedWarehouse.name);
             page = 1;
-            mPresenter.queryGoods(keyword, customer_code, user_code, warehouse_code, page);
+            loadData();
         }
     }
 }

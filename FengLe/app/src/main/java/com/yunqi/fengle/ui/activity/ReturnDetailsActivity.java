@@ -415,7 +415,6 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
                 returnDetail.goods_standard=goodsAndWarehouse.goods.goods_standard;
                 returnDetail.goods_units_num=goodsAndWarehouse.goods.goods_units_num;
                 returnDetail.goods_price=goodsAndWarehouse.goods.goods_price;
-                returnDetail.phone=goodsAndWarehouse.goods.phone;
                 mlistReturnDetail.add(returnDetail);
             }
         }

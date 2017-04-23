@@ -402,7 +402,6 @@ public class BillingDetailsActivity extends BaseActivity<BillingDetailsPresenter
                 billingDetail.goods_standard=goodsAndWarehouse.goods.goods_standard;
                 billingDetail.goods_units_num=goodsAndWarehouse.goods.goods_units_num;
                 billingDetail.goods_price=goodsAndWarehouse.goods.goods_price;
-                billingDetail.phone=goodsAndWarehouse.goods.phone;
                 mlistBillingDetail.add(billingDetail);
             }
         }

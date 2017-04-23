@@ -144,9 +144,12 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
+                        if(outArea==null){
+                            return;
+                        }
                         Intent intent = new Intent(AddPlanAdjustmentRequestActivity.this, GoodsQueryActivity.class);
-                        intent.putExtra("userid",userId);
                         intent.putExtra("customer_code",custom_code);
+                        intent.putExtra("area_code",outArea.area_code);
                         intent.putExtra("module",AddPlanAdjustmentRequestActivity.this.getClass().getName());
                         if(!goodsArray.isEmpty()){
                             intent.putExtra("goodsArray",goodsArray);
@@ -208,6 +211,10 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
         }
         if (goodsArray.isEmpty()) {
             ToastUtil.showNoticeToast(AddPlanAdjustmentRequestActivity.this,getString(R.string.warimg_unselect_goods));
+            return;
+        }
+        if(outArea.area_code.equals(inArea.area_code)){
+            ToastUtil.showNoticeToast(AddPlanAdjustmentRequestActivity.this,getString(R.string.warimg_area_no_same));
             return;
         }
         mStatus =status;

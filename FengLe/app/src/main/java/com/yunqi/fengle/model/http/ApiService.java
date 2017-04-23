@@ -156,6 +156,11 @@ public interface ApiService {
      */
     @GET("warehouse/get")
     Observable<CommonHttpRsp<List<Warehouse>>> queryWarehouse(@Query("page") int page,@Query("size") int size);
+    /**
+     * 根据大区查询货物接口
+     */
+    @GET("goods/get_by_area_code")
+    Observable<CommonHttpRsp<List<Goods>>> queryGoodsByAreaCode(@Query("area_code")String area_code,@Query("keyword") String keyword,@Query("page") int page,@Query("size") int size);
 
     /**
      * 查询货物接口

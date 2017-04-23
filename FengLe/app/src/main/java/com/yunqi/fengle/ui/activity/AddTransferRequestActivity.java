@@ -172,6 +172,7 @@ public class AddTransferRequestActivity extends BaseActivity<AddTransferPresente
     private void jump2SelectCustomer(){
         Intent intent = new Intent(AddTransferRequestActivity.this, CustomerQueryActivity.class);
         intent.putExtra("module", 1);
+        intent.putExtra("type", 1);
         startActivityForResult(intent, OUT_CUSTOMER_REQUEST_CODE);
     }
 

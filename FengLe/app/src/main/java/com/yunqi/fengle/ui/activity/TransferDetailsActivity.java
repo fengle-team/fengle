@@ -411,7 +411,6 @@ public class TransferDetailsActivity extends BaseActivity<TransferDetailsPresent
                 transferDetail.goods_standard=goodsAndWarehouse.goods.goods_standard;
                 transferDetail.goods_units_num=goodsAndWarehouse.goods.goods_units_num;
                 transferDetail.goods_price=goodsAndWarehouse.goods.goods_price;
-                transferDetail.phone=goodsAndWarehouse.goods.phone;
                 mlistTransferDetail.add(transferDetail);
             }
         }

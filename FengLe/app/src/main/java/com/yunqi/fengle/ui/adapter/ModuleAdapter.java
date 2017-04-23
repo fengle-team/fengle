@@ -13,7 +13,9 @@ import android.widget.TextView;
 
 
 import com.yunqi.fengle.R;
+import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.model.bean.Module;
+import com.yunqi.fengle.model.bean.UserBean;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -2,7 +2,9 @@ package com.yunqi.fengle.parser;
 
 import android.util.Xml;
 
+import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.model.bean.Module;
+import com.yunqi.fengle.model.bean.UserBean;
 
 import org.xmlpull.v1.XmlPullParser;
 
@@ -60,7 +62,12 @@ public class ModuleParse implements IModuleParse {
                 // 判断当前事件是否为标签元素结束事件
                 case XmlPullParser.END_TAG:
                     if (xpp.getName().equals("Module")) { // 判断结束标签元素是否是book
-                        mList.add(module); // 将book添加到books集合
+                        if(module.className.equals("com.yunqi.fengle.ui.activity.PlanAdjustmentActivity")&&!App.getInstance().getUserInfo().role_code.equals(UserBean.ROLE_DQJL)){
+
+                        }
+                        else {
+                            mList.add(module); // 将book添加到books集合
+                        }
                         module = null;
                     }
                     break;

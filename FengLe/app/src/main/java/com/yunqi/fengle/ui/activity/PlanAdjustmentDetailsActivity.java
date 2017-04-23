@@ -69,6 +69,7 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
     private int status = 0;
     private PlanAdjustmentApply planAdjustmentApply;
     private int position;
+    private int mStatus;
     private PlanAdjustmentDetailTableDataAdapter adapter;
     private List<PlanAdjustmentDetail> mlistPlanAdjustmentDetail;
     private int positionGoods;
@@ -85,21 +86,36 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
 
     @Override
     protected void initEventAndData() {
+        userBean=App.getInstance().getUserInfo();
         planAdjustmentApply = (PlanAdjustmentApply) getIntent().getExtras().getSerializable("PlanAdjustmentApply");
         position = getIntent().getExtras().getInt("position");
+        mStatus = getIntent().getExtras().getInt("status");
         status = planAdjustmentApply.status;
         id = planAdjustmentApply.id;
-        setToolBar(toolbar, getString(R.string.module_plan_adjustment_detail), getString(R.string.drop), new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogHelper.showDialog(PlanAdjustmentDetailsActivity.this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
-                    @Override
-                    public void onOk() {
-                        mPresenter.delete(id);
-                    }
-                });
-            }
-        });
+        if(mStatus==1){
+            setToolBar(toolbar, getString(R.string.module_plan_adjustment_detail), getString(R.string.operater), new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showBottomOpraterPopWindow();
+                }
+            });
+        }
+        else if(mStatus==2){
+            setToolBar(toolbar, getString(R.string.module_plan_adjustment_detail), getString(R.string.drop), new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DialogHelper.showDialog(PlanAdjustmentDetailsActivity.this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
+                        @Override
+                        public void onOk() {
+                            mPresenter.delete(id);
+                        }
+                    });
+                }
+            });
+        }
+        else {
+            setToolBar(toolbar, getString(R.string.module_plan_adjustment_detail));
+        }
         initData();
         setWidgetListener();
     }
@@ -192,7 +208,7 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
 
 
     /**
-     *
+     * 弹出底部操作PopupWindow
      */
     public void showBottomOpraterPopWindow() {
         popWindow = new BottomOpraterPopWindow(this, new View.OnClickListener() {
@@ -201,11 +217,21 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
             public void onClick(View v) {
                 // 隐藏弹出窗口
                 popWindow.dismiss();
-
-
+                switch (v.getId()) {
+                    case R.id.btn_commit:// 审核通过
+                    {
+                        mPresenter.approval(userBean.id,planAdjustmentApply.order_code,3);
+                    }
+                    break;
+                    case R.id.btn_temporary://驳回
+                        mPresenter.approval(userBean.id,planAdjustmentApply.order_code,4);
+                        break;
+                    default:
+                        break;
+                }
             }
         });
-        popWindow.setOpraterType(2);
+        popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_audit));
         popWindow.showAtLocation(findViewById(R.id.main_layout), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
@@ -312,7 +338,6 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
                 planAdjustmentDetail.goods_standard=goodsAndWarehouse.goods.goods_standard;
                 planAdjustmentDetail.goods_units_num=goodsAndWarehouse.goods.goods_units_num;
                 planAdjustmentDetail.goods_price=goodsAndWarehouse.goods.goods_price;
-                planAdjustmentDetail.phone=goodsAndWarehouse.goods.phone;
                 mlistPlanAdjustmentDetail.add(planAdjustmentDetail);
             }
         }
