@@ -53,9 +53,9 @@ public interface PlanAdjustmentDetailsContract {
         /**
          * 审批
          * @param userid
-         * @param order_code
+         * @param id
          * @param status
          */
-        void approval(String userid, String order_code, int status);
+        void approval(String userid, String id, int status);
     }
 }
