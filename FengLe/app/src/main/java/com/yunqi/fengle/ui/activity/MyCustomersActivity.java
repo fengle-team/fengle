@@ -18,6 +18,7 @@ import com.yunqi.fengle.presenter.contract.MyCustomersContract;
 import com.yunqi.fengle.ui.adapter.MyCustomersAdapter;
 import com.yunqi.fengle.ui.fragment.dialog.SimpleDialogFragment;
 import com.yunqi.fengle.ui.view.RecycleViewDivider;
+import com.yunqi.fengle.ui.view.RecycleViewDividerCustom;
 import com.yunqi.fengle.util.DialogHelper;
 import com.yunqi.fengle.util.ToastUtil;
 import com.yunqi.fengle.util.map.NetResponse;
@@ -108,6 +109,7 @@ public class MyCustomersActivity extends BaseActivity<MyCustomersPresenter> impl
         });
 
         adapter = new MyCustomersAdapter(dataList);
+        rvMyCustomers.addItemDecoration(new RecycleViewDividerCustom(this, LinearLayoutManager.VERTICAL,10));
         rvMyCustomers.setAdapter(adapter);
 
 
