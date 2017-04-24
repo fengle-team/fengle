@@ -27,6 +27,7 @@ import com.yunqi.fengle.ui.view.UnderLineEditNewPlanEx;
 import com.yunqi.fengle.ui.view.UnderLineTextNewPlanEx;
 import com.yunqi.fengle.util.DateUtil;
 import com.yunqi.fengle.util.DialogHelper;
+import com.yunqi.fengle.util.RxBus;
 import com.yunqi.fengle.util.ToastUtil;
 import com.yunqi.fengle.util.map.NetResponse;
 import com.yunqi.fengle.util.map.ResponseListener;
@@ -114,6 +115,8 @@ public class ActivityPlanUpdateActivity extends BaseActivity<ActivityPlanUpdateP
             public void onSuccess() {
                 progresser.showContent();
                 ToastUtil.toast(mContext,"审核成功");
+                RxBus.get().post(ActivityPlanManagerActivity.RX_TAG,true);
+                ActivityPlanUpdateActivity.this.finish();
             }
 
             @Override

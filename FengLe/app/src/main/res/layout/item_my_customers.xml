@@ -11,15 +11,19 @@
         android:layout_height="wrap_content"
         android:layout_weight="3333"
         android:orientation="vertical"
-        android:padding="12dp">
+        android:paddingTop="22dp"
+        android:paddingBottom="22dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="12dp"
+        >
 
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="北京有限公司有限你妹北京有限公司有限你妹北京有限公司有限你妹北京有限公司有限你妹北京有限公司有限你妹"
+            android:text="北京有限公司有限你妹北"
             android:textColor="@color/whole_color3"
-            android:textSize="@dimen/text_normal_size" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvAddr"
@@ -29,7 +33,8 @@
             android:layout_marginTop="5dp"
             android:text="未填写"
             android:textColor="@color/gray"
-            android:textSize="@dimen/text_small_size" />
+            android:textSize="@dimen/text_small_size"
+            android:visibility="gone"/>
 
     </LinearLayout>
 
@@ -38,7 +43,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:background="#fffafafa"
         android:orientation="horizontal"
         android:paddingRight="10dp">
 
@@ -64,7 +68,7 @@
             android:lines="1"
             android:text="钱钱"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_normal_size" />
+            android:textSize="16sp" />
 
     </LinearLayout>
 

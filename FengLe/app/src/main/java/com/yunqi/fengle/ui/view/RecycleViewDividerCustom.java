@@ -59,6 +59,18 @@ public class RecycleViewDividerCustom extends RecyclerView.ItemDecoration{
          /*设置填充*/
         mPaint.setStyle(Paint.Style.FILL);
     }
+    public RecycleViewDividerCustom(Context context,int orientation,int size) {
+        this.mOrientation = orientation;
+        if(orientation != LinearLayoutManager.VERTICAL && orientation != LinearLayoutManager.HORIZONTAL){
+            throw new IllegalArgumentException("请传入正确的参数") ;
+        }
+        mItemSize = DensityUtil.dip2px(context, size);
+//        mItemSize = (int) TypedValue.applyDimension(mItemSize, TypedValue.COMPLEX_UNIT_DIP,context.getResources().getDisplayMetrics());
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG) ;
+        mPaint.setColor(context.getResources().getColor(R.color.customer_bg));
+         /*设置填充*/
+        mPaint.setStyle(Paint.Style.FILL);
+    }
 
     @Override
     public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
