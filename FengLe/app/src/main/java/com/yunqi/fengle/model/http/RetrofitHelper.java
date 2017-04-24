@@ -926,8 +926,8 @@ public class RetrofitHelper {
      * @param order_code
      * @param status
      */
-    public Observable<BaseHttpRsp> approvalPlanAdjustmentBill(String userid, String order_code, int status) {
-        return apiService.approvalPlanAdjustmentBill(userid, order_code, status);
+    public Observable<BaseHttpRsp> approvalPlanAdjustmentBill(String userid, String id, int status) {
+        return apiService.approvalPlanAdjustmentBill(userid, id, status);
     }
 
     /**

@@ -135,8 +135,8 @@ public class PlanAdjustmentDetailsPresenter extends RxPresenter<PlanAdjustmentDe
     }
 
     @Override
-    public void approval(String userid, String order_code, final int status) {
-        Subscription rxSubscription = mRetrofitHelper.approvalPlanAdjustmentBill(userid,order_code,status)
+    public void approval(String userid, String id, final int status) {
+        Subscription rxSubscription = mRetrofitHelper.approvalPlanAdjustmentBill(userid,id,status)
                 .compose(RxUtil.<BaseHttpRsp>rxSchedulerHelper())
                 .subscribe(new BaseSubscriber(mView) {
                     @Override

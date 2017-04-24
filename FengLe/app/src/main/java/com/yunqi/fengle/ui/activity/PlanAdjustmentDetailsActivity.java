@@ -220,11 +220,11 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
                 switch (v.getId()) {
                     case R.id.btn_commit:// 审核通过
                     {
-                        mPresenter.approval(userBean.id,planAdjustmentApply.order_code,3);
+                        mPresenter.approval(userBean.id,planAdjustmentApply.id+"",3);
                     }
                     break;
                     case R.id.btn_temporary://驳回
-                        mPresenter.approval(userBean.id,planAdjustmentApply.order_code,4);
+                        mPresenter.approval(userBean.id,planAdjustmentApply.id+"",4);
                         break;
                     default:
                         break;

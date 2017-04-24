@@ -739,8 +739,8 @@ public interface ApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("goods_plan/approval")
-    Observable<BaseHttpRsp> approvalPlanAdjustmentBill(@Field("userid") String userid,@Field("order_code") String order_code,@Field("status") int status);
+    @POST("goods_plan/update_status")
+    Observable<BaseHttpRsp> approvalPlanAdjustmentBill(@Field("userid") String userid,@Field("id") String id,@Field("status") int status);
     /**
      * 修改密码
      *
