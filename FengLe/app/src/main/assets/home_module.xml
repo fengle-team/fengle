@@ -10,7 +10,7 @@
         <id>30</id>
         <name>促销申请</name>
         <className>com.yunqi.fengle.ui.activity.PromotionRequestActivity</className>
-        <icon>home_fhsq</icon>
+        <icon>home_cxsq</icon>
     </Module>
     <Module>
         <id>30</id>
