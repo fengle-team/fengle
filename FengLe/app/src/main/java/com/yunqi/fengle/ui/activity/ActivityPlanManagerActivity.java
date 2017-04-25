@@ -124,7 +124,7 @@ public class ActivityPlanManagerActivity extends BaseActivity<ActivityPlanPresen
     }
 
     private void initData() {
-        mPresenter.showData(status,customerCode,new ResponseListener() {
+        mPresenter.showData(status,customerCode,"","",new ResponseListener() {
             @Override
             public void onSuccess(NetResponse response) {
                 responseList = (List<ActivityAddResponse>) response.getResult();
@@ -154,7 +154,7 @@ public class ActivityPlanManagerActivity extends BaseActivity<ActivityPlanPresen
 
     private void initRecyclerView() {
         rvList.setLayoutManager(new LinearLayoutManager(this));
-        rvList.addItemDecoration(new RecycleViewDivider(this,RecycleViewDivider.VERTICAL_LIST));
+//        rvList.addItemDecoration(new RecycleViewDivider(this,RecycleViewDivider.VERTICAL_LIST));
 
         adapter = new ActivityPlanManagerAdapter();
 

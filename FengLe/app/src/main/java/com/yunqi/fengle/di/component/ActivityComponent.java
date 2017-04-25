@@ -7,6 +7,7 @@ import com.yunqi.fengle.ui.activity.ActivityExpenseActivity;
 import com.yunqi.fengle.ui.activity.ActivityExpenseActivity2;
 import com.yunqi.fengle.ui.activity.ActivityNewPlanActivity;
 import com.yunqi.fengle.ui.activity.ActivityPlanActivity;
+import com.yunqi.fengle.ui.activity.ActivityPlanActivityMain;
 import com.yunqi.fengle.ui.activity.ActivityPlanDetailActivity;
 import com.yunqi.fengle.ui.activity.ActivityPlanUpdateActivity;
 import com.yunqi.fengle.ui.activity.ActivitySummaryDetailActivity;
@@ -194,6 +195,8 @@ public interface ActivityComponent {
     void inject(ActivityPlanUpdateActivity activity);
 
     void inject(ActivityExpenseActivity2 activity);
+
+    void inject(ActivityPlanActivityMain activity);
 
 //    void inject(MessageActivity activity);
 }

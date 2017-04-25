@@ -47,6 +47,7 @@ import butterknife.OnClick;
 public class ActivityPlanUpdateActivity extends BaseActivity<ActivityPlanUpdatePresenter> {
 
     public static final String TAG = "tag";
+    public static final String TAG_2 = "tag2";
 
     @BindView(R.id.etStartTime)
     UnderLineTextNewPlanEx etStartTime;
@@ -91,15 +92,22 @@ public class ActivityPlanUpdateActivity extends BaseActivity<ActivityPlanUpdateP
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         showTitleBack();
-        setTitleText("更新活动状态");
+        setTitleText("活动计划");
 
-        setTitleRight("提交");
+
+        if (getIntent().hasExtra(TAG_2)) {
+            findViewById(R.id.llStatus).setVisibility(View.GONE);
+        } else {
+            setTitleRight("提交");
+        }
 
         spinnerStatus.addSpinner("3","审核通过");
         spinnerStatus.addSpinner("4","审核驳回");
 
         initData();
         initView();
+
+
     }
 
     @Override

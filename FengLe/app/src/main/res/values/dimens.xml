@@ -19,6 +19,9 @@
     <dimen name="visiting_margin_normal_txt">6dp</dimen>
     <dimen name="visiting_margin_larger_txt">8dp</dimen>
 
+
+    <dimen name="activity_detail_pad">8dp</dimen>
+
     <!--考勤-->
     <dimen name="move_sign_padding">12dp</dimen>
 

@@ -176,8 +176,8 @@ public class RetrofitHelper {
      * @param userid
      * @return
      */
-    public Observable<CommonHttpRsp<List<ActivityAddResponse>>> queryActivities(String status,String customerCode,String userid) {
-        return apiService.queryActivities(status,customerCode,userid);
+    public Observable<CommonHttpRsp<List<ActivityAddResponse>>> queryActivities(String status,String customerCode,String userid,String startTime,String endTime) {
+        return apiService.queryActivities(status,customerCode,userid,startTime,endTime);
     }
 
     /**
