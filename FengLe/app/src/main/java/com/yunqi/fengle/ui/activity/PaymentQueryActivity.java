@@ -63,11 +63,11 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
     @BindView(R.id.btn_query)
     Button btnQuery;
     @BindView(R.id.edit_keyword)
-    TextView txtNoData;
-    @BindView(R.id.txt_no_data)
     EditText editKeyword;
     @BindView(R.id.txt_total_amount)
     TextView txtTotalAmount;
+    @BindView(R.id.txt_no_data)
+    TextView txtNoData;
     PlaymentAdapter adapter;
     int index = 1;
     private long lstartTime = 0;
@@ -257,10 +257,10 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
     public void showContent(List<Payment> listPayment) {
         if(listPayment.isEmpty()){
             txtNoData.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
+            swipeLayout.setVisibility(View.GONE);
         }
         else{
-            recyclerView.setVisibility(View.VISIBLE);
+            swipeLayout.setVisibility(View.VISIBLE);
             txtNoData.setVisibility(View.GONE);
         }
         swipeLayout.setRefreshing(false);
