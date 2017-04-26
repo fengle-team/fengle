@@ -100,6 +100,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
             maxGoodsNumTip = getString(R.string.tip_max_goods_num_transfer);
             hintGoodsNum = getString(R.string.hint_edit_num_transfer);
             isTransfer = true;
+            user_code="";
         } else if (module.equals(AddReturnRequestActivity.class.getName()) || module.equals(ReturnDetailsActivity.class.getName())) {
             maxGoodsNumTip = getString(R.string.tip_max_goods_num_return);
             hintGoodsNum = getString(R.string.hint_edit_num_return);

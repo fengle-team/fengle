@@ -77,6 +77,7 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
     private String startTime = "";
     private String endTime = "";
     private String userId = "";
+    private String area_code = "";
     private int page = 1;
     private String lastStartTime = null;
     private String lastEndTime = null;
@@ -99,6 +100,7 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
 
     @Override
     protected void initEventAndData() {
+        area_code= App.getInstance().getUserInfo().area_code;
         userId = App.getInstance().getUserInfo().id;
         setToolBar(toolbar, getString(R.string.module_plan_adjustment_request), R.drawable.right_add, new View.OnClickListener() {
             @Override
@@ -127,10 +129,13 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
         radioBtn1.setText(R.string.bill_undeal);
         radioBtn2.setText(R.string.bill_undone);
         radioBtn3.setText(R.string.bill_history);
-        mPresenter.queryPlanAdjustmentApply(userId, from_area_code,to_area_code,mStatus, "", "", page);
+       loadData();
         radioGroup.check(R.id.radioBtn1);
         radioGroup.setOnCheckedChangeListener(this);
+    }
 
+    private void loadData(){
+        mPresenter.queryPlanAdjustmentApply(userId,area_code,from_area_code,to_area_code, mStatus, startTime, endTime, page);
     }
 
     private void setWidgetListener() {
@@ -147,13 +152,14 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
         tableViewEx.setOnLoadMoreListener(new ExTableView.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                mPresenter.queryPlanAdjustmentApply(userId,from_area_code,to_area_code, mStatus, lastStartTime, lastEndTime, ++page);
+                page++;
+                loadData();
             }
         });
         tableViewEx.setOnLoadRetryListener(new ExTableView.OnLoadRetryListener() {
             @Override
             public void onLoadRetry() {
-                mPresenter.queryPlanAdjustmentApply(userId,from_area_code,to_area_code, mStatus, lastStartTime, lastEndTime, page);
+                loadData();
             }
         });
         RxView.clicks(btnQuery)
@@ -168,7 +174,7 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
                         }
                         lastStartTime = startTime;
                         lastEndTime = endTime;
-                        mPresenter.queryPlanAdjustmentApply(userId,from_area_code,to_area_code, mStatus, startTime, endTime, page);
+                        loadData();
                     }
                 });
         RxView.clicks(btnStartTime)
@@ -266,7 +272,7 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
         if (requestCode == ADD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             int status = data.getIntExtra("status", 0);
             if (2 == mStatus) {
-                mPresenter.queryPlanAdjustmentApply(userId,from_area_code,to_area_code, mStatus, startTime, endTime, page);
+                loadData();
             }
         }  else if (requestCode == DETAIL_REQUEST_CODE && resultCode == DEL_DETAIL_RESULT_CODE) {
             int position = data.getIntExtra("postion", 0);
@@ -275,12 +281,12 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
         } else if (requestCode == DETAIL_REQUEST_CODE && resultCode == UPDATE_DETAIL_RESULT_CODE) {
             int status = data.getIntExtra("status", 0);
             if (1 == mStatus) {
-                mPresenter.queryPlanAdjustmentApply(userId,from_area_code,to_area_code, mStatus, startTime, endTime, page);
+                loadData();
             }
         }
         else if (requestCode == DETAIL_REQUEST_CODE && resultCode == APPROVAL_DETAIL_RESULT_CODE) {
             if (2 == mStatus) {
-                mPresenter.queryPlanAdjustmentApply(userId,from_area_code,to_area_code, mStatus, startTime, endTime, page);
+                loadData();
             }
         }
         else if (requestCode == SELECT_AREA_IN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
@@ -310,7 +316,7 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
                 break;
         }
         resetData();
-        mPresenter.queryPlanAdjustmentApply(userId,from_area_code,to_area_code, mStatus, "", "", page);
+        loadData();
     }
 
     private void resetData(){

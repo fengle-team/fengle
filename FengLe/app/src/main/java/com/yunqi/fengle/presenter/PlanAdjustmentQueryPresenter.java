@@ -31,8 +31,8 @@ public class PlanAdjustmentQueryPresenter extends RxPresenter<PlanAdjustmentRequ
         this.mRetrofitHelper = retrofitHelper;
     }
     @Override
-    public void queryPlanAdjustmentApply(String userid,String from_area_code,String to_area_code, int status, String startTime, String endTime, final int page) {
-        Subscription rxSubscription = mRetrofitHelper.queryPlanAdjustmentApply(userid,from_area_code,to_area_code, status, startTime, endTime, page)
+    public void queryPlanAdjustmentApply(String userid,String area_code,String from_area_code,String to_area_code, int status, String startTime, String endTime, final int page) {
+        Subscription rxSubscription = mRetrofitHelper.queryPlanAdjustmentApply(userid,area_code,from_area_code,to_area_code, status, startTime, endTime, page)
                 .compose(RxUtil.<CommonHttpRsp<List<PlanAdjustmentApply>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<PlanAdjustmentApply>>handleResult())
                 .subscribe(new ExSubscriber<List<PlanAdjustmentApply>>(mView) {

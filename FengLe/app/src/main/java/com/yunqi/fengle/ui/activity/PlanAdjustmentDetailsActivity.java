@@ -43,7 +43,7 @@ import rx.functions.Action1;
 /**
  * 计划调剂详情
  */
-public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDetailsPresenter> implements PlanAdjustmentDetailsContract.View{
+public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDetailsPresenter> implements PlanAdjustmentDetailsContract.View {
     private static final int SELECT_GOODS_REQUEST_CODE = 2;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -86,33 +86,37 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
 
     @Override
     protected void initEventAndData() {
-        userBean=App.getInstance().getUserInfo();
+        userBean = App.getInstance().getUserInfo();
         planAdjustmentApply = (PlanAdjustmentApply) getIntent().getExtras().getSerializable("PlanAdjustmentApply");
         position = getIntent().getExtras().getInt("position");
         mStatus = getIntent().getExtras().getInt("status");
         status = planAdjustmentApply.status;
         id = planAdjustmentApply.id;
-        if(mStatus==1){
+        if (mStatus == 1 || mStatus == 2) {
             setToolBar(toolbar, getString(R.string.module_plan_adjustment_detail), getString(R.string.operater), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    showBottomOpraterPopWindow();
+                    if (mStatus == 1) {
+                        showBottomOpraterPopWindow(0);
+                    } else if (mStatus == 2) {
+                        showBottomOpraterPopWindow(1);
+                    }
                 }
             });
         }
-        else if(mStatus==2){
-            setToolBar(toolbar, getString(R.string.module_plan_adjustment_detail), getString(R.string.drop), new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    DialogHelper.showDialog(PlanAdjustmentDetailsActivity.this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
-                        @Override
-                        public void onOk() {
-                            mPresenter.delete(id);
-                        }
-                    });
-                }
-            });
-        }
+//        else if (mStatus == 2) {
+//            setToolBar(toolbar, getString(R.string.module_plan_adjustment_detail), getString(R.string.operater), new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    DialogHelper.showDialog(PlanAdjustmentDetailsActivity.this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
+//                        @Override
+//                        public void onOk() {
+//                            mPresenter.delete(id);
+//                        }
+//                    });
+//                }
+//            });
+//        }
         else {
             setToolBar(toolbar, getString(R.string.module_plan_adjustment_detail));
         }
@@ -150,11 +154,12 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
         txtStatus.setText(strStatus);
         final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_add_delivey_request));
         tableView.setHeaderAdapter(tableHeader1Adapter);
-        TableColumnWeightModel columnModel = new TableColumnWeightModel(4);
+        TableColumnWeightModel columnModel = new TableColumnWeightModel(5);
         columnModel.setColumnWeight(0, 2);
         columnModel.setColumnWeight(1, 1);
         columnModel.setColumnWeight(2, 1);
         columnModel.setColumnWeight(3, 1);
+        columnModel.setColumnWeight(4, 1);
         tableView.setColumnModel(columnModel);
         tableView.addDataClickListener(new TableDataClickListener<PlanAdjustmentDetail>() {
             @Override
@@ -171,8 +176,8 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
         tableView.addDataClickListener(new TableDataClickListener<PlanAdjustmentDetail>() {
             @Override
             public void onDataClicked(final int rowIndex, PlanAdjustmentDetail planAdjustmentDetail) {
-                if(status>1){
-                    ToastUtil.showNoticeToast(PlanAdjustmentDetailsActivity.this,"单据已提交，不可操作！");
+                if (status > 1) {
+                    ToastUtil.showNoticeToast(PlanAdjustmentDetailsActivity.this, "单据已提交，不可操作！");
                     return;
                 }
                 DialogHelper.showDialog(PlanAdjustmentDetailsActivity.this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
@@ -191,16 +196,16 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
                     @Override
                     public void call(Void aVoid) {
                         Intent intent = new Intent(PlanAdjustmentDetailsActivity.this, GoodsQueryActivity.class);
-                        if(mlistPlanAdjustmentDetail!=null&&!mlistPlanAdjustmentDetail.isEmpty()){
-                            ArrayList<GoodsAndWarehouse> goodsArray=new ArrayList<>();
-                            for (PlanAdjustmentDetail planAdjustmentDetail:mlistPlanAdjustmentDetail){
-                                GoodsAndWarehouse goodsAndWarehouse=new GoodsAndWarehouse();
-                                goodsAndWarehouse.goods=planAdjustmentDetail;
+                        if (mlistPlanAdjustmentDetail != null && !mlistPlanAdjustmentDetail.isEmpty()) {
+                            ArrayList<GoodsAndWarehouse> goodsArray = new ArrayList<>();
+                            for (PlanAdjustmentDetail planAdjustmentDetail : mlistPlanAdjustmentDetail) {
+                                GoodsAndWarehouse goodsAndWarehouse = new GoodsAndWarehouse();
+                                goodsAndWarehouse.goods = planAdjustmentDetail;
                                 goodsArray.add(goodsAndWarehouse);
                             }
-                            intent.putExtra("goodsArray",goodsArray);
+                            intent.putExtra("goodsArray", goodsArray);
                         }
-                        intent.putExtra("module",PlanAdjustmentDetailsActivity.this.getClass().getName());
+                        intent.putExtra("module", PlanAdjustmentDetailsActivity.this.getClass().getName());
                         startActivityForResult(intent, SELECT_GOODS_REQUEST_CODE);
                     }
                 });
@@ -210,7 +215,7 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
     /**
      * 弹出底部操作PopupWindow
      */
-    public void showBottomOpraterPopWindow() {
+    public void showBottomOpraterPopWindow(final int type) {
         popWindow = new BottomOpraterPopWindow(this, new View.OnClickListener() {
 
             @Override
@@ -220,18 +225,53 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
                 switch (v.getId()) {
                     case R.id.btn_commit:// 审核通过
                     {
-                        mPresenter.approval(userBean.id,planAdjustmentApply.id+"",3);
+                        //未完成
+                        if (type == 1 && status == 1) {
+                            ToastUtil.showNoticeToast(PlanAdjustmentDetailsActivity.this, "单据已提交，不可操作！");
+                            return;
+                        }
+                        //驳回再次提交
+                        BillUpdateRequest request = new BillUpdateRequest();
+                        request.id = planAdjustmentApply.id;
+                        request.order_code = planAdjustmentApply.order_code;
+                        request.status = 2;
+                        if (type == 1) {
+                            List<Goods> listGoods = new ArrayList<>();
+                            for (PlanAdjustmentDetail planAdjustmentDetail : planAdjustmentApply.detail) {
+                                listGoods.add(planAdjustmentDetail);
+                            }
+                            request.goods_array = listGoods;
+                        }
+                        mPresenter.updateStatus(request);
+//                        mPresenter.approval(userBean.id,planAdjustmentApply.id+"",3);
                     }
                     break;
                     case R.id.btn_temporary://驳回
-                        mPresenter.approval(userBean.id,planAdjustmentApply.id+"",4);
+//                        mPresenter.approval(userBean.id,planAdjustmentApply.id+"",4);
+                        if (type == 0) {
+                            BillUpdateRequest request = new BillUpdateRequest();
+                            request.id = planAdjustmentApply.id;
+                            request.status = 3;
+                            mPresenter.updateStatus(request);
+                        } else {
+                            DialogHelper.showDialog(PlanAdjustmentDetailsActivity.this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
+                                @Override
+                                public void onOk() {
+                                    mPresenter.delete(id);
+                                }
+                            });
+                        }
                         break;
                     default:
                         break;
                 }
             }
         });
-        popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_audit));
+        if (type == 0) {
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_audit));
+        } else if (type == 1) {
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.plan_adjustment_add));
+        }
         popWindow.showAtLocation(findViewById(R.id.main_layout), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
@@ -271,7 +311,7 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
     }
 
 
-    private void showData(PlanAdjustmentApply planAdjustmentApply){
+    private void showData(PlanAdjustmentApply planAdjustmentApply) {
         txtOutArea.setText(planAdjustmentApply.from_area_detail.name);
         txtInArea.setText(planAdjustmentApply.to_area_detail.name);
         mlistPlanAdjustmentDetail = planAdjustmentApply.detail;
@@ -306,15 +346,13 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
             ToastUtil.showHookToast(this, "所选货物删除成功！");
             mlistPlanAdjustmentDetail.remove(positionGoods);
             adapter.notifyDataSetChanged();
-        }
-        else if (opraterType == 3) {
+        } else if (opraterType == 3) {
             ToastUtil.showHookToast(this, "审批成功！");
             Intent intent = new Intent();
             intent.putExtra("status", status);
             setResult(ReturnRequestActivity.UPDATE_DETAIL_RESULT_CODE, intent);
             finish();
-        }
-        else if (opraterType == 4) {
+        } else if (opraterType == 4) {
             ToastUtil.showHookToast(this, "单据已驳回！");
             Intent intent = new Intent();
             intent.putExtra("status", status);
@@ -322,22 +360,23 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
             finish();
         }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SELECT_GOODS_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             ArrayList<GoodsAndWarehouse> goodsArray = (ArrayList<GoodsAndWarehouse>) data.getSerializableExtra("listSelectGoods");
-            for (GoodsAndWarehouse goodsAndWarehouse:goodsArray){
-                PlanAdjustmentDetail planAdjustmentDetail=new PlanAdjustmentDetail();
-                planAdjustmentDetail.warehouse_code=goodsAndWarehouse.goods.warehouse_code;
-                planAdjustmentDetail.goods_warehouse=goodsAndWarehouse.goods.goods_warehouse;
-                planAdjustmentDetail.goods_num=goodsAndWarehouse.goods.goods_num;
-                planAdjustmentDetail.goods_id=goodsAndWarehouse.goods.goods_id;
-                planAdjustmentDetail.goods_code=goodsAndWarehouse.goods.goods_code;
-                planAdjustmentDetail.goods_name=goodsAndWarehouse.goods.goods_name;
-                planAdjustmentDetail.goods_standard=goodsAndWarehouse.goods.goods_standard;
-                planAdjustmentDetail.goods_units_num=goodsAndWarehouse.goods.goods_units_num;
-                planAdjustmentDetail.goods_price=goodsAndWarehouse.goods.goods_price;
+            for (GoodsAndWarehouse goodsAndWarehouse : goodsArray) {
+                PlanAdjustmentDetail planAdjustmentDetail = new PlanAdjustmentDetail();
+                planAdjustmentDetail.warehouse_code = goodsAndWarehouse.goods.warehouse_code;
+                planAdjustmentDetail.goods_warehouse = goodsAndWarehouse.goods.goods_warehouse;
+                planAdjustmentDetail.goods_num = goodsAndWarehouse.goods.goods_num;
+                planAdjustmentDetail.goods_id = goodsAndWarehouse.goods.goods_id;
+                planAdjustmentDetail.goods_code = goodsAndWarehouse.goods.goods_code;
+                planAdjustmentDetail.goods_name = goodsAndWarehouse.goods.goods_name;
+                planAdjustmentDetail.goods_standard = goodsAndWarehouse.goods.goods_standard;
+                planAdjustmentDetail.goods_units_num = goodsAndWarehouse.goods.goods_units_num;
+                planAdjustmentDetail.goods_price = goodsAndWarehouse.goods.goods_price;
                 mlistPlanAdjustmentDetail.add(planAdjustmentDetail);
             }
         }

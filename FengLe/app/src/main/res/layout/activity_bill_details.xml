@@ -73,6 +73,7 @@
             android:textColor="@color/text_color2"
             android:textSize="@dimen/comom_txt_size_m" />
     </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

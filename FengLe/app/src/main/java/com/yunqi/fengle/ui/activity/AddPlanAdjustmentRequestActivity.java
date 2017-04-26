@@ -201,6 +201,7 @@ public class AddPlanAdjustmentRequestActivity extends BaseActivity<AddPlanAdjust
             }
         });
         popWindow.setOpraterType(1);
+        popWindow.setPopWindowTexts(getResources().getStringArray(R.array.plan_adjustment_add));
         popWindow.showAtLocation(findViewById(R.id.main_layout), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
