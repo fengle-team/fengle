@@ -92,21 +92,21 @@ public class ActivityPlanActivity extends BaseActivity<ActivityPlanPresenter> im
     }
 
     private void initData() {
-        mPresenter.showData(status,customerCode,new ResponseListener() {
-            @Override
-            public void onSuccess(NetResponse response) {
-                List<ActivityAddResponse> responseList = (List<ActivityAddResponse>) response.getResult();
-                adapter.setNewData(responseList);
-                progresser.showContent();
-                swipe.setRefreshing(false);
-            }
-
-            @Override
-            public void onFaild(NetResponse response) {
-                progresser.showError(true);
-                swipe.setRefreshing(false);
-            }
-        });
+//        mPresenter.showData(status,customerCode,new ResponseListener() {
+//            @Override
+//            public void onSuccess(NetResponse response) {
+//                List<ActivityAddResponse> responseList = (List<ActivityAddResponse>) response.getResult();
+//                adapter.setNewData(responseList);
+//                progresser.showContent();
+//                swipe.setRefreshing(false);
+//            }
+//
+//            @Override
+//            public void onFaild(NetResponse response) {
+//                progresser.showError(true);
+//                swipe.setRefreshing(false);
+//            }
+//        });
     }
 
     private void initView() {
@@ -143,7 +143,7 @@ public class ActivityPlanActivity extends BaseActivity<ActivityPlanPresenter> im
 
     private void initRecyclerView() {
         rvList.setLayoutManager(new LinearLayoutManager(this));
-        rvList.addItemDecoration(new RecycleViewDivider(this,RecycleViewDivider.VERTICAL_LIST));
+//        rvList.addItemDecoration(new RecycleViewDivider(this,RecycleViewDivider.VERTICAL_LIST));
 
         adapter = new ActivityPlanManagerAdapter();
         rvList.setAdapter(adapter);

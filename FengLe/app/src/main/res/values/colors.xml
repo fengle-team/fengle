@@ -17,6 +17,11 @@
     <color name="transparents">#00000000</color>
     <color name="light_green">#51c240</color>
     <color name="dialog_bg_line">#E5E5E5</color>
+    <color name="activity_cor">#fffdb150</color>
+
+    <color name="color_wait">#ffff7c13</color>
+    <color name="color_tg">#ff56c148</color>
+    <color name="color_npass">#ff636363</color>
 
     <color name="hint_color1">#D1D0D0</color>
     <color name="style1_color_normal">#51c240</color>

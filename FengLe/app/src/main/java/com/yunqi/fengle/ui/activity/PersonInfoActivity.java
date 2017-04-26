@@ -40,7 +40,7 @@ public class PersonInfoActivity extends BaseActivity<PersonPresenter> implements
     private void initView() {
         UserBean user = App.getInstance().getUserInfo();
         tvAcount.setText(user.account);
-        tvPosition.setText(user.position);
+        tvPosition.setText(user.role_name);
     }
 
 

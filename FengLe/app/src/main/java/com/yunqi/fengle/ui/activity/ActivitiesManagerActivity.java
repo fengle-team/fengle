@@ -68,10 +68,12 @@ public class ActivitiesManagerActivity extends BaseActivity{
             case 0://活动计划
                 if (App.getInstance().getUserInfo().role_code.equals(UserBean.ROLE_YWY))
                 {//业务员
-                    mIntent.setClass(ActivitiesManagerActivity.this, ActivityPlanActivity.class);
+                    mIntent.setClass(ActivitiesManagerActivity.this, ActivityPlanActivityMain.class);
+//                    mIntent.setClass(ActivitiesManagerActivity.this, ActivityPlanActivity.class);
                 } else
                 {//经理
-                    mIntent.setClass(ActivitiesManagerActivity.this, ActivityPlanManagerActivity.class);
+                    mIntent.setClass(ActivitiesManagerActivity.this, ActivityPlanActivityMain.class);
+//                    mIntent.setClass(ActivitiesManagerActivity.this, ActivityPlanManagerActivity.class);
                 }
                 startActivity(mIntent);
                 break;

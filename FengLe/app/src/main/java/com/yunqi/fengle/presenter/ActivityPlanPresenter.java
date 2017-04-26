@@ -35,9 +35,9 @@ public class ActivityPlanPresenter extends RxPresenter<ActivityPlanContract.View
 
 
     @Override
-    public void showData(String status,String customerCode,final ResponseListener listener) {
+    public void showData(String status,String customerCode,String startTime,String endTime,final ResponseListener listener) {
 
-        Subscription rxSubscription = mRetrofitHelper.queryActivities(status,customerCode,App.getInstance().getUserInfo().id)
+        Subscription rxSubscription = mRetrofitHelper.queryActivities(status,customerCode,App.getInstance().getUserInfo().id,startTime,endTime)
                 .compose(RxUtil.<CommonHttpRsp<List<ActivityAddResponse>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<ActivityAddResponse>>handleResult())
                 .subscribe(new ExSubscriber<List<ActivityAddResponse>>(mView) {

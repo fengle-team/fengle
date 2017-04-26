@@ -106,6 +106,13 @@
         <item>件数</item>
         <item>价格</item>
     </string-array>
+    <string-array name="header_title_activity">
+        <item>大区</item>
+        <item>客户名称</item>
+        <item>用费预算</item>
+        <item>状态</item>
+        <item>操作</item>
+    </string-array>
     <string-array name="header_title_goods_query">
         <item>编号</item>
         <item>名称</item>
