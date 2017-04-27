@@ -38,6 +38,8 @@ public class ActivityPlanManagerAdapter extends BaseQuickAdapter<ActivityAddResp
         ((TextView)helper.getView(R.id.tvEndTime)).setText(DateUtil.formatB(item.getEnd_time()));
         TextView tvStatus = helper.getView(R.id.tvStatus);//审核状态
         tvStatus.setText(item.getStatusDes(selectStatus));
+
+        tvStatus.setBackgroundColor(mContext.getResources().getColor(item.getTxtBack()));
     }
 
     public void setSelectStatus(int selectStatus) {

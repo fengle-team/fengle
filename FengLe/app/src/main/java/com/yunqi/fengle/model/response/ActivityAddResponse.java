@@ -1,5 +1,6 @@
 package com.yunqi.fengle.model.response;
 
+import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.ui.activity.ActivityPlanActivity;
 
@@ -229,26 +230,45 @@ public class ActivityAddResponse implements Serializable{
         switch (status) {
             case STATUS_TS_1:
                 statusDes = "暂存";
+                txtBackColor = R.color.color_npass;
                 break;
             case STATUS_PENDING_2:
                 if (App.getInstance().getUserInfo().id.equals(userid))
                 {//如果单据是本人提交的，则是未完成状态
                     statusDes = "未完成";
+                    txtBackColor = R.color.color_npass;
                     break;
                 }
-                statusDes = selectStatus == 3 ? "中心经理已审核":"提交待审核";//若选中的是历史单据，返回①，不是返回②
+                if (selectStatus == 3)//若选中的是历史单据，返回①，不是返回②
+                {
+                    statusDes = "中心经理已审核";
+                    txtBackColor = R.color.color_tg;
+                }else {
+                    statusDes = "提交待审核";
+                    txtBackColor = R.color.color_wait;
+                }
+//                statusDes = selectStatus == 3 ? "中心经理已审核":"提交待审核";//若选中的是历史单据，返回①，不是返回②
                 break;
             case STATUS_PASS_3:
                 statusDes = "审核通过";
+                txtBackColor = R.color.color_tg;
                 break;
             case STATUS_REJECT_4:
                 statusDes = "驳回";
+                txtBackColor = R.color.color_npass;
                 break;
             default:
                 statusDes = "未知状态";
+                txtBackColor = R.color.color_npass;
                 break;
         }
         return statusDes;
+    }
+
+    private int txtBackColor = R.color.color_npass;
+
+    public int getTxtBack() {
+        return txtBackColor;
     }
 
 }

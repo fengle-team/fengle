@@ -181,7 +181,7 @@ public interface ApiService {
      * @return
      */
     @GET("action/get")
-    Observable<CommonHttpRsp<List<ActivityAddResponse>>> queryActivities(@Query("status") String status,@Query("custom_code") String custom_code,@Query("userid") String userid);
+    Observable<CommonHttpRsp<List<ActivityAddResponse>>> queryActivities(@Query("status") String status,@Query("custom_code") String custom_code,@Query("userid") String userid,@Query("start_time") String start_time, @Query("end_time") String end_time);
 
     @GET("action_summary/get")
     Observable<CommonHttpRsp<List<ActivitySummaryResponse>>> queryActivitieSummary(@Query("userid") String userId);

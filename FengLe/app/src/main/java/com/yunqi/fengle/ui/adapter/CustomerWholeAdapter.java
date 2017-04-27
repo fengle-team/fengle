@@ -39,7 +39,7 @@ public class CustomerWholeAdapter extends BaseMultiItemQuickAdapter<CustomerWhol
         super(data);
         this.mContext = context;
         addItemType(CustomerWholeMultiItem.TYPE_CONTENT, R.layout.item_customer_whole_content);
-//        addItemType(CustomerWholeMultiItem.TYPE_CONTACT, R.layout.item_customer_whole_contack);//联系人
+        addItemType(CustomerWholeMultiItem.TYPE_CONTACT, R.layout.item_customer_whole_contack);//联系人
         addItemType(CustomerWholeMultiItem.TYPE_VISIT, R.layout.item_customer_whole_visit);//拜访
 //        addItemType(CustomerWholeMultiItem.TYPE_SALE, R.layout.item_customer_whole_sale);//销售订单不用
         addItemType(CustomerWholeMultiItem.TYPE_RETURN, R.layout.item_customer_whole_return);//回款
@@ -77,6 +77,8 @@ public class CustomerWholeAdapter extends BaseMultiItemQuickAdapter<CustomerWhol
                 break;
             case CustomerWholeMultiItem.TYPE_CONTACT://联系人
 
+
+                helper.addOnClickListener(R.id.ivAdd);
                 helper.getView(R.id.ivAdd).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

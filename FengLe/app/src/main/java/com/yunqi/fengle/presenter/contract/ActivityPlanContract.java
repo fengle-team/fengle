@@ -15,6 +15,6 @@ public interface ActivityPlanContract {
     }
 
     interface Presenter extends BasePresenter<ActivityPlanContract.View> {
-        void showData(String status,String customerCode,ResponseListener listener);
+        void showData(String status,String customerCode,String startTime,String endTime,ResponseListener listener);
     }
 }
