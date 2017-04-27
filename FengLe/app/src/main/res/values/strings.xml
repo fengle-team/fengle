@@ -80,7 +80,7 @@
     <string name="select_warehouse">选择仓库</string>
     <string name="fukui_type">付款类型</string>
     <string name="payment_type">回款类型</string>
-    <string name="bank_code">会计科目</string>
+    <string name="bank_code">收款银行</string>
     <string name="out_customer">调出客户</string>
     <string name="in_customer">调入客户</string>
     <string name="out_customer_tag">调出客户:</string>
