@@ -497,8 +497,8 @@ public class RetrofitHelper {
      * @param page
      * @return
      */
-    public Observable<CommonHttpRsp<List<PlanAdjustmentApply>>> queryPlanAdjustmentApply(String userid, String from_area_code, String to_area_code, int status, String startTime, String endTime, int page) {
-        return apiService.queryPlanAdjustmentApply(userid, from_area_code, to_area_code, status, startTime, endTime, page, PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<PlanAdjustmentApply>>> queryPlanAdjustmentApply(String userid,String area_code, String from_area_code, String to_area_code, int status, String startTime, String endTime, int page) {
+        return apiService.queryPlanAdjustmentApply(userid, area_code,from_area_code, to_area_code, status, startTime, endTime, page, PAGE_SIZE);
     }
 
     /**

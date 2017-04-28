@@ -402,7 +402,7 @@ public interface ApiService {
      * 计划查询接口
      */
     @GET("goods_plan/get")
-    Observable<CommonHttpRsp<List<PlanAdjustmentApply>>> queryPlanAdjustmentApply(@Query("userid") String userid, @Query("from_area_code") String from_area_code,  @Query("to_area_code") String to_area_code, @Query("status") int status, @Query("start_time") String start_time, @Query("end_time") String end_time, @Query("page") int page, @Query("size") int size);
+    Observable<CommonHttpRsp<List<PlanAdjustmentApply>>> queryPlanAdjustmentApply(@Query("userid") String userid,@Query("area_code")String area_code,  @Query("from_area_code") String from_area_code,  @Query("to_area_code") String to_area_code, @Query("status") int status, @Query("start_time") String start_time, @Query("end_time") String end_time, @Query("page") int page, @Query("size") int size);
 
     /**
      * 发货单详情查询接口
