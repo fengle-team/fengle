@@ -61,7 +61,7 @@ public class PlanAdjustmentDetailsPresenter extends RxPresenter<PlanAdjustmentDe
                     protected void onSuccess(BaseHttpRsp httpRsp) {
                         //成功
                         if(httpRsp.getCode()==200){
-                            mView.onSuccess(0);
+                            mView.onSuccess(3);
                         }
                         else{
                             String errorMsg=httpRsp.getMessage();
@@ -76,13 +76,21 @@ public class PlanAdjustmentDetailsPresenter extends RxPresenter<PlanAdjustmentDe
     }
 
     @Override
-    public void updateStatus(BillUpdateRequest request) {
+    public void updateStatus(final BillUpdateRequest request) {
         Subscription rxSubscription = mRetrofitHelper.updatePlanAdjustmentStatus(request)
                 .compose(RxUtil.<BaseHttpRsp>rxSchedulerHelper())
                 .subscribe(new BaseSubscriber(mView) {
                     @Override
                     protected void onSuccess() {
-                        mView.onSuccess(0);
+                        if(request.status==1&&request.opraterType==1){
+                            mView.onSuccess(0);
+                        }
+                        else  if(request.status==1&&request.opraterType==0){
+                            mView.onSuccess(3);
+                        }
+                        else if(request.status==3){
+                            mView.onSuccess(4);
+                        }
                     }
 
                     @Override
