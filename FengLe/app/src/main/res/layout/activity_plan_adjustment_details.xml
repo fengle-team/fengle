@@ -84,7 +84,6 @@
         android:layout_marginRight="@dimen/common_right_margin"
         android:layout_marginTop="@dimen/common_top_margin"
         android:orientation="horizontal"
-        android:visibility="gone"
         android:background="@drawable/input_bg2">
 
         <TextView
@@ -110,6 +109,7 @@
             android:gravity="center"
             android:paddingLeft="15dp"
             android:text="@string/select_goods"
+            android:visibility="gone"
             android:textColor="@color/text_color2"
             android:textSize="@dimen/comom_txt_size_m" />
     </LinearLayout>

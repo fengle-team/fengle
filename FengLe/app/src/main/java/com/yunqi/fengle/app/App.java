@@ -2,7 +2,6 @@ package com.yunqi.fengle.app;
 
 import android.support.v7.app.AppCompatDelegate;
 
-import com.tencent.bugly.crashreport.CrashReport;
 import com.yunqi.fengle.base.BaseApplication;
 import com.yunqi.fengle.di.component.AppComponent;
 import com.yunqi.fengle.di.component.DaggerAppComponent;
@@ -29,12 +28,9 @@ public class App extends BaseApplication {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        initBugly();
     }
 
-    private void initBugly() {
-        CrashReport.initCrashReport(getApplicationContext(), "72f85baf3e", false);
-    }
+
 
 
     public static synchronized App getInstance() {
@@ -54,14 +50,8 @@ public class App extends BaseApplication {
     }
 
     public UserBean getUserInfo() {
-//        if (Constants.isDebug) {
-//            userBean = new UserBean();
-//            userBean.id = "14";
-//            userBean.position = "测试职位";
-//        }
         //当因为系统内存不足时，获取数据库的方式获取用户信息
         if (userBean == null) {
-            ToastUtil.showNoticeToast(this, "系统内存,程序重新启动！");
             userBean = new RealmHelper(this).getUserBean();
         }
         return userBean;

@@ -17,5 +17,6 @@ public class BillUpdateRequest {
     public List<Goods> goods_array;
 
     public int status;
+    public int opraterType;
 
 }

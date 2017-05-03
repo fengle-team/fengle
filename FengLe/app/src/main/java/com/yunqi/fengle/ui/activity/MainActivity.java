@@ -11,6 +11,9 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.beta.Beta;
+import com.tencent.bugly.crashreport.CrashReport;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
@@ -71,8 +74,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     protected void initEventAndData() {
+        initBugly();
         initBannerData();
         initGridData();
+    }
+
+    private void initBugly() {
+        Bugly.init(getApplicationContext(), getString(R.string.tencent_bugly_id), true);
+//        Beta.checkUpgrade();
     }
 
     private void initBannerData() {

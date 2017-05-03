@@ -100,7 +100,7 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
 
     @Override
     protected void initEventAndData() {
-        area_code= App.getInstance().getUserInfo().area_code;
+        area_code = App.getInstance().getUserInfo().area_code;
         userId = App.getInstance().getUserInfo().id;
         setToolBar(toolbar, getString(R.string.module_plan_adjustment_request), R.drawable.right_add, new View.OnClickListener() {
             @Override
@@ -129,13 +129,13 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
         radioBtn1.setText(R.string.bill_undeal);
         radioBtn2.setText(R.string.bill_undone);
         radioBtn3.setText(R.string.bill_history);
-       loadData();
+        loadData();
         radioGroup.check(R.id.radioBtn1);
         radioGroup.setOnCheckedChangeListener(this);
     }
 
-    private void loadData(){
-        mPresenter.queryPlanAdjustmentApply(userId,area_code,from_area_code,to_area_code, mStatus, startTime, endTime, page);
+    private void loadData() {
+        mPresenter.queryPlanAdjustmentApply(userId, area_code, from_area_code, to_area_code, mStatus, startTime, endTime, page);
     }
 
     private void setWidgetListener() {
@@ -270,33 +270,24 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
         super.onActivityResult(requestCode, resultCode, data);
         page = 1;
         if (requestCode == ADD_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            int status = data.getIntExtra("status", 0);
             if (2 == mStatus) {
                 loadData();
             }
-        }  else if (requestCode == DETAIL_REQUEST_CODE && resultCode == DEL_DETAIL_RESULT_CODE) {
+        } else if (requestCode == DETAIL_REQUEST_CODE && resultCode == DEL_DETAIL_RESULT_CODE) {
             int position = data.getIntExtra("postion", 0);
             mlistPlanAdjustmentApply.remove(position);
             adapter.notifyDataSetChanged();
         } else if (requestCode == DETAIL_REQUEST_CODE && resultCode == UPDATE_DETAIL_RESULT_CODE) {
-            int status = data.getIntExtra("status", 0);
-            if (1 == mStatus) {
-                loadData();
-            }
-        }
-        else if (requestCode == DETAIL_REQUEST_CODE && resultCode == APPROVAL_DETAIL_RESULT_CODE) {
-            if (2 == mStatus) {
-                loadData();
-            }
-        }
-        else if (requestCode == SELECT_AREA_IN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            selectedInArea= (Area) data.getSerializableExtra("SelectArea");
-            to_area_code=selectedInArea.area_code;
+            loadData();
+        } else if (requestCode == DETAIL_REQUEST_CODE && resultCode == APPROVAL_DETAIL_RESULT_CODE) {
+            loadData();
+        } else if (requestCode == SELECT_AREA_IN_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            selectedInArea = (Area) data.getSerializableExtra("SelectArea");
+            to_area_code = selectedInArea.area_code;
             btnInArea.setText(selectedInArea.name);
-        }
-        else if (requestCode == SELECT_AREA_OUT_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            selectedOutArea= (Area) data.getSerializableExtra("SelectArea");
-            from_area_code=selectedOutArea.area_code;
+        } else if (requestCode == SELECT_AREA_OUT_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            selectedOutArea = (Area) data.getSerializableExtra("SelectArea");
+            from_area_code = selectedOutArea.area_code;
             btnOutArea.setText(selectedOutArea.name);
         }
     }
@@ -319,20 +310,20 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
         loadData();
     }
 
-    private void resetData(){
+    private void resetData() {
         page = 1;
         btnStartTime.setText(R.string.start_time);
         btnEndTime.setText(R.string.end_time);
         btnInArea.setText(R.string.in_area);
         btnOutArea.setText(R.string.out_area);
-        lstartTime=0;
-        startTime="";
-        lendTime=0;
-        endTime="";
-        from_area_code="";
-        to_area_code="";
-        selectedInArea=null;
-        selectedOutArea=null;
+        lstartTime = 0;
+        startTime = "";
+        lendTime = 0;
+        endTime = "";
+        from_area_code = "";
+        to_area_code = "";
+        selectedInArea = null;
+        selectedOutArea = null;
     }
 
     @Override
@@ -350,7 +341,6 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
         adapter.notifyDataSetChanged();
     }
 
-   
 
     @Override
     public void showMoreContent(List<PlanAdjustmentApply> listPlanAdjustmentApplyMore) {

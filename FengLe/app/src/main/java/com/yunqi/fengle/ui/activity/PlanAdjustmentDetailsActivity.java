@@ -73,6 +73,7 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
     private PlanAdjustmentDetailTableDataAdapter adapter;
     private List<PlanAdjustmentDetail> mlistPlanAdjustmentDetail;
     private int positionGoods;
+    private boolean isEditor;
 
     @Override
     protected void initInject() {
@@ -144,13 +145,15 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
                 strStatus = getString(R.string.bill_status_3);
                 break;
             case 3:
+                if(mStatus==2){
+                    isEditor=true;
+                }
                 strStatus = getString(R.string.bill_status_4);
                 break;
             default:
                 strStatus = getString(R.string.bill_status_unknown);
                 break;
         }
-        btnSelectGoods.setVisibility(View.GONE);
         txtStatus.setText(strStatus);
         final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_add_delivey_request));
         tableView.setHeaderAdapter(tableHeader1Adapter);
@@ -167,7 +170,9 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
 
             }
         });
-
+        if (isEditor) {
+            btnSelectGoods.setVisibility(View.VISIBLE);
+        }
         showData(planAdjustmentApply);
 //        mPresenter.getPlanAdjustmentDetails(planAdjustmentApply.id);
     }
@@ -176,7 +181,7 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
         tableView.addDataClickListener(new TableDataClickListener<PlanAdjustmentDetail>() {
             @Override
             public void onDataClicked(final int rowIndex, PlanAdjustmentDetail planAdjustmentDetail) {
-                if (status > 1) {
+                if (!isEditor) {
                     ToastUtil.showNoticeToast(PlanAdjustmentDetailsActivity.this, "单据已提交，不可操作！");
                     return;
                 }
@@ -196,6 +201,8 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
                     @Override
                     public void call(Void aVoid) {
                         Intent intent = new Intent(PlanAdjustmentDetailsActivity.this, GoodsQueryActivity.class);
+                        intent.putExtra("customer_code",App.getInstance().getUserInfo().user_code);
+                        intent.putExtra("area_code",planAdjustmentApply.from_area_detail.area_code);
                         if (mlistPlanAdjustmentDetail != null && !mlistPlanAdjustmentDetail.isEmpty()) {
                             ArrayList<GoodsAndWarehouse> goodsArray = new ArrayList<>();
                             for (PlanAdjustmentDetail planAdjustmentDetail : mlistPlanAdjustmentDetail) {
@@ -234,10 +241,11 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
                         BillUpdateRequest request = new BillUpdateRequest();
                         request.id = planAdjustmentApply.id;
                         request.order_code = planAdjustmentApply.order_code;
-                        request.status = 2;
+                        request.status = 1;
                         if (type == 1) {
+                            request.opraterType=1;
                             List<Goods> listGoods = new ArrayList<>();
-                            for (PlanAdjustmentDetail planAdjustmentDetail : planAdjustmentApply.detail) {
+                            for (PlanAdjustmentDetail planAdjustmentDetail : mlistPlanAdjustmentDetail) {
                                 listGoods.add(planAdjustmentDetail);
                             }
                             request.goods_array = listGoods;
@@ -331,7 +339,7 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
     @Override
     public void onSuccess(int opraterType) {
         if (opraterType == 0) {
-            ToastUtil.showHookToast(this, "单据更新状态成功！");
+            ToastUtil.showHookToast(this, "单据提交成功！");
             Intent intent = new Intent();
             intent.putExtra("status", status);
             setResult(ReturnRequestActivity.APPROVAL_DETAIL_RESULT_CODE, intent);
