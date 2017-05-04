@@ -74,15 +74,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     protected void initEventAndData() {
-        initBugly();
         initBannerData();
         initGridData();
     }
 
-    private void initBugly() {
-        Bugly.init(getApplicationContext(),"b9c3f570f4", false);
-//        Beta.checkUpgrade();
-    }
+
+
+
 
     private void initBannerData() {
         cycleViewPager = (CycleViewPager) getFragmentManager()
