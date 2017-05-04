@@ -16,7 +16,7 @@ public class Constants {
 
     //================= 第三方AppId相关====================
     //腾讯BUGLY AppId
-    public static final String TENCENT_BUGLY_APPID = "72f85baf3e";
+    public static final String TENCENT_BUGLY_APPID = "b9c3f570f4";
 
     //======================= Path=======================
     public static final String PATH_DATA = App.getInstance().getCacheDir().getAbsolutePath() + File.separator + "data";

@@ -3,6 +3,7 @@ package com.yunqi.fengle.base;
 
 import android.app.Activity;
 
+import com.tencent.bugly.Bugly;
 import com.yunqi.fengle.BuildConfig;
 import com.yunqi.fengle.component.CrashHandlerApplication;
 import com.yunqi.fengle.constants.Constants;
@@ -35,7 +36,8 @@ public class BaseApplication extends CrashHandlerApplication {
         LeakCanary.install(this);
         if(!Constants.isDebug){
             //加入腾讯bugly
-            CrashReport.initCrashReport(getApplicationContext(), Constants.TENCENT_BUGLY_APPID, false);
+//            CrashReport.initCrashReport(getApplicationContext(), Constants.TENCENT_BUGLY_APPID, false);
+            Bugly.init(getApplicationContext(), Constants.TENCENT_BUGLY_APPID, false);
         }
     }
 

@@ -193,6 +193,7 @@ public class CustomerWholeActivity extends BaseActivity<CustomerWholePresenter> 
     @Override
     public void onAddContact() {
         Intent mIntent = new Intent();
+        mIntent.putExtra("tag", customerModel);
         mIntent.setClass(this, NewContactsActivity.class);
         startActivity(mIntent);
     }

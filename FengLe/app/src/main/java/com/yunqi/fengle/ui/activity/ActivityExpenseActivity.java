@@ -123,7 +123,11 @@ public class ActivityExpenseActivity extends BaseActivity<ActivitySummaryPresent
             public void onSuccess(NetResponse response) {
                 List<ActivitySummaryResponse> responseList = (List<ActivitySummaryResponse>) response.getResult();
                 adapter.setNewData(responseList);
-                progresser.showContent();
+                if (responseList == null || responseList.size() == 0) {
+                    progresser.showEmpty();
+                } else {
+                    progresser.showContent();
+                }
                 swipe.setRefreshing(false);
             }
 

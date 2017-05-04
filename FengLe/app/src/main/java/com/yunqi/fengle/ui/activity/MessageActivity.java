@@ -51,7 +51,14 @@ public class MessageActivity extends BaseActivity<MessagePresenter> implements M
             @Override
             public void onSuccess(NetResponse response) {
                 progresser.showContent();
-                adapter.setNewData((List<MessageResponse>) response.getResult());
+                List<MessageResponse> listData = (List<MessageResponse>) response.getResult();
+                adapter.setNewData(listData);
+
+                if (listData == null || listData.size() == 0) {
+                    progresser.showEmpty();
+                } else {
+                    progresser.showContent();
+                }
             }
 
             @Override

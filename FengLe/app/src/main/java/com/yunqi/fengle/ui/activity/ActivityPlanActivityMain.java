@@ -151,9 +151,9 @@ public class ActivityPlanActivityMain extends BaseActivity<ActivityPlanPresenter
                 if (adapter.getBillStatus() == 1) {
 
                 } else {
-                    mIntent.putExtra(ActivityPlanUpdateActivity.TAG_2, false);
+                    mIntent.putExtra(ActivityPlanUpdateActivity.TAG_2, adapter.getBillStatus());
                 }
-                ActivityPlanActivityMain.this.startActivity(mIntent);
+                ActivityPlanActivityMain.this.startActivityForResult(mIntent,111);
             }
         });
     }
@@ -322,6 +322,14 @@ public class ActivityPlanActivityMain extends BaseActivity<ActivityPlanPresenter
 
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 100) {
+            initData();
+        }
+    }
 
     @Override
     public void cancelLoading() {

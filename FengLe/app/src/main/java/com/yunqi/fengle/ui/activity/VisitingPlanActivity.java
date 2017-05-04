@@ -115,10 +115,15 @@ public class VisitingPlanActivity extends BaseActivity<VisitingPlanPresenter> im
         mPresenter.getVisitingPlanList(customerCode,new ResponseListener() {
             @Override
             public void onSuccess(NetResponse response) {
-                progresser.showContent();
                 swipyRefreshLayout.setRefreshing(false);
                 responseList = (List<VisitingPlanResponse>) response.getResult();
                 adapter.setNewData(responseList);
+
+                if (responseList == null || responseList.size() == 0) {
+                    progresser.showEmpty();
+                } else {
+                    progresser.showContent();
+                }
             }
 
             @Override

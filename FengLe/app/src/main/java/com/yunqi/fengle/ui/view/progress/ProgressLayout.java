@@ -158,6 +158,10 @@ public class ProgressLayout extends RelativeLayout {
 		switchState(State.ERROR, error, Collections.<Integer> emptyList());
 	}
 
+	public void showEmpty() {
+		showError("没有数据!");
+	}
+
 	// public void showErrorText(String error, List<Integer> skipIds) {
 	// switchState(State.ERROR, error, skipIds);
 	// }

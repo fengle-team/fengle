@@ -456,6 +456,7 @@ public class ProgressWheel extends View {
         invalidate();
     }
 
+
     /**
      * Set the progress to a specific value,
      * the bar will be set instantly to that value

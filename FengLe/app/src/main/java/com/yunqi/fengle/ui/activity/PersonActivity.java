@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.tencent.bugly.beta.Beta;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
@@ -66,6 +67,11 @@ public class PersonActivity extends BaseActivity {
         Intent mIntent = new Intent();
         mIntent.setClass(this, PersonInfoActivity.class);
         startActivity(mIntent);
+    }
+
+    @OnClick(R.id.llUpdate)
+    public void llUpdate() {
+        Beta.checkUpgrade();
     }
 
     @Override

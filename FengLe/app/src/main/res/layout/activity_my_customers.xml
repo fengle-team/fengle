@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:contentDescription="我的客户入口"
-    android:background="#ffe5e5e5">
+    android:background="#ffe5e5e5"
+    android:contentDescription="我的客户入口">
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvMyCustomers"
+    <com.yunqi.fengle.ui.swipe.SwipyRefreshLayout
+        android:id="@+id/swipyRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:direction="both">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvMyCustomers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.yunqi.fengle.ui.swipe.SwipyRefreshLayout>
 
 </LinearLayout>

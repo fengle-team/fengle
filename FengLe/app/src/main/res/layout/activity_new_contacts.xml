@@ -39,6 +39,7 @@
                 android:textSize="@dimen/text_small_size" />
 
             <com.yunqi.fengle.ui.view.UnderLineEditTextEx
+                android:id="@+id/tvClientName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/customer_add_margin"
@@ -60,6 +61,7 @@
                 android:textSize="@dimen/text_small_size" />
 
             <com.yunqi.fengle.ui.view.UnderLineEditTextEx
+                android:id="@+id/tvName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/customer_add_margin"
@@ -81,6 +83,7 @@
                 android:textSize="@dimen/text_small_size" />
 
             <com.yunqi.fengle.ui.view.UnderLineEditTextEx
+                android:id="@+id/tvDept"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/customer_add_margin"
@@ -102,6 +105,7 @@
                 android:textSize="@dimen/text_small_size" />
 
             <com.yunqi.fengle.ui.view.UnderLineEditTextEx
+                android:id="@+id/tvPost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/customer_add_margin"
