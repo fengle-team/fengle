@@ -6,13 +6,16 @@ import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.jakewharton.rxbinding.widget.TextViewAfterTextChangeEvent;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.model.response.CustomerWholeResponse;
 import com.yunqi.fengle.model.response.CustomersResponse;
+import com.yunqi.fengle.model.response.model.ContactEntity;
 import com.yunqi.fengle.model.response.model.VisitPlanEntity;
 import com.yunqi.fengle.ui.activity.CustomerWholeActivity;
 import com.yunqi.fengle.util.LogEx;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -78,7 +81,27 @@ public class CustomerWholeAdapter extends BaseMultiItemQuickAdapter<CustomerWhol
             case CustomerWholeMultiItem.TYPE_CONTACT://联系人
 
 
+                TextView tvName = helper.getView(R.id.tvName);
+                TextView tvPosition = helper.getView(R.id.tvPosition);
+                TextView tvNum1 = helper.getView(R.id.tvNum);
+
+                List<ContactEntity> entityList = item.getLinkmans();
+                if (entityList == null) {
+                    entityList = new ArrayList<>();
+                }
+                if (entityList == null || entityList.size() == 0) {
+                    helper.getView(R.id.llContact).setVisibility(View.INVISIBLE);
+                } else{
+                    helper.getView(R.id.llContact).setVisibility(View.VISIBLE);
+                    ContactEntity bean = entityList.get(0);
+                    tvName.setText(bean.getLinkman_name() + "");
+                    tvPosition.setText(bean.getLinkman_post() + "");
+                }
+                tvNum1.setText(entityList.size() + "");
+
                 helper.addOnClickListener(R.id.ivAdd);
+
+
                 helper.getView(R.id.ivAdd).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

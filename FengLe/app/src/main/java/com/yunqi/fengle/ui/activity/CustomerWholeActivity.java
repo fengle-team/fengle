@@ -195,7 +195,14 @@ public class CustomerWholeActivity extends BaseActivity<CustomerWholePresenter> 
         Intent mIntent = new Intent();
         mIntent.putExtra("tag", customerModel);
         mIntent.setClass(this, NewContactsActivity.class);
-        startActivity(mIntent);
+        startActivityForResult(mIntent,222);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == 999) {
+            initData();
+        }
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.yunqi.fengle.model.response;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.yunqi.fengle.model.response.model.ContactEntity;
 import com.yunqi.fengle.model.response.model.HuikuanInfoEntity;
 import com.yunqi.fengle.model.response.model.InvoceInfoEntity;
 import com.yunqi.fengle.model.response.model.TuihuoInfoEntity;
@@ -50,6 +51,9 @@ public class CustomerWholeResponse implements MultiItemEntity,Cloneable {
     private int fahuo_amount;
     private int tuihuo_amount;
     private int huikuan_amount;
+
+
+    private List<ContactEntity> linkmans;
     /**
      * last_visite_plan : {"id":22,"client_name":"（原药）杭州中隆化工科技有限公司\u2014\u2014江媛","plan_time":"2017-04-18 00:00:00","start_time":null,"end_time":null,"responsible_name":"qqqq","create_time":"2017-04-18 21:56:31","userid":13,"reason":"qqqq","status":1,"client_code":"0106010022"}
      * visite_plan_count : 1
@@ -283,4 +287,11 @@ public class CustomerWholeResponse implements MultiItemEntity,Cloneable {
         return bean;
     }
 
+    public List<ContactEntity> getLinkmans() {
+        return linkmans;
+    }
+
+    public void setLinkmans(List<ContactEntity> linkmans) {
+        this.linkmans = linkmans;
+    }
 }
