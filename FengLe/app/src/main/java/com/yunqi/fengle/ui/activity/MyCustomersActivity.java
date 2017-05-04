@@ -93,7 +93,7 @@ public class MyCustomersActivity extends BaseActivity<MyCustomersPresenter> impl
                         ToastUtil.toast(mContext, "没有更多数据了!");
                     } else {
                         dataList.addAll(dataList01);
-                        adapter.addData(dataList01);
+                        adapter.setNewData(dataList);
                         page++;
                     }
                     progresser.showContent();

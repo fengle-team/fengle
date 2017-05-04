@@ -280,7 +280,7 @@ public class RetrofitHelper {
      * @return
      */
     public Observable<CommonHttpRsp<List<CustomersResponse>>> getCustomers(String user_code,int page,int pageSize) {
-        return apiService.getCustomers("2007205",page,pageSize);
+        return apiService.getCustomers(user_code,page,pageSize);
     }
 
     /**

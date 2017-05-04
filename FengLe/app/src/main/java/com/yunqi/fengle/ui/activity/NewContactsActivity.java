@@ -73,6 +73,7 @@ public class NewContactsActivity extends BaseActivity<NewContactsPresenter> {
             public void onSuccess() {
                 progresser.showContent();
                 ToastUtil.toast(mContext,"添加成功");
+                setResult(999);
                 NewContactsActivity.this.finish();
             }
 
