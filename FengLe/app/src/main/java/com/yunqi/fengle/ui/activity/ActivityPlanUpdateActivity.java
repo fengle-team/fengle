@@ -6,6 +6,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.RadioGroup;
 
@@ -18,9 +19,11 @@ import com.yunqi.fengle.presenter.ActivityPlanPresenter;
 import com.yunqi.fengle.presenter.ActivityPlanUpdatePresenter;
 import com.yunqi.fengle.presenter.contract.ActivityPlanContract;
 import com.yunqi.fengle.ui.adapter.ActivityPlanManagerAdapter;
+import com.yunqi.fengle.ui.fragment.dialog.SimpleDialogFragment;
 import com.yunqi.fengle.ui.fragment.dialog.SpinnerDialogFragment;
 import com.yunqi.fengle.ui.swipe.SwipyRefreshLayout;
 import com.yunqi.fengle.ui.swipe.SwipyRefreshLayoutDirection;
+import com.yunqi.fengle.ui.view.BottomOpraterPopWindow;
 import com.yunqi.fengle.ui.view.RecycleViewDivider;
 import com.yunqi.fengle.ui.view.UnderLineEditNewPlanContentEx;
 import com.yunqi.fengle.ui.view.UnderLineEditNewPlanEx;
@@ -59,10 +62,8 @@ public class ActivityPlanUpdateActivity extends BaseActivity<ActivityPlanUpdateP
     UnderLineTextNewPlanEx etActionType;
     @BindView(R.id.etClientName)
     UnderLineTextNewPlanEx etClientName;
-
     @BindView(R.id.tvStatus)
     UnderLineTextNewPlanEx tvStatus;
-
     @BindView(R.id.etRegion)
     UnderLineTextNewPlanEx etRegion;
     @BindView(R.id.etShopName)
@@ -87,6 +88,8 @@ public class ActivityPlanUpdateActivity extends BaseActivity<ActivityPlanUpdateP
 
     private SpinnerBean spinnerStatus = new SpinnerBean();//活动类型
 
+    private int billStatus = -1;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,6 +100,10 @@ public class ActivityPlanUpdateActivity extends BaseActivity<ActivityPlanUpdateP
 
         if (getIntent().hasExtra(TAG_2)) {
             findViewById(R.id.llStatus).setVisibility(View.GONE);
+            billStatus = getIntent().getIntExtra(TAG_2, billStatus);
+            if (billStatus == 2) {
+                setTitleRight("删除");
+            }
         } else {
             setTitleRight("提交");
         }
@@ -112,6 +119,34 @@ public class ActivityPlanUpdateActivity extends BaseActivity<ActivityPlanUpdateP
 
     @Override
     protected void onTitleRightClicked(View v) {
+
+        if (billStatus == 2)
+        {//未完成
+            DialogHelper.showDialog(this, "是否删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
+                @Override
+                public void onOk() {
+                    progresser.showProgress();
+                    mPresenter.deleteActivity(response.getId() + "", new ResponseListener() {
+                        @Override
+                        public void onSuccess() {
+                            super.onSuccess();
+                            progresser.showContent();
+                            setResult(100);
+                            ActivityPlanUpdateActivity.this.finish();
+                        }
+
+                        @Override
+                        public void onFaild(NetResponse response) {
+                            super.onFaild(response);
+                            ToastUtil.toast(mContext,response.getMsg());
+                            progresser.showContent();
+                        }
+                    });
+                }
+            });
+            return;
+        }
+
         if (tvStatus.getText().equals("")) {
             ToastUtil.toast(mContext,"请选择状态");
             return;

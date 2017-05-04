@@ -158,7 +158,11 @@ public class ActivitySummaryActivity extends BaseActivity<ActivitySummaryPresent
             public void onSuccess(NetResponse response) {
                 List<ActivityAddResponse> responseList = (List<ActivityAddResponse>) response.getResult();
                 adapter.setNewData(responseList);
-                progresser.showContent();
+                if (responseList == null || responseList.size() == 0) {
+                    progresser.showEmpty();
+                } else {
+                    progresser.showContent();
+                }
                 swipe.setRefreshing(false);
             }
 

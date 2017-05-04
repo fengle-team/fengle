@@ -17,6 +17,8 @@ import com.yunqi.fengle.presenter.MyCustomersPresenter;
 import com.yunqi.fengle.presenter.contract.MyCustomersContract;
 import com.yunqi.fengle.ui.adapter.MyCustomersAdapter;
 import com.yunqi.fengle.ui.fragment.dialog.SimpleDialogFragment;
+import com.yunqi.fengle.ui.swipe.SwipyRefreshLayout;
+import com.yunqi.fengle.ui.swipe.SwipyRefreshLayoutDirection;
 import com.yunqi.fengle.ui.view.RecycleViewDivider;
 import com.yunqi.fengle.ui.view.RecycleViewDividerCustom;
 import com.yunqi.fengle.util.DialogHelper;
@@ -35,15 +37,23 @@ import butterknife.BindView;
  * @Description:我的客户
  */
 
-public class MyCustomersActivity extends BaseActivity<MyCustomersPresenter> implements MyCustomersContract.View {
+public class MyCustomersActivity extends BaseActivity<MyCustomersPresenter> implements MyCustomersContract.View ,SwipyRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.rvMyCustomers)
     RecyclerView rvMyCustomers;
 
     public static String TAG = "MyCustomersActivity";
 
+    @BindView(R.id.swipyRefreshLayout)
+    SwipyRefreshLayout swipyRefreshLayout;
+
+    int page = 1;
+    int pageSize = 20;
+
     List<CustomersResponse> dataList = new ArrayList<>();
     MyCustomersAdapter adapter;
+
+    SwipyRefreshLayoutDirection refreshType = SwipyRefreshLayoutDirection.TOP ;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,21 +63,46 @@ public class MyCustomersActivity extends BaseActivity<MyCustomersPresenter> impl
 //        setTitleRight("添加");
         initRecyclerView();
 
+        progresser.showProgress();
         initData();
+
+        swipyRefreshLayout.setOnRefreshListener(this);
+
     }
 
     private void initData() {
-        progresser.showProgress();
-        mPresenter.getMyCustomers(new ResponseListener() {
+
+        mPresenter.getMyCustomers(page,pageSize,new ResponseListener() {
             @Override
             public void onSuccess(NetResponse response) {
-                dataList = (List<CustomersResponse>) response.getResult();
-                adapter.setNewData(dataList);
-                progresser.showContent();
+                swipyRefreshLayout.setRefreshing(false);
+                if (refreshType == SwipyRefreshLayoutDirection.TOP) {
+                    page = 2;
+                    dataList = (List<CustomersResponse>) response.getResult();
+                    adapter.setNewData(dataList);
+
+                    if (dataList == null || dataList.size() == 0) {
+                        progresser.showEmpty();
+                    } else {
+                        progresser.showContent();
+                    }
+
+                } else {
+                    List<CustomersResponse> dataList01 = (List<CustomersResponse>) response.getResult();
+                    if (dataList01 == null || dataList01.size() == 0) {
+                        ToastUtil.toast(mContext, "没有更多数据了!");
+                    } else {
+                        dataList.addAll(dataList01);
+                        adapter.addData(dataList01);
+                        page++;
+                    }
+                    progresser.showContent();
+                }
             }
 
             @Override
             public void onFaild(NetResponse response) {
+                swipyRefreshLayout.setRefreshing(false);
                 ToastUtil.toast(mContext, response.getMsg());
                 progresser.showError(true);
             }
@@ -149,6 +184,18 @@ public class MyCustomersActivity extends BaseActivity<MyCustomersPresenter> impl
         startActivity(mIntent);
     }
 
+    @Override
+    public void onRefresh(SwipyRefreshLayoutDirection direction) {
+        if (direction == SwipyRefreshLayoutDirection.TOP) {
+            page = 1;
+            refreshType = SwipyRefreshLayoutDirection.TOP;
+            initData();
+        } else if(direction == SwipyRefreshLayoutDirection.BOTTOM){
+            initData();
+            refreshType = SwipyRefreshLayoutDirection.BOTTOM;
+        }
+    }
+
 
     @Override
     protected int getViewModel() {
@@ -184,4 +231,6 @@ public class MyCustomersActivity extends BaseActivity<MyCustomersPresenter> impl
     public void showError(String msg) {
 
     }
+
+
 }

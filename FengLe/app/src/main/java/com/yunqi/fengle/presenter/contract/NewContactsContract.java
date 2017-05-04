@@ -2,6 +2,7 @@ package com.yunqi.fengle.presenter.contract;
 
 import com.yunqi.fengle.base.BasePresenter;
 import com.yunqi.fengle.base.BaseView;
+import com.yunqi.fengle.model.request.AddLinkmanRequest;
 import com.yunqi.fengle.util.map.ResponseListener;
 
 /**
@@ -10,15 +11,11 @@ import com.yunqi.fengle.util.map.ResponseListener;
  * @Description:
  */
 
-public interface ActivityPlanUpdateContract {
+public interface NewContactsContract {
     interface View extends BaseView {
     }
 
-    interface Presenter extends BasePresenter<ActivityPlanUpdateContract.View> {
-
-        void updatePlanUpdateStatus(String userid,String order_code,String status,ResponseListener listener);
-        void deleteActivity(String id ,ResponseListener listener);
-
-
+    interface Presenter extends BasePresenter<NewContactsContract.View> {
+        void addLinkman(AddLinkmanRequest request, ResponseListener listener);
     }
 }

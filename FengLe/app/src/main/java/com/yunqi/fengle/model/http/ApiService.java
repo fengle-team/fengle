@@ -24,6 +24,7 @@ import com.yunqi.fengle.model.bean.Warehouse;
 import com.yunqi.fengle.model.request.ActivityAddPlanRequest;
 import com.yunqi.fengle.model.request.ActivityExpenseRequest;
 import com.yunqi.fengle.model.request.ActivitySummaryRequest;
+import com.yunqi.fengle.model.request.AddLinkmanRequest;
 import com.yunqi.fengle.model.request.BillUpdateRequest;
 import com.yunqi.fengle.model.request.DailySendRequest;
 import com.yunqi.fengle.model.request.BillAddRequest;
@@ -553,6 +554,13 @@ public interface ApiService {
     Observable<BaseHttpRsp> updateBillingStatus(@Body BillUpdateRequest request);
 
     /**
+     * @param request
+     * @return
+     */
+    @POST("custom/addLinkman")
+    Observable<BaseHttpRsp> addLinkman(@Body AddLinkmanRequest request);
+
+    /**
      * 添加活动计划
      *
      * @param request
@@ -560,6 +568,14 @@ public interface ApiService {
      */
     @POST("maintain/add")
     Observable<CommonHttpRsp<Object>> addMaintain(@Body AddMaintainRequest request);
+    /**
+     * 删除活动计划
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("action/delete")
+    Observable<BaseHttpRsp> deleteActivity(@Field("id") String id);
     /**
      * 添加费用报销
      * @param request
@@ -804,7 +820,7 @@ public interface ApiService {
      * @return
      */
     @GET("custom/get")
-    Observable<CommonHttpRsp<List<CustomersResponse>>> getCustomers(@Query("user_code") String user_code);
+    Observable<CommonHttpRsp<List<CustomersResponse>>> getCustomers(@Query("user_code") String user_code,@Query("page") int page,@Query("size") int size);
 
     /**
      * 获取客户全貌

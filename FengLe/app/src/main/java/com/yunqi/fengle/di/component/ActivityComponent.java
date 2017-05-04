@@ -41,6 +41,7 @@ import com.yunqi.fengle.ui.activity.MainActivity;
 import com.yunqi.fengle.ui.activity.MessageActivity;
 import com.yunqi.fengle.ui.activity.MoveAttendanceSignInActivity;
 import com.yunqi.fengle.ui.activity.MyCustomersActivity;
+import com.yunqi.fengle.ui.activity.NewContactsActivity;
 import com.yunqi.fengle.ui.activity.NoticeActivity;
 import com.yunqi.fengle.ui.activity.PaymentDeclarationActivity;
 import com.yunqi.fengle.ui.activity.PaymentDeclarationDetailsActivity;
@@ -197,6 +198,8 @@ public interface ActivityComponent {
     void inject(ActivityExpenseActivity2 activity);
 
     void inject(ActivityPlanActivityMain activity);
+
+    void inject(NewContactsActivity activity);
 
 //    void inject(MessageActivity activity);
 }

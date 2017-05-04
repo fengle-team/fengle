@@ -37,20 +37,20 @@ public class VisitingAddCustomerPresenter extends RxPresenter<VisitingAddCustome
 
     @Override
     public void getMyCustomer(final ResponseListener listener) {
-        Subscription rxSubscription = mRetrofitHelper.getCustomers(App.getInstance().getUserInfo().user_code)
-                .compose(RxUtil.<CommonHttpRsp<List<CustomersResponse>>>rxSchedulerHelper())
-                .compose(RxUtil.<List<CustomersResponse>>handleResult())
-                .subscribe(new ExSubscriber<List<CustomersResponse>>(mView) {
-                    @Override
-                    protected void onSuccess(List<CustomersResponse> list) {
-                        listener.onSuccess(new NetResponse(0,"success",list));
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        listener.onFaild(new NetResponse(-1,e.getMessage()));
-                    }
-                });
-        addSubscrebe(rxSubscription);
+//        Subscription rxSubscription = mRetrofitHelper.getCustomers(App.getInstance().getUserInfo().user_code)
+//                .compose(RxUtil.<CommonHttpRsp<List<CustomersResponse>>>rxSchedulerHelper())
+//                .compose(RxUtil.<List<CustomersResponse>>handleResult())
+//                .subscribe(new ExSubscriber<List<CustomersResponse>>(mView) {
+//                    @Override
+//                    protected void onSuccess(List<CustomersResponse> list) {
+//                        listener.onSuccess(new NetResponse(0,"success",list));
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        listener.onFaild(new NetResponse(-1,e.getMessage()));
+//                    }
+//                });
+//        addSubscrebe(rxSubscription);
     }
 }

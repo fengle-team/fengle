@@ -39,8 +39,8 @@ public class MyCustomersPresenter extends RxPresenter<MyCustomersContract.View> 
 
 
     @Override
-    public void getMyCustomers(final ResponseListener listener) {
-        Subscription rxSubscription = mRetrofitHelper.getCustomers(App.getInstance().getUserInfo().user_code)
+    public void getMyCustomers(int page,int pageSize,final ResponseListener listener) {
+        Subscription rxSubscription = mRetrofitHelper.getCustomers(App.getInstance().getUserInfo().user_code,page,pageSize)
                 .compose(RxUtil.<CommonHttpRsp<List<CustomersResponse>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<CustomersResponse>>handleResult())
                 .subscribe(new ExSubscriber<List<CustomersResponse>>(mView) {

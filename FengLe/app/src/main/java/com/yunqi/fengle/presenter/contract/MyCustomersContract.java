@@ -19,8 +19,9 @@ public interface MyCustomersContract {
     }
 
     interface Presenter extends BasePresenter<MyCustomersContract.View> {
-        void getMyCustomers(ResponseListener listener);
+        void getMyCustomers(int page,int pageSize,ResponseListener listener);
 
         void doUpgradeClient(CustomersResponse request,ResponseListener listener);
+
     }
 }

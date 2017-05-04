@@ -30,6 +30,7 @@ import com.yunqi.fengle.model.bean.Warehouse;
 import com.yunqi.fengle.model.request.ActivityAddPlanRequest;
 import com.yunqi.fengle.model.request.ActivityExpenseRequest;
 import com.yunqi.fengle.model.request.ActivitySummaryRequest;
+import com.yunqi.fengle.model.request.AddLinkmanRequest;
 import com.yunqi.fengle.model.request.BillUpdateRequest;
 import com.yunqi.fengle.model.request.DailySendRequest;
 import com.yunqi.fengle.model.request.BillAddRequest;
@@ -210,6 +211,14 @@ public class RetrofitHelper {
     }
 
     /**
+     * 删除活动
+     *
+     * @return
+     */
+    public Observable<BaseHttpRsp> deleteActivity(String id) {
+        return apiService.deleteActivity(id);
+    }
+    /**
      * 添加维护
      *
      * @param request
@@ -270,8 +279,8 @@ public class RetrofitHelper {
      *
      * @return
      */
-    public Observable<CommonHttpRsp<List<CustomersResponse>>> getCustomers(String user_code) {
-        return apiService.getCustomers(user_code);
+    public Observable<CommonHttpRsp<List<CustomersResponse>>> getCustomers(String user_code,int page,int pageSize) {
+        return apiService.getCustomers("2007205",page,pageSize);
     }
 
     /**
@@ -773,6 +782,16 @@ public class RetrofitHelper {
      */
     public Observable<BaseHttpRsp> updateBillingStatus(BillUpdateRequest request) {
         return apiService.updateBillingStatus(request);
+    }
+
+    /**
+     * 更新状态
+     *
+     * @param request
+     * @return
+     */
+    public Observable<BaseHttpRsp> addLinkman(AddLinkmanRequest request) {
+        return apiService.addLinkman(request);
     }
 
     /**

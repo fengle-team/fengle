@@ -53,4 +53,22 @@ public class ActivityPlanUpdatePresenter extends RxPresenter<ActivityPlanUpdateC
                 });
         addSubscrebe(rxSubscription);
     }
+
+    @Override
+    public void deleteActivity(String id, final ResponseListener listener) {
+        Subscription rxSubscription = mRetrofitHelper.deleteActivity(id)
+                .compose(RxUtil.<BaseHttpRsp>rxSchedulerHelper())
+                .subscribe(new BaseSubscriber(mView) {
+                    @Override
+                    protected void onSuccess() {
+                        listener.onSuccess();
+                    }
+
+                    @Override
+                    protected void onFailure(int errorCode, String msg) {
+                        listener.onFaild(new NetResponse(errorCode,msg));
+                    }
+                });
+        addSubscrebe(rxSubscription);
+    }
 }
