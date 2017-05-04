@@ -80,7 +80,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
 
     private void initBugly() {
-        Bugly.init(getApplicationContext(), getString(R.string.tencent_bugly_id), true);
+        Bugly.init(getApplicationContext(),"b9c3f570f4", false);
 //        Beta.checkUpgrade();
     }
 

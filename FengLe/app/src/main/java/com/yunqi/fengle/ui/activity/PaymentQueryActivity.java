@@ -200,7 +200,8 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
 
     @Override
     public void showLoading() {
-
+        txtNoData.setVisibility(View.VISIBLE);
+        txtNoData.setText("加载中...");
     }
 
     @Override
@@ -210,7 +211,8 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
 
     @Override
     public void showError(String msg) {
-
+        txtNoData.setVisibility(View.VISIBLE);
+        txtNoData.setText("数据加载失败...");
     }
 
     @Override
@@ -229,6 +231,7 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
         super.onDestroy();
 
     }
+
 
 
     @Override
@@ -256,6 +259,7 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
     @Override
     public void showContent(List<Payment> listPayment) {
         if(listPayment.isEmpty()){
+            txtNoData.setText("暂无数据");
             txtNoData.setVisibility(View.VISIBLE);
             swipeLayout.setVisibility(View.GONE);
         }
