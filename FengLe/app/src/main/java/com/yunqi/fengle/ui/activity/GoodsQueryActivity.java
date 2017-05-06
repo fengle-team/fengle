@@ -72,6 +72,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
     public ArrayList<GoodsAndWarehouse> goodsArray;
     private boolean isTransfer = false;
     private String area_code="";
+    private boolean isPromotion;
 
     @Override
     protected void initInject() {
@@ -111,15 +112,16 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
             maxGoodsNumTip = getString(R.string.tip_max_goods_num_plan);
             hintGoodsNum = getString(R.string.hint_edit_num_plan);
         }
-        if (type == 1) {
-            rlayoutSelectWarehouse.setVisibility(View.VISIBLE);
-        }
-        boolean isPromotion=getIntent().getBooleanExtra("isPromotion",false);
+        isPromotion=getIntent().getBooleanExtra("isPromotion",false);
         if(isPromotion){
+            warehouse_code="x001";
             setToolBar(toolbar, getString(R.string.module_promotion_goods_query));
         }
         else{
             setToolBar(toolbar, getString(R.string.module_goods_query));
+        }
+        if (type == 1&&!isPromotion) {
+            rlayoutSelectWarehouse.setVisibility(View.VISIBLE);
         }
         setWigetListener();
         final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_goods_query));
@@ -184,7 +186,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
         tableViewEx.tableView.addDataClickListener(new TableDataClickListener<Goods>() {
             @Override
             public void onDataClicked(int rowIndex, final Goods goods) {
-                if (type == 1 && selectedWarehouse == null) {
+                if (type == 1 && selectedWarehouse == null&&!isPromotion) {
                     ToastUtil.showNoticeToast(GoodsQueryActivity.this, "请先选择仓库！");
                     return;
                 }
