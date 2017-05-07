@@ -14,8 +14,8 @@ android {
         applicationId "com.yunqi.fengle"
         minSdkVersion 17
         targetSdkVersion 25
-        versionCode 3
-        versionName "1.1"
+        versionCode 13
+        versionName "1.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
