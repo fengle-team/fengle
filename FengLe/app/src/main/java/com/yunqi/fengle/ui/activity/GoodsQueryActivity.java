@@ -275,6 +275,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
                             }
                         }
                     });
+                    dialog.setModule(iModule);
                     dialog.show();
 //                    DialogHelper.showDialog(GoodsQueryActivity.this, "最多可发数量：" + goods.goods_num, new SimpleDialogFragment.OnSimpleDialogListener() {
 //                        @Override
