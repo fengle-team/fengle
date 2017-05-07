@@ -50,22 +50,27 @@ public class DeliveryDetailTableDataAdapter extends BaseTableDataAdapter<Deliver
     }
 
 
-
-
     private View renderOperater(DeliveryDetail deliveryDetail) {
         return renderString("删除");
     }
+
     private View renderGoodsUnitsNum(DeliveryDetail deliveryDetail) {
-        return renderString(deliveryDetail.goods_units_num+"");
+        if (deliveryDetail.goods_units_num > 0) {
+            return renderString(deliveryDetail.goods_units_num + "");
+        } else {
+            return renderString("");
+        }
+
     }
 
     private View renderGoodNum(DeliveryDetail deliveryDetail) {
-        return renderString(deliveryDetail.goods_num+"");
+        return renderString(deliveryDetail.goods_num + "");
     }
 
     private View renderGoodName(DeliveryDetail deliveryDetail) {
         return renderString(deliveryDetail.goods_name);
     }
+
     private View renderGoodStandard(DeliveryDetail deliveryDetail) {
         return renderString(deliveryDetail.goods_standard);
     }

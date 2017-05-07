@@ -73,6 +73,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
     private boolean isTransfer = false;
     private String area_code="";
     private boolean isPromotion;
+    private int iModule=0;
 
     @Override
     protected void initInject() {
@@ -120,17 +121,46 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
         else{
             setToolBar(toolbar, getString(R.string.module_goods_query));
         }
-        if (type == 1&&!isPromotion) {
-            rlayoutSelectWarehouse.setVisibility(View.VISIBLE);
-        }
+
         setWigetListener();
-        final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_goods_query));
+        String [] heads;
+        TableColumnWeightModel columnModel;
+        if(isPromotion){
+            iModule=2;
+            heads=getResources().getStringArray(R.array.header_title_goods_query_promotion);
+            columnModel = new TableColumnWeightModel(4);
+            columnModel.setColumnWeight(0, 1);
+            columnModel.setColumnWeight(1, 2);
+            columnModel.setColumnWeight(2, 1);
+            columnModel.setColumnWeight(3, 1);
+        }
+        else{
+            //表示发货
+            if (type == 1&&!isPromotion) {
+                iModule=1;
+                heads=getResources().getStringArray(R.array.header_title_goods_query_delivery);
+                rlayoutSelectWarehouse.setVisibility(View.VISIBLE);
+                columnModel = new TableColumnWeightModel(6);
+                columnModel.setColumnWeight(0, 1);
+                columnModel.setColumnWeight(1, 2);
+                columnModel.setColumnWeight(2, 1);
+                columnModel.setColumnWeight(3, 1);
+                columnModel.setColumnWeight(4, 1);
+                columnModel.setColumnWeight(5, 1);
+            }
+            else{
+                iModule=0;
+                heads=getResources().getStringArray(R.array.header_title_goods_query);
+                columnModel = new TableColumnWeightModel(5);
+                columnModel.setColumnWeight(0, 1);
+                columnModel.setColumnWeight(1, 2);
+                columnModel.setColumnWeight(2, 1);
+                columnModel.setColumnWeight(3, 1);
+                columnModel.setColumnWeight(4, 1);
+            }
+        }
+        final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, heads);
         tableViewEx.tableView.setHeaderAdapter(tableHeader1Adapter);
-        TableColumnWeightModel columnModel = new TableColumnWeightModel(4);
-        columnModel.setColumnWeight(0, 1);
-        columnModel.setColumnWeight(1, 2);
-        columnModel.setColumnWeight(2, 1);
-        columnModel.setColumnWeight(3, 1);
         tableViewEx.tableView.setColumnModel(columnModel);
         loadData();
     }
@@ -200,6 +230,12 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
                     }
                 } else {
                     goodsArray = new ArrayList<GoodsAndWarehouse>();
+                }
+                if(type == 1&&!isPromotion){
+                    if(goods.goods_plan<=0){
+                        ToastUtil.showNoticeToast(GoodsQueryActivity.this,"暂无计划，不可操作！");
+                        return;
+                    }
                 }
                 if (goods_num > 0) {
                     InputDialog dialog = new InputDialog(GoodsQueryActivity.this, goods_num, maxGoodsNumTip, hintGoodsNum, goods, new InputDialog.OnConfirmListener() {
@@ -325,6 +361,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
     public void showContent(List<Goods> listGoods) {
         mListGoods = listGoods;
         adapter = new GoodsTableDataAdapter(this, mListGoods);
+        adapter.setModule(iModule);
         tableViewEx.tableView.setDataAdapter(adapter);
         if (mListGoods.isEmpty()) {
             tableViewEx.setEmptyData();

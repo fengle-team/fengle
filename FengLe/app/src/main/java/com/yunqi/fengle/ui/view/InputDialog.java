@@ -86,6 +86,10 @@ public class InputDialog extends Dialog {
                     ToastUtil.showErrorToast(context, "不可超过最大数量!");
                     return;
                 }
+                if (num > goods.goods_plan) {
+                    ToastUtil.showErrorToast(context, "不可超过计划数量!");
+                    return;
+                }
                 listener.onText(num);
                 dismiss();
             }

@@ -22,13 +22,14 @@ import de.codecrafters.tableview.TableDataAdapter;
 public class GoodsTableDataAdapter extends BaseTableDataAdapter<Goods> {
     private Context context;
     private List<Goods> listSelect=new ArrayList<>();
+    private int module;//0：表示退货 、开票等 1：发货 2：表示促销
     public GoodsTableDataAdapter(Context context, List<Goods> data) {
         super(context, data);
         this.context=context;
     }
 
-    public List<Goods> getListSelect(){
-        return listSelect;
+    public void setModule(int module){
+        this.module=module;
     }
 
     @Override
@@ -47,10 +48,22 @@ public class GoodsTableDataAdapter extends BaseTableDataAdapter<Goods> {
                 renderedView = renderGoodsStandard(goods);
                 break;
             case 3:
-                renderedView = renderGoodsPrice(goods);
+                renderedView = renderStock(goods);
                 break;
             case 4:
-                renderedView = renderGoodsSelect(goods);
+                switch (module){
+                    case 1:
+                        renderedView = renderGoodsPlan(goods);
+                        break;
+                    case 2:
+                        break;
+                    default:
+                        renderedView = renderGoodsPrice(goods);
+                        break;
+                }
+                break;
+            case 5:
+                renderedView = renderGoodsPrice(goods);
                 break;
         }
         return renderedView;
@@ -67,9 +80,14 @@ public class GoodsTableDataAdapter extends BaseTableDataAdapter<Goods> {
         }
         return view;
     }
-
+    private View renderGoodsPlan(Goods goods) {
+        return renderString(goods.goods_plan+"");
+    }
     private View renderGoodsPrice(Goods goods) {
         return renderString(goods.goods_price+"");
+    }
+    private View renderStock(Goods goods) {
+        return renderString(goods.goods_num+"");
     }
 
     private View renderGoodsStandard(Goods goods) {

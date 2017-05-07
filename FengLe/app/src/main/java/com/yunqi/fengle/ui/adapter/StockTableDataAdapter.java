@@ -69,7 +69,7 @@ public class StockTableDataAdapter extends BaseTableDataAdapter<Goods> {
 
 
     private View renderGoodsPlan(Goods goods,ViewGroup parentView ) {
-        return renderString(goods.goods_plan+"",parentView);
+        return renderString(goods.goods_plan_left+"",parentView);
     }
 
     private View renderString( String value,ViewGroup parentView ) {

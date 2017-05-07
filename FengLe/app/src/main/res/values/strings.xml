@@ -64,7 +64,7 @@
     <string name="module_area_query">大区查询</string>
     <string name="module_warehouse_query">仓库查询</string>
     <string name="module_payment_type">回款类型查询</string>
-    <string name="module_bank_code">会计科目查询</string>
+    <string name="module_bank_code">收款银行查询</string>
     <string name="module_fukuan_type">付款类型查询</string>
 
     <string name="area_select">选择大区</string>
@@ -118,6 +118,22 @@
         <item>编号</item>
         <item>名称</item>
         <item>规格</item>
+        <item>库存</item>
+        <item>价格</item>
+    </string-array>
+
+    <string-array name="header_title_goods_query_promotion">
+        <item>编号</item>
+        <item>名称</item>
+        <item>规格</item>
+        <item>库存</item>
+    </string-array>
+    <string-array name="header_title_goods_query_delivery">
+        <item>编号</item>
+        <item>名称</item>
+        <item>规格</item>
+        <item>库存</item>
+        <item>计划</item>
         <item>价格</item>
     </string-array>
 
@@ -246,8 +262,15 @@
     <string-array name="oprater_add">
         <item>提交</item>
         <item>暂存</item>
-        <item>放弃</item>
+        <item>取消</item>
     </string-array>
+
+    <string-array name="oprater_return">
+        <item>撤回</item>
+        <item>删除</item>
+        <item>取消</item>
+    </string-array>
+
     <string-array name="plan_adjustment_add">
         <item>提交</item>
         <item>删除</item>
