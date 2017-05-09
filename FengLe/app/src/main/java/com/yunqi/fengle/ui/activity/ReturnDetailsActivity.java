@@ -77,6 +77,7 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
     private int type;
     private int bill_status = 0;//单据在列表中所处的状态 1:待处理 2：未完成 3：历史单据
     private boolean isEditor=false;
+    private String strStatus = "";
 
     @Override
     protected void initInject() {
@@ -129,7 +130,6 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
                 }
             });
         }
-        String strStatus = "";
         switch (status) {
             case 1:
                 strStatus = getString(R.string.bill_status_1);
@@ -234,10 +234,6 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
                 });
     }
 
-
-    /**
-     *
-     */
     public void showBottomOpraterPopWindow(final int type) {
         popWindow = new BottomOpraterPopWindow(this, new View.OnClickListener() {
 
@@ -245,47 +241,47 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
             public void onClick(View v) {
                 // 隐藏弹出窗口
                 popWindow.dismiss();
-                if(type==0){
+                if (type == 0) {
                     switch (v.getId()) {
-                        case R.id.btn_commit:// 提交
-                            if (status == 2) {
-                                ToastUtil.showNoticeToast(ReturnDetailsActivity.this, "单据已提交,不可操作");
-                                return;
+                        case R.id.btn_commit:
+                            //未完成(撤回)
+                            if (getString(R.string.bill_status_undone).equals(strStatus)) {
+                                updateBillStatus(1);
                             }
-                            updateBillStatus(2);
+                            //驳回和暂存(提交)
+                            else if (getString(R.string.bill_status_4).equals(strStatus) || getString(R.string.bill_status_1).equals(strStatus)) {
+                                updateBillStatus(2);
+                            }
                             break;
-                        case R.id.btn_temporary:// 暂存
-                            if (status == 2) {
-                                ToastUtil.showNoticeToast(ReturnDetailsActivity.this, "单据已提交,不可操作");
-                                return;
+                        case R.id.btn_temporary:
+                            //未完成(删除)
+                            if (getString(R.string.bill_status_undone).equals(strStatus)) {
+                                deleteBill();
                             }
-                            if (status == 1) {
-                                ToastUtil.showNoticeToast(ReturnDetailsActivity.this, "单据已暂存");
-                                return;
+                            //驳回(删除)
+                            else if (getString(R.string.bill_status_4).equals(strStatus)) {
+                                deleteBill();
                             }
-                            updateBillStatus(1);
+                            //暂存(删除)
+                            else if (getString(R.string.bill_status_1).equals(strStatus)) {
+                                deleteBill();
+                            }
                             break;
                         case R.id.btn_cancel:// 取消
-                            DialogHelper.showDialog(ReturnDetailsActivity.this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
-                                @Override
-                                public void onOk() {
-                                    mPresenter.delete(id);
-                                }
-                            });
+
                             break;
                         default:
                             break;
                     }
-                }
-                else {
-                    String userid=App.getInstance().getUserInfo().id;
-                    String orderCode=returnApply.order_code;
+                } else {
+                    String userid = App.getInstance().getUserInfo().id;
+                    String orderCode = returnApply.order_code;
                     switch (v.getId()) {
                         case R.id.btn_commit:// 待审核
-                            mPresenter.approval(userid,orderCode,3);
+                            mPresenter.approval(userid, orderCode, 3);
                             break;
                         case R.id.btn_temporary:// 审核驳回
-                            mPresenter.approval(userid,orderCode,4);
+                            mPresenter.approval(userid, orderCode, 4);
                             break;
                         case R.id.btn_cancel:// 取消
 
@@ -297,11 +293,34 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
 
             }
         });
-        if(type==1){
-            popWindow.setPopWindowTexts( getResources().getStringArray(R.array.oprater_audit));
+        //未完成
+        if (getString(R.string.bill_status_undone).equals(strStatus)) {
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_return));
+        }
+        //驳回
+        else if (getString(R.string.bill_status_4).equals(strStatus)) {
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_bohui));
+        }
+        //提交待审核
+        else if (getString(R.string.bill_status_2).equals(strStatus)) {
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_audit));
+        }
+        //暂存
+        else if (getString(R.string.bill_status_1).equals(strStatus)) {
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_tempary));
         }
         popWindow.showAtLocation(findViewById(R.id.main_layout), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
+    private void deleteBill(){
+        DialogHelper.showDialog(this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
+            @Override
+            public void onOk() {
+                mPresenter.delete(id);
+            }
+        });
+    }
+
+
     private void updateBillStatus(int status){
         if (mlistReturnDetail == null || mlistReturnDetail.isEmpty()) {
             ToastUtil.showNoticeToast(this, getString(R.string.warimg_unselect_goods));

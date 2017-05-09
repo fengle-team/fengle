@@ -69,13 +69,10 @@ import rx.Observable;
  * @time 2017/1/11
  */
 public interface ApiService {
-
-//    String baseUrl = "http://60.174.196.101:3080";
-//    String baseUrl = "http://192.168.1.103:3080";
     //生产环境
-    String baseUrl = "http://60.174.196.102:3080";
+//    String baseUrl = "http://60.174.196.102:3080";
     //测试环境
-//    String baseUrl = "http://60.174.196.102:3081";
+    String baseUrl = "http://60.174.196.102:3081";
     String HOST = baseUrl + "/api/";
 
     /**

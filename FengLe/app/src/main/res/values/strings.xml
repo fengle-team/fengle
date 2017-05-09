@@ -93,6 +93,7 @@
     <string name="warimg_unselect_in_or_out_customer">请选择调出调入客户</string>
     <string name="warimg_unselect_in_or_out_area">请选择调出调入大区</string>
     <string name="warimg_selected_goods_clear">客户一旦更改，所选货物即将被清空</string>
+    <string name="warimg_selected_stock">仓库一旦更改，所选货物即将被清空</string>
     <string name="warimg_unselect_area">请选择调出大区</string>
     <string name="warimg_area_selected_goods_clear">大区一旦更改，所选货物即将被清空</string>
     <string name="warimg_customer_no_same">调出客户不能与调入客户相同</string>
@@ -264,6 +265,16 @@
         <item>暂存</item>
         <item>取消</item>
     </string-array>
+    <string-array name="oprater_bohui">
+        <item>提交</item>
+        <item>删除</item>
+        <item>取消</item>
+    </string-array>
+    <string-array name="oprater_tempary">
+        <item>提交</item>
+        <item>删除</item>
+        <item>取消</item>
+    </string-array>
 
     <string-array name="oprater_return">
         <item>撤回</item>
@@ -381,6 +392,7 @@
     <string name="bill_status_5">中心经理已审核</string>
     <string name="bill_status_unknown">未知状态</string>
     <string name="bill_status_undone">未完成</string>
+    <string name="bill_status_6">已作废</string>
 
     <string name="promotion_goods">促销货物</string>
     <string name="promotion_customer">促销客户</string>

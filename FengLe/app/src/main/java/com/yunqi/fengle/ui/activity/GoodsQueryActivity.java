@@ -71,9 +71,10 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
     private String user_code = "";
     public ArrayList<GoodsAndWarehouse> goodsArray;
     private boolean isTransfer = false;
-    private String area_code="";
+    private String area_code = "";
     private boolean isPromotion;
-    private int iModule=0;
+    private int iModule = 0;
+    private Warehouse fromWarehouse;//从详情或者添加模块携带进来的
 
     @Override
     protected void initInject() {
@@ -88,6 +89,14 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
     @Override
     protected void initEventAndData() {
         goodsArray = (ArrayList<GoodsAndWarehouse>) getIntent().getSerializableExtra("goodsArray");
+        if (goodsArray != null && !goodsArray.isEmpty()) {
+            fromWarehouse = goodsArray.get(0).warehouse;
+            if(fromWarehouse!=null){
+                selectedWarehouse = fromWarehouse;
+                btnSelectWarehouse.setText(fromWarehouse.name);
+                warehouse_code=fromWarehouse.warehouse_code;
+            }
+        }
         type = getIntent().getIntExtra("type", 0);
         module = getIntent().getStringExtra("module");
         user_code = App.getInstance().getUserInfo().user_code;
@@ -102,7 +111,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
             maxGoodsNumTip = getString(R.string.tip_max_goods_num_transfer);
             hintGoodsNum = getString(R.string.hint_edit_num_transfer);
             isTransfer = true;
-            user_code="";
+            user_code = "";
         } else if (module.equals(AddReturnRequestActivity.class.getName()) || module.equals(ReturnDetailsActivity.class.getName())) {
             maxGoodsNumTip = getString(R.string.tip_max_goods_num_return);
             hintGoodsNum = getString(R.string.hint_edit_num_return);
@@ -113,32 +122,30 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
             maxGoodsNumTip = getString(R.string.tip_max_goods_num_plan);
             hintGoodsNum = getString(R.string.hint_edit_num_plan);
         }
-        isPromotion=getIntent().getBooleanExtra("isPromotion",false);
-        if(isPromotion){
-            warehouse_code="x001";
+        isPromotion = getIntent().getBooleanExtra("isPromotion", false);
+        if (isPromotion) {
+            warehouse_code = "x001";
             setToolBar(toolbar, getString(R.string.module_promotion_goods_query));
-        }
-        else{
+        } else {
             setToolBar(toolbar, getString(R.string.module_goods_query));
         }
 
         setWigetListener();
-        String [] heads;
+        String[] heads;
         TableColumnWeightModel columnModel;
-        if(isPromotion){
-            iModule=2;
-            heads=getResources().getStringArray(R.array.header_title_goods_query_promotion);
+        if (isPromotion) {
+            iModule = 2;
+            heads = getResources().getStringArray(R.array.header_title_goods_query_promotion);
             columnModel = new TableColumnWeightModel(4);
             columnModel.setColumnWeight(0, 1);
             columnModel.setColumnWeight(1, 2);
             columnModel.setColumnWeight(2, 1);
             columnModel.setColumnWeight(3, 1);
-        }
-        else{
+        } else {
             //表示发货
-            if (type == 1&&!isPromotion) {
-                iModule=1;
-                heads=getResources().getStringArray(R.array.header_title_goods_query_delivery);
+            if (type == 1 && !isPromotion) {
+                iModule = 1;
+                heads = getResources().getStringArray(R.array.header_title_goods_query_delivery);
                 rlayoutSelectWarehouse.setVisibility(View.VISIBLE);
                 columnModel = new TableColumnWeightModel(6);
                 columnModel.setColumnWeight(0, 1);
@@ -147,10 +154,9 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
                 columnModel.setColumnWeight(3, 1);
                 columnModel.setColumnWeight(4, 1);
                 columnModel.setColumnWeight(5, 1);
-            }
-            else{
-                iModule=0;
-                heads=getResources().getStringArray(R.array.header_title_goods_query);
+            } else {
+                iModule = 0;
+                heads = getResources().getStringArray(R.array.header_title_goods_query);
                 columnModel = new TableColumnWeightModel(5);
                 columnModel.setColumnWeight(0, 1);
                 columnModel.setColumnWeight(1, 2);
@@ -165,8 +171,8 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
         loadData();
     }
 
-    private void loadData(){
-        mPresenter.queryGoods(area_code,keyword, customer_code, user_code, warehouse_code, page);
+    private void loadData() {
+        mPresenter.queryGoods(area_code, keyword, customer_code, user_code, warehouse_code, page);
     }
 
     @Override
@@ -199,8 +205,23 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
                 .subscribe(new Action1<Void>() {
                     @Override
                     public void call(Void aVoid) {
-                        Intent intent = new Intent(GoodsQueryActivity.this, WarehouseQueryActivity.class);
-                        startActivityForResult(intent, WAREHOUSE_SELECT_REQUEST_CODE);
+                        if (fromWarehouse != null) {
+                            ToastUtil.showNoticeToast(GoodsQueryActivity.this, "仓库已选择，不可更改！");
+                            return;
+                        }
+                        if (listSelectGoods != null && !listSelectGoods.isEmpty()) {
+                            DialogHelper.showDialog(GoodsQueryActivity.this, getString(R.string.warimg_selected_stock), new SimpleDialogFragment.OnSimpleDialogListener() {
+                                @Override
+                                public void onOk() {
+                                    listSelectGoods.clear();
+                                    Intent intent = new Intent(GoodsQueryActivity.this, WarehouseQueryActivity.class);
+                                    startActivityForResult(intent, WAREHOUSE_SELECT_REQUEST_CODE);
+                                }
+                            });
+                        } else {
+                            Intent intent = new Intent(GoodsQueryActivity.this, WarehouseQueryActivity.class);
+                            startActivityForResult(intent, WAREHOUSE_SELECT_REQUEST_CODE);
+                        }
                     }
                 });
         RxView.clicks(btnQuery)
@@ -216,7 +237,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
         tableViewEx.tableView.addDataClickListener(new TableDataClickListener<Goods>() {
             @Override
             public void onDataClicked(int rowIndex, final Goods goods) {
-                if (type == 1 && selectedWarehouse == null&&!isPromotion) {
+                if (type == 1 && selectedWarehouse == null && !isPromotion) {
                     ToastUtil.showNoticeToast(GoodsQueryActivity.this, "请先选择仓库！");
                     return;
                 }
@@ -231,9 +252,9 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
                 } else {
                     goodsArray = new ArrayList<GoodsAndWarehouse>();
                 }
-                if(type == 1&&!isPromotion){
-                    if(goods.goods_plan<=0){
-                        ToastUtil.showNoticeToast(GoodsQueryActivity.this,"暂无计划，不可操作！");
+                if (type == 1 && !isPromotion) {
+                    if (goods.goods_plan <= 0) {
+                        ToastUtil.showNoticeToast(GoodsQueryActivity.this, "暂无计划，不可操作！");
                         return;
                     }
                 }
@@ -307,7 +328,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
         });
     }
 
-    private void showConfirmDialog(){
+    private void showConfirmDialog() {
         DialogHelper.showDialog(GoodsQueryActivity.this, "添加成功，是否继续添加货物？", "继续添加", "返回单据", new SimpleDialogFragment.OnSimpleDialogListener() {
             @Override
             public void onOk() {

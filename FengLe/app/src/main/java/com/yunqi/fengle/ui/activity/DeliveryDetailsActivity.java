@@ -19,6 +19,7 @@ import com.yunqi.fengle.model.bean.DeliveryDetail;
 import com.yunqi.fengle.model.bean.Goods;
 import com.yunqi.fengle.model.bean.GoodsAndWarehouse;
 import com.yunqi.fengle.model.bean.InvoiceApply;
+import com.yunqi.fengle.model.bean.Warehouse;
 import com.yunqi.fengle.model.request.BillUpdateRequest;
 import com.yunqi.fengle.presenter.DeliveryDetailsPresenter;
 import com.yunqi.fengle.presenter.contract.DeliveryDetailsContract;
@@ -77,6 +78,7 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
     private int bill_status = 0;//单据在列表中所处的状态 1:待处理 2：未完成 3：历史单据
     private boolean isEditor = false;
     private boolean isPromotion;
+    private String strStatus = "";
     @Override
     protected void initInject() {
         getActivityComponent().inject(this);
@@ -134,7 +136,6 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                 }
             });
         }
-        String strStatus = "";
         switch (status) {
             case 1:
                 strStatus = getString(R.string.bill_status_1);
@@ -219,6 +220,10 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                             for (DeliveryDetail deliveryDetail : mlistDeliveryDetail) {
                                 GoodsAndWarehouse goodsAndWarehouse = new GoodsAndWarehouse();
                                 goodsAndWarehouse.goods = deliveryDetail;
+                                Warehouse warehouse=new Warehouse();
+                                warehouse.name=deliveryDetail.warehouse_name;
+                                warehouse.warehouse_code=deliveryDetail.warehouse_code;
+                                goodsAndWarehouse.warehouse=warehouse;
                                 goodsArray.add(goodsAndWarehouse);
                             }
                             intent.putExtra("goodsArray", goodsArray);
@@ -233,7 +238,12 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
     /**
      *
      */
+    /**
+     *
+     */
     public void showBottomOpraterPopWindow(final int type) {
+
+
         popWindow = new BottomOpraterPopWindow(this, new View.OnClickListener() {
 
             @Override
@@ -242,31 +252,32 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                 popWindow.dismiss();
                 if (type == 0) {
                     switch (v.getId()) {
-                        case R.id.btn_commit:// 提交
-                            if (status == 2) {
-                                ToastUtil.showNoticeToast(DeliveryDetailsActivity.this, "单据已提交,不可操作");
-                                return;
+                        case R.id.btn_commit:
+                            //未完成(撤回)
+                            if(getString(R.string.bill_status_undone).equals(strStatus)){
+                                updateBillStatus(1);
                             }
-                            updateBillStatus(2);
+                            //驳回和暂存(提交)
+                            else if(getString(R.string.bill_status_4).equals(strStatus)||getString(R.string.bill_status_1).equals(strStatus)){
+                                updateBillStatus(2);
+                            }
                             break;
-                        case R.id.btn_temporary:// 暂存
-                            if (status == 2) {
-                                ToastUtil.showNoticeToast(DeliveryDetailsActivity.this, "单据已提交,不可操作");
-                                return;
+                        case R.id.btn_temporary:
+                            //未完成(删除)
+                            if(getString(R.string.bill_status_undone).equals(strStatus)){
+                                deleteBill();
                             }
-                            if (status == 1) {
-                                ToastUtil.showNoticeToast(DeliveryDetailsActivity.this, "单据已暂存");
-                                return;
+                            //驳回(删除)
+                            else if(getString(R.string.bill_status_4).equals(strStatus)){
+                                deleteBill();
                             }
-                            updateBillStatus(1);
+                            //暂存(删除)
+                            else if(getString(R.string.bill_status_1).equals(strStatus)){
+                                deleteBill();
+                            }
                             break;
                         case R.id.btn_cancel:// 取消
-                            DialogHelper.showDialog(DeliveryDetailsActivity.this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
-                                @Override
-                                public void onOk() {
-                                    mPresenter.delete(id);
-                                }
-                            });
+
                             break;
                         default:
                             break;
@@ -291,10 +302,32 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
 
             }
         });
-        if (type == 1) {
+        //未完成
+        if(getString(R.string.bill_status_undone).equals(strStatus)){
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_return));
+        }
+        //驳回
+        else if(getString(R.string.bill_status_4).equals(strStatus)){
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_bohui));
+        }
+        //提交待审核
+        else if(getString(R.string.bill_status_2).equals(strStatus)){
             popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_audit));
         }
+        //暂存
+        else if(getString(R.string.bill_status_1).equals(strStatus)){
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_tempary));
+        }
         popWindow.showAtLocation(findViewById(R.id.main_layout), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+    }
+
+    private void deleteBill(){
+        DialogHelper.showDialog(this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
+            @Override
+            public void onOk() {
+                mPresenter.delete(id);
+            }
+        });
     }
 
     private void updateBillStatus(int status) {
