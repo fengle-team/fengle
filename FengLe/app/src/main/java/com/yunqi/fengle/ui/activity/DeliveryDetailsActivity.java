@@ -4,6 +4,7 @@ package com.yunqi.fengle.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -14,11 +15,11 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
-import com.yunqi.fengle.model.bean.Customer;
 import com.yunqi.fengle.model.bean.DeliveryDetail;
 import com.yunqi.fengle.model.bean.Goods;
 import com.yunqi.fengle.model.bean.GoodsAndWarehouse;
 import com.yunqi.fengle.model.bean.InvoiceApply;
+import com.yunqi.fengle.model.bean.StatusInfo;
 import com.yunqi.fengle.model.bean.Warehouse;
 import com.yunqi.fengle.model.request.BillUpdateRequest;
 import com.yunqi.fengle.presenter.DeliveryDetailsPresenter;
@@ -65,6 +66,8 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
     TextView txtCode;
     @BindView(R.id.txt_code_tag)
     TextView txtCodeTag;
+    @BindView(R.id.txt_preview)
+    TextView txtPreview;
 
     BottomOpraterPopWindow popWindow;
     private int id;
@@ -79,6 +82,7 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
     private boolean isEditor = false;
     private boolean isPromotion;
     private String strStatus = "";
+
     @Override
     protected void initInject() {
         getActivityComponent().inject(this);
@@ -92,7 +96,7 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
     @Override
     protected void initEventAndData() {
 //        role= App.getInstance().getUserInfo().role;
-        isPromotion=getIntent().getBooleanExtra("isPromotion",false);
+        isPromotion = getIntent().getBooleanExtra("isPromotion", false);
         mPresenter.setPromotion(isPromotion);
         invoiceApply = (InvoiceApply) getIntent().getExtras().getSerializable("invoiceApply");
         bill_status = getIntent().getExtras().getInt("status");
@@ -102,11 +106,11 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
         initData();
         setWidgetListener();
     }
+
     private void initData() {
-        if(isPromotion){
+        if (isPromotion) {
             txtCodeTag.setText("生成促销单号：");
-        }
-        else {
+        } else {
             txtCodeTag.setText("生成发货单号：");
         }
         txtCustomer.setText(invoiceApply.client_name);
@@ -145,7 +149,11 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                 String id = App.getInstance().getUserInfo().id;
                 //如果单据是本人提交的，则是未完成状态
                 if (id.equals(invoiceApply.userid)) {
-                    strStatus = getString(R.string.bill_status_undone);
+                    if (bill_status == 1) {
+                        strStatus = getString(R.string.bill_status_2);
+                    } else {
+                        strStatus = getString(R.string.bill_status_undone);
+                    }
                 } else {
                     if (bill_status == 3) {
                         strStatus = getString(R.string.bill_status_5);
@@ -220,10 +228,10 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                             for (DeliveryDetail deliveryDetail : mlistDeliveryDetail) {
                                 GoodsAndWarehouse goodsAndWarehouse = new GoodsAndWarehouse();
                                 goodsAndWarehouse.goods = deliveryDetail;
-                                Warehouse warehouse=new Warehouse();
-                                warehouse.name=deliveryDetail.warehouse_name;
-                                warehouse.warehouse_code=deliveryDetail.warehouse_code;
-                                goodsAndWarehouse.warehouse=warehouse;
+                                Warehouse warehouse = new Warehouse();
+                                warehouse.name = deliveryDetail.warehouse_name;
+                                warehouse.warehouse_code = deliveryDetail.warehouse_code;
+                                goodsAndWarehouse.warehouse = warehouse;
                                 goodsArray.add(goodsAndWarehouse);
                             }
                             intent.putExtra("goodsArray", goodsArray);
@@ -232,9 +240,26 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                         startActivityForResult(intent, SELECT_GOODS_REQUEST_CODE);
                     }
                 });
+        RxView.clicks(txtPreview)
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        Intent intent = new Intent(DeliveryDetailsActivity.this, StatusDetailActivity.class);
+                        intent.putExtra("order_code", invoiceApply.order_code);
+                        if (invoiceApply.u8_order != null) {
+                            if (invoiceApply.u8_order.states != null && !TextUtils.isEmpty(invoiceApply.u8_order.states)) {
+                                StatusInfo statusInfo=new StatusInfo();
+                                statusInfo.record=invoiceApply.u8_order.huizhi1;
+                                statusInfo.create_time=invoiceApply.u8_order.ddate;
+                                intent.putExtra("LastStatus", statusInfo);
+                            }
+                        }
+                        startActivity(intent);
+                    }
+                });
+
     }
-
-
     /**
      *
      */
@@ -254,25 +279,25 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                     switch (v.getId()) {
                         case R.id.btn_commit:
                             //未完成(撤回)
-                            if(getString(R.string.bill_status_undone).equals(strStatus)){
+                            if (getString(R.string.bill_status_undone).equals(strStatus)) {
                                 updateBillStatus(1);
                             }
                             //驳回和暂存(提交)
-                            else if(getString(R.string.bill_status_4).equals(strStatus)||getString(R.string.bill_status_1).equals(strStatus)){
+                            else if (getString(R.string.bill_status_4).equals(strStatus) || getString(R.string.bill_status_1).equals(strStatus)) {
                                 updateBillStatus(2);
                             }
                             break;
                         case R.id.btn_temporary:
                             //未完成(删除)
-                            if(getString(R.string.bill_status_undone).equals(strStatus)){
+                            if (getString(R.string.bill_status_undone).equals(strStatus)) {
                                 deleteBill();
                             }
                             //驳回(删除)
-                            else if(getString(R.string.bill_status_4).equals(strStatus)){
+                            else if (getString(R.string.bill_status_4).equals(strStatus)) {
                                 deleteBill();
                             }
                             //暂存(删除)
-                            else if(getString(R.string.bill_status_1).equals(strStatus)){
+                            else if (getString(R.string.bill_status_1).equals(strStatus)) {
                                 deleteBill();
                             }
                             break;
@@ -303,25 +328,25 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
             }
         });
         //未完成
-        if(getString(R.string.bill_status_undone).equals(strStatus)){
+        if (getString(R.string.bill_status_undone).equals(strStatus)) {
             popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_return));
         }
         //驳回
-        else if(getString(R.string.bill_status_4).equals(strStatus)){
+        else if (getString(R.string.bill_status_4).equals(strStatus)) {
             popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_bohui));
         }
         //提交待审核
-        else if(getString(R.string.bill_status_2).equals(strStatus)){
+        else if (getString(R.string.bill_status_2).equals(strStatus)) {
             popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_audit));
         }
         //暂存
-        else if(getString(R.string.bill_status_1).equals(strStatus)){
+        else if (getString(R.string.bill_status_1).equals(strStatus)) {
             popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_tempary));
         }
         popWindow.showAtLocation(findViewById(R.id.main_layout), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
 
-    private void deleteBill(){
+    private void deleteBill() {
         DialogHelper.showDialog(this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
             @Override
             public void onOk() {
@@ -435,7 +460,6 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                 deliveryDetail.goods_warehouse = goodsAndWarehouse.goods.goods_warehouse;
                 deliveryDetail.goods_num = goodsAndWarehouse.goods.goods_num;
                 deliveryDetail.goods_id = goodsAndWarehouse.goods.goods_id;
-                ;
                 deliveryDetail.goods_code = goodsAndWarehouse.goods.goods_code;
                 deliveryDetail.goods_name = goodsAndWarehouse.goods.goods_name;
                 deliveryDetail.goods_standard = goodsAndWarehouse.goods.goods_standard;

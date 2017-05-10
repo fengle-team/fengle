@@ -66,6 +66,8 @@
     <string name="module_payment_type">回款类型查询</string>
     <string name="module_bank_code">收款银行查询</string>
     <string name="module_fukuan_type">付款类型查询</string>
+    <string name="module_status_detail">状态详情</string>
+
 
     <string name="area_select">选择大区</string>
     <string name="stock_select">选择仓库</string>
@@ -386,7 +388,7 @@
 
 
     <string name="bill_status_1">暂存</string>
-    <string name="bill_status_2">提交待审核</string>
+    <string name="bill_status_2">待审核</string>
     <string name="bill_status_3">审核通过</string>
     <string name="bill_status_4">驳回</string>
     <string name="bill_status_5">中心经理已审核</string>
@@ -397,6 +399,9 @@
     <string name="promotion_goods">促销货物</string>
     <string name="promotion_customer">促销客户</string>
     <string name="no_data">暂无数据</string>
+
+    <string name="time">时间</string>
+    <string name="status">状态</string>
 
 
 

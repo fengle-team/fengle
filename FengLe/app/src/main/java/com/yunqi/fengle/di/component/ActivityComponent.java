@@ -56,6 +56,7 @@ import com.yunqi.fengle.ui.activity.SalesDetailActivity;
 import com.yunqi.fengle.ui.activity.SplashActivity;
 import com.yunqi.fengle.di.ActivityScope;
 import com.yunqi.fengle.di.module.ActivityModule;
+import com.yunqi.fengle.ui.activity.StatusDetailActivity;
 import com.yunqi.fengle.ui.activity.StockQueryActivity;
 import com.yunqi.fengle.ui.activity.TransferDetailsActivity;
 import com.yunqi.fengle.ui.activity.TransferRequestActivity;
@@ -200,6 +201,8 @@ public interface ActivityComponent {
     void inject(ActivityPlanActivityMain activity);
 
     void inject(NewContactsActivity activity);
+
+    void inject(StatusDetailActivity activity);
 
 //    void inject(MessageActivity activity);
 }

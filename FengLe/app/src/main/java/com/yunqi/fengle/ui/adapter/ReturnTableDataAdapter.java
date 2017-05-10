@@ -65,7 +65,12 @@ public class ReturnTableDataAdapter extends BaseTableDataAdapter<ReturnApply> {
                 String id = App.getInstance().getUserInfo().id;
                 //如果单据是本人提交的，则是未完成状态
                 if (id.equals(ReturnApply.userid)) {
-                    strStatus = context.getString(R.string.bill_status_undone);
+                    if(billStatus==1){
+                        strStatus = context.getString(R.string.bill_status_2);
+                    }
+                    else{
+                        strStatus = context.getString(R.string.bill_status_undone);
+                    }
                 } else {
                     if(billStatus==3){
                         strStatus = context.getString(R.string.bill_status_5);

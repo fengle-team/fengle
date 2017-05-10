@@ -4,6 +4,7 @@ package com.yunqi.fengle.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -16,16 +17,11 @@ import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
 import com.yunqi.fengle.model.bean.BillingApply;
 import com.yunqi.fengle.model.bean.BillingDetail;
-import com.yunqi.fengle.model.bean.BillingDetail;
-import com.yunqi.fengle.model.bean.DeliveryDetail;
 import com.yunqi.fengle.model.bean.Goods;
 import com.yunqi.fengle.model.bean.GoodsAndWarehouse;
-import com.yunqi.fengle.model.bean.BillingDetail;
-import com.yunqi.fengle.model.bean.ReturnDetail;
+import com.yunqi.fengle.model.bean.StatusInfo;
 import com.yunqi.fengle.model.request.BillUpdateRequest;
 import com.yunqi.fengle.presenter.BillingDetailsPresenter;
-import com.yunqi.fengle.presenter.BillingDetailsPresenter;
-import com.yunqi.fengle.presenter.contract.BillingDetailsContract;
 import com.yunqi.fengle.presenter.contract.BillingDetailsContract;
 import com.yunqi.fengle.ui.adapter.BillingDetailTableDataAdapter;
 import com.yunqi.fengle.ui.adapter.TableHeader1Adapter;
@@ -68,6 +64,8 @@ public class BillingDetailsActivity extends BaseActivity<BillingDetailsPresenter
     TextView txtCodeTag;
     @BindView(R.id.btn_select_goods)
     Button btnSelectGoods;
+    @BindView(R.id.txt_preview)
+    TextView txtPreview;
 
     BottomOpraterPopWindow popWindow;
     private int id;
@@ -142,7 +140,12 @@ public class BillingDetailsActivity extends BaseActivity<BillingDetailsPresenter
                 String id = App.getInstance().getUserInfo().id;
                 //如果单据是本人提交的，则是未完成状态
                 if (id.equals(billingApply.userid)) {
-                    strStatus = getString(R.string.bill_status_undone);
+                    if(bill_status==1){
+                        strStatus = getString(R.string.bill_status_2);
+                    }
+                    else{
+                        strStatus = getString(R.string.bill_status_undone);
+                    }
                 } else {
                     if(bill_status==3){
                         strStatus = getString(R.string.bill_status_5);
@@ -217,6 +220,24 @@ public class BillingDetailsActivity extends BaseActivity<BillingDetailsPresenter
                         intent.putExtra("customer_code",billingApply.client_code);
                         intent.putExtra("module",BillingDetailsActivity.this.getClass().getName());
                         startActivityForResult(intent, SELECT_GOODS_REQUEST_CODE);
+                    }
+                });
+        RxView.clicks(txtPreview)
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        Intent intent = new Intent(BillingDetailsActivity.this, StatusDetailActivity.class);
+                        intent.putExtra("order_code", billingApply.order_code);
+                        if (billingApply.u8_order != null) {
+                            if (billingApply.u8_order.states != null && !TextUtils.isEmpty(billingApply.u8_order.states)) {
+                                StatusInfo statusInfo=new StatusInfo();
+                                statusInfo.record=billingApply.u8_order.huizhi1;
+                                statusInfo.create_time=billingApply.u8_order.ddate;
+                                intent.putExtra("LastStatus", statusInfo);
+                            }
+                        }
+                        startActivity(intent);
                     }
                 });
     }

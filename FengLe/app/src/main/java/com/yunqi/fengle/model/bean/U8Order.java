@@ -14,9 +14,9 @@ public class U8Order implements Serializable{
     public String ddate;
     public String define1;
     public String cpersoncode;
-    public Object states;
-    public Object huizhi1;
-    public Object huizhi2;
+    public String states;
+    public String huizhi1;
+    public String huizhi2;
     public String centremanager;
     public String beizhu;
     public String remark;

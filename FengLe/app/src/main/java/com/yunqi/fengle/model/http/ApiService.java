@@ -18,6 +18,7 @@ import com.yunqi.fengle.model.bean.PlanAdjustmentApply;
 import com.yunqi.fengle.model.bean.ReturnApply;
 import com.yunqi.fengle.model.bean.SaleInfo;
 import com.yunqi.fengle.model.bean.SplashBean;
+import com.yunqi.fengle.model.bean.StatusInfo;
 import com.yunqi.fengle.model.bean.TransferApply;
 import com.yunqi.fengle.model.bean.UserBean;
 import com.yunqi.fengle.model.bean.Warehouse;
@@ -388,8 +389,11 @@ public interface ApiService {
      */
     @GET("invoice/get")
     Observable<CommonHttpRsp<GoodsSaleDetail>> queryGoodsSaleDetail(@Query("sale_id") String sale_id);
-
-
+    /**
+     * 状态详情
+     */
+    @GET("order_process_record/get")
+    Observable<CommonHttpRsp<List<StatusInfo>>> queryStatusDetail(@Query("order_code") String order_code);
     /**
      * 调货单查询接口
      */

@@ -24,8 +24,8 @@ public class DeliveryTableDataAdapter extends BaseTableDataAdapter<InvoiceApply>
     public DeliveryTableDataAdapter(Context context, List<InvoiceApply> data) {
         super(context, data);
         this.context = context;
-
     }
+
 
     public void setBillStatus(int billStatus){
         this.billStatus=billStatus;
@@ -68,7 +68,12 @@ public class DeliveryTableDataAdapter extends BaseTableDataAdapter<InvoiceApply>
                 String id = App.getInstance().getUserInfo().id;
                 //如果单据是本人提交的，则是未完成状态
                 if (id.equals(invoiceApply.userid)) {
-                    strStatus = context.getString(R.string.bill_status_undone);
+                    if(billStatus==1){
+                        strStatus = context.getString(R.string.bill_status_2);
+                    }
+                    else{
+                        strStatus = context.getString(R.string.bill_status_undone);
+                    }
                 } else {
                     if(billStatus==3){
                         strStatus = context.getString(R.string.bill_status_5);

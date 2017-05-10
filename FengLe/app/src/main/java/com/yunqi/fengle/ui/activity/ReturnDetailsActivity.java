@@ -4,6 +4,7 @@ package com.yunqi.fengle.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -14,13 +15,11 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
-import com.yunqi.fengle.model.bean.BillingDetail;
 import com.yunqi.fengle.model.bean.Goods;
 import com.yunqi.fengle.model.bean.GoodsAndWarehouse;
 import com.yunqi.fengle.model.bean.ReturnApply;
 import com.yunqi.fengle.model.bean.ReturnDetail;
-import com.yunqi.fengle.model.bean.ReturnDetail;
-import com.yunqi.fengle.model.bean.TransferDetail;
+import com.yunqi.fengle.model.bean.StatusInfo;
 import com.yunqi.fengle.model.request.BillUpdateRequest;
 import com.yunqi.fengle.presenter.ReturnDetailsPresenter;
 import com.yunqi.fengle.presenter.contract.ReturnDetailsContract;
@@ -65,6 +64,8 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
     TextView txtCode;
     @BindView(R.id.btn_select_goods)
     Button btnSelectGoods;
+    @BindView(R.id.txt_preview)
+    TextView txtPreview;
 
     BottomOpraterPopWindow popWindow;
     private int id;
@@ -140,7 +141,12 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
                 String id = App.getInstance().getUserInfo().id;
                 //如果单据是本人提交的，则是未完成状态
                 if (id.equals(returnApply.userid)) {
-                    strStatus = getString(R.string.bill_status_undone);
+                    if(bill_status==1){
+                        strStatus = getString(R.string.bill_status_2);
+                    }
+                    else{
+                        strStatus = getString(R.string.bill_status_undone);
+                    }
                 } else {
                     if(bill_status==3){
                         strStatus = getString(R.string.bill_status_5);
@@ -230,6 +236,24 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
                         intent.putExtra("customer_code",returnApply.client_code);
                         intent.putExtra("module",ReturnDetailsActivity.this.getClass().getName());
                         startActivityForResult(intent, SELECT_GOODS_REQUEST_CODE);
+                    }
+                });
+        RxView.clicks(txtPreview)
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        Intent intent = new Intent(ReturnDetailsActivity.this, StatusDetailActivity.class);
+                        intent.putExtra("order_code", returnApply.order_code);
+                        if (returnApply.u8_order != null) {
+                            if (returnApply.u8_order.states != null && !TextUtils.isEmpty(returnApply.u8_order.states)) {
+                                StatusInfo statusInfo=new StatusInfo();
+                                statusInfo.record=returnApply.u8_order.huizhi1;
+                                statusInfo.create_time=returnApply.u8_order.ddate;
+                                intent.putExtra("LastStatus", statusInfo);
+                            }
+                        }
+                        startActivity(intent);
                     }
                 });
     }

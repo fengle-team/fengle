@@ -24,6 +24,7 @@ import com.yunqi.fengle.model.bean.PlanAdjustmentApply;
 import com.yunqi.fengle.model.bean.ReturnApply;
 import com.yunqi.fengle.model.bean.SaleInfo;
 import com.yunqi.fengle.model.bean.SplashBean;
+import com.yunqi.fengle.model.bean.StatusInfo;
 import com.yunqi.fengle.model.bean.TransferApply;
 import com.yunqi.fengle.model.bean.UserBean;
 import com.yunqi.fengle.model.bean.Warehouse;
@@ -552,6 +553,10 @@ public class RetrofitHelper {
         return apiService.queryBillingApply(userid,custom_code, keyword, status, startTime, endTime, page, PAGE_SIZE);
     }
 
+    public Observable<CommonHttpRsp<List<StatusInfo>>> queryStatusDetail(@Query("order_code") String order_code){
+        return apiService.queryStatusDetail(order_code);
+    }
+
     /**
      * 单一货物销售明细
      *
@@ -942,7 +947,6 @@ public class RetrofitHelper {
      * 审批计划调剂单据
      *
      * @param userid
-     * @param order_code
      * @param status
      */
     public Observable<BaseHttpRsp> approvalPlanAdjustmentBill(String userid, String id, int status) {
