@@ -3,8 +3,8 @@ package com.yunqi.fengle.ui.activity;
 
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
@@ -20,20 +20,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import de.codecrafters.tableview.TableView;
+import de.codecrafters.tableview.listeners.TableHeaderClickListener;
 import de.codecrafters.tableview.model.TableColumnWeightModel;
 
 /**
  * 客户分析
  */
-public class CustomerAnalysisActivity extends BaseActivity<CustomerAnalysisPresenter> implements CustomerAnalysisContract.View{
+public class CustomerAnalysisActivity extends BaseActivity<CustomerAnalysisPresenter> implements CustomerAnalysisContract.View,RadioGroup.OnCheckedChangeListener{
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tableViewEx)
     ExTableView tableViewEx;
+    @BindView(R.id.radioGroup)
+    RadioGroup radioGroup;
+    @BindView(R.id.radioBtn1)
+    RadioButton radioBtn1;
+    @BindView(R.id.radioBtn2)
+    RadioButton radioBtn2;
     private List<CustomerAnalysis> mListCustomerAnalysis = new ArrayList<>();
     CustomerAnalysisTableDataAdapter adapter;
     private int page = 1;
+    private int type=0;//默认为0表示新客户
+    private String user_code;
 
     @Override
     protected void initInject() {
@@ -47,27 +55,41 @@ public class CustomerAnalysisActivity extends BaseActivity<CustomerAnalysisPrese
 
     @Override
     protected void initEventAndData() {
+        user_code= App.getInstance().getUserInfo().user_code;
         setToolBar(toolbar, getString(R.string.module_customer_analysis));
-        setWigetListener();
         final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_customer_analysis));
         tableViewEx.tableView.setHeaderAdapter(tableHeader1Adapter);
         adapter = new CustomerAnalysisTableDataAdapter(this, mListCustomerAnalysis);
-        TableColumnWeightModel columnModel = new TableColumnWeightModel(6);
-        columnModel.setColumnWeight(0, 2);
+        TableColumnWeightModel columnModel = new TableColumnWeightModel(5);
+        columnModel.setColumnWeight(0, 1);
         columnModel.setColumnWeight(1, 2);
         columnModel.setColumnWeight(2, 1);
-        columnModel.setColumnWeight(4, 2);
-        columnModel.setColumnWeight(3, 2);
-        columnModel.setColumnWeight(5, 1);
+        columnModel.setColumnWeight(3, 1);
+        columnModel.setColumnWeight(4, 1);
         tableViewEx.tableView.setColumnModel(columnModel);
         tableViewEx.tableView.setDataAdapter(adapter);
         tableViewEx.setMode(ExTableView.Mode.ONLY_LIST);
-        String user_code = App.getInstance().getUserInfo().user_code;
-        mPresenter.queryCustomerAnalysis(user_code);
+        initRadioGroup();
+        setWigetListener();
+        loadData();
+    }
+    private void loadData(){
+        mPresenter.queryCustomerAnalysis(user_code,type);
+    }
+
+    private void initRadioGroup() {
+        radioGroup.check(R.id.radioBtn1);
+
     }
 
     private void setWigetListener() {
+        radioGroup.setOnCheckedChangeListener(this);
+        tableViewEx.tableView.addHeaderClickListener(new TableHeaderClickListener() {
+            @Override
+            public void onHeaderClicked(int columnIndex) {
 
+            }
+        });
     }
     @Override
     public void showContent(List<CustomerAnalysis> listCustomerAnalysis) {
@@ -79,5 +101,19 @@ public class CustomerAnalysisActivity extends BaseActivity<CustomerAnalysisPrese
         mListCustomerAnalysis.clear();
         mListCustomerAnalysis.addAll(listCustomerAnalysis);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup radioGroup, int i) {
+        int id = radioGroup.getCheckedRadioButtonId();
+        switch (id) {
+            case R.id.radioBtn1://新客户
+                type=0;
+                break;
+            case R.id.radioBtn2://老客户
+                type=1;
+                break;
+        }
+        loadData();
     }
 }

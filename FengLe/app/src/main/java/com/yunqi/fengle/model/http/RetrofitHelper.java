@@ -333,14 +333,14 @@ public class RetrofitHelper {
     public Observable<CommonHttpRsp<List<Area>>> queryArea() {
         return apiService.queryArea(1, 1000);
     }
-
     /**
-     * 客户分析查询
-     *
+     *  客户分析查询
+     * @param user_code
+     * @param type 0：表示新客户 1：表示老客户
      * @return
      */
-    public Observable<CommonHttpRsp<List<CustomerAnalysis>>> queryCustomerAnalysis(String user_code) {
-        return apiService.queryCustomerAnalysis(user_code, 1, PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<CustomerAnalysis>>> queryCustomerAnalysis(String user_code,int type) {
+        return apiService.queryCustomerAnalysis(user_code,type, 1, PAGE_SIZE);
     }
 
     /**

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
+import com.yunqi.fengle.model.bean.InvoiceApply;
 import com.yunqi.fengle.model.bean.PlanAdjustmentApply;
 import com.yunqi.fengle.util.TimeUtil;
 
@@ -18,10 +19,14 @@ import de.codecrafters.tableview.TableDataAdapter;
 
 public class PlanAdjustmentTableDataAdapter extends BaseTableDataAdapter<PlanAdjustmentApply> {
     private Context context;
+    private int billStatus;
 
     public PlanAdjustmentTableDataAdapter(Context context, List<PlanAdjustmentApply> data) {
         super(context, data);
         this.context = context;
+    }
+    public void setBillStatus(int billStatus){
+        this.billStatus=billStatus;
     }
 
     @Override
@@ -64,19 +69,24 @@ public class PlanAdjustmentTableDataAdapter extends BaseTableDataAdapter<PlanAdj
         String strStatus = null;
         switch (planAdjustmentApply.status){
             case 1:
-                String id = App.getInstance().getUserInfo().id;
-                //如果单据是本人提交的，则是未完成状态
-                if (id.equals(planAdjustmentApply.userid)) {
-                    strStatus = context.getString(R.string.bill_status_undone);
-                } else {
-                    strStatus = context.getString(R.string.bill_status_2);
-                }
+                strStatus = context.getString(R.string.bill_status_1);
                 break;
             case 2:
-                strStatus = context.getString(R.string.bill_status_3);
+                if(billStatus==1){
+                    strStatus = context.getString(R.string.bill_status_2);
+                }
+                else{
+                    strStatus = context.getString(R.string.bill_status_undone);
+                }
                 break;
             case 3:
+                strStatus = context.getString(R.string.bill_status_3);
+                break;
+            case 4:
                 strStatus = context.getString(R.string.bill_status_4);
+                break;
+            default:
+                strStatus =context.getString(R.string.bill_status_unknown);
                 break;
         }
         return renderString(strStatus);

@@ -26,22 +26,19 @@ public class CustomerAnalysisTableDataAdapter extends BaseTableDataAdapter<Custo
 
         switch (columnIndex) {
             case 0:
-                renderedView =renderName(customer);
+                renderedView =renderNum(rowIndex);
                 break;
             case 1:
-                renderedView = renderAmount(customer);
+                renderedView =renderName(customer);
                 break;
             case 2:
-                renderedView = renderRanking(customer);
+                renderedView = renderAmount(customer);
                 break;
             case 3:
                 renderedView = renderLastShipment(customer);
                 break;
             case 4:
-                renderedView = renderLastRanking(customer);
-                break;
-            case 5:
-                renderedView = renderLift(customer);
+                renderedView = renderRate(customer);
                 break;
         }
         return renderedView;
@@ -60,15 +57,14 @@ public class CustomerAnalysisTableDataAdapter extends BaseTableDataAdapter<Custo
         }
         return view;
     }
-
+    private View renderNum(int rowIndex) {
+        return renderString((rowIndex+1)+"");
+    }
     private View renderName(CustomerAnalysis customer) {
         return renderString(customer.client_name);
     }
-    private View renderLastRanking(CustomerAnalysis customer) {
+    private View renderRate(CustomerAnalysis customer) {
         return renderString(customer.rank_last_year+"");
-    }
-    private View renderRanking(CustomerAnalysis customer) {
-        return renderString(customer.fh_num_rank+"");
     }
     private View renderLastShipment(CustomerAnalysis customer) {
         return renderString(customer.fh_amount_last_year+"");

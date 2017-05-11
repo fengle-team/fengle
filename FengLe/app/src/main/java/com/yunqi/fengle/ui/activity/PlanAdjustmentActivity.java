@@ -119,6 +119,7 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
         final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_plan_request));
         tableViewEx.tableView.setHeaderAdapter(tableHeader1Adapter);
         adapter = new PlanAdjustmentTableDataAdapter(this, mlistPlanAdjustmentApply);
+        adapter.setBillStatus(mStatus);
         tableViewEx.tableView.setDataAdapter(adapter);
         initRadioGroup();
         setWidgetListener();

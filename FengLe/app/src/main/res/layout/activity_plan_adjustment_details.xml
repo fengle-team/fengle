@@ -42,7 +42,7 @@
             android:gravity="left|center_vertical"
             android:maxLines="2"
             android:textColor="@color/text_color2"
-            android:textSize="@dimen/comom_txt_size_s" />
+            android:textSize="@dimen/comom_txt_size_m" />
     </LinearLayout>
 
     <LinearLayout
@@ -75,7 +75,7 @@
             android:layout_marginLeft="5dp"
             android:maxLines="2"
             android:textColor="@color/text_color2"
-            android:textSize="@dimen/comom_txt_size_s" />
+            android:textSize="@dimen/comom_txt_size_m" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -129,79 +129,10 @@
             table:tableView_columnCount="5"
             table:tableView_headerColor="@color/table_head_color"
             table:tableView_headerElevation="25" />
-
-        <LinearLayout
+        <include
             android:id="@+id/llayout_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@drawable/layout_bg4"
-            android:orientation="vertical">
+            layout="@layout/view_bill_status" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="单据状态："
-                    android:textSize="@dimen/comom_txt_size_xs"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txt_status"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="已完成"
-                    android:textSize="@dimen/comom_txt_size_xs" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="单据备注："
-                    android:textSize="@dimen/comom_txt_size_xs"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txt_remark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="xxxx"
-                    android:textSize="@dimen/comom_txt_size_xs" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="生成调剂单号："
-                    android:textSize="@dimen/comom_txt_size_xs"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txt_code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="12345465676"
-                    android:textSize="@dimen/comom_txt_size_xs" />
-            </LinearLayout>
-        </LinearLayout>
     </RelativeLayout>
 
 
