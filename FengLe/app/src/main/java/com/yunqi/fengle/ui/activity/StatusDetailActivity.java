@@ -75,6 +75,7 @@ public class StatusDetailActivity extends BaseActivity<StatusDetailPresenter> im
                 mlistStatus.add(lastStatus);
             } catch (ParseException e) {
                 e.printStackTrace();
+                mlistStatus.add(lastStatus);
             }
 
         }

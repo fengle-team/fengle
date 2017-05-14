@@ -28,7 +28,7 @@ public class PlanAdjustmentQueryPresenter extends RxPresenter<PlanAdjustmentRequ
 
     @Inject
     public PlanAdjustmentQueryPresenter(RetrofitHelper retrofitHelper) {
-        this.mRetrofitHelper = retrofitHelper;
+            this.mRetrofitHelper = retrofitHelper;
     }
     @Override
     public void queryPlanAdjustmentApply(String userid,String area_code,String from_area_code,String to_area_code, int status, String startTime, String endTime, final int page) {

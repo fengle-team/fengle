@@ -119,7 +119,6 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
         final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_plan_request));
         tableViewEx.tableView.setHeaderAdapter(tableHeader1Adapter);
         adapter = new PlanAdjustmentTableDataAdapter(this, mlistPlanAdjustmentApply);
-        adapter.setBillStatus(mStatus);
         tableViewEx.tableView.setDataAdapter(adapter);
         initRadioGroup();
         setWidgetListener();
@@ -277,7 +276,7 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
         } else if (requestCode == DETAIL_REQUEST_CODE && resultCode == DEL_DETAIL_RESULT_CODE) {
             int position = data.getIntExtra("postion", 0);
             mlistPlanAdjustmentApply.remove(position);
-            adapter.notifyDataSetChanged();
+            refreshData();
         } else if (requestCode == DETAIL_REQUEST_CODE && resultCode == UPDATE_DETAIL_RESULT_CODE) {
             loadData();
         } else if (requestCode == DETAIL_REQUEST_CODE && resultCode == APPROVAL_DETAIL_RESULT_CODE) {
@@ -333,12 +332,18 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
             Log.w(TAG, "No data!");
             tableViewEx.setEmptyData();
             mlistPlanAdjustmentApply.clear();
-            adapter.notifyDataSetChanged();
+            refreshData();
             return;
         }
         tableViewEx.setLoadMoreEnabled(true);
         mlistPlanAdjustmentApply.clear();
         mlistPlanAdjustmentApply.addAll(listPlanAdjustmentApply);
+        refreshData();
+
+    }
+
+    private void refreshData(){
+        adapter.setBillStatus(mStatus);
         adapter.notifyDataSetChanged();
     }
 
@@ -352,6 +357,6 @@ public class PlanAdjustmentActivity extends BaseActivity<PlanAdjustmentQueryPres
         }
         tableViewEx.setLoadMoreEnabled(true);
         mlistPlanAdjustmentApply.addAll(listPlanAdjustmentApplyMore);
-        adapter.notifyDataSetChanged();
+        refreshData();
     }
 }

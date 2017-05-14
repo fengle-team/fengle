@@ -4,6 +4,7 @@ package com.yunqi.fengle.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import com.yunqi.fengle.model.bean.Goods;
 import com.yunqi.fengle.model.bean.GoodsAndWarehouse;
 import com.yunqi.fengle.model.bean.PlanAdjustmentApply;
 import com.yunqi.fengle.model.bean.PlanAdjustmentDetail;
+import com.yunqi.fengle.model.bean.StatusInfo;
 import com.yunqi.fengle.model.request.BillUpdateRequest;
 import com.yunqi.fengle.presenter.PlanAdjustmentDetailsPresenter;
 import com.yunqi.fengle.presenter.contract.PlanAdjustmentDetailsContract;
@@ -220,6 +222,10 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
                     public void call(Void aVoid) {
                         Intent intent = new Intent(PlanAdjustmentDetailsActivity.this, StatusDetailActivity.class);
                         intent.putExtra("order_code", planAdjustmentApply.order_code);
+                        StatusInfo statusInfo=new StatusInfo();
+                        statusInfo.record="生成单据号："+planAdjustmentApply.order_code;
+                        statusInfo.create_time=planAdjustmentApply.create_time;
+                        intent.putExtra("LastStatus", statusInfo);
                         startActivity(intent);
                     }
                 });
@@ -263,7 +269,7 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
                         }
                         //待审核(审核)
                         else if (getString(R.string.bill_status_2).equals(strStatus)) {
-                            mPresenter.approval(App.getInstance().getUserInfo().id, planAdjustmentApply.order_code, 3);
+                            mPresenter.approval(App.getInstance().getUserInfo().id, planAdjustmentApply.id+"", 3);
                         }
                         break;
                     case R.id.btn_temporary:
@@ -281,7 +287,7 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
                         }
                         //待审核(驳回)
                         else if (getString(R.string.bill_status_2).equals(strStatus)) {
-                            mPresenter.approval(App.getInstance().getUserInfo().id, planAdjustmentApply.order_code, 4);
+                            mPresenter.approval(App.getInstance().getUserInfo().id, planAdjustmentApply.id+"", 4);
                         }
                         break;
                     case R.id.btn_cancel:// 取消
