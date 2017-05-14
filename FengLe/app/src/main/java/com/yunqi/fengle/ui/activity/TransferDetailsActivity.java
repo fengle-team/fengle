@@ -4,6 +4,7 @@ package com.yunqi.fengle.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -14,9 +15,8 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
-import com.yunqi.fengle.model.bean.BillingDetail;
-import com.yunqi.fengle.model.bean.DeliveryDetail;
 import com.yunqi.fengle.model.bean.Goods;
+import com.yunqi.fengle.model.bean.StatusInfo;
 import com.yunqi.fengle.model.bean.TransferDetail;
 import com.yunqi.fengle.model.bean.GoodsAndWarehouse;
 import com.yunqi.fengle.model.bean.TransferApply;
@@ -64,6 +64,8 @@ public class TransferDetailsActivity extends BaseActivity<TransferDetailsPresent
     TextView txtCode;
     @BindView(R.id.btn_select_goods)
     Button btnSelectGoods;
+    @BindView(R.id.txt_preview)
+    TextView txtPreview;
 
     BottomOpraterPopWindow popWindow;
     private int id;
@@ -75,7 +77,8 @@ public class TransferDetailsActivity extends BaseActivity<TransferDetailsPresent
     private int positionGoods;
     private int type;
     private int bill_status = 0;//单据在列表中所处的状态 1:待处理 2：未完成 3：历史单据
-    private boolean isEditor=false;
+    private boolean isEditor = false;
+    private String strStatus = "";
 
     @Override
     protected void initInject() {
@@ -91,7 +94,7 @@ public class TransferDetailsActivity extends BaseActivity<TransferDetailsPresent
     protected void initEventAndData() {
 //        role= App.getInstance().getUserInfo().role;
         transferApply = (TransferApply) getIntent().getExtras().getSerializable("TransferApply");
-        bill_status =  getIntent().getExtras().getInt("status");
+        bill_status = getIntent().getExtras().getInt("status");
         position = getIntent().getExtras().getInt("position");
         status = transferApply.status;
         id = transferApply.id;
@@ -104,8 +107,8 @@ public class TransferDetailsActivity extends BaseActivity<TransferDetailsPresent
         txtInCustomer.setText(transferApply.client_name_to);
         txtRemark.setText(transferApply.remark);
         txtCode.setText(transferApply.order_code);
-        boolean hideOperater=true;
-        switch (bill_status){
+        boolean hideOperater = true;
+        switch (bill_status) {
             case 1:
                 type = 1;
                 hideOperater = false;
@@ -128,44 +131,46 @@ public class TransferDetailsActivity extends BaseActivity<TransferDetailsPresent
                 }
             });
         }
-        String strStatus = "";
         switch (status) {
             case 1:
                 strStatus = getString(R.string.bill_status_1);
-                isEditor=true;
+                isEditor = true;
                 break;
             case 2: {
                 String id = App.getInstance().getUserInfo().id;
                 //如果单据是本人提交的，则是未完成状态
                 if (id.equals(transferApply.userid)) {
-                    strStatus = getString(R.string.bill_status_undone);
-                } else {
-                    if(bill_status==3){
-                        strStatus = getString(R.string.bill_status_5);
+                    if(bill_status==1){
+                        strStatus = getString(R.string.bill_status_2);
                     }
-                    else {
+                    else{
+                        strStatus = getString(R.string.bill_status_undone);
+                    }
+                } else {
+                    if (bill_status == 3) {
+                        strStatus = getString(R.string.bill_status_5);
+                    } else {
                         strStatus = getString(R.string.bill_status_2);
                     }
                 }
             }
-                break;
+            break;
             case 3:
                 strStatus = getString(R.string.bill_status_3);
                 break;
             case 4:
                 strStatus = getString(R.string.bill_status_4);
-                if(bill_status==2){
-                    isEditor=true;
+                if (bill_status == 2) {
+                    isEditor = true;
                 }
                 break;
             default:
                 strStatus = getString(R.string.bill_status_unknown);
                 break;
         }
-        if(isEditor){
+        if (isEditor) {
             btnSelectGoods.setVisibility(View.VISIBLE);
-        }
-        else {
+        } else {
             btnSelectGoods.setVisibility(View.GONE);
         }
         txtStatus.setText(strStatus);
@@ -186,8 +191,8 @@ public class TransferDetailsActivity extends BaseActivity<TransferDetailsPresent
         tableView.addDataClickListener(new TableDataClickListener<TransferDetail>() {
             @Override
             public void onDataClicked(final int rowIndex, TransferDetail TransferDetail) {
-                if(!isEditor){
-                    ToastUtil.showNoticeToast(TransferDetailsActivity.this,"单据已提交，不可操作！");
+                if (!isEditor) {
+                    ToastUtil.showNoticeToast(TransferDetailsActivity.this, "单据已提交，不可操作！");
                     return;
                 }
                 DialogHelper.showDialog(TransferDetailsActivity.this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
@@ -206,26 +211,41 @@ public class TransferDetailsActivity extends BaseActivity<TransferDetailsPresent
                     @Override
                     public void call(Void aVoid) {
                         Intent intent = new Intent(TransferDetailsActivity.this, GoodsQueryActivity.class);
-                        if(mlistTransferDetail!=null&&!mlistTransferDetail.isEmpty()){
-                            ArrayList<GoodsAndWarehouse> goodsArray=new ArrayList<>();
-                            for (TransferDetail transferDetail:mlistTransferDetail){
-                                GoodsAndWarehouse goodsAndWarehouse=new GoodsAndWarehouse();
-                                goodsAndWarehouse.goods=transferDetail;
+                        if (mlistTransferDetail != null && !mlistTransferDetail.isEmpty()) {
+                            ArrayList<GoodsAndWarehouse> goodsArray = new ArrayList<>();
+                            for (TransferDetail transferDetail : mlistTransferDetail) {
+                                GoodsAndWarehouse goodsAndWarehouse = new GoodsAndWarehouse();
+                                goodsAndWarehouse.goods = transferDetail;
                                 goodsArray.add(goodsAndWarehouse);
                             }
-                            intent.putExtra("goodsArray",goodsArray);
+                            intent.putExtra("goodsArray", goodsArray);
                         }
-                        intent.putExtra("module",TransferDetailsActivity.this.getClass().getName());
-                        intent.putExtra("customer_code",transferApply.client_code_from);
+                        intent.putExtra("module", TransferDetailsActivity.this.getClass().getName());
+                        intent.putExtra("customer_code", transferApply.client_code_from);
                         startActivityForResult(intent, SELECT_GOODS_REQUEST_CODE);
+                    }
+                });
+
+        RxView.clicks(txtPreview)
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        Intent intent = new Intent(TransferDetailsActivity.this, StatusDetailActivity.class);
+                        intent.putExtra("order_code", transferApply.order_code);
+                        if (transferApply.u8_order != null) {
+                            if (transferApply.u8_order.states != null && !TextUtils.isEmpty(transferApply.u8_order.states)) {
+                                StatusInfo statusInfo=new StatusInfo();
+                                statusInfo.record=transferApply.u8_order.huizhi1;
+                                statusInfo.create_time=transferApply.u8_order.ddate;
+                                intent.putExtra("LastStatus", statusInfo);
+                            }
+                        }
+                        startActivity(intent);
                     }
                 });
     }
 
-
-    /**
-     *
-     */
     public void showBottomOpraterPopWindow(final int type) {
         popWindow = new BottomOpraterPopWindow(this, new View.OnClickListener() {
 
@@ -233,47 +253,47 @@ public class TransferDetailsActivity extends BaseActivity<TransferDetailsPresent
             public void onClick(View v) {
                 // 隐藏弹出窗口
                 popWindow.dismiss();
-                if(type==0){
+                if (type == 0) {
                     switch (v.getId()) {
-                        case R.id.btn_commit:// 提交
-                            if (status == 2) {
-                                ToastUtil.showNoticeToast(TransferDetailsActivity.this, "单据已提交,不可操作");
-                                return;
+                        case R.id.btn_commit:
+                            //未完成(撤回)
+                            if (getString(R.string.bill_status_undone).equals(strStatus)) {
+                                updateBillStatus(1);
                             }
-                            updateBillStatus(2);
+                            //驳回和暂存(提交)
+                            else if (getString(R.string.bill_status_4).equals(strStatus) || getString(R.string.bill_status_1).equals(strStatus)) {
+                                updateBillStatus(2);
+                            }
                             break;
-                        case R.id.btn_temporary:// 暂存
-                            if (status == 2) {
-                                ToastUtil.showNoticeToast(TransferDetailsActivity.this, "单据已提交,不可操作");
-                                return;
+                        case R.id.btn_temporary:
+                            //未完成(删除)
+                            if (getString(R.string.bill_status_undone).equals(strStatus)) {
+                                deleteBill();
                             }
-                            if (status == 1) {
-                                ToastUtil.showNoticeToast(TransferDetailsActivity.this, "单据已暂存");
-                                return;
+                            //驳回(删除)
+                            else if (getString(R.string.bill_status_4).equals(strStatus)) {
+                                deleteBill();
                             }
-                            updateBillStatus(1);
+                            //暂存(删除)
+                            else if (getString(R.string.bill_status_1).equals(strStatus)) {
+                                deleteBill();
+                            }
                             break;
                         case R.id.btn_cancel:// 取消
-                            DialogHelper.showDialog(TransferDetailsActivity.this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
-                                @Override
-                                public void onOk() {
-                                    mPresenter.delete(id);
-                                }
-                            });
+
                             break;
                         default:
                             break;
                     }
-                }
-                else {
-                    String userid=App.getInstance().getUserInfo().id;
-                    String orderCode=transferApply.order_code;
+                } else {
+                    String userid = App.getInstance().getUserInfo().id;
+                    String orderCode = transferApply.order_code;
                     switch (v.getId()) {
                         case R.id.btn_commit:// 待审核
-                            mPresenter.approval(userid,orderCode,3);
+                            mPresenter.approval(userid, orderCode, 3);
                             break;
                         case R.id.btn_temporary:// 审核驳回
-                            mPresenter.approval(userid,orderCode,4);
+                            mPresenter.approval(userid, orderCode, 4);
                             break;
                         case R.id.btn_cancel:// 取消
 
@@ -285,25 +305,48 @@ public class TransferDetailsActivity extends BaseActivity<TransferDetailsPresent
 
             }
         });
-        if(type==1){
-            popWindow.setPopWindowTexts( getResources().getStringArray(R.array.oprater_audit));
+        //未完成
+        if (getString(R.string.bill_status_undone).equals(strStatus)) {
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_return));
+        }
+        //驳回
+        else if (getString(R.string.bill_status_4).equals(strStatus)) {
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_bohui));
+        }
+        //提交待审核
+        else if (getString(R.string.bill_status_2).equals(strStatus)) {
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_audit));
+        }
+        //暂存
+        else if (getString(R.string.bill_status_1).equals(strStatus)) {
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_tempary));
         }
         popWindow.showAtLocation(findViewById(R.id.main_layout), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
     }
-    private void updateBillStatus(int status){
+
+    private void deleteBill() {
+        DialogHelper.showDialog(this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
+            @Override
+            public void onOk() {
+                mPresenter.delete(id);
+            }
+        });
+    }
+
+    private void updateBillStatus(int status) {
         if (mlistTransferDetail == null || mlistTransferDetail.isEmpty()) {
             ToastUtil.showNoticeToast(this, getString(R.string.warimg_unselect_goods));
             return;
         }
-        BillUpdateRequest request=new BillUpdateRequest();
-        request.id=id;
-        List<Goods> listGoods=new ArrayList<>();
-        for (TransferDetail transferDetail:mlistTransferDetail){
+        BillUpdateRequest request = new BillUpdateRequest();
+        request.id = id;
+        List<Goods> listGoods = new ArrayList<>();
+        for (TransferDetail transferDetail : mlistTransferDetail) {
             listGoods.add(transferDetail);
         }
-        request.goods_array=listGoods;
-        request.status=status;
-        request.order_code=transferApply.order_code;
+        request.goods_array = listGoods;
+        request.status = status;
+        request.order_code = transferApply.order_code;
         mPresenter.updateStatus(request);
     }
 
@@ -378,15 +421,13 @@ public class TransferDetailsActivity extends BaseActivity<TransferDetailsPresent
             ToastUtil.showHookToast(this, "所选货物删除成功！");
             mlistTransferDetail.remove(positionGoods);
             adapter.notifyDataSetChanged();
-        }
-        else if (opraterType == 3) {
+        } else if (opraterType == 3) {
             ToastUtil.showHookToast(this, "审核成功！");
             Intent intent = new Intent();
             intent.putExtra("status", status);
             setResult(DeliveryRequestActivity.UPDATE_DETAIL_RESULT_CODE, intent);
             finish();
-        }
-        else if (opraterType == 4) {
+        } else if (opraterType == 4) {
             ToastUtil.showHookToast(this, "单据已驳回！");
             Intent intent = new Intent();
             intent.putExtra("status", status);
@@ -400,17 +441,18 @@ public class TransferDetailsActivity extends BaseActivity<TransferDetailsPresent
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SELECT_GOODS_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             ArrayList<GoodsAndWarehouse> goodsArray = (ArrayList<GoodsAndWarehouse>) data.getSerializableExtra("listSelectGoods");
-            for (GoodsAndWarehouse goodsAndWarehouse:goodsArray){
-                TransferDetail transferDetail=new TransferDetail();
-                transferDetail.warehouse_code=goodsAndWarehouse.goods.warehouse_code;
-                transferDetail.goods_warehouse=goodsAndWarehouse.goods.goods_warehouse;
-                transferDetail.goods_num=goodsAndWarehouse.goods.goods_num;
-                transferDetail.goods_id=goodsAndWarehouse.goods.goods_id;
-                transferDetail.goods_code=goodsAndWarehouse.goods.goods_code;
-                transferDetail.goods_name=goodsAndWarehouse.goods.goods_name;
-                transferDetail.goods_standard=goodsAndWarehouse.goods.goods_standard;
-                transferDetail.goods_units_num=goodsAndWarehouse.goods.goods_units_num;
-                transferDetail.goods_price=goodsAndWarehouse.goods.goods_price;
+            for (GoodsAndWarehouse goodsAndWarehouse : goodsArray) {
+                TransferDetail transferDetail = new TransferDetail();
+                transferDetail.warehouse_code = goodsAndWarehouse.goods.warehouse_code;
+                transferDetail.goods_warehouse = goodsAndWarehouse.goods.goods_warehouse;
+                transferDetail.goods_num = goodsAndWarehouse.goods.goods_num;
+                transferDetail.goods_id = goodsAndWarehouse.goods.goods_id;
+                transferDetail.goods_code = goodsAndWarehouse.goods.goods_code;
+                transferDetail.goods_name = goodsAndWarehouse.goods.goods_name;
+                transferDetail.goods_standard = goodsAndWarehouse.goods.goods_standard;
+                transferDetail.goods_units_num = goodsAndWarehouse.goods.goods_units_num;
+                transferDetail.goods_price = goodsAndWarehouse.goods.goods_price;
+                transferDetail.freight=goodsAndWarehouse.goods.freight;
                 mlistTransferDetail.add(transferDetail);
             }
         }

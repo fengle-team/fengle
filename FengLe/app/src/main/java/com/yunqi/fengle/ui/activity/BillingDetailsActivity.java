@@ -4,6 +4,7 @@ package com.yunqi.fengle.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -16,16 +17,11 @@ import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
 import com.yunqi.fengle.model.bean.BillingApply;
 import com.yunqi.fengle.model.bean.BillingDetail;
-import com.yunqi.fengle.model.bean.BillingDetail;
-import com.yunqi.fengle.model.bean.DeliveryDetail;
 import com.yunqi.fengle.model.bean.Goods;
 import com.yunqi.fengle.model.bean.GoodsAndWarehouse;
-import com.yunqi.fengle.model.bean.BillingDetail;
-import com.yunqi.fengle.model.bean.ReturnDetail;
+import com.yunqi.fengle.model.bean.StatusInfo;
 import com.yunqi.fengle.model.request.BillUpdateRequest;
 import com.yunqi.fengle.presenter.BillingDetailsPresenter;
-import com.yunqi.fengle.presenter.BillingDetailsPresenter;
-import com.yunqi.fengle.presenter.contract.BillingDetailsContract;
 import com.yunqi.fengle.presenter.contract.BillingDetailsContract;
 import com.yunqi.fengle.ui.adapter.BillingDetailTableDataAdapter;
 import com.yunqi.fengle.ui.adapter.TableHeader1Adapter;
@@ -68,6 +64,8 @@ public class BillingDetailsActivity extends BaseActivity<BillingDetailsPresenter
     TextView txtCodeTag;
     @BindView(R.id.btn_select_goods)
     Button btnSelectGoods;
+    @BindView(R.id.txt_preview)
+    TextView txtPreview;
 
     BottomOpraterPopWindow popWindow;
     private int id;
@@ -80,6 +78,7 @@ public class BillingDetailsActivity extends BaseActivity<BillingDetailsPresenter
     private int type;
     private int bill_status = 0;//单据在列表中所处的状态 1:待处理 2：未完成 3：历史单据
     private boolean isEditor=false;
+    private String strStatus = "";
 
     @Override
     protected void initInject() {
@@ -132,7 +131,6 @@ public class BillingDetailsActivity extends BaseActivity<BillingDetailsPresenter
                 }
             });
         }
-        String strStatus = "";
         switch (status) {
             case 1:
                 strStatus = getString(R.string.bill_status_1);
@@ -142,7 +140,12 @@ public class BillingDetailsActivity extends BaseActivity<BillingDetailsPresenter
                 String id = App.getInstance().getUserInfo().id;
                 //如果单据是本人提交的，则是未完成状态
                 if (id.equals(billingApply.userid)) {
-                    strStatus = getString(R.string.bill_status_undone);
+                    if(bill_status==1){
+                        strStatus = getString(R.string.bill_status_2);
+                    }
+                    else{
+                        strStatus = getString(R.string.bill_status_undone);
+                    }
                 } else {
                     if(bill_status==3){
                         strStatus = getString(R.string.bill_status_5);
@@ -219,12 +222,26 @@ public class BillingDetailsActivity extends BaseActivity<BillingDetailsPresenter
                         startActivityForResult(intent, SELECT_GOODS_REQUEST_CODE);
                     }
                 });
+        RxView.clicks(txtPreview)
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        Intent intent = new Intent(BillingDetailsActivity.this, StatusDetailActivity.class);
+                        intent.putExtra("order_code", billingApply.order_code);
+                        if (billingApply.u8_order != null) {
+                            if (billingApply.u8_order.states != null && !TextUtils.isEmpty(billingApply.u8_order.states)) {
+                                StatusInfo statusInfo=new StatusInfo();
+                                statusInfo.record=billingApply.u8_order.huizhi1;
+                                statusInfo.create_time=billingApply.u8_order.ddate;
+                                intent.putExtra("LastStatus", statusInfo);
+                            }
+                        }
+                        startActivity(intent);
+                    }
+                });
     }
 
-
-    /**
-     *
-     */
     public void showBottomOpraterPopWindow(final int type) {
         popWindow = new BottomOpraterPopWindow(this, new View.OnClickListener() {
 
@@ -232,47 +249,47 @@ public class BillingDetailsActivity extends BaseActivity<BillingDetailsPresenter
             public void onClick(View v) {
                 // 隐藏弹出窗口
                 popWindow.dismiss();
-                if(type==0){
+                if (type == 0) {
                     switch (v.getId()) {
-                        case R.id.btn_commit:// 提交
-                            if (status == 2) {
-                                ToastUtil.showNoticeToast(BillingDetailsActivity.this, "单据已提交,不可操作");
-                                return;
+                        case R.id.btn_commit:
+                            //未完成(撤回)
+                            if (getString(R.string.bill_status_undone).equals(strStatus)) {
+                                updateBillStatus(1);
                             }
-                            updateBillStatus(2);
+                            //驳回和暂存(提交)
+                            else if (getString(R.string.bill_status_4).equals(strStatus) || getString(R.string.bill_status_1).equals(strStatus)) {
+                                updateBillStatus(2);
+                            }
                             break;
-                        case R.id.btn_temporary:// 暂存
-                            if (status == 2) {
-                                ToastUtil.showNoticeToast(BillingDetailsActivity.this, "单据已提交,不可操作");
-                                return;
+                        case R.id.btn_temporary:
+                            //未完成(删除)
+                            if (getString(R.string.bill_status_undone).equals(strStatus)) {
+                                deleteBill();
                             }
-                            if (status == 1) {
-                                ToastUtil.showNoticeToast(BillingDetailsActivity.this, "单据已暂存");
-                                return;
+                            //驳回(删除)
+                            else if (getString(R.string.bill_status_4).equals(strStatus)) {
+                                deleteBill();
                             }
-                            updateBillStatus(1);
+                            //暂存(删除)
+                            else if (getString(R.string.bill_status_1).equals(strStatus)) {
+                                deleteBill();
+                            }
                             break;
                         case R.id.btn_cancel:// 取消
-                            DialogHelper.showDialog(BillingDetailsActivity.this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
-                                @Override
-                                public void onOk() {
-                                    mPresenter.delete(id);
-                                }
-                            });
+
                             break;
                         default:
                             break;
                     }
-                }
-                else {
-                    String userid=App.getInstance().getUserInfo().id;
-                    String orderCode=billingApply.order_code;
+                } else {
+                    String userid = App.getInstance().getUserInfo().id;
+                    String orderCode = billingApply.order_code;
                     switch (v.getId()) {
                         case R.id.btn_commit:// 待审核
-                            mPresenter.approval(userid,orderCode,3);
+                            mPresenter.approval(userid, orderCode, 3);
                             break;
                         case R.id.btn_temporary:// 审核驳回
-                            mPresenter.approval(userid,orderCode,4);
+                            mPresenter.approval(userid, orderCode, 4);
                             break;
                         case R.id.btn_cancel:// 取消
 
@@ -284,10 +301,31 @@ public class BillingDetailsActivity extends BaseActivity<BillingDetailsPresenter
 
             }
         });
-        if(type==1){
-            popWindow.setPopWindowTexts( getResources().getStringArray(R.array.oprater_audit));
+        //未完成
+        if (getString(R.string.bill_status_undone).equals(strStatus)) {
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_return));
+        }
+        //驳回
+        else if (getString(R.string.bill_status_4).equals(strStatus)) {
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_bohui));
+        }
+        //提交待审核
+        else if (getString(R.string.bill_status_2).equals(strStatus)) {
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_audit));
+        }
+        //暂存
+        else if (getString(R.string.bill_status_1).equals(strStatus)) {
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_tempary));
         }
         popWindow.showAtLocation(findViewById(R.id.main_layout), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+    }
+    private void deleteBill(){
+        DialogHelper.showDialog(this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
+            @Override
+            public void onOk() {
+                mPresenter.delete(id);
+            }
+        });
     }
 
     private void updateBillStatus(int status){

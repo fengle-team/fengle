@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="签到\n8:30"
+            android:text="签到\n9:00"
             android:textColor="@color/white"
 
             android:textSize="@dimen/text_larger_size" />
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="签退\n17:30"
+            android:text="签退\n16:00"
             android:textColor="@color/white"
             android:textSize="@dimen/text_larger_size" />
     </RelativeLayout>

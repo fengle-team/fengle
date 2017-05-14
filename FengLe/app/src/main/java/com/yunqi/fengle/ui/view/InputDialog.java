@@ -31,6 +31,7 @@ public class InputDialog extends Dialog {
     private String tip;
     private String hint;
     private Goods goods;
+    private int module;//0：表示退货 、开票等 1：发货 2：表示促销
 
     public InputDialog(Context context, int maxNum, String tip, String hint, Goods goods, OnConfirmListener listener) {
         super(context, R.style.MyDialog);
@@ -40,7 +41,10 @@ public class InputDialog extends Dialog {
         this.goods = goods;
         this.tip = tip;
         this.hint = hint;
+    }
 
+    public void setModule(int module){
+        this.module=module;
     }
 
     @Override
@@ -84,6 +88,10 @@ public class InputDialog extends Dialog {
                 }
                 if (num > maxNum) {
                     ToastUtil.showErrorToast(context, "不可超过最大数量!");
+                    return;
+                }
+                if (module==1&&num > goods.goods_plan) {
+                    ToastUtil.showErrorToast(context, "不可超过计划数量!");
                     return;
                 }
                 listener.onText(num);

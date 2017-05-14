@@ -24,6 +24,7 @@ import com.yunqi.fengle.model.bean.PlanAdjustmentApply;
 import com.yunqi.fengle.model.bean.ReturnApply;
 import com.yunqi.fengle.model.bean.SaleInfo;
 import com.yunqi.fengle.model.bean.SplashBean;
+import com.yunqi.fengle.model.bean.StatusInfo;
 import com.yunqi.fengle.model.bean.TransferApply;
 import com.yunqi.fengle.model.bean.UserBean;
 import com.yunqi.fengle.model.bean.Warehouse;
@@ -332,14 +333,14 @@ public class RetrofitHelper {
     public Observable<CommonHttpRsp<List<Area>>> queryArea() {
         return apiService.queryArea(1, 1000);
     }
-
     /**
-     * 客户分析查询
-     *
+     *  客户分析查询
+     * @param user_code
+     * @param type 0：表示新客户 1：表示老客户
      * @return
      */
-    public Observable<CommonHttpRsp<List<CustomerAnalysis>>> queryCustomerAnalysis(String user_code) {
-        return apiService.queryCustomerAnalysis(user_code, 1, PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<CustomerAnalysis>>> queryCustomerAnalysis(String user_code,int type) {
+        return apiService.queryCustomerAnalysis(user_code,type, 1, PAGE_SIZE);
     }
 
     /**
@@ -550,6 +551,10 @@ public class RetrofitHelper {
      */
     public Observable<CommonHttpRsp<List<BillingApply>>> queryBillingApply(String userid,String custom_code, String keyword, int status, String startTime, String endTime, int page) {
         return apiService.queryBillingApply(userid,custom_code, keyword, status, startTime, endTime, page, PAGE_SIZE);
+    }
+
+    public Observable<CommonHttpRsp<List<StatusInfo>>> queryStatusDetail(@Query("order_code") String order_code){
+        return apiService.queryStatusDetail(order_code);
     }
 
     /**
@@ -942,7 +947,6 @@ public class RetrofitHelper {
      * 审批计划调剂单据
      *
      * @param userid
-     * @param order_code
      * @param status
      */
     public Observable<BaseHttpRsp> approvalPlanAdjustmentBill(String userid, String id, int status) {

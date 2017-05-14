@@ -64,8 +64,10 @@
     <string name="module_area_query">大区查询</string>
     <string name="module_warehouse_query">仓库查询</string>
     <string name="module_payment_type">回款类型查询</string>
-    <string name="module_bank_code">会计科目查询</string>
+    <string name="module_bank_code">收款银行查询</string>
     <string name="module_fukuan_type">付款类型查询</string>
+    <string name="module_status_detail">状态详情</string>
+
 
     <string name="area_select">选择大区</string>
     <string name="stock_select">选择仓库</string>
@@ -86,13 +88,14 @@
     <string name="in_customer">调入客户</string>
     <string name="out_customer_tag">调出客户:</string>
     <string name="in_customer_tag">调入客户:</string>
-    <string name="out_area_tag">调出客户:</string>
-    <string name="in_area_tag">调入客户:</string>
+    <string name="out_area_tag">调出大区:</string>
+    <string name="in_area_tag">调入大区:</string>
     <string name="selected_goods">已选货物如下:</string>
     <string name="warimg_unselect_customer">请选择客户</string>
     <string name="warimg_unselect_in_or_out_customer">请选择调出调入客户</string>
     <string name="warimg_unselect_in_or_out_area">请选择调出调入大区</string>
     <string name="warimg_selected_goods_clear">客户一旦更改，所选货物即将被清空</string>
+    <string name="warimg_selected_stock">仓库一旦更改，所选货物即将被清空</string>
     <string name="warimg_unselect_area">请选择调出大区</string>
     <string name="warimg_area_selected_goods_clear">大区一旦更改，所选货物即将被清空</string>
     <string name="warimg_customer_no_same">调出客户不能与调入客户相同</string>
@@ -118,6 +121,22 @@
         <item>编号</item>
         <item>名称</item>
         <item>规格</item>
+        <item>库存</item>
+        <item>价格</item>
+    </string-array>
+
+    <string-array name="header_title_goods_query_promotion">
+        <item>编号</item>
+        <item>名称</item>
+        <item>规格</item>
+        <item>库存</item>
+    </string-array>
+    <string-array name="header_title_goods_query_delivery">
+        <item>编号</item>
+        <item>名称</item>
+        <item>规格</item>
+        <item>库存</item>
+        <item>计划</item>
         <item>价格</item>
     </string-array>
 
@@ -127,12 +146,11 @@
     </string-array>
 
     <string-array name="header_title_customer_analysis">
+        <item>序号</item>
         <item>客户名称</item>
         <item>发货金额</item>
-        <item>排名</item>
         <item>上年发货</item>
-        <item>上年排名</item>
-        <item>升降</item>
+        <item>增长率</item>
     </string-array>
 
     <string name="customer_keyword_hint">客户名或编号</string>
@@ -246,11 +264,28 @@
     <string-array name="oprater_add">
         <item>提交</item>
         <item>暂存</item>
-        <item>放弃</item>
+        <item>取消</item>
     </string-array>
-    <string-array name="plan_adjustment_add">
+    <string-array name="oprater_bohui">
         <item>提交</item>
         <item>删除</item>
+        <item>取消</item>
+    </string-array>
+    <string-array name="oprater_tempary">
+        <item>提交</item>
+        <item>删除</item>
+        <item>取消</item>
+    </string-array>
+
+    <string-array name="oprater_return">
+        <item>撤回</item>
+        <item>删除</item>
+        <item>取消</item>
+    </string-array>
+
+    <string-array name="plan_adjustment_add">
+        <item>提交</item>
+        <item>暂存</item>
         <item>取消</item>
     </string-array>
     <string-array name="oprater_audit">
@@ -352,16 +387,20 @@
 
 
     <string name="bill_status_1">暂存</string>
-    <string name="bill_status_2">提交待审核</string>
+    <string name="bill_status_2">待审核</string>
     <string name="bill_status_3">审核通过</string>
     <string name="bill_status_4">驳回</string>
     <string name="bill_status_5">中心经理已审核</string>
     <string name="bill_status_unknown">未知状态</string>
     <string name="bill_status_undone">未完成</string>
+    <string name="bill_status_6">已作废</string>
 
     <string name="promotion_goods">促销货物</string>
     <string name="promotion_customer">促销客户</string>
     <string name="no_data">暂无数据</string>
+
+    <string name="time">时间</string>
+    <string name="status">状态</string>
 
 
 

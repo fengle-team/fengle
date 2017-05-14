@@ -18,6 +18,7 @@ import com.yunqi.fengle.model.bean.PlanAdjustmentApply;
 import com.yunqi.fengle.model.bean.ReturnApply;
 import com.yunqi.fengle.model.bean.SaleInfo;
 import com.yunqi.fengle.model.bean.SplashBean;
+import com.yunqi.fengle.model.bean.StatusInfo;
 import com.yunqi.fengle.model.bean.TransferApply;
 import com.yunqi.fengle.model.bean.UserBean;
 import com.yunqi.fengle.model.bean.Warehouse;
@@ -69,13 +70,10 @@ import rx.Observable;
  * @time 2017/1/11
  */
 public interface ApiService {
-
-//    String baseUrl = "http://60.174.196.101:3080";
-//    String baseUrl = "http://192.168.1.103:3080";
     //生产环境
-    String baseUrl = "http://60.174.196.102:3080";
+//    String baseUrl = "http://60.174.196.102:3080";
     //测试环境
-//    String baseUrl = "http://60.174.196.102:3081";
+    String baseUrl = "http://60.174.196.102:3081";
     String HOST = baseUrl + "/api/";
 
     /**
@@ -120,7 +118,7 @@ public interface ApiService {
      * 客户分析查询
      */
     @GET("custom_analysis/get")
-    Observable<CommonHttpRsp<List<CustomerAnalysis>>> queryCustomerAnalysis(@Query("user_code")String user_code,@Query("page")int page,@Query("size")int size);
+    Observable<CommonHttpRsp<List<CustomerAnalysis>>> queryCustomerAnalysis(@Query("user_code")String user_code,@Query("type")int type,@Query("page")int page,@Query("size")int size);
     /**
      * 回款类型查询
      */
@@ -391,8 +389,11 @@ public interface ApiService {
      */
     @GET("invoice/get")
     Observable<CommonHttpRsp<GoodsSaleDetail>> queryGoodsSaleDetail(@Query("sale_id") String sale_id);
-
-
+    /**
+     * 状态详情
+     */
+    @GET("order_process_record/get")
+    Observable<CommonHttpRsp<List<StatusInfo>>> queryStatusDetail(@Query("order_code") String order_code);
     /**
      * 调货单查询接口
      */

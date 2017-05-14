@@ -14,7 +14,7 @@ import com.jakewharton.rxbinding.view.RxView;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
-import com.yunqi.fengle.model.bean.BillingDetail;
+import com.yunqi.fengle.model.bean.DeliveryDetail;
 import com.yunqi.fengle.model.bean.Goods;
 import com.yunqi.fengle.model.bean.GoodsAndWarehouse;
 import com.yunqi.fengle.model.bean.PlanAdjustmentApply;
@@ -63,6 +63,8 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
     TextView txtCode;
     @BindView(R.id.btn_select_goods)
     Button btnSelectGoods;
+    @BindView(R.id.txt_preview)
+    TextView txtPreview;
 
     BottomOpraterPopWindow popWindow;
     private int id;
@@ -74,6 +76,7 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
     private List<PlanAdjustmentDetail> mlistPlanAdjustmentDetail;
     private int positionGoods;
     private boolean isEditor;
+    private String strStatus = "";
 
     @Override
     protected void initInject() {
@@ -97,27 +100,10 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
             setToolBar(toolbar, getString(R.string.module_plan_adjustment_detail), getString(R.string.operater), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (mStatus == 1) {
-                        showBottomOpraterPopWindow(0);
-                    } else if (mStatus == 2) {
-                        showBottomOpraterPopWindow(1);
-                    }
+                    showBottomOpraterPopWindow();
                 }
             });
         }
-//        else if (mStatus == 2) {
-//            setToolBar(toolbar, getString(R.string.module_plan_adjustment_detail), getString(R.string.operater), new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    DialogHelper.showDialog(PlanAdjustmentDetailsActivity.this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
-//                        @Override
-//                        public void onOk() {
-//                            mPresenter.delete(id);
-//                        }
-//                    });
-//                }
-//            });
-//        }
         else {
             setToolBar(toolbar, getString(R.string.module_plan_adjustment_detail));
         }
@@ -130,25 +116,37 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
         txtInArea.setText(planAdjustmentApply.to_area_detail.name);
         txtRemark.setText(planAdjustmentApply.remark);
         txtCode.setText(planAdjustmentApply.order_code);
-        String strStatus = "";
         switch (status) {
             case 1:
+                strStatus = getString(R.string.bill_status_1);
+                isEditor = true;
+                break;
+            case 2: {
                 String id = App.getInstance().getUserInfo().id;
                 //如果单据是本人提交的，则是未完成状态
                 if (id.equals(planAdjustmentApply.userid)) {
-                    strStatus = getString(R.string.bill_status_undone);
+                    if (mStatus == 1) {
+                        strStatus = getString(R.string.bill_status_2);
+                    } else {
+                        strStatus = getString(R.string.bill_status_undone);
+                    }
                 } else {
-                    strStatus = getString(R.string.bill_status_2);
+                    if (mStatus == 3) {
+                        strStatus = getString(R.string.bill_status_5);
+                    } else {
+                        strStatus = getString(R.string.bill_status_2);
+                    }
                 }
-                break;
-            case 2:
+            }
+            break;
+            case 3:
                 strStatus = getString(R.string.bill_status_3);
                 break;
-            case 3:
-                if(mStatus==2){
-                    isEditor=true;
-                }
+            case 4:
                 strStatus = getString(R.string.bill_status_4);
+                if (mStatus == 2) {
+                    isEditor = true;
+                }
                 break;
             default:
                 strStatus = getString(R.string.bill_status_unknown);
@@ -174,7 +172,6 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
             btnSelectGoods.setVisibility(View.VISIBLE);
         }
         showData(planAdjustmentApply);
-//        mPresenter.getPlanAdjustmentDetails(planAdjustmentApply.id);
     }
 
     private void setWidgetListener() {
@@ -216,13 +213,38 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
                         startActivityForResult(intent, SELECT_GOODS_REQUEST_CODE);
                     }
                 });
+        RxView.clicks(txtPreview)
+                .throttleFirst(1, TimeUnit.SECONDS)
+                .subscribe(new Action1<Void>() {
+                    @Override
+                    public void call(Void aVoid) {
+                        Intent intent = new Intent(PlanAdjustmentDetailsActivity.this, StatusDetailActivity.class);
+                        intent.putExtra("order_code", planAdjustmentApply.order_code);
+                        startActivity(intent);
+                    }
+                });
+    }
+
+    private void updateBillStatus(int status) {
+        if (mlistPlanAdjustmentDetail == null || mlistPlanAdjustmentDetail.isEmpty()) {
+            ToastUtil.showNoticeToast(this, getString(R.string.warimg_unselect_goods));
+            return;
+        }
+        //驳回再次提交
+        BillUpdateRequest request = new BillUpdateRequest();
+        request.id = planAdjustmentApply.id;
+        request.order_code = planAdjustmentApply.order_code;
+        request.status = status;
+        List<Goods> listGoods = new ArrayList<>();
+        for (PlanAdjustmentDetail planAdjustmentDetail : mlistPlanAdjustmentDetail) {
+            listGoods.add(planAdjustmentDetail);
+        }
+        request.goods_array = listGoods;
+        mPresenter.updateStatus(request);
     }
 
 
-    /**
-     * 弹出底部操作PopupWindow
-     */
-    public void showBottomOpraterPopWindow(final int type) {
+    public void showBottomOpraterPopWindow() {
         popWindow = new BottomOpraterPopWindow(this, new View.OnClickListener() {
 
             @Override
@@ -230,57 +252,73 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
                 // 隐藏弹出窗口
                 popWindow.dismiss();
                 switch (v.getId()) {
-                    case R.id.btn_commit:// 审核通过
-                    {
-                        //未完成
-                        if (type == 1 && status == 1) {
-                            ToastUtil.showNoticeToast(PlanAdjustmentDetailsActivity.this, "单据已提交，不可操作！");
-                            return;
+                    case R.id.btn_commit:
+                        //未完成(撤回)
+                        if (getString(R.string.bill_status_undone).equals(strStatus)) {
+                            updateBillStatus(1);
                         }
-                        //驳回再次提交
-                        BillUpdateRequest request = new BillUpdateRequest();
-                        request.id = planAdjustmentApply.id;
-                        request.order_code = planAdjustmentApply.order_code;
-                        request.status = 1;
-                        if (type == 1) {
-                            request.opraterType=1;
-                            List<Goods> listGoods = new ArrayList<>();
-                            for (PlanAdjustmentDetail planAdjustmentDetail : mlistPlanAdjustmentDetail) {
-                                listGoods.add(planAdjustmentDetail);
-                            }
-                            request.goods_array = listGoods;
+                        //驳回和暂存(提交)
+                        else if (getString(R.string.bill_status_4).equals(strStatus) || getString(R.string.bill_status_1).equals(strStatus)) {
+                            updateBillStatus(2);
                         }
-                        mPresenter.updateStatus(request);
-//                        mPresenter.approval(userBean.id,planAdjustmentApply.id+"",3);
-                    }
-                    break;
-                    case R.id.btn_temporary://驳回
-//                        mPresenter.approval(userBean.id,planAdjustmentApply.id+"",4);
-                        if (type == 0) {
-                            BillUpdateRequest request = new BillUpdateRequest();
-                            request.id = planAdjustmentApply.id;
-                            request.status = 3;
-                            mPresenter.updateStatus(request);
-                        } else {
-                            DialogHelper.showDialog(PlanAdjustmentDetailsActivity.this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
-                                @Override
-                                public void onOk() {
-                                    mPresenter.delete(id);
-                                }
-                            });
+                        //待审核(审核)
+                        else if (getString(R.string.bill_status_2).equals(strStatus)) {
+                            mPresenter.approval(App.getInstance().getUserInfo().id, planAdjustmentApply.order_code, 3);
                         }
+                        break;
+                    case R.id.btn_temporary:
+                        //未完成(删除)
+                        if (getString(R.string.bill_status_undone).equals(strStatus)) {
+                            deleteBill();
+                        }
+                        //驳回(删除)
+                        else if (getString(R.string.bill_status_4).equals(strStatus)) {
+                            deleteBill();
+                        }
+                        //暂存(删除)
+                        else if (getString(R.string.bill_status_1).equals(strStatus)) {
+                            deleteBill();
+                        }
+                        //待审核(驳回)
+                        else if (getString(R.string.bill_status_2).equals(strStatus)) {
+                            mPresenter.approval(App.getInstance().getUserInfo().id, planAdjustmentApply.order_code, 4);
+                        }
+                        break;
+                    case R.id.btn_cancel:// 取消
+
                         break;
                     default:
                         break;
                 }
+
             }
         });
-        if (type == 0) {
+        //未完成
+        if (getString(R.string.bill_status_undone).equals(strStatus)) {
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_return));
+        }
+        //驳回
+        else if (getString(R.string.bill_status_4).equals(strStatus)) {
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_bohui));
+        }
+        //提交待审核
+        else if (getString(R.string.bill_status_2).equals(strStatus)) {
             popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_audit));
-        } else if (type == 1) {
-            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.plan_adjustment_add));
+        }
+        //暂存
+        else if (getString(R.string.bill_status_1).equals(strStatus)) {
+            popWindow.setPopWindowTexts(getResources().getStringArray(R.array.oprater_tempary));
         }
         popWindow.showAtLocation(findViewById(R.id.main_layout), Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+    }
+
+    private void deleteBill() {
+        DialogHelper.showDialog(this, "确定删除?", new SimpleDialogFragment.OnSimpleDialogListener() {
+            @Override
+            public void onOk() {
+                mPresenter.delete(id);
+            }
+        });
     }
 
     @Override
@@ -339,7 +377,7 @@ public class PlanAdjustmentDetailsActivity extends BaseActivity<PlanAdjustmentDe
     @Override
     public void onSuccess(int opraterType) {
         if (opraterType == 0) {
-            ToastUtil.showHookToast(this, "单据提交成功！");
+            ToastUtil.showHookToast(this, "单据状态更新成功！");
             Intent intent = new Intent();
             intent.putExtra("status", status);
             setResult(ReturnRequestActivity.APPROVAL_DETAIL_RESULT_CODE, intent);

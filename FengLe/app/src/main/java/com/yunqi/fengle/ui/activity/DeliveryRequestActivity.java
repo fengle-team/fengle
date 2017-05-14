@@ -305,6 +305,18 @@ public class DeliveryRequestActivity extends BaseActivity<DeliveryQueryPresenter
     }
 
     @Override
+    public void showMoreContent(List<InvoiceApply> listInvoiceApplyMore) {
+        if (listInvoiceApplyMore.isEmpty()) {
+            tableViewEx.setLoadMoreEnabled(false);
+            Log.w(TAG, "No more data!");
+            return;
+        }
+        tableViewEx.setLoadMoreEnabled(true);
+        mlistInvoiceApply.addAll(listInvoiceApplyMore);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     public void showContent(List<InvoiceApply> listInvoiceApply) {
         if (listInvoiceApply.isEmpty()) {
             Log.w(TAG, "No data!");
@@ -316,18 +328,6 @@ public class DeliveryRequestActivity extends BaseActivity<DeliveryQueryPresenter
         tableViewEx.setLoadMoreEnabled(true);
         mlistInvoiceApply.clear();
         mlistInvoiceApply.addAll(listInvoiceApply);
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void showMoreContent(List<InvoiceApply> listInvoiceApplyMore) {
-        if (listInvoiceApplyMore.isEmpty()) {
-            tableViewEx.setLoadMoreEnabled(false);
-            Log.w(TAG, "No more data!");
-            return;
-        }
-        tableViewEx.setLoadMoreEnabled(true);
-        mlistInvoiceApply.addAll(listInvoiceApplyMore);
         adapter.notifyDataSetChanged();
     }
 }

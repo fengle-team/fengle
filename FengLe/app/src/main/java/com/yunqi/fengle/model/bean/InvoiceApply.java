@@ -17,7 +17,7 @@ public class InvoiceApply implements Serializable{
     public String create_time;
     public int status;
     public String remark;
-
+    public U8Order u8_order;
     public List<DeliveryDetail> detail;
 
     public InvoiceApply() {
