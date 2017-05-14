@@ -32,7 +32,7 @@ public class ProgressLayout extends RelativeLayout {
 	private static final String TAG_ERROR = "ProgressLayout.TAG_ERROR";
 
 	public enum State {
-		CONTENT, PROGRESS, ERROR
+		CONTENT, PROGRESS, ERROR,EMPTY
 	}
 
 //	private ProgressBar indeterminateProgressLarge;
@@ -158,8 +158,15 @@ public class ProgressLayout extends RelativeLayout {
 		switchState(State.ERROR, error, Collections.<Integer> emptyList());
 	}
 
+	public void showEmpty(String msg) {
+		switchState(State.EMPTY, msg, Collections.<Integer> emptyList());
+	}
+
 	public void showEmpty() {
-		showError("没有数据!");
+		showEmpty("没有数据!");
+		if(baseViewStateListener != null){ //显示标题栏 wu
+			baseViewStateListener.showTitleRightText();
+		}
 	}
 
 	// public void showErrorText(String error, List<Integer> skipIds) {
@@ -211,6 +218,13 @@ public class ProgressLayout extends RelativeLayout {
 			mProgressView.setVisibility(View.GONE);
 			setContentVisibility(false, skipIds);
 			break;
+			case EMPTY:
+				tvProgressTips.setText("");
+				mErrorView.setError(errorText);
+				mErrorView.setVisibility(View.VISIBLE);
+				mProgressView.setVisibility(View.GONE);
+				setContentVisibility(false, skipIds);
+				break;
 		}
 	}
 
