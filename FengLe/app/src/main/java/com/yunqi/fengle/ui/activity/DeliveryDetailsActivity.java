@@ -130,10 +130,17 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                 hideOperater = true;
                 break;
         }
+        String title;
+        if(isPromotion){
+            title=getString(R.string.module_promotion_detail);
+        }
+        else{
+            title=getString(R.string.module_delivery_detail);
+        }
         if (hideOperater) {
-            setToolBar(toolbar, getString(R.string.module_delivery_detail));
+            setToolBar(toolbar, title);
         } else {
-            setToolBar(toolbar, getString(R.string.module_delivery_detail), getString(R.string.operater), new View.OnClickListener() {
+            setToolBar(toolbar, title, getString(R.string.operater), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     showBottomOpraterPopWindow(type);

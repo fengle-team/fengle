@@ -172,7 +172,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
     }
 
     private void loadData() {
-        mPresenter.queryGoods(area_code, keyword, customer_code, user_code, warehouse_code, page);
+        mPresenter.queryGoods(area_code, keyword, customer_code, user_code, warehouse_code, page,isPromotion);
     }
 
     @Override

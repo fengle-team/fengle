@@ -27,6 +27,7 @@
     <string name="module_add_promotion_request">添加促销申请</string>
     <string name="module_delivery_add">发货添加</string>
     <string name="module_delivery_detail">发货申请详情</string>
+    <string name="module_promotion_detail">促销申请详情</string>
     <string name="module_transfer_request">调货申请</string>
     <string name="module_transfer_detail">调货申请详情</string>
     <string name="module_add_transfer_request">添加调货申请</string>

@@ -34,8 +34,8 @@ public class GoodsQueryPresenter extends RxPresenter<GoodsQueryContract.View> im
 
 
     @Override
-    public void queryGoods(String area_code,String keyword, String custom_code, String user_code,  String warehouse_code,final int page) {
-        Subscription rxSubscription = mRetrofitHelper.queryGoods(area_code,keyword,custom_code,user_code,warehouse_code,page)
+    public void queryGoods(String area_code,String keyword, String custom_code, String user_code,  String warehouse_code,final int page,boolean isPromotion) {
+        Subscription rxSubscription = mRetrofitHelper.queryGoods(area_code,keyword,custom_code,user_code,warehouse_code,page,isPromotion)
                 .compose(RxUtil.<CommonHttpRsp<List<Goods>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<Goods>>handleResult())
                 .subscribe(new ExSubscriber<List<Goods>>(mView) {

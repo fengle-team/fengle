@@ -166,6 +166,11 @@ public interface ApiService {
      */
     @GET("goods/get")
     Observable<CommonHttpRsp<List<Goods>>> queryGoods(@Query("keyword") String keyword,@Query("warehouse_code")String warehouse_code,@Query("page") int page,@Query("size") int size);
+    /**
+     * 查询促销货物接口
+     */
+    @GET("goods/getGoodsForPromotion")
+    Observable<CommonHttpRsp<List<Goods>>> getGoodsForPromotion(@Query("keyword") String keyword,@Query("warehouse_code")String warehouse_code,@Query("page") int page,@Query("size") int size);
 
     /**
      * 查询货物接口
