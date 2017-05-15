@@ -21,6 +21,6 @@ public interface CustomerAnalysisContract {
          * 客户分析查询
          * @return
          */
-        void queryCustomerAnalysis(String user_code,int type);
+        void queryCustomerAnalysis(String user_code,int type,int order_type,int order_status);
     }
 }

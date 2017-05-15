@@ -6,20 +6,20 @@ package com.yunqi.fengle.model.bean;
  */
 public class CustomerAnalysis {
 
-
-
     public int id;
-    public String client_code;
-    public String client_name;
-    public int fh_amount;
-    public int fh_num;
-    public int status;//1 升 2降
-    public int fh_num_rank;
-    public String create_time;
     public String person_code;
-    public int huikuan_amount;
-    public Object stats_date;
-    public int fh_amount_last_year;
-    public int rank_last_year;
+    public String cusrom_code;
+    public String cusrom_name;
+    public double fh_amount_last;
+    public String fh_num_last;
+    public String huikuan_amount_last;
+    public double fh_amount_now;
+    public String fh_num_now;
+    public String huikuan_amount_now;
+    public String kp_amount_last;
+    public String kp_amount_now;
+    public String fh_rates;
+    public String kp_rates;
+    public String create_time;
 
 }

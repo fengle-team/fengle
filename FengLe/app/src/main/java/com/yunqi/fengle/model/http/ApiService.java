@@ -118,7 +118,7 @@ public interface ApiService {
      * 客户分析查询
      */
     @GET("custom_analysis/get")
-    Observable<CommonHttpRsp<List<CustomerAnalysis>>> queryCustomerAnalysis(@Query("user_code")String user_code,@Query("type")int type,@Query("page")int page,@Query("size")int size);
+    Observable<CommonHttpRsp<List<CustomerAnalysis>>> queryCustomerAnalysis(@Query("user_code")String user_code,@Query("type")int type,@Query("order_type")int order_type,@Query("order_status")int order_status,@Query("page")int page,@Query("size")int size);
     /**
      * 回款类型查询
      */

@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.model.bean.CustomerAnalysis;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 public class CustomerAnalysisTableDataAdapter extends BaseTableDataAdapter<CustomerAnalysis> {
@@ -43,35 +45,23 @@ public class CustomerAnalysisTableDataAdapter extends BaseTableDataAdapter<Custo
         }
         return renderedView;
     }
-
-
-
-    private View renderLift(CustomerAnalysis customer) {
-        View view = LayoutInflater.from(context).inflate(R.layout.table_data_select_view, null);
-        ImageView img= (ImageView) view.findViewById(R.id.img);
-        if(customer.status==1){
-            img.setImageResource(R.drawable.up);
-        }
-        else{
-            img.setImageResource(R.drawable.down);
-        }
-        return view;
-    }
     private View renderNum(int rowIndex) {
         return renderString((rowIndex+1)+"");
     }
     private View renderName(CustomerAnalysis customer) {
-        return renderString(customer.client_name);
+        return renderString(customer.cusrom_name);
     }
     private View renderRate(CustomerAnalysis customer) {
-        return renderString(customer.rank_last_year+"");
+        return renderString(customer.kp_rates+"%");
     }
     private View renderLastShipment(CustomerAnalysis customer) {
-        return renderString(customer.fh_amount_last_year+"");
+        String fh_amount_last=formatDouble2(customer.fh_amount_last)+"";
+        return renderString(fh_amount_last);
     }
 
     private View renderAmount(CustomerAnalysis customer) {
-        return renderString(customer.fh_amount+"");
+        String fh_amount_now=formatDouble2(customer.fh_amount_now)+"";
+        return renderString(fh_amount_now);
     }
 
     private View renderString(final String value) {
@@ -80,5 +70,9 @@ public class CustomerAnalysisTableDataAdapter extends BaseTableDataAdapter<Custo
         textView.setText(value);
         return view;
     }
-
+    public static double formatDouble2(double d) {
+        // 新方法，如果不需要四舍五入，可以使用RoundingMode.DOWN
+        BigDecimal bg = new BigDecimal(d).setScale(2, RoundingMode.UP);
+        return bg.doubleValue();
+    }
 }

@@ -26,7 +26,7 @@ import de.codecrafters.tableview.model.TableColumnWeightModel;
 /**
  * 客户分析
  */
-public class CustomerAnalysisActivity extends BaseActivity<CustomerAnalysisPresenter> implements CustomerAnalysisContract.View,RadioGroup.OnCheckedChangeListener{
+public class CustomerAnalysisActivity extends BaseActivity<CustomerAnalysisPresenter> implements CustomerAnalysisContract.View, RadioGroup.OnCheckedChangeListener {
     @BindView(R.id.toolbar)
     Toolbar toolbar;
     @BindView(R.id.tableViewEx)
@@ -40,8 +40,11 @@ public class CustomerAnalysisActivity extends BaseActivity<CustomerAnalysisPrese
     private List<CustomerAnalysis> mListCustomerAnalysis = new ArrayList<>();
     CustomerAnalysisTableDataAdapter adapter;
     private int page = 1;
-    private int type=0;//默认为0表示新客户
+    private int type = 1;//默认为1表示新客户
     private String user_code;
+    private int last_order_type = 3;
+    private int order_type = 3;//排序类型 1=按照去年发货金额排序 2=按照今年发货金额排序 3=按照增长率排序
+    private int order_status = 1;//排序方式 1=生序 2=降序
 
     @Override
     protected void initInject() {
@@ -55,7 +58,7 @@ public class CustomerAnalysisActivity extends BaseActivity<CustomerAnalysisPrese
 
     @Override
     protected void initEventAndData() {
-        user_code= App.getInstance().getUserInfo().user_code;
+        user_code = App.getInstance().getUserInfo().user_code;
         setToolBar(toolbar, getString(R.string.module_customer_analysis));
         final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_customer_analysis));
         tableViewEx.tableView.setHeaderAdapter(tableHeader1Adapter);
@@ -73,8 +76,9 @@ public class CustomerAnalysisActivity extends BaseActivity<CustomerAnalysisPrese
         setWigetListener();
         loadData();
     }
-    private void loadData(){
-        mPresenter.queryCustomerAnalysis(user_code,type);
+
+    private void loadData() {
+        mPresenter.queryCustomerAnalysis(user_code, type,order_type,order_status);
     }
 
     private void initRadioGroup() {
@@ -87,10 +91,38 @@ public class CustomerAnalysisActivity extends BaseActivity<CustomerAnalysisPrese
         tableViewEx.tableView.addHeaderClickListener(new TableHeaderClickListener() {
             @Override
             public void onHeaderClicked(int columnIndex) {
-
+                if(columnIndex==0||columnIndex==4){
+                    return;
+                }
+                switch (columnIndex) {
+                    case 2:
+                        order_type = 2;
+                        break;
+                    case 3:
+                        order_type = 1;
+                        break;
+                    case 4:
+                        order_type = 3;
+                        break;
+                }
+                //排序类型和上次一致，则改变排序方式
+                if(last_order_type==order_type){
+                    if (order_status == 1) {
+                        order_status = 2;
+                    } else if (order_status == 2) {
+                        order_status = 1;
+                    }
+                }
+                //排序类型和上次不一致，则改变排序类型以及排序方式默认为升序
+                else{
+                    order_status=1;
+                }
+                loadData();
+                last_order_type=order_type;
             }
         });
     }
+
     @Override
     public void showContent(List<CustomerAnalysis> listCustomerAnalysis) {
         if (listCustomerAnalysis.isEmpty()) {
@@ -108,10 +140,10 @@ public class CustomerAnalysisActivity extends BaseActivity<CustomerAnalysisPrese
         int id = radioGroup.getCheckedRadioButtonId();
         switch (id) {
             case R.id.radioBtn1://新客户
-                type=0;
+                type = 0;
                 break;
             case R.id.radioBtn2://老客户
-                type=1;
+                type = 1;
                 break;
         }
         loadData();

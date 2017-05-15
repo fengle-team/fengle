@@ -350,8 +350,8 @@ public class RetrofitHelper {
      * @param type      0：表示新客户 1：表示老客户
      * @return
      */
-    public Observable<CommonHttpRsp<List<CustomerAnalysis>>> queryCustomerAnalysis(String user_code, int type) {
-        return apiService.queryCustomerAnalysis(user_code, type, 1, PAGE_SIZE);
+    public Observable<CommonHttpRsp<List<CustomerAnalysis>>> queryCustomerAnalysis(String user_code, int type,int order_type,int order_status) {
+        return apiService.queryCustomerAnalysis(user_code, type,order_type,order_status, 1, PAGE_SIZE);
     }
 
     /**

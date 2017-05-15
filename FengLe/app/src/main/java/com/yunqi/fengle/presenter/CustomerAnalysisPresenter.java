@@ -32,8 +32,8 @@ public class CustomerAnalysisPresenter extends RxPresenter<CustomerAnalysisContr
         this.mRetrofitHelper = retrofitHelper;
     }
     @Override
-    public void queryCustomerAnalysis(String user_code,int type) {
-        Subscription rxSubscription = mRetrofitHelper.queryCustomerAnalysis(user_code,type)
+    public void queryCustomerAnalysis(String user_code,int type,int order_type,int order_status) {
+        Subscription rxSubscription = mRetrofitHelper.queryCustomerAnalysis(user_code,type,order_type,order_status)
                 .compose(RxUtil.<CommonHttpRsp<List<CustomerAnalysis>>>rxSchedulerHelper())
                 .compose(RxUtil.<List<CustomerAnalysis>>handleResult())
                 .subscribe(new ExSubscriber<List<CustomerAnalysis>>(mView) {
