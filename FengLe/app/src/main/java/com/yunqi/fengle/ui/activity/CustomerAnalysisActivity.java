@@ -91,7 +91,7 @@ public class CustomerAnalysisActivity extends BaseActivity<CustomerAnalysisPrese
         tableViewEx.tableView.addHeaderClickListener(new TableHeaderClickListener() {
             @Override
             public void onHeaderClicked(int columnIndex) {
-                if(columnIndex==0||columnIndex==4){
+                if(columnIndex==0||columnIndex==1){
                     return;
                 }
                 switch (columnIndex) {
@@ -124,11 +124,23 @@ public class CustomerAnalysisActivity extends BaseActivity<CustomerAnalysisPrese
     }
 
     @Override
+    public void showLoading() {
+        tableViewEx.showLoading();
+    }
+
+
+    @Override
+    public void showError(String msg) {
+        tableViewEx.loadingFail();
+    }
+
+    @Override
     public void showContent(List<CustomerAnalysis> listCustomerAnalysis) {
-        if (listCustomerAnalysis.isEmpty()) {
-            Log.w(TAG, "No data!");
+        if(listCustomerAnalysis.size()>0){
+            tableViewEx.setRecordCount(listCustomerAnalysis.size());
+        }
+        else {
             tableViewEx.setEmptyData();
-            return;
         }
         mListCustomerAnalysis.clear();
         mListCustomerAnalysis.addAll(listCustomerAnalysis);
@@ -140,10 +152,10 @@ public class CustomerAnalysisActivity extends BaseActivity<CustomerAnalysisPrese
         int id = radioGroup.getCheckedRadioButtonId();
         switch (id) {
             case R.id.radioBtn1://新客户
-                type = 0;
+                type = 1;
                 break;
             case R.id.radioBtn2://老客户
-                type = 1;
+                type = 2;
                 break;
         }
         loadData();

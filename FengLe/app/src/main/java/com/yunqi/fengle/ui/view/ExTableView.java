@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 
 import com.yunqi.fengle.R;
 
+import de.codecrafters.tableview.SortableTableView;
 import de.codecrafters.tableview.TableDataAdapter;
 import de.codecrafters.tableview.TableView;
 import de.codecrafters.tableview.listeners.TableDataClickListener;
@@ -23,7 +24,7 @@ public class ExTableView<T> extends RelativeLayout {
     private OnLoadMoreListener loadMoreListener;
     private OnLoadRetryListener loadRetryListener;
     private Context mcontext;
-    public TableView tableView;
+    public SortableTableView tableView;
     Button btnLoadmore;
     private int loadType = 0;//0：表示加载更多 1：表示尝试重新加载
     private int mode;
@@ -100,7 +101,7 @@ public class ExTableView<T> extends RelativeLayout {
 
     private void init() {
         LayoutInflater.from(mcontext).inflate(R.layout.layout_extable, this, true);
-        tableView = (TableView) findViewById(R.id.tableView);
+        tableView = (SortableTableView) findViewById(R.id.tableView);
         btnLoadmore = (Button) findViewById(R.id.btn_loadmore);
         btnLoadmore.setOnClickListener(new OnClickListener() {
             @Override
