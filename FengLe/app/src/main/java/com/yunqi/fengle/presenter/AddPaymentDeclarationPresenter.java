@@ -78,7 +78,7 @@ public class AddPaymentDeclarationPresenter extends RxPresenter<AddPaymentDeclar
 
                         @Override
                         protected void onFailure(int errorCode, String msg) {
-
+                            mView.showError(msg);
                         }
                     });
         }
