@@ -67,17 +67,16 @@ public class StatusDetailActivity extends BaseActivity<StatusDetailPresenter> im
         mlistStatus.clear();
         mlistStatus.addAll(listStatus);
         if (lastStatus != null) {
-            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd\'T\'hh:ss:mm.SSS\'Z\'");
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'");
             try {
                 Date date = sf.parse(lastStatus.create_time);
-                String time= TimeUtil.format(date,"yyyy-mm-dd hh:mm:ss");
+                String time= TimeUtil.format(date,"yyyy-MM-dd hh:mm:ss");
                 lastStatus.create_time=time;
                 mlistStatus.add(lastStatus);
             } catch (ParseException e) {
                 e.printStackTrace();
                 mlistStatus.add(lastStatus);
             }
-
         }
         adapter.notifyDataSetChanged();
     }

@@ -158,7 +158,15 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
             }
                 break;
             case 3:
-                strStatus = getString(R.string.bill_status_3);
+                if (returnApply.u8_order != null) {
+                    if ("待修改".equals(returnApply.u8_order.define1)) {
+                        strStatus = getString(R.string.bill_status_7);
+                    } else {
+                        strStatus = getString(R.string.bill_status_3);
+                    }
+                } else {
+                    strStatus = getString(R.string.bill_status_3);
+                }
                 break;
             case 4: {
                 if(bill_status==2){
@@ -250,6 +258,12 @@ public class ReturnDetailsActivity extends BaseActivity<ReturnDetailsPresenter> 
                                 StatusInfo statusInfo=new StatusInfo();
                                 statusInfo.record=returnApply.u8_order.huizhi1;
                                 statusInfo.create_time=returnApply.u8_order.ddate;
+                                intent.putExtra("LastStatus", statusInfo);
+                            }
+                            else if("待修改".equals(returnApply.u8_order.define1)){
+                                StatusInfo statusInfo = new StatusInfo();
+                                statusInfo.record =getString(R.string.bill_status_7);
+                                statusInfo.create_time = returnApply.u8_order.ddate;
                                 intent.putExtra("LastStatus", statusInfo);
                             }
                         }

@@ -156,7 +156,15 @@ public class TransferDetailsActivity extends BaseActivity<TransferDetailsPresent
             }
             break;
             case 3:
-                strStatus = getString(R.string.bill_status_3);
+                if (transferApply.u8_order != null) {
+                    if ("待修改".equals(transferApply.u8_order.define1)) {
+                        strStatus = getString(R.string.bill_status_7);
+                    } else {
+                        strStatus = getString(R.string.bill_status_3);
+                    }
+                } else {
+                    strStatus = getString(R.string.bill_status_3);
+                }
                 break;
             case 4:
                 strStatus = getString(R.string.bill_status_4);
@@ -238,6 +246,12 @@ public class TransferDetailsActivity extends BaseActivity<TransferDetailsPresent
                                 StatusInfo statusInfo=new StatusInfo();
                                 statusInfo.record=transferApply.u8_order.huizhi1;
                                 statusInfo.create_time=transferApply.u8_order.ddate;
+                                intent.putExtra("LastStatus", statusInfo);
+                            }
+                            else if("待修改".equals(transferApply.u8_order.define1)){
+                                StatusInfo statusInfo = new StatusInfo();
+                                statusInfo.record =getString(R.string.bill_status_7);
+                                statusInfo.create_time = transferApply.u8_order.ddate;
                                 intent.putExtra("LastStatus", statusInfo);
                             }
                         }

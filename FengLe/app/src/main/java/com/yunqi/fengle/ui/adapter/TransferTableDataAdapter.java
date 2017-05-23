@@ -55,16 +55,16 @@ public class TransferTableDataAdapter extends BaseTableDataAdapter<TransferApply
     }
 
 
-    private View renderStatus(TransferApply TransferApply) {
+    private View renderStatus(TransferApply transferApply) {
         String strStatus = null;
-        switch (TransferApply.status){
+        switch (transferApply.status){
             case 1:
                 strStatus = context.getString(R.string.bill_status_1);
                 break;
             case 2:
                 String id = App.getInstance().getUserInfo().id;
                 //如果单据是本人提交的，则是未完成状态
-                if (id.equals(TransferApply.userid)) {
+                if (id.equals(transferApply.userid)) {
                     if(billStatus==1){
                         strStatus = context.getString(R.string.bill_status_2);
                     }
@@ -81,7 +81,17 @@ public class TransferTableDataAdapter extends BaseTableDataAdapter<TransferApply
                 }
                 break;
             case 3:
-                strStatus = context.getString(R.string.bill_status_3);
+                if (transferApply.u8_order != null) {
+                    if("待修改".equals(transferApply.u8_order.define1)){
+                        strStatus = context.getString(R.string.bill_status_7);
+                    }
+                    else {
+                        strStatus = context.getString(R.string.bill_status_3);
+                    }
+                }
+                else {
+                    strStatus = context.getString(R.string.bill_status_3);
+                }
                 break;
             case 4:
                 strStatus = context.getString(R.string.bill_status_4);

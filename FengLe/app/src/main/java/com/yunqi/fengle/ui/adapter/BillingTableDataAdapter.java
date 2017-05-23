@@ -81,7 +81,17 @@ public class BillingTableDataAdapter extends BaseTableDataAdapter<BillingApply> 
                 }
                 break;
             case 3:
-                strStatus = context.getString(R.string.bill_status_3);
+                if (billingApply.u8_order != null) {
+                    if("待修改".equals(billingApply.u8_order.define1)){
+                        strStatus = context.getString(R.string.bill_status_7);
+                    }
+                    else {
+                        strStatus = context.getString(R.string.bill_status_3);
+                    }
+                }
+                else {
+                    strStatus = context.getString(R.string.bill_status_3);
+                }
                 break;
             case 4:
                 strStatus = context.getString(R.string.bill_status_4);

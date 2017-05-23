@@ -55,16 +55,16 @@ public class ReturnTableDataAdapter extends BaseTableDataAdapter<ReturnApply> {
     }
 
 
-    private View renderStatus(ReturnApply ReturnApply) {
+    private View renderStatus(ReturnApply returnApply) {
         String strStatus = null;
-        switch (ReturnApply.status){
+        switch (returnApply.status){
             case 1:
                 strStatus = context.getString(R.string.bill_status_1);
                 break;
             case 2:
                 String id = App.getInstance().getUserInfo().id;
                 //如果单据是本人提交的，则是未完成状态
-                if (id.equals(ReturnApply.userid)) {
+                if (id.equals(returnApply.userid)) {
                     if(billStatus==1){
                         strStatus = context.getString(R.string.bill_status_2);
                     }
@@ -81,7 +81,17 @@ public class ReturnTableDataAdapter extends BaseTableDataAdapter<ReturnApply> {
                 }
                 break;
             case 3:
-                strStatus = context.getString(R.string.bill_status_3);
+                if (returnApply.u8_order != null) {
+                    if("待修改".equals(returnApply.u8_order.define1)){
+                        strStatus = context.getString(R.string.bill_status_7);
+                    }
+                    else {
+                        strStatus = context.getString(R.string.bill_status_3);
+                    }
+                }
+                else {
+                    strStatus = context.getString(R.string.bill_status_3);
+                }
                 break;
             case 4:
                 strStatus = context.getString(R.string.bill_status_4);

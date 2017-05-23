@@ -1,6 +1,7 @@
 package com.yunqi.fengle.ui.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.model.bean.InvoiceApply;
 import com.yunqi.fengle.model.bean.Payment;
+import com.yunqi.fengle.model.bean.StatusInfo;
 import com.yunqi.fengle.util.TimeUtil;
 
 import java.util.List;
@@ -84,7 +86,17 @@ public class DeliveryTableDataAdapter extends BaseTableDataAdapter<InvoiceApply>
                 }
                 break;
             case 3:
-                strStatus = context.getString(R.string.bill_status_3);
+                if (invoiceApply.u8_order != null) {
+                   if("待修改".equals(invoiceApply.u8_order.define1)){
+                       strStatus = context.getString(R.string.bill_status_7);
+                   }
+                    else {
+                       strStatus = context.getString(R.string.bill_status_3);
+                   }
+                }
+                else {
+                    strStatus = context.getString(R.string.bill_status_3);
+                }
                 break;
             case 4:
                 strStatus = context.getString(R.string.bill_status_4);

@@ -131,11 +131,10 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                 break;
         }
         String title;
-        if(isPromotion){
-            title=getString(R.string.module_promotion_detail);
-        }
-        else{
-            title=getString(R.string.module_delivery_detail);
+        if (isPromotion) {
+            title = getString(R.string.module_promotion_detail);
+        } else {
+            title = getString(R.string.module_delivery_detail);
         }
         if (hideOperater) {
             setToolBar(toolbar, title);
@@ -171,7 +170,15 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
             }
             break;
             case 3:
-                strStatus = getString(R.string.bill_status_3);
+                if (invoiceApply.u8_order != null) {
+                    if ("待修改".equals(invoiceApply.u8_order.define1)) {
+                        strStatus = getString(R.string.bill_status_7);
+                    } else {
+                        strStatus = getString(R.string.bill_status_3);
+                    }
+                } else {
+                    strStatus = getString(R.string.bill_status_3);
+                }
                 break;
             case 4:
                 strStatus = getString(R.string.bill_status_4);
@@ -256,9 +263,15 @@ public class DeliveryDetailsActivity extends BaseActivity<DeliveryDetailsPresent
                         intent.putExtra("order_code", invoiceApply.order_code);
                         if (invoiceApply.u8_order != null) {
                             if (invoiceApply.u8_order.states != null && !TextUtils.isEmpty(invoiceApply.u8_order.states)) {
-                                StatusInfo statusInfo=new StatusInfo();
-                                statusInfo.record=invoiceApply.u8_order.huizhi1;
-                                statusInfo.create_time=invoiceApply.u8_order.ddate;
+                                StatusInfo statusInfo = new StatusInfo();
+                                statusInfo.record = invoiceApply.u8_order.huizhi1;
+                                statusInfo.create_time = invoiceApply.u8_order.ddate;
+                                intent.putExtra("LastStatus", statusInfo);
+                            }
+                            else if("待修改".equals(invoiceApply.u8_order.define1)){
+                                StatusInfo statusInfo = new StatusInfo();
+                                statusInfo.record =getString(R.string.bill_status_7);
+                                statusInfo.create_time = invoiceApply.u8_order.ddate;
                                 intent.putExtra("LastStatus", statusInfo);
                             }
                         }

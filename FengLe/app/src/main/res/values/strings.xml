@@ -391,6 +391,7 @@
     <string name="bill_status_2">待审核</string>
     <string name="bill_status_3">审核通过</string>
     <string name="bill_status_4">驳回</string>
+    <string name="bill_status_7">管理员驳回</string>
     <string name="bill_status_5">中心经理已审核</string>
     <string name="bill_status_unknown">未知状态</string>
     <string name="bill_status_undone">未完成</string>
