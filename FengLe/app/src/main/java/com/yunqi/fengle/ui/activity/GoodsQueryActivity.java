@@ -74,6 +74,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
     private String area_code = "";
     private boolean isPromotion;
     private int iModule = 0;
+    private boolean isPlanAdjustment=false;
     private Warehouse fromWarehouse;//从详情或者添加模块携带进来的
 
     @Override
@@ -107,6 +108,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
             maxGoodsNumTip = getString(R.string.tip_max_goods_num_delivery);
             hintGoodsNum = getString(R.string.hint_edit_num_delivery);
             customer_code = "";
+            area_code=App.getInstance().getUserInfo().area_code;
         } else if (module.equals(AddTransferRequestActivity.class.getName()) || module.equals(TransferDetailsActivity.class.getName())) {
             maxGoodsNumTip = getString(R.string.tip_max_goods_num_transfer);
             hintGoodsNum = getString(R.string.hint_edit_num_transfer);
@@ -121,6 +123,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
         } else if (module.equals(AddPlanAdjustmentRequestActivity.class.getName()) || module.equals(PlanAdjustmentDetailsActivity.class.getName())) {
             maxGoodsNumTip = getString(R.string.tip_max_goods_num_plan);
             hintGoodsNum = getString(R.string.hint_edit_num_plan);
+            isPlanAdjustment=true;
         }
         isPromotion = getIntent().getBooleanExtra("isPromotion", false);
         if (isPromotion) {
@@ -172,7 +175,7 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
     }
 
     private void loadData() {
-        mPresenter.queryGoods(area_code, keyword, customer_code, user_code, warehouse_code, page,isPromotion);
+        mPresenter.queryGoods(area_code, keyword, customer_code, user_code, warehouse_code, page,isPromotion,isPlanAdjustment);
     }
 
     @Override

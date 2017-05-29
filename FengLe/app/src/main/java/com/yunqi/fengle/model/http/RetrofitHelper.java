@@ -317,9 +317,9 @@ public class RetrofitHelper {
      * @param page           页码
      * @return
      */
-    public Observable<CommonHttpRsp<List<Goods>>> queryGoods(String area_code, String keyword, String custom_code, String user_code, String warehouse_code, int page, boolean isPromotion) {
+    public Observable<CommonHttpRsp<List<Goods>>> queryGoods(String area_code, String keyword, String custom_code, String user_code, String warehouse_code, int page, boolean isPromotion,boolean isPlanAdjustment) {
         //根据大区货物查询
-        if (!TextUtils.isEmpty(area_code)) {
+        if (!TextUtils.isEmpty(area_code)&&isPlanAdjustment) {
             return apiService.queryGoodsByAreaCode(area_code, keyword, page, PAGE_SIZE);
         }
         if (TextUtils.isEmpty(custom_code)) {
@@ -328,7 +328,7 @@ public class RetrofitHelper {
                 return apiService.getGoodsForPromotion(keyword, warehouse_code, page, PAGE_SIZE);
             }
             //发货货物查询
-            return apiService.queryGoods(keyword, warehouse_code, page, PAGE_SIZE);
+            return apiService.queryGoods(keyword, warehouse_code,area_code, page, PAGE_SIZE);
         }
         //调货、退货、开票货物查询
         return apiService.queryGoodsFromDispatch(keyword, custom_code, user_code, page, PAGE_SIZE);
