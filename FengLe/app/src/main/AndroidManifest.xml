@@ -393,7 +393,7 @@
             android:theme="@android:style/Theme.Translucent"
             />
 
-
+        <activity android:name=".ui.activity.ActivitySummaryActivity2" />
 
 
         <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
