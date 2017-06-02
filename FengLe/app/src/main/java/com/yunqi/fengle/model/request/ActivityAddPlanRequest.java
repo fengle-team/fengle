@@ -25,6 +25,7 @@ public class ActivityAddPlanRequest {
     private String other_support;//其他支持
     private String apply_name;//申请人姓名
     private String remark;//说明
+    private String title;//标题
 
 //    private int status = 2;
 
@@ -170,7 +171,15 @@ public class ActivityAddPlanRequest {
         this.remark = remark;
     }
 
-//    public int getStatus() {
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    //    public int getStatus() {
 //        return status;
 //    }
 //

@@ -66,6 +66,8 @@ public class ActivityNewPlanActivity extends BaseActivity<ActivityNewPlanPresent
     UnderLineTextNewPlanEx etRegion;
     @BindView(R.id.etShopName)
     UnderLineEditNewPlanEx etShopName;
+    @BindView(R.id.etTitle)
+    UnderLineEditNewPlanEx etTitle;
     @BindView(R.id.etApplyReason)
     UnderLineEditNewPlanContentEx etApplyReason;
     @BindView(R.id.etActionPlan)
@@ -125,7 +127,7 @@ public class ActivityNewPlanActivity extends BaseActivity<ActivityNewPlanPresent
     @Override
     protected void onTitleRightClicked(View v) {
         if (StringUtil.isViewEmpty(etRegion, etStartTime, etEndTime, etClientName, etShopName, etActionType
-                , etApplyBudget, etBaoxiaoBudget, etBaoxiaoType, etApplyName)) {
+                , etApplyBudget, etBaoxiaoBudget, etBaoxiaoType, etApplyName,etTitle)) {
             ToastUtil.toast(this, "请填写完整信息.");
             return;
         }
@@ -151,6 +153,7 @@ public class ActivityNewPlanActivity extends BaseActivity<ActivityNewPlanPresent
         request.setOther_support(etOtherSupport.getText().toString());
         request.setApply_name(etApplyName.getText().toString());
         request.setRemark(etRemark.getText().toString());
+        request.setTitle(etTitle.getText().toString());
 
         progresser.showProgress();
         mPresenter.activityNewPlan(request, new ResponseListener() {

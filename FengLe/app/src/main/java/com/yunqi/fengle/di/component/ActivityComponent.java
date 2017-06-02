@@ -10,6 +10,7 @@ import com.yunqi.fengle.ui.activity.ActivityPlanActivity;
 import com.yunqi.fengle.ui.activity.ActivityPlanActivityMain;
 import com.yunqi.fengle.ui.activity.ActivityPlanDetailActivity;
 import com.yunqi.fengle.ui.activity.ActivityPlanUpdateActivity;
+import com.yunqi.fengle.ui.activity.ActivitySummaryActivity2;
 import com.yunqi.fengle.ui.activity.ActivitySummaryDetailActivity;
 import com.yunqi.fengle.ui.activity.AddPlanAdjustmentRequestActivity;
 import com.yunqi.fengle.ui.activity.AddTransferRequestActivity;
@@ -203,6 +204,8 @@ public interface ActivityComponent {
     void inject(NewContactsActivity activity);
 
     void inject(StatusDetailActivity activity);
+
+    void inject(ActivitySummaryActivity2 activity);
 
 //    void inject(MessageActivity activity);
 }

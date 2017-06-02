@@ -78,7 +78,7 @@ public class ActivitiesManagerActivity extends BaseActivity{
                 startActivity(mIntent);
                 break;
             case 1://活动总结
-                mIntent.setClass(ActivitiesManagerActivity.this, ActivitySummaryActivity.class);
+                mIntent.setClass(ActivitiesManagerActivity.this, ActivitySummaryActivity2.class);
 //                ToastUtil.toast(mContext,"呵呵哒");
                 startActivity(mIntent);
                 break;
