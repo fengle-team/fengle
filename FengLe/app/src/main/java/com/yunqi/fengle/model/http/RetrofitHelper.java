@@ -182,14 +182,21 @@ public class RetrofitHelper {
         return apiService.queryActivities(status, customerCode, userid, startTime, endTime);
     }
 
+
     /**
      * 查询活动总结
      *
-     * @param userid
+     -     * @param userid
      * @return
      */
-    public Observable<CommonHttpRsp<List<ActivitySummaryResponse>>> queryActivitieSummary(String userid) {
-        return apiService.queryActivitieSummary(userid);
+    public Observable<CommonHttpRsp<List<ActivitySummaryResponse>>> queryActivitieSummary(String userId,
+                                                                                          String start_time,
+                                                                                          String end_time,
+                                                                                          String keyword,
+                                                                                          String status,
+                                                                                          String page,
+                                                                                          String size) {
+        return apiService.queryActivitieSummary(userId,start_time,end_time,keyword, status, page, size);
     }
 
 

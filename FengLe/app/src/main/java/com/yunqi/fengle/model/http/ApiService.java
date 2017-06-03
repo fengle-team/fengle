@@ -187,8 +187,15 @@ public interface ApiService {
     @GET("action/get")
     Observable<CommonHttpRsp<List<ActivityAddResponse>>> queryActivities(@Query("status") String status,@Query("custom_code") String custom_code,@Query("userid") String userid,@Query("start_time") String start_time, @Query("end_time") String end_time);
 
+
     @GET("action_summary/get")
-    Observable<CommonHttpRsp<List<ActivitySummaryResponse>>> queryActivitieSummary(@Query("userid") String userId);
+    Observable<CommonHttpRsp<List<ActivitySummaryResponse>>> queryActivitieSummary(@Query("userid") String userId,
+                                                                                   @Query("start_time") String start_time,
+                                                                                   @Query("end_time") String end_time,
+                                                                                   @Query("keyword") String keyword,
+                                                                                   @Query("status") String status,
+                                                                                   @Query("page") String page,
+                                                                                   @Query("size") String size);
 
     /**
      * 添加活动计划

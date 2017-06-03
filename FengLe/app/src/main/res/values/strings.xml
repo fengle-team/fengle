@@ -301,6 +301,12 @@
         <item>取消</item>
     </string-array>
 
+    <string-array name="header_title_summary">
+        <item>日期</item>
+        <item>计划</item>
+        <item>操作</item>
+    </string-array>
+
     <string name="commit">提交</string>
     <string name="temporary">暂存</string>
     <string name="drop">删除</string>
