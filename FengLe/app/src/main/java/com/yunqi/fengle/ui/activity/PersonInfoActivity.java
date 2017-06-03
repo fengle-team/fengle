@@ -28,6 +28,8 @@ public class PersonInfoActivity extends BaseActivity<PersonPresenter> implements
     TextView tvAcount;
     @BindView(R.id.tvPosition)
     TextView tvPosition;
+    @BindView(R.id.tv_area)
+    TextView tvArea;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class PersonInfoActivity extends BaseActivity<PersonPresenter> implements
         UserBean user = App.getInstance().getUserInfo();
         tvAcount.setText(user.account);
         tvPosition.setText(user.role_name);
+        tvArea.setText(user.area_name);
     }
 
 

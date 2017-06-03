@@ -86,6 +86,35 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/person_line" />
+        <LinearLayout
+            android:layout_marginTop="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/person_padding_left"
+            android:gravity="center">
+
+            <TextView
+                style="@style/personTxtStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="所属大区" />
+
+            <TextView
+                android:id="@+id/tv_area"
+                style="@style/personTxtStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="7dp"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/person_line" />
 
     </LinearLayout>
 

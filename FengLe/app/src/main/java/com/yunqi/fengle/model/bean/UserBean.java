@@ -21,6 +21,7 @@ public class UserBean extends RealmObject implements Serializable{
     public String position = "";//职位
     public String role_code;
     public String area_code="";
+    public String area_name="";
     public String name="";
     public String role_name = "";
 
