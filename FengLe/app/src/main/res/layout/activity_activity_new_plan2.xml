@@ -25,7 +25,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_summary_mar_left1"
-                android:text="标题" />
+                android:text="活动名称" />
+            <TextView
+                android:layout_marginLeft="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="*"
+                android:textColor="@color/red" />
 
             <com.yunqi.fengle.ui.view.UnderLineEditNewPlanEx
                 android:id="@+id/etTitle"
@@ -61,6 +68,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_summary_mar_left1"
                     android:text="区域" />
+                <TextView
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="*"
+                    android:textColor="@color/red" />
 
                 <com.yunqi.fengle.ui.view.UnderLineTextNewPlanEx
                     android:id="@+id/etRegion"
@@ -90,6 +104,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_summary_mar_left1"
                     android:text="报销金额" />
+                <TextView
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="*"
+                    android:textColor="@color/red" />
 
                 <com.yunqi.fengle.ui.view.UnderLineEditNewPlanEx
                     android:id="@+id/etBaoxiaoBudget"
@@ -125,6 +146,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_summary_mar_left1"
                     android:text="开始" />
+                <TextView
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="*"
+                    android:textColor="@color/red" />
 
                 <com.yunqi.fengle.ui.view.UnderLineTextNewPlanEx
                     android:id="@+id/etStartTime"
@@ -152,6 +180,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_summary_mar_left1"
                     android:text="结束" />
+                <TextView
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="*"
+                    android:textColor="@color/red" />
 
                 <com.yunqi.fengle.ui.view.UnderLineTextNewPlanEx
                     android:id="@+id/etEndTime"
@@ -181,6 +216,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_summary_mar_left1"
                 android:text="客户名称" />
+            <TextView
+                android:layout_marginLeft="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="*"
+                android:textColor="@color/red" />
 
             <com.yunqi.fengle.ui.view.UnderLineTextNewPlanEx
                 android:id="@+id/etClientName"
@@ -210,6 +252,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/activity_summary_mar_left1"
                 android:text="门店名称" />
+            <TextView
+                android:layout_marginLeft="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="*"
+                android:textColor="@color/red" />
 
             <com.yunqi.fengle.ui.view.UnderLineEditNewPlanEx
                 android:id="@+id/etShopName"
@@ -242,6 +291,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_summary_mar_left1"
                     android:text="活动类型" />
+                <TextView
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="*"
+                    android:textColor="@color/red" />
 
                 <com.yunqi.fengle.ui.view.UnderLineTextNewPlanEx
                     android:id="@+id/etActionType"
@@ -268,6 +324,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_summary_mar_left1"
                     android:text="费用预算" />
+                <TextView
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="*"
+                    android:textColor="@color/red" />
 
                 <com.yunqi.fengle.ui.view.UnderLineEditNewPlanEx
                     android:id="@+id/etApplyBudget"
@@ -386,6 +449,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_summary_mar_left1"
                     android:text="报销方式" />
+                <TextView
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="*"
+                    android:textColor="@color/red" />
 
                 <com.yunqi.fengle.ui.view.UnderLineTextNewPlanEx
                     android:id="@+id/etBaoxiaoType"
@@ -471,6 +541,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/activity_summary_mar_left1"
                     android:text="申请人" />
+                <TextView
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="*"
+                    android:textColor="@color/red" />
 
                 <com.yunqi.fengle.ui.view.UnderLineEditNewPlanEx
                     android:id="@+id/etApplyName"

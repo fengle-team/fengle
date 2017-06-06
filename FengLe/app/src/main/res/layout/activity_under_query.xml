@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color2"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/view_toolbar" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/edit_keywords"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_view_height"
+            android:layout_marginLeft="@dimen/common_left_margin"
+            android:layout_marginRight="@dimen/common_right_margin"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:background="@drawable/input_bg3"
+            android:focusable="true"
+            android:gravity="center"
+            android:hint="搜索名称或者号码"
+            android:paddingLeft="15dp"
+            android:textColor="@color/text_color2"
+            android:textColorHint="@color/hint_color1"
+            android:textSize="@dimen/comom_txt_size_m"
+            android:layout_toLeftOf="@+id/layout_search" />
+        <RelativeLayout
+            android:id="@+id/layout_search"
+            android:layout_width="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="12dp"
+            android:layout_centerVertical="true"
+            android:layout_height="@dimen/common_view_height">
+            <ImageView
+                android:layout_centerInParent="true"
+                android:id="@+id/btn_search"
+                android:layout_centerVertical="true"
+                android:layout_width="20dp"
+                android:src="@drawable/icon_search"
+                android:layout_height="20dp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:scrollbars="none"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</LinearLayout>

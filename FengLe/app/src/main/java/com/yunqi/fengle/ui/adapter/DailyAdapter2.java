@@ -25,7 +25,7 @@ public class DailyAdapter2 extends BaseQuickAdapter<DailyResponse,BaseViewHolder
         TextView tvDaily = helper.getView(R.id.tvDaily);
         TextView tvTime = helper.getView(R.id.tvTime);
         TextView tvReason = helper.getView(R.id.tvReason);
-        tvName.setText(item.getUserid() + "");
+        tvName.setText(item.getReal_name());
         tvDaily.setText(item.getDaily());
         tvTime.setText(item.getCreate_time());
         tvReason.setText(item.getReason());

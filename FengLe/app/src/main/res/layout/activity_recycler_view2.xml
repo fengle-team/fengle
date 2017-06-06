@@ -12,59 +12,14 @@
         android:layout_height="wrap_content"
         android:padding="15dp"
         >
-
-        <RadioGroup
+        <include
             android:id="@+id/rgRank"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="@drawable/layout_bg1"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/rbBtn1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:button="@null"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="7dp"
-                android:paddingBottom="7dp"
-                android:text="待处理"
-                android:textSize="@dimen/text_small_size"
-                android:textColor="@color/color_selector3"
-                android:background="@drawable/table_radio"/>
-            <RadioButton
-                android:id="@+id/rbBtn2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:button="@null"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="7dp"
-                android:paddingBottom="7dp"
-                android:text="未完成"
-                android:textSize="@dimen/text_small_size"
-                android:textColor="@color/color_selector3"
-                android:background="@drawable/table_radio"/>
-
-            <RadioButton
-                android:id="@+id/rbBtn3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:button="@null"
-                android:text="历史单据"
-                android:textSize="@dimen/text_small_size"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
-                android:paddingTop="7dp"
-                android:paddingBottom="7dp"
-                android:textColor="@color/color_selector3"
-                android:background="@drawable/table_radio"/>
-        </RadioGroup>
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            layout="@layout/layout_radiobuttom_three" />
     </RelativeLayout>
-
-
 
     <com.yunqi.fengle.ui.swipe.SwipyRefreshLayout
         android:id="@+id/swipe"

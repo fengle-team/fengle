@@ -351,6 +351,15 @@ public class RetrofitHelper {
     }
 
     /**
+     * 直属下级查询
+     *
+     * @return
+     */
+    public Observable<CommonHttpRsp<List<UserBean>>> queryUnder(String userid) {
+        return apiService.queryUnder(userid);
+    }
+
+    /**
      * 客户分析查询
      *
      * @param user_code
@@ -1012,8 +1021,8 @@ public class RetrofitHelper {
      *
      * @return
      */
-    public Observable<CommonHttpRsp<List<DailyResponse>>> getDaily(String userId, String startTime, String endTime) {
-        return apiService.getDaily(userId, startTime, endTime);
+    public Observable<CommonHttpRsp<List<DailyResponse>>> getDaily(String userId,int type, String startTime, String endTime) {
+        return apiService.getDaily(userId,type, startTime, endTime);
     }
 
     /**

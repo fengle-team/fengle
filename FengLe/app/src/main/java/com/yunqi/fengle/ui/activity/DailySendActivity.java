@@ -33,11 +33,12 @@ public class DailySendActivity extends BaseActivity<DailySendPresenter> implemen
 
     @BindView(R.id.etContent)
     EditText etContent;
-
+    String dailyTime="";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dailyTime=getIntent().getStringExtra("DailyTime");
         showTitleBack();
         setTitleText("发日志");
         setTitleRight("提交");
@@ -62,6 +63,7 @@ public class DailySendActivity extends BaseActivity<DailySendPresenter> implemen
         request.setAddress("address不能为空?");
         request.setLat("lat不能为空？");
         request.setLng("lng不能为空？");
+        request.setDailyTime(dailyTime);
 
         progresser.showProgress();
         mPresenter.doSendDaily(request, new ResponseListener() {

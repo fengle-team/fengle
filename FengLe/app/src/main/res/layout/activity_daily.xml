@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff2f2f2"
+    android:background="#e6e6e6"
     android:orientation="vertical">
 
     <LinearLayout
@@ -10,10 +10,77 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="1px">
+
+            <RadioButton
+                android:id="@+id/radioBtn1"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:ellipsize="end"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="全部"
+                android:textColor="@color/color_selector4"
+                android:textSize="@dimen/comom_txt_size_s" />
+
+            <RadioButton
+                android:id="@+id/radioBtn2"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:ellipsize="end"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="我的日志"
+                android:textColor="@color/color_selector4"
+                android:textSize="@dimen/comom_txt_size_s" />
+
+            <RadioButton
+                android:id="@+id/radioBtn3"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:ellipsize="end"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="直属下级"
+                android:textColor="@color/color_selector4"
+                android:textSize="@dimen/comom_txt_size_s" />
+
+            <RadioButton
+                android:id="@+id/radioBtn4"
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:button="@null"
+                android:ellipsize="end"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="拜访"
+                android:textColor="@color/color_selector4"
+                android:textSize="@dimen/comom_txt_size_s" />
+        </RadioGroup>
+
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvList"

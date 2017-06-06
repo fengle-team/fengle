@@ -9,18 +9,12 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.yalantis.ucrop.entity.LocalMedia;
 import com.yunqi.fengle.R;
 import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
 import com.yunqi.fengle.model.bean.UserBean;
 import com.yunqi.fengle.ui.adapter.ActivityManagerAdapter;
-import com.yunqi.fengle.ui.view.UnderLineEditNewPlanEx;
-import com.yunqi.fengle.util.StringUtil;
-import com.yunqi.fengle.util.ToastUtil;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 

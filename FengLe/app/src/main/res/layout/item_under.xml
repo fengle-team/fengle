@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_marginTop="12dp"
+        android:id="@+id/txt_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:textSize="@dimen/comom_txt_size_l"
+        android:textStyle="bold"
+        android:textColor="@color/text_color1"
+        android:text="崔国辉" />
+    <TextView
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="5dp"
+        android:id="@+id/txt_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:textColor="@color/text_color1"
+        android:text="17681185832" />
+
+</LinearLayout>

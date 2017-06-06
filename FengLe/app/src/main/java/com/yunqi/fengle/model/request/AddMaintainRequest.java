@@ -17,7 +17,7 @@ public class AddMaintainRequest {
     private String client_receptionist;//客户接代员
     private String phone;
     private ArrayList images;//图片
-    private String action_type;//活动类型
+    private String visite_record;//拜访记录
     private String address;//地址
     private String lat;//纬度
     private String lng;//经度
@@ -89,12 +89,12 @@ public class AddMaintainRequest {
         this.images = images;
     }
 
-    public String getAction_type() {
-        return action_type;
+    public String getVisite_record() {
+        return visite_record;
     }
 
-    public void setAction_type(String action_type) {
-        this.action_type = action_type;
+    public void setVisite_record(String visite_record) {
+        this.visite_record = visite_record;
     }
 
     public String getAddress() {

@@ -61,6 +61,7 @@ import com.yunqi.fengle.ui.activity.StatusDetailActivity;
 import com.yunqi.fengle.ui.activity.StockQueryActivity;
 import com.yunqi.fengle.ui.activity.TransferDetailsActivity;
 import com.yunqi.fengle.ui.activity.TransferRequestActivity;
+import com.yunqi.fengle.ui.activity.UnderQueryActivity;
 import com.yunqi.fengle.ui.activity.VisitingAddCustomerActivity;
 import com.yunqi.fengle.ui.activity.VisitingAddCustomerActivity2;
 import com.yunqi.fengle.ui.activity.VisitingAddCustomerActivity3;
@@ -206,6 +207,8 @@ public interface ActivityComponent {
     void inject(StatusDetailActivity activity);
 
     void inject(ActivitySummaryActivity2 activity);
+
+    void inject(UnderQueryActivity activity);
 
 //    void inject(MessageActivity activity);
 }

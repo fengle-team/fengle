@@ -405,5 +405,10 @@ public final class TimeUtil {
         return formatTime(afterformat, time);
     }
 
+    public static String getCurrentTime(String format) {
+        Date date=new Date();
+        return format(date, format);
+    }
+
 
 }

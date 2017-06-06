@@ -40,8 +40,8 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
     }
 
     @Override
-    public void getDaily(String startTime, String endTime, final ResponseListener listener) {
-        Subscription rxSubscription = mRetrofitHelper.getDaily(App.getInstance().getUserInfo().id,startTime,endTime)
+    public void getDaily(String startTime, String endTime,String userid,int type, final ResponseListener listener) {
+        Subscription rxSubscription = mRetrofitHelper.getDaily(userid,type,startTime,endTime)
                 .compose(RxUtil.<CommonHttpRsp<List<DailyResponse>>>rxSchedulerHelper())
                 .subscribe(new ExSubscriber<CommonHttpRsp<List<DailyResponse>>>(mView) {
 
@@ -52,7 +52,9 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
 
                     @Override
                     public void onNext(CommonHttpRsp<List<DailyResponse>> listCommonHttpRsp) {
-                        getSubDaily(listCommonHttpRsp.getData(),listener);
+//                        getSubDaily(listCommonHttpRsp.getData(),listener);
+                        List<DailyResponse> data = listCommonHttpRsp.getData();
+                        listener.onSuccess(new NetResponse(0,"success",data));
                     }
 
                     @Override
@@ -68,7 +70,6 @@ public class DailyPresenter extends RxPresenter<DailyContract.View> implements D
             listener.onSuccess(new NetResponse(0, "success", rsp));
             return;
         }
-
         String startTime = "";
         String endTime = "";
         mRetrofitHelper.getSubDaily(App.getInstance().getUserInfo().id,startTime,endTime)

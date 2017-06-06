@@ -160,7 +160,7 @@ public class ActivityPlanActivityMain extends BaseActivity<ActivityPlanPresenter
 
     private void initRadio() {
         rgRank.setOnCheckedChangeListener(this);
-        rgRank.check(R.id.rbBtn1);
+        rgRank.check(R.id.radioBtn1);
 
     }
 
@@ -252,15 +252,15 @@ public class ActivityPlanActivityMain extends BaseActivity<ActivityPlanPresenter
 
         int id = group.getCheckedRadioButtonId();
         switch (id) {
-            case R.id.rbBtn1://待处理
+            case R.id.radioBtn1://待处理
                 status = STATUS_1;
                 adapter.setBillStatus(1);
                 break;
-            case R.id.rbBtn2://未完成
+            case R.id.radioBtn2://未完成
                 status = STATUS_2;
                 adapter.setBillStatus(2);
                 break;
-            case R.id.rbBtn3://历史单据
+            case R.id.radioBtn3://历史单据
                 status = STATUS_3;
                 adapter.setBillStatus(3);
                 break;

@@ -9,12 +9,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.RadioButton;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 import com.yunqi.fengle.R;
+import com.yunqi.fengle.app.App;
 import com.yunqi.fengle.base.BaseActivity;
+import com.yunqi.fengle.model.bean.UserBean;
 import com.yunqi.fengle.model.response.DailyResponse;
 import com.yunqi.fengle.presenter.DailyPresenter;
 import com.yunqi.fengle.presenter.contract.DailyContract;
@@ -22,6 +25,7 @@ import com.yunqi.fengle.ui.adapter.DailyAdapter2;
 import com.yunqi.fengle.ui.model.DayViewDecoratorEx;
 import com.yunqi.fengle.ui.view.CalendarDecorator1;
 import com.yunqi.fengle.util.DateUtil;
+import com.yunqi.fengle.util.TimeUtil;
 import com.yunqi.fengle.util.ToastUtil;
 import com.yunqi.fengle.util.map.NetResponse;
 import com.yunqi.fengle.util.map.ResponseListener;
@@ -39,7 +43,7 @@ import butterknife.BindView;
  * @Description:日报
  */
 
-public class DailyActivity extends BaseActivity<DailyPresenter> implements DailyContract.View,OnDateSelectedListener {
+public class DailyActivity extends BaseActivity<DailyPresenter> implements DailyContract.View,OnDateSelectedListener,View.OnFocusChangeListener {
 
     @BindView(R.id.calendarView)
     MaterialCalendarView widget;
@@ -48,10 +52,25 @@ public class DailyActivity extends BaseActivity<DailyPresenter> implements Daily
 
     @BindView(R.id.rvList)
     RecyclerView rvList;
+    @BindView(R.id.radioBtn1)
+    RadioButton radioBtn1;
+    @BindView(R.id.radioBtn2)
+    RadioButton radioBtn2;
+    @BindView(R.id.radioBtn3)
+    RadioButton radioBtn3;
+    @BindView(R.id.radioBtn4)
+    RadioButton radioBtn4;
 
     List<DailyResponse> dataList = new ArrayList<>();
 
     DayViewDecoratorEx decorator;
+    UserBean underUser;
+
+    private String startTime="";
+    private String endTime="";
+    private String userid="";
+    private int type=1;
+    private String dailyTime;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,19 +83,39 @@ public class DailyActivity extends BaseActivity<DailyPresenter> implements Daily
         initRecyclerView();
 
         initData();
+        setWidgetListener();
+    }
+
+    private void setWidgetListener() {
+        radioBtn1.setOnFocusChangeListener(this);
+        radioBtn2.setOnFocusChangeListener(this);
+        radioBtn3.setOnFocusChangeListener(this);
+        radioBtn4.setOnFocusChangeListener(this);
     }
 
     private void initData() {
+        dailyTime= TimeUtil.getCurrentTime("yyyy-MM-dd");
         dataList = new ArrayList<>();
         progresser.showProgress();
-        mPresenter.getDaily("", "", new ResponseListener() {
+
+        radioBtn1.requestFocus();
+        if(UserBean.ROLE_YWY.equals(App.getInstance().getUserInfo().role_code)){
+            radioBtn3.setVisibility(View.GONE);
+        }
+        type=1;
+        userid=App.getInstance().getUserInfo().id;
+        loadDailyData();
+    }
+
+    private void loadDailyData(){
+        mPresenter.getDaily(startTime, endTime,userid,type, new ResponseListener() {
             @Override
             public void onSuccess(NetResponse response) {
                 dealSuccess(response);
-                updateView(new Date());
+//                updateView(new Date());
+                adapter.setNewData(dataList);
                 progresser.showContent();
             }
-
             @Override
             public void onFaild(NetResponse response) {
                 progresser.showContent();
@@ -86,6 +125,7 @@ public class DailyActivity extends BaseActivity<DailyPresenter> implements Daily
     }
 
     private void dealSuccess(NetResponse response) {
+        widget.removeDecorators();
         dataList = (List<DailyResponse>) response.getResult();
         decorator = new DayViewDecoratorEx();
         decorator.setDailyList((List<DailyResponse>) response.getResult());
@@ -119,7 +159,18 @@ public class DailyActivity extends BaseActivity<DailyPresenter> implements Daily
         //If you change a decorate, you need to invalidate decorators
 //        oneDayDecorator.setDate(date.getDate());
 //        widget.invalidateDecorators();
-        updateView(date.getDate());
+        dailyTime=TimeUtil.format(date.getDate(),"yyyy-MM-dd");
+        startTime= TimeUtil.converTime("yyyy-MM-dd","yyyy-MM-dd HH:mm",dailyTime);
+        endTime= dailyTime+" 23:59";
+        loadDailyData();
+//        updateView(date.getDate());
+    }
+
+    private void resetData(){
+        underUser=null;
+        dailyTime= TimeUtil.getCurrentTime("yyyy-MM-dd");
+        startTime="";
+        endTime="";
     }
 
     private void updateView(Date date) {
@@ -136,7 +187,7 @@ public class DailyActivity extends BaseActivity<DailyPresenter> implements Daily
                 selectedList.add(bean);
             }
         }
-        adapter.setNewData(selectedList);
+        adapter.setNewData(dataList);
     }
 
     @Override
@@ -148,6 +199,7 @@ public class DailyActivity extends BaseActivity<DailyPresenter> implements Daily
     protected void onTitleRightClicked(View v) {
         Intent mIntent = new Intent();
         mIntent.setClass(this, DailySendActivity.class);
+        mIntent.putExtra("DailyTime",dailyTime);
         startActivityForResult(mIntent,1);
     }
 
@@ -157,6 +209,13 @@ public class DailyActivity extends BaseActivity<DailyPresenter> implements Daily
         if (resultCode == Activity.RESULT_OK)
         {//需要刷新界面
             initData();
+        }
+        else if(requestCode==1&&resultCode==1){
+            //查询下级的日志
+            underUser= (UserBean) data.getSerializableExtra("UnderUser");
+            userid=underUser.id;
+            type=2;
+            loadDailyData();
         }
     }
 
@@ -189,4 +248,34 @@ public class DailyActivity extends BaseActivity<DailyPresenter> implements Daily
     public void showError(String msg) {
 
     }
+
+    @Override
+    public void onFocusChange(View view, boolean hasFocus) {
+        if(hasFocus){
+            resetData();
+            switch (view.getId()){
+                //查询全部日志
+                case R.id.radioBtn1:
+                    userid=App.getInstance().getUserInfo().id;
+                    type=1;
+                    loadDailyData();
+                    break;
+                //查询自己的日志
+                case R.id.radioBtn2:
+                    userid=App.getInstance().getUserInfo().id;
+                    type=2;
+                    loadDailyData();
+                    break;
+                case R.id.radioBtn3:
+                    Intent intent=new Intent(this,UnderQueryActivity.class);
+                    startActivityForResult(intent,1);
+                    break;
+                case R.id.radioBtn4:
+                    break;
+            }
+        }
+    }
+
+
+
 }

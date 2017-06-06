@@ -86,8 +86,8 @@ public class AddMaintainActivity extends BaseActivity<AddMaintainPresenter> impl
     UnderLineEditTextEx clientReceptionist;
     @BindView(R.id.etPhone)
     UnderLineEditTextEx etPhone;
-    @BindView(R.id.actionType)
-    UnderLineTextEx actionType;
+    @BindView(R.id.visite_record)
+    UnderLineTextEx visiteRecord;
     @BindView(R.id.etFeedback)
     UnderLineEditTextEx etFeedback;
     @BindView(R.id.rgGroup)
@@ -97,7 +97,6 @@ public class AddMaintainActivity extends BaseActivity<AddMaintainPresenter> impl
     @BindView(R.id.rbImportant)
     RadioButton rbImportant;
 
-    private SpinnerBean spinnerAction = new SpinnerBean();//活动类型
 
 
 
@@ -120,6 +119,7 @@ public class AddMaintainActivity extends BaseActivity<AddMaintainPresenter> impl
         rgGroup.check(R.id.rbNormal);
         getData();
         initData();
+        doLocation();
     }
 
     @Override
@@ -155,18 +155,7 @@ public class AddMaintainActivity extends BaseActivity<AddMaintainPresenter> impl
 
     public void getData() {
 
-        mPresenter.getData(new ResponseListener() {
-            @Override
-            public void onSuccess(NetResponse response) {
-                List<TypeRequest> reponseList = (List<TypeRequest>) response.getResult();
-                spinnerAction.format(reponseList);
-            }
 
-            @Override
-            public void onFaild(NetResponse response) {
-
-            }
-        });
     }
 
     private void initView() {
@@ -190,7 +179,7 @@ public class AddMaintainActivity extends BaseActivity<AddMaintainPresenter> impl
         for (LocalMedia bean : selectMedia) {
             fileList.add(bean.getPath());
         }
-        if (StringUtil.isViewEmpty(etClientName, etStartTime, etEndTime, clientReceptionist, etPhone, actionType
+        if (StringUtil.isViewEmpty(etClientName, etStartTime, etEndTime, clientReceptionist, etPhone, visiteRecord
                 , etFeedback)) {
             ToastUtil.toast(this, "请填写完整信息.");
             return;
@@ -214,7 +203,7 @@ public class AddMaintainActivity extends BaseActivity<AddMaintainPresenter> impl
         request.setClient_receptionist(clientReceptionist.getText().toString());
         request.setPhone(etPhone.getText().toString());
         request.setImages(fileList);
-        request.setAction_type(spinnerAction.getKey());
+        request.setVisite_record(visiteRecord.getText().toString());
         request.setAddress(locationModel.getAddress());
         request.setLat(locationModel.getLatitude() + "");
         request.setLng(locationModel.getLongitude() + "");
@@ -345,17 +334,17 @@ public class AddMaintainActivity extends BaseActivity<AddMaintainPresenter> impl
 //        startActivityForResult(mIntent,1);
 //    }
 
-    @OnClick(R.id.llActionType)
-    public void clickActionType() {
-        DialogHelper.showSpinnerDialog(this, spinnerAction, new SpinnerDialogFragment.OnSpinnerDialogListener() {
-            @Override
-            public void onItemSelected(int position, SpinnerBean bean) {
-                spinnerAction.setKey(bean.getKey());
-                spinnerAction.setValue(bean.getValue());
-                actionType.setText(bean.getValue());
-            }
-        });
-    }
+//    @OnClick(R.id.llActionType)
+//    public void clickActionType() {
+//        DialogHelper.showSpinnerDialog(this, spinnerAction, new SpinnerDialogFragment.OnSpinnerDialogListener() {
+//            @Override
+//            public void onItemSelected(int position, SpinnerBean bean) {
+//                spinnerAction.setKey(bean.getKey());
+//                spinnerAction.setValue(bean.getValue());
+//                actionType.setText(bean.getValue());
+//            }
+//        });
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

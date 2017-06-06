@@ -36,7 +36,7 @@ public class ActivityManagerAdapter extends BaseQuickAdapter<ActivityMgrBean,Bas
         List<ActivityMgrBean> returnList = new ArrayList<>();
         returnList.add(new ActivityMgrBean(R.drawable.icon_plan,"活动计划"));
         returnList.add(new ActivityMgrBean(R.drawable.icon_activity,"活动总结"));
-        returnList.add(new ActivityMgrBean(R.drawable.icon_expense,"费用报销"));
+//        returnList.add(new ActivityMgrBean(R.drawable.icon_expense,"费用报销"));
         return returnList;
     }
 }

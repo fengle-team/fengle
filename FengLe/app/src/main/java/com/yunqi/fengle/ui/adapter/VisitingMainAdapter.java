@@ -35,7 +35,7 @@ public class VisitingMainAdapter extends BaseQuickAdapter<VisitingPlanResponse,B
         tvStatus.setText(item.getStatusStr());
 
         if (item.getStatus() == VisitingPlanResponse.STATUS_CONFIRM_YES) {
-            tvStatus.setTextColor(mContext.getResources().getColor(R.color.colorPrimary));
+            tvStatus.setTextColor(mContext.getResources().getColor(R.color.text_color3));
         } else {
             tvStatus.setTextColor(mContext.getResources().getColor(android.R.color.holo_red_dark));
         }

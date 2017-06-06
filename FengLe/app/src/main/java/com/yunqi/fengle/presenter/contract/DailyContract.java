@@ -16,7 +16,7 @@ public interface DailyContract {
 
     interface Presenter extends BasePresenter<DailyContract.View> {
 
-        void getDaily(String startTime, String endTime, ResponseListener listener);
+        void getDaily(String startTime, String endTime,String userid,int type, ResponseListener listener);
 
 //        void getDeatil();
 

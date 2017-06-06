@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
-import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 import com.yunqi.fengle.model.response.DailyResponse;
 import com.yunqi.fengle.util.DateUtil;
 

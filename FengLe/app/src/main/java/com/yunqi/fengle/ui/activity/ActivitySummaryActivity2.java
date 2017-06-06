@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.jakewharton.rxbinding.view.RxView;
@@ -84,6 +85,12 @@ public class ActivitySummaryActivity2 extends BaseActivity<ActivitySummaryPresen
     Button btnQuery;
     @BindView(R.id.edit_keyword)
     EditText editKeyword;
+    @BindView(R.id.radioBtn1)
+    RadioButton radioBtn1;
+    @BindView(R.id.radioBtn2)
+    RadioButton radioBtn2;
+    @BindView(R.id.radioBtn3)
+    RadioButton radioBtn3;
 
     Observable<Boolean> addOb;
 
@@ -97,7 +104,7 @@ public class ActivitySummaryActivity2 extends BaseActivity<ActivitySummaryPresen
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         showTitleBack();
-        setTitleText("活动计划");
+        setTitleText("活动总结");
         initView();
 
         setTitleRightImage(R.drawable.right_add);
@@ -154,8 +161,11 @@ public class ActivitySummaryActivity2 extends BaseActivity<ActivitySummaryPresen
     }
 
     private void initRadio() {
+        radioBtn1.setText("待执行");
+        radioBtn2.setText("待确认");
+        radioBtn3.setText("已完成");
         rgRank.setOnCheckedChangeListener(this);
-        rgRank.check(R.id.rbBtn1);
+        rgRank.check(R.id.radioBtn1);
 
     }
 
@@ -222,15 +232,15 @@ public class ActivitySummaryActivity2 extends BaseActivity<ActivitySummaryPresen
 
         int id = group.getCheckedRadioButtonId();
         switch (id) {
-            case R.id.rbBtn1://待处理
+            case R.id.radioBtn1://待处理
                 status = STATUS_1;
                 adapter.setBillStatus(1);
                 break;
-            case R.id.rbBtn2://未完成
+            case R.id.radioBtn2://未完成
                 status = STATUS_2;
                 adapter.setBillStatus(2);
                 break;
-            case R.id.rbBtn3://历史单据
+            case R.id.radioBtn3://历史单据
                 status = STATUS_3;
                 adapter.setBillStatus(3);
                 break;

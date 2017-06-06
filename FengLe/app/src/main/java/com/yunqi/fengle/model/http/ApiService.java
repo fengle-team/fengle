@@ -115,6 +115,11 @@ public interface ApiService {
     Observable<CommonHttpRsp<List<Area>>> queryArea(@Query("page") int page,@Query("size") int size);
 
     /**
+     * 直属下级查询
+     */
+    @GET("users/get_dept_user")
+    Observable<CommonHttpRsp<List<UserBean>>> queryUnder(@Query("userid") String userid);
+    /**
      * 客户分析查询
      */
     @GET("custom_analysis/get")
@@ -817,7 +822,7 @@ public interface ApiService {
      * @return
      */
     @GET("daily/get")
-    Observable<CommonHttpRsp<List<DailyResponse>>> getDaily(@Query("userid") String userid,@Query("start_time") String start_time,@Query("end_time") String end_time);
+    Observable<CommonHttpRsp<List<DailyResponse>>> getDaily(@Query("userid") String userid,@Query("type") int type,@Query("start_time") String start_time,@Query("end_time") String end_time);
 
     /**
      * 获取日报

@@ -132,13 +132,13 @@ public class ActivitySummaryActivity extends BaseActivity<ActivitySummaryPresent
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
         int id = group.getCheckedRadioButtonId();
         switch (id) {
-            case R.id.rbBtn1://待处理
+            case R.id.radioBtn1://待处理
                 status = STATUS_1;
                 break;
-            case R.id.rbBtn2://未完成
+            case R.id.radioBtn2://未完成
                 status = STATUS_2;
                 break;
-            case R.id.rbBtn3://历史单据
+            case R.id.radioBtn3://历史单据
                 status = STATUS_3;
                 break;
         }

@@ -21,6 +21,7 @@ public class DailyResponse {
 
     private int id;
     private int userid;
+    private String real_name;
     private String daily;
     private String create_time;
     private String address;
@@ -28,6 +29,7 @@ public class DailyResponse {
     private double lng;
     private int status;
     private String reason;
+
 
     public int getId() {
         return id;
@@ -99,5 +101,13 @@ public class DailyResponse {
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    public String getReal_name() {
+        return real_name;
+    }
+
+    public void setReal_name(String real_name) {
+        this.real_name = real_name;
     }
 }

@@ -103,6 +103,10 @@ public class VisitingPlanActivity extends BaseActivity<VisitingPlanPresenter> im
         rvVisPlan.addOnItemTouchListener(new OnItemClickListener() {
             @Override
             public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+                VisitingPlanResponse item= responseList.get(position);
+                if(item.getStatus() == VisitingPlanResponse.STATUS_CONFIRM_YES){
+                    return;
+                }
                 onViewItemClick(position);
             }
         });

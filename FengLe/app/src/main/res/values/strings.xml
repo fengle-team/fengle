@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">丰乐农化</string>
+    <string name="app_name">丰乐农化_测试版本</string>
     <string name="tencent_bugly_id">b9c3f570f4</string>
     <!--网络请求提示语-->
     <string name="tip_service_exception">连接服务器异常!</string>
@@ -68,6 +68,7 @@
     <string name="module_bank_code">收款银行查询</string>
     <string name="module_fukuan_type">付款类型查询</string>
     <string name="module_status_detail">状态详情</string>
+    <string name="module_under_query">直属下级</string>
 
 
     <string name="area_select">选择大区</string>

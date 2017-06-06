@@ -11,6 +11,7 @@ public class DailySendRequest {
     private String userid;
     private String daily;//日志内容
     private String address;//地址
+    private String daily_time;//日报时间
     private String lat;//经度
     private String lng;//纬度
 
@@ -52,5 +53,13 @@ public class DailySendRequest {
 
     public void setLng(String lng) {
         this.lng = lng;
+    }
+
+    public String getDailyTime() {
+        return daily_time;
+    }
+
+    public void setDailyTime(String daily_time) {
+        this.daily_time = daily_time;
     }
 }
