@@ -150,6 +150,17 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
                 iModule = 1;
                 heads = getResources().getStringArray(R.array.header_title_goods_query_delivery);
                 rlayoutSelectWarehouse.setVisibility(View.VISIBLE);
+                columnModel = new TableColumnWeightModel(7);
+                columnModel.setColumnWeight(0, 1);
+                columnModel.setColumnWeight(1, 2);
+                columnModel.setColumnWeight(2, 1);
+                columnModel.setColumnWeight(3, 1);
+                columnModel.setColumnWeight(4, 1);
+                columnModel.setColumnWeight(5, 1);
+                columnModel.setColumnWeight(6, 1);
+            } else {
+                iModule = 0;
+                heads = getResources().getStringArray(R.array.header_title_goods_query);
                 columnModel = new TableColumnWeightModel(6);
                 columnModel.setColumnWeight(0, 1);
                 columnModel.setColumnWeight(1, 2);
@@ -157,15 +168,6 @@ public class GoodsQueryActivity extends BaseActivity<GoodsQueryPresenter> implem
                 columnModel.setColumnWeight(3, 1);
                 columnModel.setColumnWeight(4, 1);
                 columnModel.setColumnWeight(5, 1);
-            } else {
-                iModule = 0;
-                heads = getResources().getStringArray(R.array.header_title_goods_query);
-                columnModel = new TableColumnWeightModel(5);
-                columnModel.setColumnWeight(0, 1);
-                columnModel.setColumnWeight(1, 2);
-                columnModel.setColumnWeight(2, 1);
-                columnModel.setColumnWeight(3, 1);
-                columnModel.setColumnWeight(4, 1);
             }
         }
         final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, heads);

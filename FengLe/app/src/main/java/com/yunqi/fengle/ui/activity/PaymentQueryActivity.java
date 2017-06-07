@@ -271,7 +271,7 @@ public class PaymentQueryActivity extends BaseActivity<PaymentQueryPresenter> im
         adapter.setEnableLoadMore(true);
         mlistPayment.clear();
         mlistPayment.addAll(listPayment);
-        adapter.setNewData(mlistPayment);
+        adapter.notifyDataSetChanged();
         adapter.loadMoreComplete();
         totalAmount = 0;
         for (Payment payment : listPayment) {

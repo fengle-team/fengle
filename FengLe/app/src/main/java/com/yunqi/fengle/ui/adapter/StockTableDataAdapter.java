@@ -38,15 +38,21 @@ public class StockTableDataAdapter extends BaseTableDataAdapter<Goods> {
                 renderedView = renderGoodsPlan(goods,parentView);
                 break;
             case 3:
-                renderedView = renderGoodsUnits(goods,parentView);
+                renderedView = renderGoodsNum(goods,parentView);
                 break;
             case 4:
+                renderedView = renderGoodsUnit(goods,parentView);
+                break;
+            case 5:
                 renderedView = renderGoodsPrice(goods,parentView);
                 break;
         }
         return renderedView;
     }
 
+    private View renderGoodsUnit(Goods goods, ViewGroup parentView) {
+        return renderString(goods.goods_unit+"",parentView);
+    }
 
 
     private View renderGoodsPrice(Goods goods,ViewGroup parentView ) {
@@ -60,11 +66,8 @@ public class StockTableDataAdapter extends BaseTableDataAdapter<Goods> {
     private View renderGoodsName(Goods goods,ViewGroup parentView ) {
         return renderString(goods.goods_name,parentView);
     }
-    private View renderGoodsUnits(Goods goods,ViewGroup parentView ) {
-        if(goods.goods_units_num<1){
-            goods.goods_units_num=1;
-        }
-        return renderString(goods.goods_num/goods.goods_units_num+"",parentView);
+    private View renderGoodsNum(Goods goods,ViewGroup parentView ) {
+        return renderString(goods.goods_num+"",parentView);
     }
 
 

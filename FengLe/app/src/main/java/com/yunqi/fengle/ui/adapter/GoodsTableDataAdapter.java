@@ -48,9 +48,12 @@ public class GoodsTableDataAdapter extends BaseTableDataAdapter<Goods> {
                 renderedView = renderGoodsStandard(goods);
                 break;
             case 3:
-                renderedView = renderStock(goods);
+                renderedView = renderUtil(goods);
                 break;
             case 4:
+                renderedView = renderStock(goods);
+                break;
+            case 5:
                 switch (module){
                     case 1:
                         renderedView = renderGoodsPlan(goods);
@@ -62,12 +65,14 @@ public class GoodsTableDataAdapter extends BaseTableDataAdapter<Goods> {
                         break;
                 }
                 break;
-            case 5:
+            case 6:
                 renderedView = renderGoodsPrice(goods);
                 break;
         }
         return renderedView;
     }
+
+
 
     private View renderGoodsSelect(Goods goods) {
         View view = LayoutInflater.from(context).inflate(R.layout.table_data_select_view, null);
@@ -100,6 +105,9 @@ public class GoodsTableDataAdapter extends BaseTableDataAdapter<Goods> {
 
     private View renderGoodsNumber(Goods goods) {
         return renderString(goods.goods_code);
+    }
+    private View renderUtil(Goods goods) {
+        return renderString(goods.goods_unit);
     }
 
     private View renderString(final String value) {

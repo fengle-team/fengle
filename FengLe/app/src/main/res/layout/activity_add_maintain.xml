@@ -171,7 +171,7 @@
                     android:text="拜访记录"
                     android:textSize="@dimen/text_small_size" />
 
-                <com.yunqi.fengle.ui.view.UnderLineTextEx
+                <com.yunqi.fengle.ui.view.UnderLineEditTextEx
                     android:id="@+id/visite_record"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -245,6 +245,7 @@
                     android:layout_marginTop="@dimen/customer_add_margin"
                     android:background="@color/transparents"
                     android:focusable="false"
+                    android:text="安徽省合肥市蜀山区"
                     android:hint="点击获取"
                     android:textSize="@dimen/text_normal_size" />
             </LinearLayout>

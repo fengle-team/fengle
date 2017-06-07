@@ -71,12 +71,13 @@ public class StockQueryActivity extends BaseActivity<StockQueryPresenter> implem
         final TableHeader1Adapter tableHeader1Adapter = new TableHeader1Adapter(this, getResources().getStringArray(R.array.header_title_stock));
         tableViewEx.tableView.setHeaderAdapter(tableHeader1Adapter);
 //        tableViewEx.tableView.setColumnCount(5);
-                TableColumnWeightModel columnModel = new TableColumnWeightModel(5);
+                TableColumnWeightModel columnModel = new TableColumnWeightModel(6);
         columnModel.setColumnWeight(0, 2);
         columnModel.setColumnWeight(1, 1);
         columnModel.setColumnWeight(2, 1);
         columnModel.setColumnWeight(3, 1);
         columnModel.setColumnWeight(4, 1);
+        columnModel.setColumnWeight(5, 1);
         tableViewEx.tableView.setColumnModel(columnModel);
         mPresenter.queryStock(warehouse_code,area_code,keyword, page);
     }

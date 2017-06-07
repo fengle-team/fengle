@@ -109,7 +109,8 @@
         <item>名称</item>
         <item>规格</item>
         <item>计划</item>
-        <item>件数</item>
+        <item>库存</item>
+        <item>单位</item>
         <item>价格</item>
     </string-array>
     <string-array name="header_title_activity">
@@ -123,6 +124,7 @@
         <item>编号</item>
         <item>名称</item>
         <item>规格</item>
+        <item>单位</item>
         <item>库存</item>
         <item>价格</item>
     </string-array>
@@ -137,6 +139,7 @@
         <item>编号</item>
         <item>名称</item>
         <item>规格</item>
+        <item>单位</item>
         <item>库存</item>
         <item>计划</item>
         <item>价格</item>

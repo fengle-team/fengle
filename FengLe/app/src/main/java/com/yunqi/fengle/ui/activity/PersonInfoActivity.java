@@ -24,6 +24,8 @@ import butterknife.OnClick;
  */
 
 public class PersonInfoActivity extends BaseActivity<PersonPresenter> implements PersonContract.View{
+    @BindView(R.id.tv_name)
+    TextView tvName;
     @BindView(R.id.tvAcount)
     TextView tvAcount;
     @BindView(R.id.tvPosition)
@@ -41,6 +43,7 @@ public class PersonInfoActivity extends BaseActivity<PersonPresenter> implements
 
     private void initView() {
         UserBean user = App.getInstance().getUserInfo();
+        tvName.setText(user.name);
         tvAcount.setText(user.account);
         tvPosition.setText(user.role_name);
         tvArea.setText(user.area_name);

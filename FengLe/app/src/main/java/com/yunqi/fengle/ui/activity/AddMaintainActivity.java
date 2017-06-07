@@ -87,7 +87,7 @@ public class AddMaintainActivity extends BaseActivity<AddMaintainPresenter> impl
     @BindView(R.id.etPhone)
     UnderLineEditTextEx etPhone;
     @BindView(R.id.visite_record)
-    UnderLineTextEx visiteRecord;
+    UnderLineEditTextEx visiteRecord;
     @BindView(R.id.etFeedback)
     UnderLineEditTextEx etFeedback;
     @BindView(R.id.rgGroup)
@@ -194,7 +194,10 @@ public class AddMaintainActivity extends BaseActivity<AddMaintainPresenter> impl
         if (rgGroup.getCheckedRadioButtonId() != R.id.rbNormal) {
             type = AddMaintainRequest.TYPE_IMPORTANT;
         }
-
+        if(locationModel==null){
+            ToastUtil.toast(mContext, "定位失败，无法提交！");
+            return;
+        }
         final AddMaintainRequest request = new AddMaintainRequest();
         request.setUserid(App.getInstance().getUserInfo().id);
         request.setClient_name(etClientName.getText().toString());
@@ -389,21 +392,7 @@ public class AddMaintainActivity extends BaseActivity<AddMaintainPresenter> impl
         switch (type) {
             case 0:
                 // 进入相册
-                int selector = R.drawable.select_cb;
-                FunctionConfig config = new FunctionConfig();
-                config.setEnablePixelCompress(true);
-                config.setEnableQualityCompress(true);
-                config.setMaxSelectNum(5);
-                config.setCheckNumMode(true);
-                config.setCompressQuality(100);
-                config.setImageSpanCount(4);
-                config.setEnablePreview(true);
-                config.setSelectMedia(selectMedia);
-                config.setCheckedBoxDrawable(selector);
-                // 先初始化参数配置，在启动相册
-                PictureConfig.init(config);
-//                PictureConfig.getPictureConfig().openPhoto(mContext, resultCallback);
-                PictureConfig.getPictureConfig().startOpenCamera(mContext, resultCallback);
+                open3rdCamera();
                 break;
             case 1:
                 // 删除图片
@@ -413,6 +402,23 @@ public class AddMaintainActivity extends BaseActivity<AddMaintainPresenter> impl
         }
     }
 
+
+    private void open3rdCamera(){
+        int selector = R.drawable.select_cb;
+        FunctionConfig config = new FunctionConfig();
+        config.setEnablePixelCompress(true);
+        config.setEnableQualityCompress(true);
+        config.setMaxSelectNum(5);
+        config.setCheckNumMode(true);
+        config.setCompressQuality(100);
+        config.setImageSpanCount(4);
+        config.setEnablePreview(true);
+        config.setSelectMedia(selectMedia);
+        config.setCheckedBoxDrawable(selector);
+        // 先初始化参数配置，在启动相册
+        PictureConfig.init(config);
+        PictureConfig.getPictureConfig().openPhoto(this, resultCallback);
+    }
     /**
      * 图片回调方法
      */

@@ -11,8 +11,37 @@
         android:background="@color/gray_bg"
         android:orientation="vertical"
         android:paddingTop="@dimen/person_padding_top">
+        <LinearLayout
+            android:layout_marginTop="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/person_padding_left"
+            android:gravity="center">
+
+            <TextView
+                style="@style/personTxtStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="姓名:" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/personTxtStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="7dp"/>
+        </LinearLayout>
 
         <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/person_line" />
+        <View
+            android:layout_marginTop="7dp"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/person_line" />
@@ -31,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="账号" />
+                android:text="账号:" />
 
             <TextView
                 android:id="@+id/tvAcount"
@@ -70,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="职位" />
+                android:text="职位:" />
 
             <TextView
                 android:id="@+id/tvPosition"
@@ -78,7 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="222"
+                android:text=""
                 android:layout_marginLeft="7dp"/>
         </LinearLayout>
 
@@ -100,7 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:text="所属大区" />
+                android:text="所属大区:" />
 
             <TextView
                 android:id="@+id/tv_area"
